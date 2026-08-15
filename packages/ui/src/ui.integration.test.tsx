@@ -47,6 +47,12 @@ describe("shared product primitives", () => {
     expect(
       screen.getByRole("navigation", { name: "Platform navigation" }),
     ).toBeTruthy();
+    expect(
+      screen
+        .getByRole("link", { name: "Skip to content" })
+        .getAttribute("href"),
+    ).toBe("#main-content");
+    expect(screen.getByRole("main").getAttribute("tabindex")).toBe("-1");
     expect(screen.getByLabelText("Search services")).toBeTruthy();
     const results = await axe(container, {
       rules: { "color-contrast": { enabled: false } },

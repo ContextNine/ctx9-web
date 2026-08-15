@@ -16,6 +16,8 @@ export function ApplicationShell({
   navigation,
   children,
   className,
+  skipLinkLabel = "Skip to content",
+  mainId = "main-content",
 }: {
   product: string;
   tenantControl?: React.ReactNode;
@@ -23,9 +25,14 @@ export function ApplicationShell({
   navigation: readonly ApplicationNavItem[];
   children: React.ReactNode;
   className?: string;
+  skipLinkLabel?: string;
+  mainId?: string;
 }): React.JSX.Element {
   return (
     <div className={cn("min-h-dvh bg-black text-foreground", className)}>
+      <a className="skip-link" href={`#${mainId}`}>
+        {skipLinkLabel}
+      </a>
       <header className="border-b border-border bg-black">
         <div className="mx-auto flex min-h-14 w-full max-w-7xl items-center gap-4 px-4 sm:px-6">
           <a
@@ -60,7 +67,11 @@ export function ApplicationShell({
           </nav>
         )}
       </header>
-      <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6">
+      <main
+        id={mainId}
+        tabIndex={-1}
+        className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6"
+      >
         {children}
       </main>
     </div>
