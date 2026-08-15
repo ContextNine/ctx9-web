@@ -12,6 +12,18 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./express": {
+      "types": "./dist/adapters/express.d.ts",
+      "default": "./dist/adapters/express.js"
+    },
+    "./node": {
+      "types": "./dist/adapters/node.d.ts",
+      "default": "./dist/adapters/node.js"
+    },
+    "./tanstack-start": {
+      "types": "./dist/adapters/tanstack-start.d.ts",
+      "default": "./dist/adapters/tanstack-start.js"
     }
   },
   "publishConfig": {
@@ -22,6 +34,9 @@
     "build": "tsc -p tsconfig.json",
     "clean": "rm -rf dist",
     "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=24.19.0 <25"
   },
   "dependencies": {
     "jose": "6.2.8",

@@ -18,4 +18,13 @@ CTX9 never imports Impression at build or runtime. Reference files are reviewed 
 | date/time controls              | Impression calendar/date/time component family identified by style guide            | pending mock approval         | Product-neutral, accessible compositions only                                                  |
 | errors                          | Impression public and internal error patterns                                       | rewritten after mock approval | Public marketing shell explicitly excluded                                                     |
 
+## Font provenance
+
+Only the normal variable files needed by the dark internal product are vendored. They are emitted inside `@ctx9/ui`; production makes no third-party font request.
+
+| File                                  | Upstream package                                                          | License                                                                       | SHA-256                                                            |
+| ------------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `geist-sans-variable.woff2`           | `geist@1.7.2`, `dist/fonts/geist-sans/Geist-Variable.woff2`               | SIL Open Font License, copied as `dist/fonts/licenses/geist-ofl.txt`          | `a369fcf5628ea2aa4e1b9e2ec6a5b3624e365bda588e1f0f2f12b564f728fbb8` |
+| `jetbrains-mono-latin-variable.woff2` | `@fontsource-variable/jetbrains-mono@5.3.0`, Latin normal variable subset | SIL Open Font License, copied as `dist/fonts/licenses/jetbrains-mono-ofl.txt` | `18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e` |
+
 No code is copied until its classification, license, public API, and visual approval are recorded here.

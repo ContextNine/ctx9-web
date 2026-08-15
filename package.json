@@ -13,17 +13,21 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
+    "archives:check": "tsx scripts/check-package-archives.ts",
     "packages:check": "tsx scripts/check-packages.ts",
+    "provenance:check": "tsx scripts/check-provenance.ts",
     "styles:check": "tsx scripts/check-styles.ts",
     "test": "vitest run",
     "typecheck": "pnpm --recursive typecheck",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm styles:check && pnpm packages:check"
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm styles:check && pnpm packages:check && pnpm provenance:check && pnpm archives:check"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
+    "@tailwindcss/cli": "4.3.3",
     "@types/node": "24.10.4",
     "eslint": "10.0.1",
     "prettier": "3.9.6",
+    "tailwindcss": "4.3.3",
     "tsx": "4.23.12",
     "typescript": "5.9.3",
     "typescript-eslint": "8.67.0",
