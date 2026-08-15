@@ -31,8 +31,9 @@
     "registry": "https://gitlab.com/api/v4/projects/85438020/packages/npm/"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "pnpm clean && tsc -p tsconfig.build.json",
     "clean": "rm -rf dist",
+    "prepack": "pnpm build",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {

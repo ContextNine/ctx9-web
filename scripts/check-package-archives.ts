@@ -43,6 +43,10 @@ try {
           `package-archive-entry-forbidden:${archive}:${forbidden}`,
         );
     }
+    if (entries.some((entry) => entry.includes(".test.")))
+      throw new Error(`package-test-entry-forbidden:${archive}`);
+    if (entries.some((entry) => entry.includes("dist/fonts/fonts/")))
+      throw new Error(`package-font-nesting-invalid:${archive}`);
     if (!entries.includes("package/package.json"))
       throw new Error(`package-manifest-missing:${archive}`);
 
