@@ -1,0 +1,29 @@
+stages: [check, publish]
+
+check:
+  stage: check
+  image: node:24.19.0-alpine@sha256:d32cdf619f63fe0471182d08996dd516c6275bb5fd31ae06e55a570bd9e1ad43
+  tags: [ctx9]
+  interruptible: true
+  script:
+    - corepack enable
+    - pnpm install --frozen-lockfile
+    - pnpm check
+  artifacts:
+    when: always
+    expire_in: 7 days
+    paths:
+      - packages/*/dist
+
+publish:
+  stage: publish
+  image: node:24.19.0-alpine@sha256:d32cdf619f63fe0471182d08996dd516c6275bb5fd31ae06e55a570bd9e1ad43
+  tags: [ctx9]
+  needs: [check]
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+$/'
+  script:
+    - corepack enable
+    - pnpm install --frozen-lockfile
+    - printf '//gitlab.com/api/v4/projects/85438020/packages/npm/:_authToken=${CI_JOB_TOKEN}\n' >.npmrc.ci
+    - pnpm --recursive publish --no-git-checks --config.userconfig=.npmrc.ci

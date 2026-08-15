@@ -1,0 +1,32 @@
+{
+  "name": "@ctx9/web-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.21.0",
+  "engines": {
+    "node": ">=24.19.0 <25"
+  },
+  "scripts": {
+    "build": "pnpm --recursive build",
+    "clean": "pnpm --recursive clean",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "packages:check": "tsx scripts/check-packages.ts",
+    "styles:check": "tsx scripts/check-styles.ts",
+    "test": "vitest run",
+    "typecheck": "pnpm --recursive typecheck",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm styles:check && pnpm packages:check"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.10.4",
+    "eslint": "10.0.1",
+    "prettier": "3.9.6",
+    "tsx": "4.23.12",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.67.0",
+    "vitest": "4.1.10"
+  }
+}

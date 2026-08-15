@@ -1,0 +1,33 @@
+name: Mirror GitHub authority to GitLab
+
+on:
+  push:
+    branches: [master]
+    tags: ["**"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gitlab-mirror-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Push authoritative ref
+        env:
+          GITLAB_MIRROR_SSH_KEY: ${{ secrets.GITLAB_MIRROR_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$GITLAB_MIRROR_SSH_KEY" >"$HOME/.ssh/ctx9-mirror"
+          chmod 600 "$HOME/.ssh/ctx9-mirror"
+          ssh-keyscan -H gitlab.com >"$HOME/.ssh/known_hosts" 2>/dev/null
+          export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/ctx9-mirror -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes"
+          remote="git@gitlab.com:ctx9/web.git"
+          git push "$remote" "$GITHUB_REF:$GITHUB_REF"
