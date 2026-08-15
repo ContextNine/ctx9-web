@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 
 const css = await readFile(
   new URL("../packages/ui/src/styles.css", import.meta.url),
@@ -40,4 +40,28 @@ for (const expected of [
 ]) {
   if (!compiled.includes(expected))
     throw new Error(`compiled-style-contract-missing:${expected}`);
+}
+
+const uiSource = new URL("../packages/ui/src/", import.meta.url);
+const primitiveFiles = new Set(["button.tsx", "controls.tsx"]);
+for (const file of await readdir(uiSource)) {
+  if (!file.endsWith(".ts") && !file.endsWith(".tsx")) continue;
+  const source = await readFile(new URL(file, uiSource), "utf8");
+  for (const forbidden of [
+    "dark:",
+    "next-themes",
+    "theme-toggle",
+    "animate-spin",
+    "animate-pulse",
+    "shimmer",
+    "shooting-stars",
+  ]) {
+    if (source.includes(forbidden))
+      throw new Error(`forbidden-ui-source:${file}:${forbidden}`);
+  }
+  if (
+    !primitiveFiles.has(file) &&
+    /<(?:button|input|textarea|select)\b/u.test(source)
+  )
+    throw new Error(`raw-standard-control:${file}`);
 }

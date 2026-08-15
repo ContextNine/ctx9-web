@@ -1,6 +1,6 @@
 # CTX9 internal product style guide
 
-Status: token foundation approved; component shapes require mock selection before implementation.
+Status: Workbench direction selected and implemented for v1.
 
 ## Scope
 
@@ -34,4 +34,4 @@ This guide is canonical for CTX9-owned internal applications: Platform, Auth, en
 - Destructive actions are visually restrained until the confirmation boundary.
 - Recovery material, secrets metadata, and artifact identifiers use the mono face and selectable wrapping.
 
-The runtime variables and base contracts live in `@ctx9/ui/styles.css`. Real component implementation follows approved static mocks.
+The runtime variables, base contracts, controls, feedback states, and Workbench shells live in `@ctx9/ui`. Product applications compose these primitives without maintaining local replacements.

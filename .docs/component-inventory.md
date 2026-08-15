@@ -1,6 +1,6 @@
 # Component inventory
 
-The v1 inventory is deliberately split into foundations, shared controls, and product compositions. Foundations may be implemented before mock review; real controls and compositions require approved mocks.
+The v1 inventory is split into foundations, shared controls, and product compositions. The Workbench direction is canonical: horizontal product navigation, dense operational rows, restrained borders, and true-black surfaces.
 
 ## Foundations
 
@@ -10,7 +10,7 @@ The v1 inventory is deliberately split into foundations, shared controls, and pr
 - shared page, panel, row, label, focus, status, and typography recipes;
 - safe error descriptor model.
 
-## Shared controls after mock approval
+## Shared controls
 
 - Button and ButtonGroup;
 - Input, Textarea, Label, Checkbox, Select, Switch;
@@ -22,14 +22,10 @@ The v1 inventory is deliberately split into foundations, shared controls, and pr
 - Toast/status announcement and ErrorPage;
 - skeleton without continuous animation.
 
-## Product compositions after mock approval
+## Product compositions
 
-- application shell and tenant selector;
-- authentication/enrollment/recovery shell;
-- settings rows and member/invitation forms;
-- operations catalog rows;
-- dense filter bar and artifact table/viewer;
-- protected-action boundary and recovery material block;
-- unavailable, denied, not-found, renderer-error, and empty states.
+- `ApplicationShell`, `FocusedShell`, `PageHeading`, `OperationalList`, and `OperationalRow` are published shared compositions.
+- Tenant selectors, authentication/enrollment/recovery forms, settings/member/invitation forms, artifact viewers, and protected-action boundaries are product compositions built from the shared controls.
+- Unavailable, denied, not-found, renderer-error, loading, and empty states use the shared state primitives.
 
 Animated/public-marketing Aceternity components, product-specific Impression recipes, editor/social components, and light-mode variants are excluded.
