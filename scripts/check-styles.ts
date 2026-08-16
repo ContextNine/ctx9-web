@@ -28,6 +28,8 @@ if (
   !css.includes("--ctx9-canvas: #000000")
 )
   throw new Error("dark-token-contract-missing");
+if (/button,\s*\ninput/u.test(css))
+  throw new Error("shared-button-color-must-not-inherit");
 if (!guide.includes("Dark mode only") || !guide.includes("True black `#000`"))
   throw new Error("dark-style-guide-contract-missing");
 for (const expected of [
