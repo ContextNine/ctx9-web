@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import { axe } from "vitest-axe";
 import { describe, expect, it } from "vitest";
 
-import { Button } from "./button.js";
+import { Button, FunkyLoaderButton, buttonVariants } from "./button.js";
 import { Checkbox, Input, Label } from "./controls.js";
 import {
   Dialog,
@@ -17,6 +17,19 @@ import {
 import { ApplicationShell, OperationalList, OperationalRow } from "./shell.js";
 
 describe("shared product primitives", () => {
+  it("keeps standard actions black with white text", () => {
+    const primary = buttonVariants({ variant: "primary" });
+    expect(primary).toContain("bg-black");
+    expect(primary).toContain("text-white");
+    expect(primary).not.toContain("bg-foreground");
+
+    render(<FunkyLoaderButton isLoading>Save</FunkyLoaderButton>);
+    const action = screen.getByRole("button");
+    expect(action.className).toContain("bg-black");
+    expect(action.className).toContain("text-white");
+    expect(action.getAttribute("aria-busy")).toBe("true");
+  });
+
   it("composes an accessible Workbench application surface", async () => {
     const { container } = render(
       <ApplicationShell

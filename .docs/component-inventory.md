@@ -12,7 +12,7 @@ The v1 inventory is split into foundations, shared controls, and product composi
 
 ## Shared controls
 
-- Button and ButtonGroup;
+- Button, FunkyLoaderButton, LoadingButton compatibility alias, and ButtonGroup;
 - Input, Textarea, Label, Checkbox, Select, Switch;
 - Form field, description, and error association;
 - Dialog, AlertDialog, Popover, DropdownMenu, Tooltip;

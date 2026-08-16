@@ -65,3 +65,18 @@ for (const file of await readdir(uiSource)) {
   )
     throw new Error(`raw-standard-control:${file}`);
 }
+
+const buttonSource = await readFile(new URL("button.tsx", uiSource), "utf8");
+for (const expected of [
+  'variant = "primary"',
+  "border-border-strong bg-black text-white",
+  "hover:bg-black hover:text-white",
+  'FunkyLoaderButton.displayName = "FunkyLoaderButton"',
+]) {
+  if (!buttonSource.includes(expected))
+    throw new Error(`shared-button-contract-missing:${expected}`);
+}
+for (const forbidden of ["bg-foreground text-black", "hover:bg-white"]) {
+  if (buttonSource.includes(forbidden))
+    throw new Error(`shared-button-light-regression:${forbidden}`);
+}

@@ -17,7 +17,7 @@ for (const name of packages) {
     private?: boolean;
     publishConfig?: { registry?: string };
   };
-  if (manifest.version !== "1.0.1" || manifest.private === true)
+  if (manifest.version !== "1.0.2" || manifest.private === true)
     throw new Error(`package-release-contract-invalid:${name}`);
   if (manifest.engines?.node !== ">=24.19.0 <25")
     throw new Error(`package-node-contract-invalid:${name}`);

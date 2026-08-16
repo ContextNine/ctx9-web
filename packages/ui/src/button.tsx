@@ -5,16 +5,16 @@ import * as React from "react";
 import { cn } from "./cn.js";
 
 export const buttonVariants = cva(
-  "inline-flex min-h-9 items-center justify-center gap-2 whitespace-nowrap rounded-md border px-3 text-sm font-medium transition-colors disabled:pointer-events-none disabled:border-border disabled:bg-black disabled:text-disabled focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+  "inline-flex min-h-9 items-center justify-center gap-2 whitespace-nowrap rounded-md border px-3 text-sm font-medium disabled:pointer-events-none disabled:border-border disabled:bg-black disabled:text-disabled focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-black",
   {
     variants: {
       variant: {
         primary:
-          "border-foreground bg-foreground text-black hover:border-white hover:bg-white",
+          "border-border-strong bg-black text-white shadow-none transition-[transform,background-color,border-color,color] duration-300 hover:scale-[1.01] hover:border-white hover:bg-black hover:text-white",
         secondary:
-          "border-border-strong bg-surface text-foreground hover:border-muted-foreground hover:bg-surface-raised",
+          "border-border-strong bg-black text-white transition-colors hover:border-muted-foreground hover:bg-surface-raised hover:text-white",
         quiet:
-          "border-transparent bg-transparent text-muted-foreground hover:bg-surface hover:text-foreground",
+          "border-transparent bg-black text-white transition-colors hover:bg-surface-raised hover:text-white",
         destructive:
           "border-danger/50 bg-danger/10 text-danger hover:border-danger hover:bg-danger/15",
         link: "min-h-0 border-transparent bg-transparent px-0 text-link underline-offset-4 hover:underline",
@@ -31,7 +31,7 @@ export const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "secondary",
+      variant: "primary",
       size: "default",
       selected: false,
     },
@@ -64,6 +64,59 @@ export interface LoadingButtonProps extends ButtonProps {
   loadingLabel?: string;
 }
 
+export interface FunkyLoaderButtonProps extends ButtonProps {
+  isLoading?: boolean;
+  loadingLabel?: string;
+}
+
+/**
+ * CTX9's standard action primitive, adapted from Impression's dark app button.
+ * Loading is expressed with stable text so the control never introduces a
+ * continuously repainting spinner.
+ */
+export const FunkyLoaderButton = React.forwardRef<
+  HTMLButtonElement,
+  FunkyLoaderButtonProps
+>(
+  (
+    {
+      isLoading = false,
+      loadingLabel = "Working…",
+      disabled,
+      children,
+      className,
+      variant = "primary",
+      asChild = false,
+      ...props
+    },
+    ref,
+  ) => (
+    <Button
+      ref={ref}
+      aria-busy={isLoading}
+      data-loading={isLoading || undefined}
+      disabled={asChild ? disabled : isLoading ? true : disabled}
+      variant={variant}
+      asChild={asChild}
+      className={cn("group/btn relative overflow-hidden", className)}
+      {...props}
+    >
+      {asChild ? (
+        children
+      ) : (
+        <>
+          {isLoading ? loadingLabel : children}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 -bottom-px mx-auto h-0.5 w-2/3 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100"
+          />
+        </>
+      )}
+    </Button>
+  ),
+);
+FunkyLoaderButton.displayName = "FunkyLoaderButton";
+
 export const LoadingButton = React.forwardRef<
   HTMLButtonElement,
   LoadingButtonProps
@@ -78,15 +131,15 @@ export const LoadingButton = React.forwardRef<
     },
     ref,
   ) => (
-    <Button
+    <FunkyLoaderButton
       ref={ref}
-      aria-busy={loading}
-      data-loading={loading || undefined}
-      disabled={loading ? true : disabled}
+      isLoading={loading}
+      loadingLabel={loadingLabel}
+      disabled={disabled}
       {...props}
     >
-      {loading ? loadingLabel : children}
-    </Button>
+      {children}
+    </FunkyLoaderButton>
   ),
 );
 LoadingButton.displayName = "LoadingButton";

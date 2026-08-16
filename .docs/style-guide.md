@@ -33,5 +33,6 @@ This guide is canonical for CTX9-owned internal applications: Platform, Auth, en
 - Focus uses a high-contrast blue ring and never relies on color alone.
 - Destructive actions are visually restrained until the confirmation boundary.
 - Recovery material, secrets metadata, and artifact identifiers use the mono face and selectable wrapping.
+- Standard actions use `FunkyLoaderButton`: black background, white text, a restrained Impression-derived hover treatment, and stable loading copy. `Button` owns the same black/white primary contract for link-like and non-loading compositions.
 
 The runtime variables, base contracts, controls, feedback states, and Workbench shells live in `@ctx9/ui`. Product applications compose these primitives without maintaining local replacements.
