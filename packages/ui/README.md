@@ -1,11 +1,12 @@
 # @ctx9/ui
 
-Dark-only shared controls and Workbench compositions for CTX9 internal products. Import `@ctx9/ui/styles.css` exactly once in the application root.
+Dark-only shared controls and Impression-style sidebar compositions for CTX9 internal products. Import `@ctx9/ui/styles.css` exactly once in the application root.
 
 ```tsx
 import "@ctx9/ui/styles.css";
 import {
-  ApplicationShell,
+  AppShell,
+  AuthShell,
   Button,
   Input,
   OperationalList,
@@ -20,6 +21,6 @@ The package owns:
 - tabs, tables, pagination, scroll areas, separators, badges, and status feedback;
 - calendar, time, timezone, date-time, and date-range controls;
 - loading, empty, denied, unavailable, and error states;
-- focused authentication and Workbench application shells.
+- responsive authenticated sidebar, account/tenant menu, and focused or two-column authentication shells.
 
 Applications compose these primitives for product-specific workflows. They do not copy the package source or create local replacements for standard controls.

@@ -25,17 +25,34 @@
 :root {
   color-scheme: dark;
   --ctx9-canvas: #000000;
-  --ctx9-foreground: #fafafa;
-  --ctx9-muted-foreground: #a3a3a3;
-  --ctx9-surface: #090909;
-  --ctx9-surface-raised: #0f0f0f;
-  --ctx9-popover: #0c0c0c;
-  --ctx9-border: #262626;
+  --ctx9-mono-970: #050505;
+  --ctx9-mono-960: #080808;
+  --ctx9-mono-950: #0d0d0d;
+  --ctx9-mono-900: #171717;
+  --ctx9-mono-850: #202020;
+  --ctx9-mono-800: #292929;
+  --ctx9-mono-700: #404040;
+  --ctx9-mono-500: #737373;
+  --ctx9-mono-400: #a3a3a3;
+  --ctx9-mono-300: #c4c4c4;
+  --ctx9-mono-200: #e0e0e0;
+  --ctx9-mono-100: #f5f5f5;
+  --ctx9-foreground: var(--ctx9-mono-100);
+  --ctx9-secondary-foreground: var(--ctx9-mono-300);
+  --ctx9-nav-foreground: var(--ctx9-mono-300);
+  --ctx9-muted-foreground: var(--ctx9-mono-500);
+  --ctx9-sidebar: var(--ctx9-mono-960);
+  --ctx9-sidebar-hover: var(--ctx9-mono-950);
+  --ctx9-panel: var(--ctx9-mono-970);
+  --ctx9-surface: var(--ctx9-mono-970);
+  --ctx9-surface-raised: var(--ctx9-mono-850);
+  --ctx9-popover: var(--ctx9-mono-950);
+  --ctx9-border: var(--ctx9-mono-800);
   --ctx9-border-strong: #404040;
-  --ctx9-input: #171717;
-  --ctx9-focus: #60a5fa;
-  --ctx9-selected: #172554;
-  --ctx9-link: #93c5fd;
+  --ctx9-input: var(--ctx9-mono-900);
+  --ctx9-focus: var(--ctx9-mono-200);
+  --ctx9-selected: var(--ctx9-mono-850);
+  --ctx9-link: var(--ctx9-mono-200);
   --ctx9-success: #4ade80;
   --ctx9-warning: #fbbf24;
   --ctx9-danger: #f87171;
@@ -53,7 +70,12 @@
 
 @theme inline {
   --color-foreground: var(--ctx9-foreground);
+  --color-secondary-foreground: var(--ctx9-secondary-foreground);
+  --color-nav-foreground: var(--ctx9-nav-foreground);
   --color-muted-foreground: var(--ctx9-muted-foreground);
+  --color-sidebar: var(--ctx9-sidebar);
+  --color-sidebar-hover: var(--ctx9-sidebar-hover);
+  --color-panel: var(--ctx9-panel);
   --color-surface: var(--ctx9-surface);
   --color-surface-raised: var(--ctx9-surface-raised);
   --color-popover: var(--ctx9-popover);
@@ -103,6 +125,7 @@ select {
 
 a {
   color: var(--ctx9-link);
+  text-underline-offset: 0.2em;
 }
 
 ::selection {

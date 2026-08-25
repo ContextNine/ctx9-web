@@ -10,7 +10,7 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "border-border-strong bg-black text-white shadow-none transition-[transform,background-color,border-color,color] duration-300 hover:scale-[1.01] hover:border-white hover:bg-black hover:text-white",
+          "border-border-strong bg-black text-white shadow-none transition-colors hover:border-white hover:bg-black hover:text-white",
         secondary:
           "border-border-strong bg-black text-white transition-colors hover:border-muted-foreground hover:bg-surface-raised hover:text-white",
         quiet:
@@ -98,20 +98,10 @@ export const FunkyLoaderButton = React.forwardRef<
       disabled={asChild ? disabled : isLoading ? true : disabled}
       variant={variant}
       asChild={asChild}
-      className={cn("group/btn relative overflow-hidden", className)}
+      className={cn("relative overflow-hidden", className)}
       {...props}
     >
-      {asChild ? (
-        children
-      ) : (
-        <>
-          {isLoading ? loadingLabel : children}
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 -bottom-px mx-auto h-0.5 w-2/3 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100"
-          />
-        </>
-      )}
+      {asChild ? children : isLoading ? loadingLabel : children}
     </Button>
   ),
 );

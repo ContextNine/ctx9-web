@@ -14,14 +14,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./dialog.js";
-import { ApplicationShell, OperationalList, OperationalRow } from "./shell.js";
+import { AppShell, OperationalList, OperationalRow } from "./shell.js";
 
 describe("shared product primitives", () => {
-  it("keeps standard actions black with white text", () => {
+  it("keeps standard actions neutral and high contrast", () => {
     const primary = buttonVariants({ variant: "primary" });
     expect(primary).toContain("bg-black");
     expect(primary).toContain("text-white");
-    expect(primary).not.toContain("bg-foreground");
+    expect(primary).not.toContain("bg-selected");
 
     render(<FunkyLoaderButton isLoading>Save</FunkyLoaderButton>);
     const action = screen.getByRole("button");
@@ -30,13 +30,22 @@ describe("shared product primitives", () => {
     expect(action.getAttribute("aria-busy")).toBe("true");
   });
 
-  it("composes an accessible Workbench application surface", async () => {
+  it("composes an accessible sidebar application surface", async () => {
     const { container } = render(
-      <ApplicationShell
+      <AppShell
         product="Platform"
-        tenantControl={<Button type="button">CTX9</Button>}
-        navigation={[
+        products={[
           { id: "platform", label: "Platform", href: "/", current: true },
+          { id: "secrets", label: "Secrets", href: "/secrets" },
+        ]}
+        account={{
+          tenant: "Northstar",
+          userName: "Alex Morgan",
+          userDetail: "alex@example.test",
+          onSignOut: () => undefined,
+        }}
+        navigation={[
+          { id: "overview", label: "Overview", href: "/", current: true },
           { id: "settings", label: "Settings", href: "/settings" },
         ]}
       >
@@ -55,11 +64,9 @@ describe("shared product primitives", () => {
             status="Available"
           />
         </OperationalList>
-      </ApplicationShell>,
+      </AppShell>,
     );
-    expect(
-      screen.getByRole("navigation", { name: "Platform navigation" }),
-    ).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Platform" })).toBeTruthy();
     expect(
       screen
         .getByRole("link", { name: "Skip to content" })
