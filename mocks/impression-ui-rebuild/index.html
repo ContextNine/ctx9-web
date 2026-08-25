@@ -96,10 +96,19 @@
             id="collapse-button"
             type="button"
             aria-label="Collapse sidebar"
+            title="Collapse sidebar"
+            data-collapse-control
           >
-            ‹
+            <span aria-hidden="true">‹</span>
           </button>
         </div>
+        <button
+          class="sidebar-rail"
+          type="button"
+          aria-label="Collapse sidebar"
+          title="Collapse sidebar"
+          data-collapse-control
+        ></button>
 
         <nav class="service-nav" aria-label="Services">
           <button
@@ -183,12 +192,40 @@
               <strong>Alex Morgan</strong>
               <span>alex@northstar.test</span>
             </div>
-            <button type="button">Switch tenant</button>
-            <button type="button">Account security</button>
-            <button type="button" data-admin-only>Tenant settings</button>
-            <button type="button" data-cluster-only>Create tenant</button>
+            <div class="account-popover-section">
+              <p class="popover-section-label">Your tenant</p>
+              <button class="tenant-option" type="button">
+                <span class="tenant-avatar">N</span>
+                <span class="tenant-option-copy">
+                  <strong>Northstar</strong>
+                  <small id="tenant-role-label">Tenant administrator</small>
+                </span>
+                <span class="selected-check" aria-label="Current tenant"
+                  >✓</span
+                >
+              </button>
+            </div>
             <div class="popover-separator"></div>
-            <button type="button">Sign out</button>
+            <div class="account-actions">
+              <button type="button">
+                <span aria-hidden="true">♢</span><span>Account security</span>
+              </button>
+              <button type="button">
+                <span aria-hidden="true">◌</span><span>Notifications</span>
+              </button>
+              <button type="button" data-admin-only>
+                <span aria-hidden="true">⚙</span><span>Tenant settings</span>
+              </button>
+              <button type="button" data-cluster-only>
+                <span aria-hidden="true">＋</span><span>Create tenant</span>
+              </button>
+            </div>
+            <div class="popover-separator"></div>
+            <div class="account-actions">
+              <button type="button">
+                <span aria-hidden="true">↪</span><span>Sign out</span>
+              </button>
+            </div>
           </div>
           <button
             class="account-trigger"
@@ -788,6 +825,10 @@ LOG_LEVEL="debug"</textarea>
       const appPreview = document.querySelector("#app-preview");
       const accountTrigger = document.querySelector("#account-trigger");
       const accountPopover = document.querySelector("#account-popover");
+      const tenantRoleLabel = document.querySelector("#tenant-role-label");
+      const collapseControls = document.querySelectorAll(
+        "[data-collapse-control]",
+      );
       const toast = document.querySelector("#toast");
 
       const pageProducts = {
@@ -829,6 +870,12 @@ LOG_LEVEL="debug"</textarea>
 
       function setRole(role) {
         document.body.dataset.role = role;
+        tenantRoleLabel.textContent =
+          role === "member"
+            ? "Member"
+            : role === "cluster-admin"
+              ? "Cluster administrator"
+              : "Tenant administrator";
         document.querySelectorAll("[data-admin-only]").forEach((item) => {
           item.hidden = role === "member";
         });
@@ -860,11 +907,25 @@ LOG_LEVEL="debug"</textarea>
         item.addEventListener("click", () => setPage(item.dataset.navPage));
       });
 
-      document
-        .querySelector("#collapse-button")
-        .addEventListener("click", () =>
-          appPreview.classList.toggle("sidebar-collapsed"),
-        );
+      function setSidebarCollapsed(collapsed) {
+        appPreview.classList.toggle("sidebar-collapsed", collapsed);
+        collapseControls.forEach((control) => {
+          const action = collapsed ? "Expand" : "Collapse";
+          control.setAttribute("aria-label", `${action} sidebar`);
+          control.setAttribute("title", `${action} sidebar`);
+        });
+        document.querySelector("#collapse-button span").textContent = collapsed
+          ? "›"
+          : "‹";
+      }
+
+      collapseControls.forEach((control) => {
+        control.addEventListener("click", () => {
+          setSidebarCollapsed(
+            !appPreview.classList.contains("sidebar-collapsed"),
+          );
+        });
+      });
       document
         .querySelector("#mobile-menu-button")
         .addEventListener("click", () =>
@@ -893,6 +954,18 @@ LOG_LEVEL="debug"</textarea>
           "aria-expanded",
           String(!accountPopover.hidden),
         );
+      });
+
+      document.addEventListener("click", (event) => {
+        if (
+          accountPopover.hidden ||
+          accountPopover.contains(event.target) ||
+          accountTrigger.contains(event.target)
+        ) {
+          return;
+        }
+        accountPopover.hidden = true;
+        accountTrigger.setAttribute("aria-expanded", "false");
       });
 
       document
