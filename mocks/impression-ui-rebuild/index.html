@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>CTX9 interface rebuild mock</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="platform" data-product="platform" data-density="comfortable">
+    <div class="mock-toolbar" aria-label="Mock controls">
+      <div class="mock-title">CTX9 rebuild mock</div>
+      <label>
+        <span>Page</span>
+        <select id="page-select">
+          <option value="auth">Auth</option>
+          <option value="platform" selected>Platform</option>
+          <option value="repositories">Repositories</option>
+          <option value="repository">Repository detail</option>
+          <option value="environment">Environment editor</option>
+          <option value="globals">Globals</option>
+          <option value="provider">Provider</option>
+          <option value="settings">Tenant settings</option>
+          <option value="publications">Publications</option>
+          <option value="publication">Publication detail</option>
+          <option value="states">States</option>
+        </select>
+      </label>
+      <label>
+        <span>Density</span>
+        <select id="density-select">
+          <option value="comfortable">Comfortable</option>
+          <option value="compact">Compact</option>
+        </select>
+      </label>
+      <label>
+        <span>Role</span>
+        <select id="role-select">
+          <option value="member">Member</option>
+          <option value="tenant-admin" selected>Tenant administrator</option>
+          <option value="cluster-admin">Cluster administrator</option>
+        </select>
+      </label>
+      <button class="toolbar-button" id="mobile-toggle" type="button">
+        Mobile preview
+      </button>
+    </div>
+
+    <div class="auth-preview" data-page-view="auth">
+      <section class="auth-form-panel">
+        <div class="auth-form-wrap">
+          <a class="auth-wordmark" href="#">CTX9</a>
+          <div class="auth-copy">
+            <h1>Welcome back</h1>
+            <p>Use your passkey to continue.</p>
+          </div>
+          <button class="button button-primary auth-action" type="button">
+            <span class="button-icon">◇</span>
+            Continue with passkey
+          </button>
+          <div class="auth-links">
+            <a href="#">Use account recovery</a>
+            <a href="#">Accept an invitation</a>
+          </div>
+          <p class="legal-copy">
+            By continuing, you agree to use this private service responsibly.
+          </p>
+        </div>
+      </section>
+      <aside class="auth-brand-panel">
+        <div class="auth-brand-copy">
+          <p class="auth-brand-title">Complex infrastructure, made quiet.</p>
+          <p>
+            One account for your services, publications, and encrypted
+            configuration.
+          </p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="app-preview" id="app-preview">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <button
+            class="brand-button"
+            type="button"
+            data-nav-page="platform"
+            aria-label="Open Platform"
+          >
+            <span class="brand-mark">C9</span>
+            <span class="brand-name">CTX9</span>
+          </button>
+          <button
+            class="icon-button collapse-button"
+            id="collapse-button"
+            type="button"
+            aria-label="Collapse sidebar"
+          >
+            ‹
+          </button>
+        </div>
+
+        <nav class="service-nav" aria-label="Services">
+          <button
+            class="nav-item service-item"
+            type="button"
+            data-nav-page="platform"
+            data-product-link="platform"
+          >
+            <span class="nav-icon">⌂</span
+            ><span class="nav-label">Platform</span>
+          </button>
+          <button
+            class="nav-item service-item"
+            type="button"
+            data-nav-page="repositories"
+            data-product-link="secrets"
+          >
+            <span class="nav-icon">◇</span
+            ><span class="nav-label">Secrets</span>
+          </button>
+          <button
+            class="nav-item service-item"
+            type="button"
+            data-nav-page="publications"
+            data-product-link="publisher"
+          >
+            <span class="nav-icon">▤</span
+            ><span class="nav-label">Publisher</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-divider"></div>
+
+        <nav class="local-nav" aria-label="Current service">
+          <div class="local-nav-group" data-local-product="platform">
+            <p class="nav-group-label">Platform</p>
+            <button class="nav-item" type="button" data-nav-page="platform">
+              <span class="nav-icon">⌂</span
+              ><span class="nav-label">Overview</span>
+            </button>
+          </div>
+          <div class="local-nav-group" data-local-product="secrets">
+            <p class="nav-group-label">Secrets</p>
+            <button class="nav-item" type="button" data-nav-page="repositories">
+              <span class="nav-icon">▱</span
+              ><span class="nav-label">Repositories</span>
+            </button>
+            <button class="nav-item" type="button" data-nav-page="globals">
+              <span class="nav-icon">◎</span
+              ><span class="nav-label">Globals</span>
+            </button>
+            <button class="nav-item" type="button" data-nav-page="provider">
+              <span class="nav-icon">⛓</span
+              ><span class="nav-label">Providers</span>
+            </button>
+          </div>
+          <div class="local-nav-group" data-local-product="publisher">
+            <p class="nav-group-label">Publisher</p>
+            <button class="nav-item" type="button" data-nav-page="publications">
+              <span class="nav-icon">▤</span
+              ><span class="nav-label">All publications</span>
+            </button>
+            <button class="nav-item" type="button" data-nav-page="publications">
+              <span class="nav-icon">≡</span
+              ><span class="nav-label">Documents</span>
+            </button>
+            <button class="nav-item" type="button" data-nav-page="publications">
+              <span class="nav-icon">□</span
+              ><span class="nav-label">Files</span>
+            </button>
+            <button class="nav-item" type="button" data-nav-page="publications">
+              <span class="nav-icon">✓</span
+              ><span class="nav-label">Evidence</span>
+            </button>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="account-popover" id="account-popover" hidden>
+            <div class="account-popover-header">
+              <strong>Alex Morgan</strong>
+              <span>alex@northstar.test</span>
+            </div>
+            <button type="button">Switch tenant</button>
+            <button type="button">Account security</button>
+            <button type="button" data-admin-only>Tenant settings</button>
+            <button type="button" data-cluster-only>Create tenant</button>
+            <div class="popover-separator"></div>
+            <button type="button">Sign out</button>
+          </div>
+          <button
+            class="account-trigger"
+            id="account-trigger"
+            type="button"
+            aria-expanded="false"
+          >
+            <span class="avatar">AM</span>
+            <span class="account-copy"
+              ><strong>Northstar</strong><small>Alex Morgan</small></span
+            >
+            <span class="account-chevron">⌃</span>
+          </button>
+        </div>
+      </aside>
+
+      <div class="mobile-backdrop" id="mobile-backdrop"></div>
+
+      <main class="main-content">
+        <header class="mobile-header">
+          <button
+            class="icon-button"
+            id="mobile-menu-button"
+            type="button"
+            aria-label="Open menu"
+          >
+            ☰
+          </button>
+          <span>CTX9</span>
+        </header>
+
+        <section class="page" data-page-view="platform">
+          <div class="page-header">
+            <div>
+              <h1>Northstar</h1>
+              <p>Your services</p>
+            </div>
+          </div>
+          <div class="service-list">
+            <button
+              class="service-row"
+              type="button"
+              data-nav-page="repositories"
+            >
+              <span class="service-symbol">◇</span>
+              <span class="row-primary"
+                ><strong>Secrets</strong
+                ><small>Environment configuration</small></span
+              >
+              <span class="status success">Ready</span
+              ><span class="row-arrow">›</span>
+            </button>
+            <button
+              class="service-row"
+              type="button"
+              data-nav-page="publications"
+            >
+              <span class="service-symbol">▤</span>
+              <span class="row-primary"
+                ><strong>Publisher</strong
+                ><small>Documents, files, and evidence</small></span
+              >
+              <span class="status success">Ready</span
+              ><span class="row-arrow">›</span>
+            </button>
+            <button class="service-row" type="button">
+              <span class="service-symbol">⌁</span>
+              <span class="row-primary"
+                ><strong>Agents</strong><small>Tenant automation</small></span
+              >
+              <span class="status warning">Setting up</span
+              ><span class="row-arrow">›</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="page" data-page-view="repositories">
+          <div class="page-header">
+            <div>
+              <h1>Repositories</h1>
+              <p>Choose a repository to edit its environments.</p>
+            </div>
+            <button class="button button-primary" type="button">
+              Add repository
+            </button>
+          </div>
+          <div class="filter-row">
+            <input
+              class="search-input"
+              type="search"
+              placeholder="Search repositories"
+              aria-label="Search repositories"
+            />
+          </div>
+          <div class="data-list">
+            <button class="data-row" type="button" data-nav-page="repository">
+              <span class="repo-icon">A</span
+              ><span class="row-primary"
+                ><strong>Atlas API</strong><small>6 environments</small></span
+              ><span class="row-meta">Updated 8 minutes ago</span
+              ><span class="row-arrow">›</span>
+            </button>
+            <button class="data-row" type="button" data-nav-page="repository">
+              <span class="repo-icon">C</span
+              ><span class="row-primary"
+                ><strong>Canvas Web</strong><small>3 environments</small></span
+              ><span class="row-meta">Updated yesterday</span
+              ><span class="row-arrow">›</span>
+            </button>
+            <button class="data-row" type="button">
+              <span class="repo-icon">R</span
+              ><span class="row-primary"
+                ><strong>Relay Worker</strong
+                ><small>No environments yet</small></span
+              ><span class="status warning">Needs setup</span
+              ><span class="row-arrow">›</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="page" data-page-view="repository">
+          <div class="breadcrumbs">
+            <button data-nav-page="repositories">Repositories</button
+            ><span>›</span><span>Atlas API</span>
+          </div>
+          <div class="page-header">
+            <div>
+              <h1>Atlas API</h1>
+              <p>Choose an environment.</p>
+            </div>
+            <button class="button button-secondary" type="button">
+              Add environment
+            </button>
+          </div>
+          <div class="section-heading">
+            <h2>Environments</h2>
+            <span>6</span>
+          </div>
+          <div class="environment-grid">
+            <button
+              class="environment-row"
+              type="button"
+              data-nav-page="environment"
+            >
+              <span
+                ><strong>local</strong
+                ><small>Updated 8 minutes ago</small></span
+              ><span class="status success">Ready</span><span>›</span>
+            </button>
+            <button
+              class="environment-row"
+              type="button"
+              data-nav-page="environment"
+            >
+              <span
+                ><strong>dev1</strong><small>Updated 2 hours ago</small></span
+              ><span class="status success">Ready</span><span>›</span>
+            </button>
+            <button
+              class="environment-row"
+              type="button"
+              data-nav-page="environment"
+            >
+              <span><strong>dev2</strong><small>Updated 3 days ago</small></span
+              ><span class="status success">Ready</span><span>›</span>
+            </button>
+            <button
+              class="environment-row"
+              type="button"
+              data-nav-page="environment"
+            >
+              <span
+                ><strong>staging</strong><small>Updated yesterday</small></span
+              ><span class="status success">Ready</span><span>›</span>
+            </button>
+            <button
+              class="environment-row"
+              type="button"
+              data-nav-page="environment"
+            >
+              <span
+                ><strong>prod</strong><small>Updated 4 hours ago</small></span
+              ><span class="status warning">1 pending change</span
+              ><span>›</span>
+            </button>
+            <button
+              class="environment-row"
+              type="button"
+              data-nav-page="environment"
+            >
+              <span><strong>test</strong><small>Updated last week</small></span
+              ><span class="status success">Ready</span><span>›</span>
+            </button>
+          </div>
+          <div class="contract-section">
+            <div class="section-heading">
+              <div>
+                <h2>Variable contract</h2>
+                <p>cicd/.env.base</p>
+              </div>
+              <button class="text-button" type="button">
+                View focused diff
+              </button>
+            </div>
+            <pre class="contract-preview"><code># Shared service contract
+APP_URL=https://atlas.example.test #K!
+DATABASE_URL=
+RESEND_API_KEY=
+SENTRY_DSN= #P!</code></pre>
+          </div>
+        </section>
+
+        <section class="page editor-page" data-page-view="environment">
+          <div class="breadcrumbs">
+            <button data-nav-page="repositories">Repositories</button
+            ><span>›</span><button data-nav-page="repository">Atlas API</button
+            ><span>›</span><span>local</span>
+          </div>
+          <div class="page-header editor-header">
+            <div>
+              <h1>local</h1>
+              <p>Atlas API</p>
+            </div>
+            <div class="header-actions">
+              <span class="save-state">All changes saved</span
+              ><button
+                class="button button-primary"
+                type="button"
+                id="save-environment"
+              >
+                Save changes
+              </button>
+            </div>
+          </div>
+          <div class="editor-toolbar">
+            <div class="editor-status">
+              <span class="status-dot"></span><span>Current version</span
+              ><span class="version-label">v42</span>
+            </div>
+            <div>
+              <button class="text-button" type="button">Search</button
+              ><button class="text-button" type="button">Contract</button>
+            </div>
+          </div>
+          <div class="env-editor-shell">
+            <div class="origin-gutter" aria-hidden="true">
+              <span>Base</span><span>Global</span><span>Local</span
+              ><span>Global</span><span>Local</span><span>Base</span
+              ><span>Local</span><span>Global</span>
+            </div>
+            <textarea
+              id="environment-editor"
+              class="env-editor"
+              spellcheck="false"
+              wrap="off"
+              aria-label="Environment variables"
+            >
+# Atlas API · local
+APP_URL="http://127.0.0.1:4100" #K!
+DATABASE_URL="postgresql://example.invalid/atlas"
+RESEND_API_KEY="SECRET_BINDINGS_SENTINEL_MAIL_LOCAL"
+SENTRY_DSN="https://examplePublicKey@o0.ingest.test/0" #P!
+LOG_LEVEL="debug"
+FEATURE_AI_ASSISTANT="true"
+STORAGE_BUCKET="northstar-atlas-local"</textarea>
+          </div>
+          <div class="editor-footnote">
+            <span>Inherited values create a local override when edited.</span
+            ><button class="text-button" type="button">
+              Review 2 layer changes
+            </button>
+          </div>
+        </section>
+
+        <section class="page editor-page" data-page-view="globals">
+          <div class="page-header editor-header">
+            <div>
+              <h1>Globals</h1>
+              <p>Reuse the same variable names across repositories.</p>
+            </div>
+            <div class="header-actions">
+              <span class="save-state">All changes saved</span
+              ><button
+                class="button button-primary"
+                type="button"
+                id="save-globals"
+              >
+                Save changes
+              </button>
+            </div>
+          </div>
+          <div class="scope-row">
+            <div
+              class="segmented-control"
+              role="group"
+              aria-label="Global scope"
+            >
+              <button class="selected" type="button">Mine</button
+              ><button type="button">Tenant</button>
+            </div>
+            <label class="inline-select"
+              ><span>Environment</span
+              ><select>
+                <option>Shared</option>
+                <option selected>local</option>
+                <option>prod</option>
+              </select></label
+            >
+          </div>
+          <div class="editor-toolbar">
+            <div class="editor-status">
+              <span class="status-dot"></span
+              ><span>Available on every enrolled machine</span>
+            </div>
+            <button class="text-button" type="button">
+              Show repository coverage
+            </button>
+          </div>
+          <div class="env-editor-shell globals-shell">
+            <div class="usage-gutter" aria-hidden="true">
+              <span>4 repos</span><span>6 repos</span><span>3 repos</span
+              ><span>2 repos</span><span>5 repos</span>
+            </div>
+            <textarea
+              id="globals-editor"
+              class="env-editor"
+              spellcheck="false"
+              wrap="off"
+              aria-label="Global environment variables"
+            >
+# My local defaults
+RESEND_API_KEY="SECRET_BINDINGS_SENTINEL_MAIL_LOCAL"
+SENTRY_DSN="https://examplePublicKey@o0.ingest.test/0"
+OPENAI_API_KEY="SECRET_BINDINGS_SENTINEL_AI_LOCAL"
+LANGFUSE_HOST="https://telemetry.example.test"
+LOG_LEVEL="debug"</textarea>
+          </div>
+          <div class="canonical-hint">
+            <strong>Keep one name everywhere.</strong
+            ><span
+              >Use RESEND_API_KEY in every repository, then override its value
+              only where needed.</span
+            >
+          </div>
+        </section>
+
+        <section class="page" data-page-view="provider">
+          <div class="page-header">
+            <div>
+              <h1>Providers</h1>
+              <p>Where encrypted values are kept.</p>
+            </div>
+            <button class="button button-primary" type="button">
+              Connect provider
+            </button>
+          </div>
+          <div class="data-list">
+            <button class="data-row" type="button">
+              <span class="provider-mark">K</span
+              ><span class="row-primary"
+                ><strong>Apple Keychain</strong
+                ><small>Mattbook · Personal values</small></span
+              ><span class="status success">Ready</span
+              ><span class="row-arrow">›</span>
+            </button>
+            <button class="data-row" type="button">
+              <span class="provider-mark">S</span
+              ><span class="row-primary"
+                ><strong>SOPS</strong
+                ><small>Repository projections</small></span
+              ><span class="status success">Ready</span
+              ><span class="row-arrow">›</span>
+            </button>
+            <button class="data-row" type="button">
+              <span class="provider-mark">G</span
+              ><span class="row-primary"
+                ><strong>GitLab</strong><small>CI delivery</small></span
+              ><span class="status warning">Reconnect</span
+              ><span class="row-arrow">›</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="page" data-page-view="settings">
+          <div class="page-header">
+            <div>
+              <h1>Tenant settings</h1>
+              <p>Northstar</p>
+            </div>
+          </div>
+          <div class="settings-sections">
+            <section>
+              <div>
+                <h2>Members</h2>
+                <p>People with access to this tenant.</p>
+              </div>
+              <button class="button button-secondary" type="button">
+                Manage members
+              </button>
+            </section>
+            <section>
+              <div>
+                <h2>Secret ownership</h2>
+                <p>Control who can manage shared and personal values.</p>
+              </div>
+              <button class="button button-secondary" type="button">
+                Manage access
+              </button>
+            </section>
+            <section>
+              <div>
+                <h2>Machines</h2>
+                <p>Enrolled computers available for repository updates.</p>
+              </div>
+              <button class="button button-secondary" type="button">
+                Enroll machine
+              </button>
+            </section>
+            <section class="cluster-setting" data-cluster-only>
+              <div>
+                <h2>Create tenant</h2>
+                <p>Start another isolated workspace.</p>
+              </div>
+              <button class="button button-secondary" type="button">
+                Create tenant
+              </button>
+            </section>
+          </div>
+        </section>
+
+        <section class="page" data-page-view="publications">
+          <div class="page-header">
+            <div>
+              <h1>All publications</h1>
+              <p>Documents, files, and evidence.</p>
+            </div>
+          </div>
+          <div class="filter-row publication-filters">
+            <input
+              class="search-input"
+              type="search"
+              placeholder="Search publications"
+              aria-label="Search publications"
+            /><select aria-label="Publication type">
+              <option>All types</option>
+              <option>Documents</option>
+              <option>Files</option>
+              <option>Evidence</option>
+            </select>
+          </div>
+          <div class="publication-list">
+            <button
+              class="publication-row"
+              type="button"
+              data-nav-page="publication"
+            >
+              <span class="file-symbol">≡</span
+              ><span class="row-primary"
+                ><strong>Release readiness report</strong
+                ><small>Document · Updated 14 minutes ago</small></span
+              ><span class="status success">Published</span
+              ><span class="row-arrow">›</span>
+            </button>
+            <button class="publication-row" type="button">
+              <span class="file-symbol">□</span
+              ><span class="row-primary"
+                ><strong>Product walkthrough.mp4</strong
+                ><small>File · Updated yesterday</small></span
+              ><span class="status success">Published</span
+              ><span class="row-arrow">›</span>
+            </button>
+            <button class="publication-row" type="button">
+              <span class="file-symbol">✓</span
+              ><span class="row-primary"
+                ><strong>Browser acceptance evidence</strong
+                ><small>Evidence · Updated 3 days ago</small></span
+              ><span class="status warning">Draft</span
+              ><span class="row-arrow">›</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="page publication-detail" data-page-view="publication">
+          <div class="breadcrumbs">
+            <button data-nav-page="publications">All publications</button
+            ><span>›</span><span>Release readiness report</span>
+          </div>
+          <div class="page-header">
+            <div>
+              <h1>Release readiness report</h1>
+              <p>Document · Published 14 minutes ago</p>
+            </div>
+            <div class="header-actions">
+              <button class="button button-secondary" type="button">
+                Download source</button
+              ><button class="button button-primary" type="button">
+                Open publication
+              </button>
+            </div>
+          </div>
+          <div class="publication-layout">
+            <article class="document-preview">
+              <h1>Release readiness report</h1>
+              <p class="document-lead">
+                A synthetic preview of the approved release evidence.
+              </p>
+              <h2>Summary</h2>
+              <p>
+                The shared application shell is ready for review across
+                Platform, Secrets, and Publisher.
+              </p>
+              <h2>Checks</h2>
+              <ul>
+                <li>Responsive navigation verified</li>
+                <li>Tenant authorization retained</li>
+                <li>Protected values absent from rendered output</li>
+              </ul>
+            </article>
+            <aside class="publication-meta">
+              <h2>Details</h2>
+              <dl>
+                <div>
+                  <dt>Version</dt>
+                  <dd>v8</dd>
+                </div>
+                <div>
+                  <dt>Visibility</dt>
+                  <dd>Tenant</dd>
+                </div>
+                <div>
+                  <dt>Updated</dt>
+                  <dd>14 minutes ago</dd>
+                </div>
+              </dl>
+              <button class="advanced-button" type="button">
+                Advanced <span>›</span>
+              </button>
+            </aside>
+          </div>
+        </section>
+
+        <section class="page" data-page-view="states">
+          <div class="page-header">
+            <div>
+              <h1>States</h1>
+              <p>Representative feedback without operational jargon.</p>
+            </div>
+          </div>
+          <div class="states-grid">
+            <section class="state-block">
+              <span class="state-symbol">＋</span>
+              <h2>No environments yet</h2>
+              <p>Add the first environment for Relay Worker.</p>
+              <button class="button button-primary" type="button">
+                Add environment
+              </button>
+            </section>
+            <section class="state-block">
+              <span class="state-symbol">↻</span>
+              <h2>Repository unavailable</h2>
+              <p>
+                Mattbook is offline, so repository files cannot be updated right
+                now.
+              </p>
+              <button class="button button-secondary" type="button">
+                Try again
+              </button>
+            </section>
+            <section class="state-block">
+              <span class="state-symbol danger-symbol">!</span>
+              <h2>Changes need review</h2>
+              <p>The contract changed after this editor was opened.</p>
+              <button class="button button-secondary" type="button">
+                Review changes
+              </button>
+            </section>
+            <section class="state-block">
+              <span class="state-symbol">×</span>
+              <h2>You do not have access</h2>
+              <p>
+                Ask a tenant administrator for permission to manage providers.
+              </p>
+              <button class="text-button" type="button">
+                Back to repositories
+              </button>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" hidden>Saved</div>
+    <script type="module">
+      const pageSelect = document.querySelector("#page-select");
+      const densitySelect = document.querySelector("#density-select");
+      const roleSelect = document.querySelector("#role-select");
+      const appPreview = document.querySelector("#app-preview");
+      const accountTrigger = document.querySelector("#account-trigger");
+      const accountPopover = document.querySelector("#account-popover");
+      const toast = document.querySelector("#toast");
+
+      const pageProducts = {
+        auth: "auth",
+        platform: "platform",
+        repositories: "secrets",
+        repository: "secrets",
+        environment: "secrets",
+        globals: "secrets",
+        provider: "secrets",
+        settings: "secrets",
+        publications: "publisher",
+        publication: "publisher",
+        states: "secrets",
+      };
+
+      function setPage(page) {
+        const product = pageProducts[page] ?? "platform";
+        document.body.dataset.page = page;
+        document.body.dataset.product = product;
+        pageSelect.value = page;
+        document
+          .querySelectorAll("[data-nav-page]")
+          .forEach((item) =>
+            item.classList.toggle("selected", item.dataset.navPage === page),
+          );
+        document
+          .querySelectorAll("[data-product-link]")
+          .forEach((item) =>
+            item.classList.toggle(
+              "selected",
+              item.dataset.productLink === product,
+            ),
+          );
+        document.body.classList.remove("mobile-menu-open");
+        accountPopover.hidden = true;
+        accountTrigger.setAttribute("aria-expanded", "false");
+      }
+
+      function setRole(role) {
+        document.body.dataset.role = role;
+        document.querySelectorAll("[data-admin-only]").forEach((item) => {
+          item.hidden = role === "member";
+        });
+        document.querySelectorAll("[data-cluster-only]").forEach((item) => {
+          item.hidden = role !== "cluster-admin";
+        });
+      }
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.hidden = false;
+        window.clearTimeout(showToast.timeout);
+        showToast.timeout = window.setTimeout(() => {
+          toast.hidden = true;
+        }, 2200);
+      }
+
+      pageSelect.addEventListener("change", (event) =>
+        setPage(event.target.value),
+      );
+      densitySelect.addEventListener("change", (event) => {
+        document.body.dataset.density = event.target.value;
+      });
+      roleSelect.addEventListener("change", (event) =>
+        setRole(event.target.value),
+      );
+
+      document.querySelectorAll("[data-nav-page]").forEach((item) => {
+        item.addEventListener("click", () => setPage(item.dataset.navPage));
+      });
+
+      document
+        .querySelector("#collapse-button")
+        .addEventListener("click", () =>
+          appPreview.classList.toggle("sidebar-collapsed"),
+        );
+      document
+        .querySelector("#mobile-menu-button")
+        .addEventListener("click", () =>
+          document.body.classList.add("mobile-menu-open"),
+        );
+      document
+        .querySelector("#mobile-backdrop")
+        .addEventListener("click", () =>
+          document.body.classList.remove("mobile-menu-open"),
+        );
+      document
+        .querySelector("#mobile-toggle")
+        .addEventListener("click", (event) => {
+          document.body.classList.toggle("force-mobile");
+          document.body.classList.remove("mobile-menu-open");
+          event.currentTarget.textContent = document.body.classList.contains(
+            "force-mobile",
+          )
+            ? "Desktop preview"
+            : "Mobile preview";
+        });
+
+      accountTrigger.addEventListener("click", () => {
+        accountPopover.hidden = !accountPopover.hidden;
+        accountTrigger.setAttribute(
+          "aria-expanded",
+          String(!accountPopover.hidden),
+        );
+      });
+
+      document
+        .querySelector("#save-environment")
+        .addEventListener("click", () => showToast("Environment saved"));
+      document
+        .querySelector("#save-globals")
+        .addEventListener("click", () => showToast("Globals saved"));
+
+      document.querySelectorAll(".segmented-control button").forEach((item) => {
+        item.addEventListener("click", () => {
+          item.parentElement
+            .querySelectorAll("button")
+            .forEach((button) =>
+              button.classList.toggle("selected", button === item),
+            );
+        });
+      });
+
+      setRole(roleSelect.value);
+      setPage(pageSelect.value);
+    </script>
+  </body>
+</html>
