@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
 const provenance = await readFile(
-  new URL(".docs/source-provenance.md", root),
+  new URL("docs/source-provenance.md", root),
   "utf8",
 );
 const styleSource = await readFile(
@@ -11,8 +11,10 @@ const styleSource = await readFile(
   "utf8",
 );
 
-if (!provenance.includes("24f2833abf7a24e7ada6b2f516a599cae8fcc50b"))
+if (!provenance.includes("df629dea07e6513d6875a4b8f22a63cba8bbf2ca"))
   throw new Error("impression-reference-not-pinned");
+if (!provenance.includes("b9938d94635fca7a4560449713b0b1ba87d77bc6"))
+  throw new Error("shadcn-reference-not-pinned");
 for (const forbidden of [
   "https://",
   "http://",

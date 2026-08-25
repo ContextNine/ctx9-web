@@ -5,7 +5,7 @@ const css = await readFile(
   "utf8",
 );
 const guide = await readFile(
-  new URL("../.docs/style-guide.md", import.meta.url),
+  new URL("../docs/style-guide.md", import.meta.url),
   "utf8",
 );
 const compiled = await readFile(
@@ -34,6 +34,8 @@ if (!guide.includes("Dark mode only") || !guide.includes("True black `#000`"))
   throw new Error("dark-style-guide-contract-missing");
 for (const expected of [
   ".bg-surface",
+  ".bg-sidebar",
+  ".bg-selected",
   ".border-border",
   ".text-foreground",
   ".focus-visible\\:ring-focus",

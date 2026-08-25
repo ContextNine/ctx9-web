@@ -1,6 +1,6 @@
 # Component inventory
 
-The v1 inventory is split into foundations, shared controls, and product compositions. The Workbench direction is canonical: horizontal product navigation, dense operational rows, restrained borders, and true-black surfaces.
+The v2 inventory is split into foundations, shared controls, and product compositions. The canonical direction uses Impression's dark mono system, a shared left sidebar, restrained rows, and true-black content surfaces.
 
 ## Foundations
 
@@ -24,7 +24,8 @@ The v1 inventory is split into foundations, shared controls, and product composi
 
 ## Product compositions
 
-- `ApplicationShell`, `FocusedShell`, `PageHeading`, `OperationalList`, and `OperationalRow` are published shared compositions.
+- `AppShell`, `AppSidebar`, `AppSidebarHeader`, `AppSidebarGroup`, `AppSidebarLink`, `AppSidebarFooter`, `SidebarInset`, `AccountMenu`, `AuthShell`, `FocusedShell`, `PageHeading`, `OperationalList`, and `OperationalRow` are published shared compositions.
+- `ApplicationShell` and the horizontal Workbench navigation contract were removed in the v2 breaking release.
 - Tenant selectors, authentication/enrollment/recovery forms, settings/member/invitation forms, artifact viewers, and protected-action boundaries are product compositions built from the shared controls.
 - Unavailable, denied, not-found, renderer-error, loading, and empty states use the shared state primitives.
 

@@ -15,4 +15,4 @@ pnpm check
 
 Consumers pin exact package versions. Better Auth remains the sole authority at `auth.ctx9.com`; every consumer retains its own client, database adapter, audience, host-only cookie, session persistence, and capability policy.
 
-Release, CI consumption, upgrade, and rollback are documented in [`.docs/package-release.md`](.docs/package-release.md).
+Release, CI consumption, upgrade, and rollback are documented in [`docs/package-release.md`](docs/package-release.md).

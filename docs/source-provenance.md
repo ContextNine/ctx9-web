@@ -2,7 +2,9 @@
 
 Reference repository: Impression
 
-Pinned reference commit: `24f2833abf7a24e7ada6b2f516a599cae8fcc50b`
+Pinned reference commit: `df629dea07e6513d6875a4b8f22a63cba8bbf2ca`
+
+Structural sidebar reference: shadcn/ui `dashboard-01` at `b9938d94635fca7a4560449713b0b1ba87d77bc6` (MIT).
 
 CTX9 never imports Impression at build or runtime. Reference files are reviewed at the pinned commit and CTX9 code is classified below.
 
@@ -18,8 +20,8 @@ CTX9 never imports Impression at build or runtime. Reference files are reviewed 
 | date/time controls              | Impression calendar/date/time component family identified by style guide                                                            | rewritten      | Product-neutral calendar, time, timezone, date-time, and range compositions                                    |
 | errors                          | Impression public and internal error patterns                                                                                       | rewritten      | Public marketing shell excluded; compact operational states added                                              |
 | overlays and command            | Impression Radix and command-menu component family                                                                                  | adapted        | Popover, tooltip, dropdown, and command surfaces use opaque black operational styling                          |
-| data display                    | Impression tabs, table, scroll, badge, and separator component family                                                               | rewritten      | Horizontal Workbench navigation and dense table/row behavior                                                   |
-| application shells              | Impression internal application layout patterns                                                                                     | rewritten      | Product-neutral focused and operational Workbench shells                                                       |
+| data display                    | Impression tabs, table, scroll, badge, and separator component family                                                               | rewritten      | Neutral selected states and compact table/row behavior                                                         |
+| application shells              | Impression `sidebar.tsx`, `brand-switch-dropdown.tsx`, `common.tsx`; shadcn `dashboard-01` sidebar and nav-user structure           | adapted        | Shared responsive CTX9 sidebar, tenant/account footer menu, Auth shell, keyboard toggle, and mobile drawer     |
 
 ## Font provenance
 
