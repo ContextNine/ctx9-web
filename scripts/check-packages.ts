@@ -4,6 +4,11 @@ const packages = await readdir(new URL("../packages", import.meta.url));
 if (packages.sort().join(",") !== "ui,web-auth")
   throw new Error("package-inventory-invalid");
 
+const workspace = JSON.parse(
+  await readFile(new URL("../package.json", import.meta.url), "utf8"),
+) as { version?: string };
+if (!workspace.version) throw new Error("workspace-version-missing");
+
 for (const name of packages) {
   const raw = await readFile(
     new URL(`../packages/${name}/package.json`, import.meta.url),
@@ -17,7 +22,7 @@ for (const name of packages) {
     private?: boolean;
     publishConfig?: { registry?: string };
   };
-  if (manifest.version !== "2.0.0" || manifest.private === true)
+  if (manifest.version !== workspace.version || manifest.private === true)
     throw new Error(`package-release-contract-invalid:${name}`);
   if (manifest.engines?.node !== ">=24.19.0 <25")
     throw new Error(`package-node-contract-invalid:${name}`);
