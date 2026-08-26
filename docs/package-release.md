@@ -25,6 +25,12 @@ Consumer projects pin exact versions. The package project allowlists the consume
 
 The generated file is removed with the job workspace and is never committed. Local installation uses an operator's existing GitLab package-read credential through an environment-expanded user configuration outside this repository.
 
+## Workspace local overlay
+
+The CTX9 workspace's loopback development harness builds `@ctx9/ui` and `@ctx9/web-auth` from this checkout, then creates ignored links beneath each consumer's `node_modules/@ctx9`. This is a development-only package channel. It does not edit a consumer manifest or lockfile, and production builds continue to consume exact immutable registry versions.
+
+The shared shell accepts product, account-security, tenant-settings, tenant-creation, and brand destinations as typed props. Local consumers pass their `.localhost` origins; published consumers retain the production defaults. Do not add hostname checks to shared UI components.
+
 ## Upgrade and rollback
 
 - Upgrade one component at a time with an exact package version and run its full component checks.

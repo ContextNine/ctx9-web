@@ -55,6 +55,9 @@ export interface AccountMenuProps {
   actions?: readonly AccountMenuAction[];
   canManageTenant?: boolean;
   canCreateTenant?: boolean;
+  accountSecurityHref?: string;
+  tenantSettingsHref?: string;
+  createTenantHref?: string;
   onSignOut: () => void;
   collapsed?: boolean;
 }
@@ -101,6 +104,9 @@ export function AccountMenu({
   actions = [],
   canManageTenant = false,
   canCreateTenant = false,
+  accountSecurityHref = "https://auth.ctx9.com/account/security",
+  tenantSettingsHref = "https://platform.ctx9.com/settings",
+  createTenantHref = "https://platform.ctx9.com/tenants/new",
   onSignOut,
   collapsed = false,
 }: AccountMenuProps): React.JSX.Element {
@@ -108,7 +114,7 @@ export function AccountMenu({
     {
       id: "security",
       label: "Account security",
-      href: "https://auth.ctx9.com/account/security",
+      href: accountSecurityHref,
       icon: <Shield aria-hidden="true" className="size-4" />,
     },
     ...actions,
@@ -117,7 +123,7 @@ export function AccountMenu({
           {
             id: "tenant-settings",
             label: "Tenant settings",
-            href: "https://platform.ctx9.com/settings",
+            href: tenantSettingsHref,
             icon: <Settings aria-hidden="true" className="size-4" />,
           },
         ]
@@ -127,7 +133,7 @@ export function AccountMenu({
           {
             id: "create-tenant",
             label: "Create tenant",
-            href: "https://platform.ctx9.com/tenants/new",
+            href: createTenantHref,
             icon: <Plus aria-hidden="true" className="size-4" />,
           },
         ]
@@ -226,9 +232,11 @@ export function AccountMenu({
 export function AppSidebarHeader({
   collapsed,
   onToggle,
+  platformHref = "https://platform.ctx9.com",
 }: {
   collapsed: boolean;
   onToggle: () => void;
+  platformHref?: string;
 }): React.JSX.Element {
   return (
     <div
@@ -239,7 +247,7 @@ export function AppSidebarHeader({
     >
       {!collapsed && (
         <a
-          href="https://platform.ctx9.com"
+          href={platformHref}
           className="flex min-w-0 items-center gap-2.5 text-foreground no-underline"
         >
           <span className="grid size-8 place-items-center rounded-md border border-border-strong font-mono text-xs font-semibold">
@@ -337,6 +345,7 @@ export function AppSidebar({
   mobileOpen,
   onToggle,
   onCloseMobile,
+  platformHref,
 }: {
   product: string;
   products: readonly AppNavigationItem[];
@@ -346,6 +355,7 @@ export function AppSidebar({
   mobileOpen: boolean;
   onToggle: () => void;
   onCloseMobile: () => void;
+  platformHref: string;
 }): React.JSX.Element {
   return (
     <aside
@@ -358,7 +368,7 @@ export function AppSidebar({
     >
       <div className="flex items-center md:hidden">
         <a
-          href="https://platform.ctx9.com"
+          href={platformHref}
           className="ml-3 flex min-w-0 flex-1 items-center gap-2.5 text-foreground no-underline"
         >
           <span className="grid size-8 place-items-center rounded-md border border-border-strong font-mono text-xs font-semibold">
@@ -378,7 +388,11 @@ export function AppSidebar({
         </Button>
       </div>
       <div className="hidden md:block">
-        <AppSidebarHeader collapsed={collapsed} onToggle={onToggle} />
+        <AppSidebarHeader
+          collapsed={collapsed}
+          onToggle={onToggle}
+          platformHref={platformHref}
+        />
       </div>
       <div className="grid gap-3 overflow-y-auto pb-3">
         <AppSidebarGroup collapsed={collapsed} label="Services">
@@ -431,6 +445,9 @@ export function AppShell({
   skipLinkLabel?: string;
   mainId?: string;
 }): React.JSX.Element {
+  const platformHref =
+    products.find(({ id }) => id === "platform")?.href ??
+    "https://platform.ctx9.com";
   const [collapsed, setCollapsed] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
@@ -472,6 +489,7 @@ export function AppShell({
         onCloseMobile={() => {
           setMobileOpen(false);
         }}
+        platformHref={platformHref}
       />
       {mobileOpen && (
         <Button
@@ -511,6 +529,7 @@ export function AuthShell({
   description,
   children,
   footer,
+  brandHref = "https://platform.ctx9.com",
   brandTitle = "Complex infrastructure, made quiet.",
   brandDescription = "One account for your services, publications, and encrypted configuration.",
 }: {
@@ -518,6 +537,7 @@ export function AuthShell({
   description?: string;
   children: React.ReactNode;
   footer?: React.ReactNode;
+  brandHref?: string;
   brandTitle?: string;
   brandDescription?: string;
 }): React.JSX.Element {
@@ -526,7 +546,7 @@ export function AuthShell({
       <section className="flex min-w-0 items-center justify-center bg-sidebar px-5 py-10 sm:px-8">
         <div className="w-full max-w-md">
           <a
-            href="https://platform.ctx9.com"
+            href={brandHref}
             className="text-sm font-semibold text-foreground no-underline"
           >
             CTX9
