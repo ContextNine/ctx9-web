@@ -1,7 +1,6 @@
 import {
   Check,
-  ChevronLeft,
-  ChevronRight,
+  ChevronDown,
   ChevronsUpDown,
   LogOut,
   Menu,
@@ -27,7 +26,6 @@ export interface AppNavigationItem {
   id: string;
   label: string;
   href: string;
-  icon?: React.ReactNode;
   current?: boolean;
 }
 
@@ -53,13 +51,13 @@ export interface AccountMenuProps {
   userDetail?: string;
   tenants?: readonly AccountTenant[];
   actions?: readonly AccountMenuAction[];
+  productSettings?: { label: string; href: string };
   canManageTenant?: boolean;
   canCreateTenant?: boolean;
   accountSecurityHref?: string;
   tenantSettingsHref?: string;
   createTenantHref?: string;
   onSignOut: () => void;
-  collapsed?: boolean;
 }
 
 function Initials({ value }: { value: string }): React.JSX.Element {
@@ -102,13 +100,13 @@ export function AccountMenu({
   userDetail,
   tenants = [],
   actions = [],
+  productSettings,
   canManageTenant = false,
   canCreateTenant = false,
   accountSecurityHref = "https://auth.ctx9.com/account/security",
   tenantSettingsHref = "https://platform.ctx9.com/settings",
   createTenantHref = "https://platform.ctx9.com/tenants/new",
   onSignOut,
-  collapsed = false,
 }: AccountMenuProps): React.JSX.Element {
   const menuActions: AccountMenuAction[] = [
     {
@@ -117,6 +115,16 @@ export function AccountMenu({
       href: accountSecurityHref,
       icon: <Shield aria-hidden="true" className="size-4" />,
     },
+    ...(productSettings
+      ? [
+          {
+            id: "product-settings",
+            label: productSettings.label,
+            href: productSettings.href,
+            icon: <Settings aria-hidden="true" className="size-4" />,
+          },
+        ]
+      : []),
     ...actions,
     ...(canManageTenant
       ? [
@@ -150,29 +158,21 @@ export function AccountMenu({
         <Button
           type="button"
           variant="quiet"
-          className={cn(
-            "h-auto w-full justify-start rounded-full border-transparent p-1.5 text-left",
-            collapsed && "justify-center px-0",
-          )}
-          aria-label={collapsed ? `${tenant}, ${userName}` : undefined}
+          className="h-auto w-full justify-start rounded-full border-transparent p-1.5 text-left"
         >
           <Initials value={userName} />
-          {!collapsed && (
-            <>
-              <span className="grid min-w-0 flex-1 gap-0.5">
-                <span className="truncate text-sm font-semibold text-foreground">
-                  {tenant}
-                </span>
-                <span className="truncate text-xs font-normal text-muted-foreground">
-                  {userName}
-                </span>
-              </span>
-              <ChevronsUpDown
-                aria-hidden="true"
-                className="size-4 text-muted-foreground"
-              />
-            </>
-          )}
+          <span className="grid min-w-0 flex-1 gap-0.5">
+            <span className="truncate text-sm font-semibold text-foreground">
+              {tenant}
+            </span>
+            <span className="truncate text-xs font-normal text-muted-foreground">
+              {userName}
+            </span>
+          </span>
+          <ChevronsUpDown
+            aria-hidden="true"
+            className="size-4 text-muted-foreground"
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -229,48 +229,78 @@ export function AccountMenu({
   );
 }
 
+function Ctx9Mark(): React.JSX.Element {
+  return (
+    <svg aria-hidden="true" className="size-8 shrink-0" viewBox="0 0 64 64">
+      <g fill="#f3ecec" shapeRendering="crispEdges">
+        <rect x="10" y="10" width="12" height="12" />
+        <rect x="26" y="10" width="12" height="12" />
+        <rect x="42" y="26" width="12" height="12" />
+        <rect x="10" y="42" width="12" height="12" />
+        <rect x="42" y="42" width="12" height="12" />
+      </g>
+      <rect
+        x="10"
+        y="26"
+        width="12"
+        height="12"
+        fill="#e9f59f"
+        shapeRendering="crispEdges"
+      />
+    </svg>
+  );
+}
+
 export function AppSidebarHeader({
-  collapsed,
-  onToggle,
-  platformHref = "https://platform.ctx9.com",
+  product,
+  products,
 }: {
-  collapsed: boolean;
-  onToggle: () => void;
-  platformHref?: string;
+  product: string;
+  products: readonly AppNavigationItem[];
 }): React.JSX.Element {
   return (
-    <div
-      className={cn(
-        "flex min-h-16 items-center justify-between gap-2 px-3",
-        collapsed && "justify-center px-2",
-      )}
-    >
-      {!collapsed && (
-        <a
-          href={platformHref}
-          className="flex min-w-0 items-center gap-2.5 text-foreground no-underline"
+    <div className="flex min-h-16 items-center px-2">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            type="button"
+            variant="quiet"
+            className="h-12 w-full justify-start gap-2.5 border-transparent px-2"
+            aria-label={`Switch service. Current service: ${product}`}
+          >
+            <Ctx9Mark />
+            <span className="min-w-0 flex-1 text-left text-sm font-semibold">
+              CTX9
+            </span>
+            <ChevronDown
+              aria-hidden="true"
+              className="size-4 text-muted-foreground"
+            />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          side="bottom"
+          align="start"
+          sideOffset={4}
+          className="w-[230px] rounded-lg p-1.5"
         >
-          <span className="grid size-8 place-items-center rounded-md border border-border-strong font-mono text-xs font-semibold">
-            C9
-          </span>
-          <span className="text-sm font-semibold">CTX9</span>
-        </a>
-      )}
-      <Button
-        type="button"
-        variant="quiet"
-        size="icon"
-        className="size-8 shrink-0"
-        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        onClick={onToggle}
-      >
-        {collapsed ? (
-          <ChevronRight aria-hidden="true" className="size-4" />
-        ) : (
-          <ChevronLeft aria-hidden="true" className="size-4" />
-        )}
-      </Button>
+          <DropdownMenuLabel>Services</DropdownMenuLabel>
+          {products.map((item) => (
+            <DropdownMenuItem
+              key={item.id}
+              asChild
+              className="min-h-9 cursor-pointer gap-2 rounded-md px-2 text-sm"
+            >
+              <a href={item.href} className="no-underline">
+                <span className="min-w-0 flex-1 truncate">{item.label}</span>
+                {item.current && (
+                  <Check aria-label="Current service" className="size-4" />
+                )}
+              </a>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }
@@ -278,15 +308,13 @@ export function AppSidebarHeader({
 export function AppSidebarGroup({
   label,
   children,
-  collapsed = false,
 }: {
   label?: string;
   children: React.ReactNode;
-  collapsed?: boolean;
 }): React.JSX.Element {
   return (
     <section className="grid gap-1 px-2">
-      {label && !collapsed && (
+      {label && (
         <h2 className="px-2 pt-1 text-xs font-medium text-muted-foreground">
           {label}
         </h2>
@@ -298,40 +326,31 @@ export function AppSidebarGroup({
 
 export function AppSidebarLink({
   item,
-  collapsed = false,
 }: {
   item: AppNavigationItem;
-  collapsed?: boolean;
 }): React.JSX.Element {
   return (
     <a
       href={item.href}
       aria-current={item.current ? "page" : undefined}
-      title={collapsed ? item.label : undefined}
       className={cn(
-        "flex min-h-9 items-center gap-2.5 rounded-md px-2.5 text-sm font-medium text-nav-foreground no-underline transition-colors hover:bg-sidebar-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
+        "flex min-h-9 items-center rounded-md px-2.5 text-sm font-medium text-nav-foreground no-underline transition-colors hover:bg-sidebar-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
         item.current && "bg-selected text-foreground",
-        collapsed && "justify-center px-0",
       )}
     >
-      <span className="grid size-4 shrink-0 place-items-center text-muted-foreground [svg]:size-4">
-        {item.icon}
-      </span>
-      {!collapsed && <span className="truncate">{item.label}</span>}
+      <span className="truncate">{item.label}</span>
     </a>
   );
 }
 
 export function AppSidebarFooter({
   account,
-  collapsed,
 }: {
   account: AccountMenuProps;
-  collapsed: boolean;
 }): React.JSX.Element {
   return (
     <div className="mt-auto border-t border-border p-2">
-      <AccountMenu {...account} collapsed={collapsed} />
+      <AccountMenu {...account} />
     </div>
   );
 }
@@ -341,73 +360,47 @@ export function AppSidebar({
   products,
   navigation,
   account,
-  collapsed,
   mobileOpen,
-  onToggle,
   onCloseMobile,
-  platformHref,
 }: {
   product: string;
   products: readonly AppNavigationItem[];
   navigation: readonly AppNavigationItem[];
   account: AccountMenuProps;
-  collapsed: boolean;
   mobileOpen: boolean;
-  onToggle: () => void;
   onCloseMobile: () => void;
-  platformHref: string;
 }): React.JSX.Element {
   return (
     <aside
       aria-label={`${product} sidebar`}
       data-mobile-open={mobileOpen}
       className={cn(
-        "fixed inset-y-0 left-0 z-40 flex w-[246px] -translate-x-full flex-col border-r border-border bg-sidebar transition-[transform,width] duration-150 data-[mobile-open=true]:translate-x-0 md:sticky md:top-0 md:h-dvh md:translate-x-0",
-        collapsed && "md:w-[62px]",
+        "fixed inset-y-0 left-0 z-40 flex w-[246px] -translate-x-full flex-col border-r border-border bg-sidebar transition-transform duration-150 data-[mobile-open=true]:translate-x-0 md:sticky md:top-0 md:h-dvh md:translate-x-0",
       )}
     >
-      <div className="flex items-center md:hidden">
-        <a
-          href={platformHref}
-          className="ml-3 flex min-w-0 flex-1 items-center gap-2.5 text-foreground no-underline"
-        >
-          <span className="grid size-8 place-items-center rounded-md border border-border-strong font-mono text-xs font-semibold">
-            C9
-          </span>
-          <span className="text-sm font-semibold">CTX9</span>
-        </a>
+      <div className="flex items-center">
+        <div className="min-w-0 flex-1">
+          <AppSidebarHeader product={product} products={products} />
+        </div>
         <Button
           type="button"
           variant="quiet"
           size="icon"
-          className="m-3 size-8"
+          className="m-3 size-8 md:hidden"
           onClick={onCloseMobile}
           aria-label="Close menu"
         >
           <X aria-hidden="true" className="size-4" />
         </Button>
       </div>
-      <div className="hidden md:block">
-        <AppSidebarHeader
-          collapsed={collapsed}
-          onToggle={onToggle}
-          platformHref={platformHref}
-        />
-      </div>
-      <div className="grid gap-3 overflow-y-auto pb-3">
-        <AppSidebarGroup collapsed={collapsed} label="Services">
-          {products.map((item) => (
-            <AppSidebarLink key={item.id} item={item} collapsed={collapsed} />
-          ))}
-        </AppSidebarGroup>
-        <div className="mx-4 h-px bg-border" />
-        <AppSidebarGroup collapsed={collapsed} label={product}>
+      <div className="grid gap-3 overflow-y-auto pb-3 pt-1">
+        <AppSidebarGroup label={product}>
           {navigation.map((item) => (
-            <AppSidebarLink key={item.id} item={item} collapsed={collapsed} />
+            <AppSidebarLink key={item.id} item={item} />
           ))}
         </AppSidebarGroup>
       </div>
-      <AppSidebarFooter account={account} collapsed={collapsed} />
+      <AppSidebarFooter account={account} />
     </aside>
   );
 }
@@ -445,18 +438,10 @@ export function AppShell({
   skipLinkLabel?: string;
   mainId?: string;
 }): React.JSX.Element {
-  const platformHref =
-    products.find(({ id }) => id === "platform")?.href ??
-    "https://platform.ctx9.com";
-  const [collapsed, setCollapsed] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
     const close = (event: KeyboardEvent) => {
       if (event.key === "Escape") setMobileOpen(false);
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "b") {
-        event.preventDefault();
-        setCollapsed((current) => !current);
-      }
     };
     window.addEventListener("keydown", close);
     return () => {
@@ -467,9 +452,7 @@ export function AppShell({
     <div
       className={cn(
         "min-h-dvh bg-black text-foreground md:grid",
-        collapsed
-          ? "md:grid-cols-[62px_minmax(0,1fr)]"
-          : "md:grid-cols-[246px_minmax(0,1fr)]",
+        "md:grid-cols-[246px_minmax(0,1fr)]",
         className,
       )}
     >
@@ -481,15 +464,10 @@ export function AppShell({
         products={products}
         navigation={navigation}
         account={account}
-        collapsed={collapsed}
         mobileOpen={mobileOpen}
-        onToggle={() => {
-          setCollapsed((current) => !current);
-        }}
         onCloseMobile={() => {
           setMobileOpen(false);
         }}
-        platformHref={platformHref}
       />
       {mobileOpen && (
         <Button
@@ -622,7 +600,7 @@ export function PageHeading({
   actions,
   className,
 }: {
-  title: string;
+  title: React.ReactNode;
   description?: string;
   actions?: React.ReactNode;
   className?: string;
@@ -662,21 +640,18 @@ export function OperationalRow({
   description,
   status,
   action,
+  href,
   className,
 }: {
   title: React.ReactNode;
   description?: React.ReactNode;
   status?: React.ReactNode;
   action?: React.ReactNode;
+  href?: string;
   className?: string;
 }): React.JSX.Element {
-  return (
-    <div
-      className={cn(
-        "grid min-h-16 grid-cols-[minmax(9rem,1fr)_minmax(12rem,2fr)_auto] items-center gap-4 px-1 py-2 hover:bg-sidebar-hover max-sm:grid-cols-[1fr_auto]",
-        className,
-      )}
-    >
+  const content = (
+    <>
       <div className="text-sm font-medium">{title}</div>
       {description && (
         <div className="text-sm text-muted-foreground max-sm:col-span-2 max-sm:row-start-2">
@@ -687,6 +662,19 @@ export function OperationalRow({
         {status}
         {action}
       </div>
-    </div>
+    </>
+  );
+  const rowClassName = cn(
+    "grid min-h-16 grid-cols-[minmax(9rem,1fr)_minmax(12rem,2fr)_auto] items-center gap-4 px-1 py-2 hover:bg-sidebar-hover max-sm:grid-cols-[1fr_auto]",
+    href &&
+      "cursor-pointer text-foreground no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus",
+    className,
+  );
+  return href ? (
+    <a href={href} className={rowClassName}>
+      {content}
+    </a>
+  ) : (
+    <div className={rowClassName}>{content}</div>
   );
 }

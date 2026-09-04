@@ -62,6 +62,7 @@ describe("shared product primitives", () => {
             title="Secrets"
             description="Protected values"
             status="Available"
+            href="/secrets"
           />
         </OperationalList>
       </AppShell>,
@@ -74,6 +75,17 @@ describe("shared product primitives", () => {
     ).toBe("#main-content");
     expect(screen.getByRole("main").getAttribute("tabindex")).toBe("-1");
     expect(screen.getByLabelText("Search services")).toBeTruthy();
+    expect(
+      screen
+        .getByRole("link", { name: /Secrets Protected values Available/u })
+        .getAttribute("href"),
+    ).toBe("/secrets");
+    await userEvent.setup().click(
+      screen.getByRole("button", {
+        name: "Switch service. Current service: Platform",
+      }),
+    );
+    expect(screen.getByRole("menuitem", { name: "Secrets" })).toBeTruthy();
     const results = await axe(container, {
       rules: { "color-contrast": { enabled: false } },
     });

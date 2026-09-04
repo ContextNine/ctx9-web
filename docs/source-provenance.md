@@ -8,6 +8,8 @@ Structural sidebar reference: shadcn/ui `dashboard-01` at `b9938d94635fca7a45604
 
 CTX9 never imports Impression at build or runtime. Reference files are reviewed at the pinned commit and CTX9 code is classified below.
 
+The shared `Ctx9Mark` is the original six-cell vector served by `ctx9.com/tenants/ctx9/icons/favicon.svg`. The package embeds the mark so internal products make no runtime request to the public site.
+
 | CTX9 surface                    | Impression reference                                                                                                                | Classification | Notes                                                                                                          |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------- |
 | dark mono and semantic tokens   | `tooling/tailwind/colors.css`                                                                                                       | adapted        | Light roots, theme selectors, warm marketing neutrals, and media-query theme detection removed                 |

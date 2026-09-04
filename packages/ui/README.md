@@ -21,6 +21,8 @@ The package owns:
 - tabs, tables, pagination, scroll areas, separators, badges, and status feedback;
 - calendar, time, timezone, date-time, and date-range controls;
 - loading, empty, denied, unavailable, and error states;
-- responsive authenticated sidebar, account/tenant menu, and focused or two-column authentication shells.
+- responsive authenticated sidebar with a shared service switcher, account/tenant menu, and focused or two-column authentication shells.
 
 Applications compose these primitives for product-specific workflows. They do not copy the package source or create local replacements for standard controls.
+
+Pass `href` to `OperationalRow` when the row navigates. The complete row then owns pointer, hover, keyboard focus, and link semantics without an extra Open button.

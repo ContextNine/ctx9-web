@@ -34,12 +34,13 @@ This guide is canonical for CTX9-owned internal applications: Platform, Auth, en
 - Destructive actions are visually restrained until the confirmation boundary.
 - Recovery material, secrets metadata, and artifact identifiers use the mono face and selectable wrapping.
 - Standard actions use `FunkyLoaderButton`: black background, white text, a restrained Impression-derived hover treatment, and stable loading copy. `Button` owns the same black/white primary contract for link-like and non-loading compositions.
+- Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
 
 The runtime variables, base contracts, controls, feedback states, Auth composition, sidebar, account menu, and responsive shell live in `@ctx9/ui`. Product applications compose these primitives without maintaining local replacements.
 
 ## Sidebar and account menu
 
-- Desktop navigation is a 246px left sidebar that can collapse to 62px icons. Both the visible control and the edge rail toggle it; the rail uses a pointer because the width has only two states.
+- Desktop navigation is a fixed 246px left sidebar. The CTX9 grid mark and name open the service switcher; product-local links sit below it without icons.
 - Mobile navigation is an off-canvas drawer with an explicit open button, close button, backdrop, Escape handling, and focus-visible controls.
 - The footer trigger uses a 40px round avatar, current tenant, and user name. Its menu is 270px wide and follows Impression's space/brand switcher hierarchy.
 - The account menu contains current/switchable tenants, Account security, capability-backed tenant administration, Create tenant for Cluster Administrators, and Sign out. Do not add dead menu items.
