@@ -35,6 +35,15 @@ export interface TenantAccountSettingsAssertion {
   requestId: string;
 }
 
+export class TenantAccountSettingsRequestError extends Error {
+  constructor(
+    readonly status: number,
+    readonly safeCode: string,
+  ) {
+    super("tenant-account-settings-request-failed");
+  }
+}
+
 function digestBody(body: string): string {
   return createHash("sha256").update(body).digest("hex");
 }
@@ -129,4 +138,66 @@ export async function verifyTenantAccountSettingsAssertion({
     membershipVersion: assertion.membership_version,
     requestId: assertion.jti,
   };
+}
+
+/** Sends one assertion-authenticated request from a product BFF to Platform. */
+export async function requestTenantAccountSettings({
+  origin,
+  clientId,
+  clientSecret,
+  userId,
+  tenantId,
+  membershipVersion,
+  method,
+  path,
+  body,
+  request = fetch,
+}: {
+  origin: string;
+  clientId: string;
+  clientSecret: string;
+  userId: string;
+  tenantId: string;
+  membershipVersion: number;
+  method: TenantAccountSettingsMethod;
+  path: `/internal/settings${string}`;
+  body?: unknown;
+  request?: typeof fetch;
+}): Promise<unknown> {
+  const serializedBody = body === undefined ? "" : JSON.stringify(body);
+  const assertion = await createTenantAccountSettingsAssertion({
+    clientId,
+    clientSecret,
+    userId,
+    tenantId,
+    membershipVersion,
+    method,
+    path,
+    body: serializedBody,
+  });
+  const response = await request(new URL(path, origin), {
+    method,
+    redirect: "error",
+    headers: {
+      authorization: `Bearer ${assertion}`,
+      ...(body === undefined
+        ? {}
+        : { "content-type": "application/json; charset=utf-8" }),
+    },
+    ...(body === undefined ? {} : { body: serializedBody }),
+  });
+  if (!response.ok) {
+    const failure: unknown = await response.json().catch(() => undefined);
+    const safeCode =
+      failure &&
+      typeof failure === "object" &&
+      "error" in failure &&
+      typeof failure.error === "string" &&
+      /^[a-z0-9-]{1,80}$/u.test(failure.error)
+        ? failure.error
+        : "unknown";
+    throw new TenantAccountSettingsRequestError(response.status, safeCode);
+  }
+  if (response.status === 204) return undefined;
+  return response.json();
 }

@@ -1,7 +1,8 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import {
   createTenantAccountSettingsAssertion,
+  requestTenantAccountSettings,
   verifyTenantAccountSettingsAssertion,
 } from "./settings-gateway.js";
 
@@ -81,5 +82,40 @@ describe("tenant account settings gateway", () => {
         now: new Date("2026-09-12T12:01:00Z"),
       }),
     ).rejects.toThrow();
+  });
+
+  it("sends the exact signed body without exposing the client secret", async () => {
+    const request = vi.fn<typeof fetch>(() =>
+      Promise.resolve(
+        new Response(JSON.stringify({ selectedTenantId: "tenant-two" }), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        }),
+      ),
+    );
+    await expect(
+      requestTenantAccountSettings({
+        origin: "https://platform.ctx9.test",
+        clientId: "publisher",
+        clientSecret: secret,
+        userId: "user-one",
+        tenantId: "019d0000-0000-7000-8000-000000000001",
+        membershipVersion: 4,
+        method: "POST",
+        path: "/internal/settings/tenant/select",
+        body: { tenantId: "tenant-two" },
+        request,
+      }),
+    ).resolves.toEqual({ selectedTenantId: "tenant-two" });
+    const [url, init] = request.mock.calls[0] ?? [];
+    expect(url).toBeInstanceOf(URL);
+    if (!(url instanceof URL)) throw new Error("expected-url");
+    expect(url.href).toBe(
+      "https://platform.ctx9.test/internal/settings/tenant/select",
+    );
+    expect(init?.body).toBe('{"tenantId":"tenant-two"}');
+    const authorization = new Headers(init?.headers).get("authorization");
+    expect(authorization).toMatch(/^Bearer /u);
+    expect(authorization).not.toContain(secret);
   });
 });
