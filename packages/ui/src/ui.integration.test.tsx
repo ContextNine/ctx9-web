@@ -140,19 +140,58 @@ describe("shared product primitives", () => {
           onOpenChange={() => undefined}
           activeTab={activeTab}
           onActiveTabChange={setActiveTab}
-          tabs={[
-            { id: "tenant", label: "Tenant", content: <p>Tenant content</p> },
-            { id: "access", label: "Access", content: <p>Access content</p> },
-          ]}
+          snapshot={{
+            user: { name: "Alex Morgan", email: "alex@example.test" },
+            tenants: [
+              { id: "tenant-1", slug: "northstar", displayName: "Northstar" },
+            ],
+            selectedTenantId: "tenant-1",
+            access: {
+              clusterAdministrator: true,
+              memberships: [
+                {
+                  tenantId: "tenant-1",
+                  tenantSlug: "northstar",
+                  tenantName: "Northstar",
+                  role: "tenant_admin",
+                  state: "active",
+                },
+              ],
+            },
+            passkeys: [],
+            recoveryHref: "/recovery",
+            accountSecurityHref: "/account/security",
+          }}
+          administration={{
+            tenant: {
+              id: "tenant-1",
+              slug: "northstar",
+              displayName: "Northstar",
+            },
+            members: [],
+            invitations: [],
+            provisioning: { state: "ready", steps: [] },
+            resendAvailable: false,
+          }}
+          actions={{
+            selectTenant: () => Promise.resolve(),
+            createTenant: () => Promise.resolve(),
+            createInvitation: () => Promise.resolve({}),
+            updateMember: () => Promise.resolve(),
+            retryProvisioning: () => Promise.resolve(),
+          }}
         />
       );
     }
 
     const { container } = render(<SettingsExample />);
-    expect(screen.getByText("Tenant content")).toBeTruthy();
+    expect(
+      screen.getByRole("heading", { name: "Tenant", level: 2 }),
+    ).toBeTruthy();
     await user.click(screen.getByRole("button", { name: "Access" }));
-    expect(screen.getByText("Access content")).toBeTruthy();
-    expect(screen.queryByText("Tenant content")).toBeNull();
+    expect(
+      screen.getByRole("heading", { name: "Access", level: 2 }),
+    ).toBeTruthy();
     const results = await axe(container, {
       rules: { "color-contrast": { enabled: false } },
     });
