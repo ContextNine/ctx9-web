@@ -18,6 +18,8 @@ const assertionSchema = z.object({
   exp: z.number().int(),
   jti: z.uuid(),
   schema_version: z.literal(1),
+  tenant_id: z.uuid(),
+  membership_version: z.number().int().positive(),
   method: methodSchema,
   path: z.string().min(1).max(512).startsWith("/internal/settings"),
   body_sha256: z.string().regex(/^[a-f0-9]{64}$/u),
@@ -28,6 +30,8 @@ export type TenantAccountSettingsMethod = z.infer<typeof methodSchema>;
 export interface TenantAccountSettingsAssertion {
   clientId: string;
   userId: string;
+  tenantId: string;
+  membershipVersion: number;
   requestId: string;
 }
 
@@ -46,6 +50,8 @@ export async function createTenantAccountSettingsAssertion({
   clientId,
   clientSecret,
   userId,
+  tenantId,
+  membershipVersion,
   method,
   path,
   body = "",
@@ -54,6 +60,8 @@ export async function createTenantAccountSettingsAssertion({
   clientId: string;
   clientSecret: string;
   userId: string;
+  tenantId: string;
+  membershipVersion: number;
   method: TenantAccountSettingsMethod;
   path: `/internal/settings${string}`;
   body?: string;
@@ -62,6 +70,8 @@ export async function createTenantAccountSettingsAssertion({
   const issuedAt = Math.floor(now.getTime() / 1000);
   return new SignJWT({
     schema_version: 1,
+    tenant_id: tenantId,
+    membership_version: membershipVersion,
     method,
     path,
     body_sha256: digestBody(body),
@@ -115,6 +125,8 @@ export async function verifyTenantAccountSettingsAssertion({
   return {
     clientId: assertion.iss,
     userId: assertion.sub,
+    tenantId: assertion.tenant_id,
+    membershipVersion: assertion.membership_version,
     requestId: assertion.jti,
   };
 }

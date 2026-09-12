@@ -14,6 +14,8 @@ describe("tenant account settings gateway", () => {
       clientId: "publisher",
       clientSecret: secret,
       userId: "user-one",
+      tenantId: "019d0000-0000-7000-8000-000000000001",
+      membershipVersion: 4,
       method: "POST",
       path: "/internal/settings/tenant/select",
       body: '{"tenantId":"tenant-one"}',
@@ -30,7 +32,12 @@ describe("tenant account settings gateway", () => {
           clientId === "publisher" ? secret : undefined,
         now: new Date("2026-09-12T12:00:20Z"),
       }),
-    ).resolves.toMatchObject({ clientId: "publisher", userId: "user-one" });
+    ).resolves.toMatchObject({
+      clientId: "publisher",
+      userId: "user-one",
+      tenantId: "019d0000-0000-7000-8000-000000000001",
+      membershipVersion: 4,
+    });
 
     await expect(
       verifyTenantAccountSettingsAssertion({
@@ -49,6 +56,8 @@ describe("tenant account settings gateway", () => {
       clientId: "secret-bindings-secrets",
       clientSecret: secret,
       userId: "user-one",
+      tenantId: "019d0000-0000-7000-8000-000000000001",
+      membershipVersion: 4,
       method: "GET",
       path: "/internal/settings/snapshot",
       now: issuedAt,
