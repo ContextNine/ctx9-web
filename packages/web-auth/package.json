@@ -1,6 +1,6 @@
 {
   "name": "@ctx9/web-auth",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Shared CTX9 confidential OIDC BFF protocol",
   "license": "UNLICENSED",
   "type": "module",
