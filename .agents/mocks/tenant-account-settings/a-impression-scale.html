@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Selected settings dialog mock</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #000;
+        color: #fff;
+        font:
+          14px system-ui,
+          sans-serif;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgb(0 0 0 / 45%);
+      }
+      main {
+        position: relative;
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        width: 90vw;
+        height: 92vh;
+        overflow: hidden;
+        border: 1px solid #27272a;
+        border-radius: 12px;
+        background: #09090b;
+        box-shadow: 0 24px 80px rgb(0 0 0 / 70%);
+        animation: enter 300ms ease-out;
+      }
+      aside {
+        padding: 96px 24px 24px;
+        border-right: 1px solid #27272a;
+        background: #111113;
+      }
+      h1 {
+        margin: 0 0 18px 12px;
+        font-size: 20px;
+      }
+      nav {
+        display: grid;
+        gap: 4px;
+      }
+      button {
+        height: 38px;
+        padding: 0 12px;
+        border: 0;
+        border-radius: 6px;
+        background: transparent;
+        color: #b5b5ba;
+        text-align: left;
+      }
+      button[aria-current="page"] {
+        background: #27272a;
+        color: #fff;
+      }
+      section {
+        padding: 96px 56px;
+        overflow: auto;
+      }
+      h2 {
+        margin: 0 0 8px;
+        font-size: 24px;
+      }
+      p {
+        margin: 0;
+        color: #a1a1aa;
+      }
+      .rows {
+        margin-top: 40px;
+        border-top: 1px solid #27272a;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 18px 0;
+        border-bottom: 1px solid #27272a;
+      }
+      @keyframes enter {
+        from {
+          opacity: 0;
+          transform: scale(1.15);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        main {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main role="dialog" aria-modal="true" aria-labelledby="title">
+      <aside>
+        <h1 id="title">Settings</h1>
+        <nav aria-label="Settings">
+          <button aria-current="page">Tenant</button>
+          <button>Access</button>
+          <button>Provisioning</button>
+          <button>Account security</button>
+        </nav>
+      </aside>
+      <section>
+        <h2>Tenant</h2>
+        <p>Manage the current tenant and switch between tenants.</p>
+        <div class="rows">
+          <div class="row">
+            <span>Current tenant</span><strong>CTX9</strong>
+          </div>
+          <div class="row"><span>Tenant ID</span><code>ctx9</code></div>
+          <div class="row">
+            <span>Create tenant</span><button>Create</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

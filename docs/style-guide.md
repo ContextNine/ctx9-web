@@ -40,7 +40,9 @@ The runtime variables, base contracts, controls, feedback states, Auth compositi
 
 ## Sidebar and account menu
 
-- Desktop navigation is a fixed 246px left sidebar. The CTX9 grid mark and name open the service switcher; product-local links sit below it without icons.
+- Desktop navigation is a fixed 246px left sidebar. The CTX9 grid mark and name open All apps in the fixed Agents, Secrets, Publisher order; product-local links sit below it without icons. Platform is a headless control plane, not an app destination.
 - Mobile navigation is an off-canvas drawer with an explicit open button, close button, backdrop, Escape handling, and focus-visible controls.
 - The footer trigger uses a 40px round avatar, current tenant, and user name. Its menu is 270px wide and follows Impression's space/brand switcher hierarchy.
-- The account menu contains current/switchable tenants, Account security, capability-backed tenant administration, Create tenant for Cluster Administrators, and Sign out. Do not add dead menu items.
+- The account menu contains current and switchable tenants, an optional product-settings action, Tenant and account settings, and Sign out. Do not add product settings until the product has a real settings page.
+- Tenant and account settings opens in the current app. Its near-full-viewport dialog uses a left tab rail for Tenant, Access, capability-backed Provisioning, and Account security. The dialog uses one 300ms opacity and scale transition and disables scale motion for reduced-motion users.
+- Route and tab changes keep the shell and useful cached content mounted. Never replace a page with visible loading copy, a spinner, or an animated placeholder.

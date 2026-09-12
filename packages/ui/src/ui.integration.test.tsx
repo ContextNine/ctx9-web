@@ -2,10 +2,12 @@
 
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import * as React from "react";
 import { axe } from "vitest-axe";
 import { describe, expect, it } from "vitest";
 
 import { Button, FunkyLoaderButton, buttonVariants } from "./button.js";
+import { createCtx9Applications } from "./applications.js";
 import { Checkbox, Input, Label } from "./controls.js";
 import {
   Dialog,
@@ -15,6 +17,10 @@ import {
   DialogTrigger,
 } from "./dialog.js";
 import { AppShell, OperationalList, OperationalRow } from "./shell.js";
+import {
+  TenantAccountSettingsDialog,
+  type TenantAccountSettingsTabId,
+} from "./settings-dialog.js";
 
 describe("shared product primitives", () => {
   it("keeps standard actions neutral and high contrast", () => {
@@ -33,15 +39,20 @@ describe("shared product primitives", () => {
   it("composes an accessible sidebar application surface", async () => {
     const { container } = render(
       <AppShell
-        product="Platform"
-        products={[
-          { id: "platform", label: "Platform", href: "/", current: true },
-          { id: "secrets", label: "Secrets", href: "/secrets" },
-        ]}
+        product="Secrets"
+        products={createCtx9Applications({
+          current: "secrets",
+          origins: {
+            agents: "/agents",
+            secrets: "/secrets",
+            publisher: "/publisher",
+          },
+        })}
         account={{
           tenant: "Northstar",
           userName: "Alex Morgan",
           userDetail: "alex@example.test",
+          onOpenTenantAccountSettings: () => undefined,
           onSignOut: () => undefined,
         }}
         navigation={[
@@ -67,7 +78,7 @@ describe("shared product primitives", () => {
         </OperationalList>
       </AppShell>,
     );
-    expect(screen.getByRole("navigation", { name: "Platform" })).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Secrets" })).toBeTruthy();
     expect(
       screen
         .getByRole("link", { name: "Skip to content" })
@@ -82,10 +93,12 @@ describe("shared product primitives", () => {
     ).toBe("/secrets");
     await userEvent.setup().click(
       screen.getByRole("button", {
-        name: "Switch service. Current service: Platform",
+        name: "Open All apps. Current app: Secrets",
       }),
     );
-    expect(screen.getByRole("menuitem", { name: "Secrets" })).toBeTruthy();
+    expect(
+      screen.getAllByRole("menuitem").map((item) => item.textContent.trim()),
+    ).toEqual(["Agents", "Secrets", "Publisher"]);
     const results = await axe(container, {
       rules: { "color-contrast": { enabled: false } },
     });
@@ -114,5 +127,35 @@ describe("shared product primitives", () => {
     await user.keyboard("{Escape}");
     expect(screen.queryByRole("dialog")).toBeNull();
     expect(document.activeElement).toBe(trigger);
+  });
+
+  it("switches tenant settings tabs inside the shared dialog", async () => {
+    const user = userEvent.setup();
+    function SettingsExample() {
+      const [activeTab, setActiveTab] =
+        React.useState<TenantAccountSettingsTabId>("tenant");
+      return (
+        <TenantAccountSettingsDialog
+          open
+          onOpenChange={() => undefined}
+          activeTab={activeTab}
+          onActiveTabChange={setActiveTab}
+          tabs={[
+            { id: "tenant", label: "Tenant", content: <p>Tenant content</p> },
+            { id: "access", label: "Access", content: <p>Access content</p> },
+          ]}
+        />
+      );
+    }
+
+    const { container } = render(<SettingsExample />);
+    expect(screen.getByText("Tenant content")).toBeTruthy();
+    await user.click(screen.getByRole("button", { name: "Access" }));
+    expect(screen.getByText("Access content")).toBeTruthy();
+    expect(screen.queryByText("Tenant content")).toBeNull();
+    const results = await axe(container, {
+      rules: { "color-contrast": { enabled: false } },
+    });
+    expect(results.violations).toHaveLength(0);
   });
 });

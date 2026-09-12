@@ -26,35 +26,41 @@ export const DialogContent = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
     hideClose?: boolean;
+    overlayClassName?: string;
   }
->(({ className, children, hideClose = false, ...props }, ref) => (
-  <DialogPrimitive.Portal>
-    <DialogOverlay />
-    <DialogPrimitive.Content
-      ref={ref}
-      className={cn(
-        "fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-md border border-border-strong bg-popover p-5 text-foreground shadow-2xl focus:outline-none",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-      {!hideClose && (
-        <DialogPrimitive.Close asChild>
-          <Button
-            type="button"
-            variant="quiet"
-            size="icon"
-            className="absolute top-3 right-3"
-            aria-label="Close"
-          >
-            <X aria-hidden="true" className="size-4" />
-          </Button>
-        </DialogPrimitive.Close>
-      )}
-    </DialogPrimitive.Content>
-  </DialogPrimitive.Portal>
-));
+>(
+  (
+    { className, children, hideClose = false, overlayClassName, ...props },
+    ref,
+  ) => (
+    <DialogPrimitive.Portal>
+      <DialogOverlay className={overlayClassName} />
+      <DialogPrimitive.Content
+        ref={ref}
+        className={cn(
+          "fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-md border border-border-strong bg-popover p-5 text-foreground shadow-2xl focus:outline-none",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        {!hideClose && (
+          <DialogPrimitive.Close asChild>
+            <Button
+              type="button"
+              variant="quiet"
+              size="icon"
+              className="absolute top-3 right-3"
+              aria-label="Close"
+            >
+              <X aria-hidden="true" className="size-4" />
+            </Button>
+          </DialogPrimitive.Close>
+        )}
+      </DialogPrimitive.Content>
+    </DialogPrimitive.Portal>
+  ),
+);
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 export function DialogHeader({

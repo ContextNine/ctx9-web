@@ -4,9 +4,7 @@ import {
   ChevronsUpDown,
   LogOut,
   Menu,
-  Plus,
   Settings,
-  Shield,
   X,
 } from "lucide-react";
 import * as React from "react";
@@ -50,13 +48,8 @@ export interface AccountMenuProps {
   userName: string;
   userDetail?: string;
   tenants?: readonly AccountTenant[];
-  actions?: readonly AccountMenuAction[];
-  productSettings?: { label: string; href: string };
-  canManageTenant?: boolean;
-  canCreateTenant?: boolean;
-  accountSecurityHref?: string;
-  tenantSettingsHref?: string;
-  createTenantHref?: string;
+  productSettings?: Omit<AccountMenuAction, "id" | "icon">;
+  onOpenTenantAccountSettings: () => void;
   onSignOut: () => void;
 }
 
@@ -99,53 +92,30 @@ export function AccountMenu({
   userName,
   userDetail,
   tenants = [],
-  actions = [],
   productSettings,
-  canManageTenant = false,
-  canCreateTenant = false,
-  accountSecurityHref = "https://auth.ctx9.com/account/security",
-  tenantSettingsHref = "https://platform.ctx9.com/settings",
-  createTenantHref = "https://platform.ctx9.com/tenants/new",
+  onOpenTenantAccountSettings,
   onSignOut,
 }: AccountMenuProps): React.JSX.Element {
   const menuActions: AccountMenuAction[] = [
-    {
-      id: "security",
-      label: "Account security",
-      href: accountSecurityHref,
-      icon: <Shield aria-hidden="true" className="size-4" />,
-    },
     ...(productSettings
       ? [
           {
             id: "product-settings",
             label: productSettings.label,
-            href: productSettings.href,
+            ...(productSettings.href ? { href: productSettings.href } : {}),
+            ...(productSettings.onSelect
+              ? { onSelect: productSettings.onSelect }
+              : {}),
             icon: <Settings aria-hidden="true" className="size-4" />,
           },
         ]
       : []),
-    ...actions,
-    ...(canManageTenant
-      ? [
-          {
-            id: "tenant-settings",
-            label: "Tenant settings",
-            href: tenantSettingsHref,
-            icon: <Settings aria-hidden="true" className="size-4" />,
-          },
-        ]
-      : []),
-    ...(canCreateTenant
-      ? [
-          {
-            id: "create-tenant",
-            label: "Create tenant",
-            href: createTenantHref,
-            icon: <Plus aria-hidden="true" className="size-4" />,
-          },
-        ]
-      : []),
+    {
+      id: "tenant-account-settings",
+      label: "Tenant and account settings",
+      onSelect: onOpenTenantAccountSettings,
+      icon: <Settings aria-hidden="true" className="size-4" />,
+    },
   ];
   const availableTenants =
     tenants.length > 0
@@ -266,7 +236,7 @@ export function AppSidebarHeader({
             type="button"
             variant="quiet"
             className="h-12 w-full justify-start gap-2.5 border-transparent px-2"
-            aria-label={`Switch service. Current service: ${product}`}
+            aria-label={`Open All apps. Current app: ${product}`}
           >
             <Ctx9Mark />
             <span className="min-w-0 flex-1 text-left text-sm font-semibold">
@@ -284,7 +254,7 @@ export function AppSidebarHeader({
           sideOffset={4}
           className="w-[230px] rounded-lg p-1.5"
         >
-          <DropdownMenuLabel>Services</DropdownMenuLabel>
+          <DropdownMenuLabel>All apps</DropdownMenuLabel>
           {products.map((item) => (
             <DropdownMenuItem
               key={item.id}

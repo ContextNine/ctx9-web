@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Narrow settings rail mock</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #000;
+        color: #fff;
+        font:
+          14px system-ui,
+          sans-serif;
+      }
+      main {
+        display: grid;
+        grid-template-columns: 176px 1fr;
+        width: 86vw;
+        height: 88vh;
+        border: 1px solid #27272a;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #09090b;
+      }
+      aside {
+        padding: 64px 14px;
+        border-right: 1px solid #27272a;
+        background: #111113;
+      }
+      section {
+        padding: 64px 44px;
+      }
+      nav {
+        display: grid;
+        gap: 3px;
+        margin-top: 20px;
+      }
+      button {
+        padding: 9px 10px;
+        border: 0;
+        border-radius: 6px;
+        background: transparent;
+        color: #a1a1aa;
+        text-align: left;
+      }
+      button[aria-current="page"] {
+        background: #27272a;
+        color: white;
+      }
+      p {
+        color: #a1a1aa;
+      }
+    </style>
+  </head>
+  <body>
+    <main role="dialog" aria-modal="true">
+      <aside>
+        <h1>Settings</h1>
+        <nav>
+          <button aria-current="page">Tenant</button><button>Access</button
+          ><button>Provisioning</button><button>Security</button>
+        </nav>
+      </aside>
+      <section>
+        <h2>Tenant</h2>
+        <p>A narrow rail leaves more room for dense administration tables.</p>
+      </section>
+    </main>
+  </body>
+</html>
