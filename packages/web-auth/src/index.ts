@@ -8,6 +8,8 @@ import {
 import { createRemoteJWKSet, jwtVerify, type JWTPayload } from "jose";
 import { z } from "zod";
 
+export * from "./settings-gateway.js";
+
 const safeOAuthErrors = new Set([
   "access_denied",
   "account_selection_required",
