@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import { axe } from "vitest-axe";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { Button, buttonVariants } from "./button.js";
 import { createCtx9Applications } from "./applications.js";
@@ -18,11 +18,14 @@ import {
   DialogTrigger,
 } from "./dialog.js";
 import { NavigationProvider } from "./navigation.js";
+import { Skeleton } from "./feedback.js";
 import { ApplicationLayout } from "./shell.js";
 import {
   TenantAccountSettingsDialog,
   type TenantAccountSettingsTabId,
 } from "./settings-dialog.js";
+
+afterEach(cleanup);
 
 describe("shared product primitives", () => {
   it("keeps standard actions neutral and high contrast", () => {
@@ -97,14 +100,33 @@ describe("shared product primitives", () => {
       .setup()
       .click(screen.getByRole("button", { name: "Collapse sidebar" }));
     expect(screen.getByRole("button", { name: "Expand sidebar" })).toBeTruthy();
-    await userEvent.setup().click(
-      screen.getByRole("button", {
-        name: "Open All apps. Current app: Secrets",
-      }),
-    );
+    const user = userEvent.setup();
+    const applicationMenu = screen.getByRole("button", {
+      name: "Open All apps. Current app: Secrets",
+    });
+    await user.click(applicationMenu);
     expect(
       screen.getAllByRole("menuitem").map((item) => item.textContent.trim()),
     ).toEqual(["Agents", "Secrets", "Publisher"]);
+    await user.keyboard("{Escape}");
+    expect(document.activeElement).toBe(applicationMenu);
+
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+    expect(
+      screen
+        .getByRole("complementary", { name: "Secrets sidebar" })
+        .getAttribute("data-mobile-open"),
+    ).toBe("true");
+    await user.click(
+      within(
+        screen.getByRole("complementary", { name: "Secrets sidebar" }),
+      ).getByRole("button", { name: "Close menu" }),
+    );
+    expect(
+      screen
+        .getByRole("complementary", { name: "Secrets sidebar" })
+        .getAttribute("data-mobile-open"),
+    ).toBe("false");
     const results = await axe(container, {
       rules: { "color-contrast": { enabled: false } },
     });
@@ -167,6 +189,65 @@ describe("shared product primitives", () => {
     );
     expect(screen.queryByRole("row", { name: "Open Agents" })).toBeNull();
     expect(screen.getByRole("row", { name: "Open Publisher" })).toBeTruthy();
+  });
+
+  it("paginates, hides columns, preserves rows while fetching, and signals row intent", async () => {
+    interface ServiceRow {
+      id: string;
+      name: string;
+      state: string;
+    }
+    const helper = createDataTableColumnHelper<ServiceRow>();
+    const columns = helper.columns([
+      helper.accessor("name", {
+        header: "Name",
+        enableHiding: false,
+      }),
+      helper.accessor("state", { header: "State" }),
+    ]);
+    const onIntent = vi.fn();
+    const { container } = render(
+      <DataTable
+        data={Array.from({ length: 26 }, (_, index) => ({
+          id: String(index + 1),
+          name: `Service ${String(index + 1).padStart(2, "0")}`,
+          state: "Ready",
+        }))}
+        columns={columns}
+        getRowId={(row) => row.id}
+        emptyMessage="No services"
+        isFetching
+        onRowNavigate={() => undefined}
+        onRowIntent={onIntent}
+        rowLabel={(row) => `Open ${row.name}`}
+      />,
+    );
+    const user = userEvent.setup();
+    const region = container.querySelector("section");
+    expect(region?.getAttribute("aria-busy")).toBe("true");
+    expect(screen.getByRole("row", { name: "Open Service 01" })).toBeTruthy();
+
+    await user.hover(screen.getByRole("row", { name: "Open Service 01" }));
+    expect(onIntent).toHaveBeenCalledWith({
+      id: "1",
+      name: "Service 01",
+      state: "Ready",
+    });
+
+    await user.click(screen.getByRole("button", { name: "Next" }));
+    expect(screen.getByText("Page 2 of 2")).toBeTruthy();
+    expect(screen.getByRole("row", { name: "Open Service 26" })).toBeTruthy();
+
+    await user.click(screen.getByRole("button", { name: "Columns" }));
+    await user.click(screen.getByRole("menuitemcheckbox", { name: "state" }));
+    expect(screen.queryByRole("columnheader", { name: "State" })).toBeNull();
+    expect(container.querySelector(".overflow-x-auto")).toBeTruthy();
+  });
+
+  it("renders static loading geometry without animation", () => {
+    const { container } = render(<Skeleton className="h-8 w-40" />);
+    const skeleton = container.firstElementChild;
+    expect(skeleton?.className).toBe("rounded-sm bg-surface-raised h-8 w-40");
   });
 
   it("traps dialog focus and restores it to the trigger", async () => {

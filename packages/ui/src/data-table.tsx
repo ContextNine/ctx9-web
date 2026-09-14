@@ -133,6 +133,7 @@ export function DataTable<TData extends RowData>({
     onSortingChange: onSortingChange ?? setSorting,
     onPaginationChange: onPaginationChange ?? setPagination,
     onColumnVisibilityChange: onColumnVisibilityChange ?? setColumnVisibility,
+    autoResetPageIndex: false,
     ...(manualPagination === undefined ? {} : { manualPagination }),
     ...(pageCount === undefined ? {} : { pageCount }),
     ...(rowCount === undefined ? {} : { rowCount }),
@@ -295,7 +296,10 @@ export function DataTable<TData extends RowData>({
             size="sm"
             disabled={!table.getCanPreviousPage()}
             onClick={() => {
-              table.previousPage();
+              (onPaginationChange ?? setPagination)({
+                ...table.state.pagination,
+                pageIndex: table.state.pagination.pageIndex - 1,
+              });
             }}
           >
             Previous
@@ -306,7 +310,10 @@ export function DataTable<TData extends RowData>({
             size="sm"
             disabled={!table.getCanNextPage()}
             onClick={() => {
-              table.nextPage();
+              (onPaginationChange ?? setPagination)({
+                ...table.state.pagination,
+                pageIndex: table.state.pagination.pageIndex + 1,
+              });
             }}
           >
             Next
