@@ -40,7 +40,7 @@
   --ctx9-foreground: var(--ctx9-mono-100);
   --ctx9-secondary-foreground: var(--ctx9-mono-300);
   --ctx9-nav-foreground: var(--ctx9-mono-300);
-  --ctx9-muted-foreground: var(--ctx9-mono-500);
+  --ctx9-muted-foreground: var(--ctx9-mono-400);
   --ctx9-sidebar: var(--ctx9-mono-960);
   --ctx9-sidebar-hover: var(--ctx9-mono-950);
   --ctx9-panel: var(--ctx9-mono-970);
