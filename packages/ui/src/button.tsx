@@ -9,21 +9,24 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary:
+        default:
           "border-border-strong bg-black text-white shadow-none transition-colors hover:border-white hover:bg-black hover:text-white",
-        secondary:
+        outline:
           "border-border-strong bg-black text-white transition-colors hover:border-muted-foreground hover:bg-surface-raised hover:text-white",
-        quiet:
+        secondary:
+          "border-border bg-surface text-foreground transition-colors hover:bg-surface-raised",
+        ghost:
           "border-transparent bg-black text-white transition-colors hover:bg-surface-raised hover:text-white",
         destructive:
           "border-danger/50 bg-danger/10 text-danger hover:border-danger hover:bg-danger/15",
         link: "min-h-0 border-transparent bg-transparent px-0 text-link underline-offset-4 hover:underline",
       },
       size: {
-        compact: "min-h-8 px-2.5",
+        sm: "min-h-8 px-2.5",
         default: "min-h-9 px-3",
-        large: "min-h-10 px-4",
+        lg: "min-h-10 px-4",
         icon: "size-9 px-0",
+        "icon-sm": "size-8 min-h-8 px-0",
       },
       selected: {
         true: "border-focus bg-selected text-foreground",
@@ -31,7 +34,7 @@ export const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "primary",
+      variant: "default",
       size: "default",
       selected: false,
     },
@@ -43,76 +46,18 @@ export interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-}
-
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ asChild = false, className, variant, size, selected, ...props }, ref) => {
-    const Component = asChild ? Slot : "button";
-    return (
-      <Component
-        ref={ref}
-        className={cn(buttonVariants({ variant, size, selected }), className)}
-        {...props}
-      />
-    );
-  },
-);
-Button.displayName = "Button";
-
-export interface LoadingButtonProps extends ButtonProps {
   loading?: boolean;
   loadingLabel?: string;
 }
 
-export interface FunkyLoaderButtonProps extends ButtonProps {
-  isLoading?: boolean;
-  loadingLabel?: string;
-}
-
-/**
- * CTX9's standard action primitive, adapted from Impression's dark app button.
- * Loading is expressed with stable text so the control never introduces a
- * continuously repainting spinner.
- */
-export const FunkyLoaderButton = React.forwardRef<
-  HTMLButtonElement,
-  FunkyLoaderButtonProps
->(
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      isLoading = false,
-      loadingLabel = "Working…",
-      disabled,
-      children,
-      className,
-      variant = "primary",
       asChild = false,
-      ...props
-    },
-    ref,
-  ) => (
-    <Button
-      ref={ref}
-      aria-busy={isLoading}
-      data-loading={isLoading || undefined}
-      disabled={asChild ? disabled : isLoading ? true : disabled}
-      variant={variant}
-      asChild={asChild}
-      className={cn("relative overflow-hidden", className)}
-      {...props}
-    >
-      {asChild ? children : isLoading ? loadingLabel : children}
-    </Button>
-  ),
-);
-FunkyLoaderButton.displayName = "FunkyLoaderButton";
-
-export const LoadingButton = React.forwardRef<
-  HTMLButtonElement,
-  LoadingButtonProps
->(
-  (
-    {
+      className,
+      variant,
+      size,
+      selected,
       loading = false,
       loadingLabel = "Working…",
       disabled,
@@ -120,19 +65,23 @@ export const LoadingButton = React.forwardRef<
       ...props
     },
     ref,
-  ) => (
-    <FunkyLoaderButton
-      ref={ref}
-      isLoading={loading}
-      loadingLabel={loadingLabel}
-      disabled={disabled}
-      {...props}
-    >
-      {children}
-    </FunkyLoaderButton>
-  ),
+  ) => {
+    const Component = asChild ? Slot : "button";
+    return (
+      <Component
+        ref={ref}
+        aria-busy={loading || undefined}
+        data-loading={loading || undefined}
+        disabled={asChild ? disabled : loading || disabled}
+        className={cn(buttonVariants({ variant, size, selected }), className)}
+        {...props}
+      >
+        {asChild ? children : loading ? loadingLabel : children}
+      </Component>
+    );
+  },
 );
-LoadingButton.displayName = "LoadingButton";
+Button.displayName = "Button";
 
 export function ButtonGroup({
   className,

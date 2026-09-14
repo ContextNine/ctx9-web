@@ -48,7 +48,7 @@ export const DialogContent = React.forwardRef<
           <DialogPrimitive.Close asChild>
             <Button
               type="button"
-              variant="quiet"
+              variant="ghost"
               size="icon"
               className="absolute top-3 right-3"
               aria-label="Close"

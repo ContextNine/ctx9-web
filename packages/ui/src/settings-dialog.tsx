@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Button, FunkyLoaderButton } from "./button.js";
+import { Button } from "./button.js";
 import {
   Input,
   Label,
@@ -12,6 +12,7 @@ import {
 } from "./controls.js";
 import { Dialog, DialogContent, DialogTitle } from "./dialog.js";
 import { FormSection } from "./form.js";
+import { NavigationLink } from "./navigation.js";
 
 export type TenantAccountSettingsTabId =
   "tenant" | "access" | "provisioning" | "account-security";
@@ -209,14 +210,14 @@ function TenantTab({
                 }}
               />
             </div>
-            <FunkyLoaderButton
+            <Button
               className="justify-self-start"
               type="submit"
-              isLoading={busy === true}
+              loading={busy === true}
               loadingLabel="Creating…"
             >
               Create tenant
-            </FunkyLoaderButton>
+            </Button>
           </form>
         </FormSection>
       ) : null}
@@ -296,20 +297,20 @@ function AccessTab({
               </SelectContent>
             </Select>
           </div>
-          <FunkyLoaderButton
+          <Button
             type="submit"
-            isLoading={busy === true}
+            loading={busy === true}
             loadingLabel="Inviting…"
           >
             Invite
-          </FunkyLoaderButton>
+          </Button>
         </form>
         {acceptUrl ? (
           <p className="break-all text-sm text-muted-foreground">
             Invitation link:{" "}
-            <a className="text-link underline" href={acceptUrl}>
+            <NavigationLink className="text-link underline" href={acceptUrl}>
               {acceptUrl}
-            </a>
+            </NavigationLink>
           </p>
         ) : null}
       </FormSection>
@@ -452,7 +453,9 @@ function AccountSecurityTab({
         ))}
         {snapshot?.accountSecurityHref ? (
           <Button asChild variant="secondary">
-            <a href={snapshot.accountSecurityHref}>Manage passkeys</a>
+            <NavigationLink href={snapshot.accountSecurityHref}>
+              Manage passkeys
+            </NavigationLink>
           </Button>
         ) : null}
       </FormSection>
@@ -462,7 +465,9 @@ function AccountSecurityTab({
         </p>
         {snapshot?.recoveryHref ? (
           <Button asChild variant="secondary" className="justify-self-start">
-            <a href={snapshot.recoveryHref}>Account recovery</a>
+            <NavigationLink href={snapshot.recoveryHref}>
+              Account recovery
+            </NavigationLink>
           </Button>
         ) : null}
       </FormSection>
@@ -507,7 +512,7 @@ export function TenantAccountSettingsDialog(
                 <Button
                   key={tab.id}
                   type="button"
-                  variant="quiet"
+                  variant="ghost"
                   selected={tab.id === selected}
                   aria-current={tab.id === selected ? "page" : undefined}
                   className="shrink-0 justify-start sm:w-full"

@@ -165,7 +165,7 @@ export function Pagination({
     >
       <Button
         type="button"
-        variant="quiet"
+        variant="ghost"
         size="icon"
         disabled={boundedPage <= 1}
         aria-label="Previous page"
@@ -180,7 +180,7 @@ export function Pagination({
       </span>
       <Button
         type="button"
-        variant="quiet"
+        variant="ghost"
         size="icon"
         disabled={boundedPage >= boundedCount}
         aria-label="Next page"

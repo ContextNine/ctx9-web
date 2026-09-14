@@ -56,6 +56,7 @@ for (const license of [
 
 const approvedLicenses = new Set(["Apache-2.0", "ISC", "MIT"]);
 for (const dependency of [
+  "@base-ui/react",
   "@radix-ui/react-alert-dialog",
   "@radix-ui/react-checkbox",
   "@radix-ui/react-dialog",
@@ -69,6 +70,7 @@ for (const dependency of [
   "@radix-ui/react-tabs",
   "@radix-ui/react-toast",
   "@radix-ui/react-tooltip",
+  "@tanstack/react-table",
   "class-variance-authority",
   "clsx",
   "cmdk",
@@ -76,6 +78,8 @@ for (const dependency of [
   "lucide-react",
   "react-day-picker",
   "react-hook-form",
+  "recharts",
+  "sonner",
   "tailwind-merge",
   "jose",
   "zod",

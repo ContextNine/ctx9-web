@@ -72,10 +72,10 @@ for (const file of await readdir(uiSource)) {
 
 const buttonSource = await readFile(new URL("button.tsx", uiSource), "utf8");
 for (const expected of [
-  'variant = "primary"',
+  'variant: "default"',
   "border-border-strong bg-black text-white",
   "hover:bg-black hover:text-white",
-  'FunkyLoaderButton.displayName = "FunkyLoaderButton"',
+  'loadingLabel = "Working…"',
 ]) {
   if (!buttonSource.includes(expected))
     throw new Error(`shared-button-contract-missing:${expected}`);

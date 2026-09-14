@@ -1,6 +1,6 @@
 # Component inventory
 
-The v2 inventory is split into foundations, shared controls, and product compositions. The canonical direction uses Impression's dark mono system, a shared left sidebar, restrained rows, and true-black content surfaces.
+The v4 inventory uses the selected Operational Dense direction and the shadcn `dashboard-01` component family. CTX9 keeps its dark mono tokens, compact rows, and true-black content surfaces.
 
 ## Foundations
 
@@ -12,11 +12,12 @@ The v2 inventory is split into foundations, shared controls, and product composi
 
 ## Shared controls
 
-- Button, FunkyLoaderButton, LoadingButton compatibility alias, and ButtonGroup;
+- Button with stable loading text, and ButtonGroup;
 - Input, Textarea, Label, Checkbox, Select, Switch;
 - Form field, description, and error association;
 - Dialog, AlertDialog, Popover, DropdownMenu, Tooltip;
-- Tabs, Table, Pagination, ScrollArea, Separator;
+- Avatar, Badge, Breadcrumb, Button, Card, Chart, Checkbox, Drawer, DropdownMenu, Input, Label, Select, Separator, Sheet, Sidebar, static Skeleton, Sonner, Table, Tabs, Toggle, ToggleGroup, Tooltip;
+- typed TanStack Table v9 building blocks with sorting, pagination, column visibility, keyboard row navigation, and background-refresh state;
 - Badge and status text;
 - Calendar, date input, time input, date-time, timezone selector, and date range;
 - Toast/status announcement and ErrorPage;
@@ -24,8 +25,9 @@ The v2 inventory is split into foundations, shared controls, and product composi
 
 ## Product compositions
 
-- `AppShell`, `AppSidebar`, `AppSidebarHeader`, `AppSidebarGroup`, `AppSidebarLink`, `AppSidebarFooter`, `SidebarInset`, `AccountMenu`, `TenantAccountSettingsDialog`, `AuthShell`, `FocusedShell`, `PageHeading`, `OperationalList`, and `OperationalRow` are published shared compositions. `createCtx9Applications` owns the fixed Agents, Secrets, Publisher ordering. `AppSidebarHeader` owns the CTX9 grid mark and All apps menu; product navigation stays text-only. Navigational `OperationalRow` instances use their full row as the link.
-- `ApplicationShell` and the horizontal Workbench navigation contract were removed in the v2 breaking release.
+- `ApplicationLayout`, `AppSidebar`, `AppSidebarHeader`, `AppSidebarGroup`, `AppSidebarLink`, `AppSidebarFooter`, `AccountMenu`, `TenantAccountSettingsDialog`, `AuthShell`, `FocusedShell`, and `PageHeading` are published shared compositions. `createCtx9Applications` owns the fixed Agents, Secrets, Publisher ordering. `AppSidebarHeader` owns the CTX9 grid mark and All apps menu. Product navigation stays text-only.
+- `NavigationProvider` and `NavigationLink` form the framework-neutral link adapter. Next consumers supply `next/link` once at the provider boundary.
+- `AppShell`, `OperationalList`, `OperationalRow`, `LoadingButton`, and `FunkyLoaderButton` were removed in the v4 breaking release. Products use `ApplicationLayout`, `DataTable`, and `Button` directly.
 - The shared tenant and account dialog owns layout, motion, focus, and typed tab identifiers. Host applications provide authorized tab content through their same-origin BFF. Authentication, enrollment, recovery, member and invitation forms, artifact viewers, and protected-action boundaries remain owner-specific compositions built from shared controls.
 - Unavailable, denied, not-found, renderer-error, loading, and empty states use the shared state primitives.
 

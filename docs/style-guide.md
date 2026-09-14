@@ -1,6 +1,6 @@
 # CTX9 internal product style guide
 
-Status: Impression-style sidebar direction selected for v2.
+Status: Operational Dense with the Split Editor selected for v4.
 
 ## Scope
 
@@ -23,7 +23,7 @@ This guide is canonical for CTX9-owned internal applications: Platform, Auth, en
 - Product content uses a compact top bar and a readable maximum width where the task permits it.
 - Dense tables may scroll horizontally; ordinary pages must not.
 - Pages remain vertically scrollable. A dialog scrolls internally only when taller than the viewport.
-- Authentication uses the shared two-column `AuthShell` on desktop and one focused column on mobile. Authenticated products use `AppShell`, with product switching and product-local navigation in the left sidebar.
+- Authentication uses the shared two-column `AuthShell` on desktop and one focused column on mobile. Authenticated products use `ApplicationLayout`, with product switching and product-local navigation in the collapsible left sidebar.
 - Prefer section boundaries and aligned rows over card grids. A bordered panel exists only when content needs a distinct interaction or security boundary.
 
 ## Controls
@@ -33,10 +33,10 @@ This guide is canonical for CTX9-owned internal applications: Platform, Auth, en
 - Focus uses a high-contrast neutral ring and never relies on color alone.
 - Destructive actions are visually restrained until the confirmation boundary.
 - Recovery material, secrets metadata, and artifact identifiers use the mono face and selectable wrapping.
-- Standard actions use `FunkyLoaderButton`: black background, white text, a restrained Impression-derived hover treatment, and stable loading copy. `Button` owns the same black/white primary contract for link-like and non-loading compositions.
+- Standard actions use `Button`. Its `loading` state keeps the same text dimensions and never adds a spinner.
 - Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
 
-The runtime variables, base contracts, controls, feedback states, Auth composition, sidebar, account menu, and responsive shell live in `@ctx9/ui`. Product applications compose these primitives without maintaining local replacements.
+The runtime variables, shadcn controls, typed data table, feedback states, Auth composition, sidebar, account menu, and responsive layout live in `@ctx9/ui`. Next applications inject their link implementation through `NavigationProvider`, so internal navigation uses the Next router without adding a Next dependency to the package.
 
 ## Sidebar and account menu
 

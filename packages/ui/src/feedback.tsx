@@ -181,7 +181,7 @@ export function ErrorPage({
           {error.retry && (
             <Button
               type="button"
-              variant="primary"
+              variant="default"
               onClick={error.retry.action}
             >
               {error.retry.label}

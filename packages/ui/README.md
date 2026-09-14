@@ -1,28 +1,26 @@
 # @ctx9/ui
 
-Dark-only shared controls and Impression-style sidebar compositions for CTX9 internal products. Import `@ctx9/ui/styles.css` exactly once in the application root.
+Dark-only shadcn controls and Operational Dense application compositions for CTX9 internal products. Import `@ctx9/ui/styles.css` exactly once in the application root.
 
 ```tsx
 import "@ctx9/ui/styles.css";
 import {
-  AppShell,
+  ApplicationLayout,
   AuthShell,
   Button,
+  DataTable,
   Input,
-  OperationalList,
-  OperationalRow,
+  NavigationProvider,
 } from "@ctx9/ui";
 ```
 
 The package owns:
 
-- buttons, inputs, labels, checkbox, switch, select, and form relationships;
-- dialogs, alerts, popovers, dropdowns, tooltips, and command menus;
-- tabs, tables, pagination, scroll areas, separators, badges, and status feedback;
+- the shadcn `dashboard-01` component family adapted to CTX9 tokens;
+- a typed TanStack Table v9 composition for real operational rows;
 - calendar, time, timezone, date-time, and date-range controls;
-- loading, empty, denied, unavailable, and error states;
-- responsive authenticated sidebar with a shared service switcher, account/tenant menu, and focused or two-column authentication shells.
+- static loading, empty, denied, unavailable, and error states;
+- a responsive collapsible sidebar, service switcher, account menu, and focused or two-column authentication shells;
+- a framework-neutral link adapter. Next applications supply `next/link` through `NavigationProvider`.
 
-Applications compose these primitives for product-specific workflows. They do not copy the package source or create local replacements for standard controls.
-
-Pass `href` to `OperationalRow` when the row navigates. The complete row then owns pointer, hover, keyboard focus, and link semantics without an extra Open button.
+Applications own product row types, columns, URL state, and mutations. Shared components own keyboard behavior, focus, overflow, and dark styling.
