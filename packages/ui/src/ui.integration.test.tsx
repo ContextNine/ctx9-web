@@ -60,6 +60,7 @@ describe("shared product primitives", () => {
               agents: "/agents",
               secrets: "/secrets",
               publisher: "/publisher",
+              testimonials: "/testimonials",
             },
           })}
           account={{
@@ -107,7 +108,7 @@ describe("shared product primitives", () => {
     await user.click(applicationMenu);
     expect(
       screen.getAllByRole("menuitem").map((item) => item.textContent.trim()),
-    ).toEqual(["Agents", "Secrets", "Publisher"]);
+    ).toEqual(["Agents", "Secrets", "Publisher", "Testimonials"]);
     await user.keyboard("{Escape}");
     expect(document.activeElement).toBe(applicationMenu);
 

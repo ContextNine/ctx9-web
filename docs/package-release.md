@@ -29,7 +29,11 @@ The generated file is removed with the job workspace and is never committed. Loc
 
 The CTX9 workspace's loopback development harness builds `@ctx9/ui` and `@ctx9/web-auth` from this checkout, then creates ignored links beneath each consumer's `node_modules/@ctx9`. This is a development-only package channel. It does not edit a consumer manifest or lockfile, and production builds continue to consume exact immutable registry versions.
 
-The shared shell accepts the three application origins and current application as typed inputs. `createCtx9Applications` returns the fixed All apps order. The account menu accepts one optional product-settings action and one required handler that opens Tenant and account settings in the host application. Local consumers pass their `.localhost` origins; published consumers retain the production defaults. Do not add hostname checks to shared UI components.
+The shared shell accepts the four application origins and current application as typed inputs. `createCtx9Applications` returns the fixed All apps order. The account menu accepts one optional product-settings action and one required handler that opens Tenant and account settings in the host application. Local consumers pass their `.localhost` origins; published consumers retain the production defaults. Do not add hostname checks to shared UI components.
+
+## Testimonials release status
+
+The pending 5.0.0 release adds Testimonials to All apps and requires every caller to supply its origin. The required origin makes this a breaking TypeScript contract change. Both packages keep the same release version. The complete local package check passes, and both generated archives install, type-check and import in a clean temporary consumer. Registry publication, consumer lockfile resolution and clean image checks remain open; local overlays do not prove an immutable release.
 
 ## Upgrade and rollback
 

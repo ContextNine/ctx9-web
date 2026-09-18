@@ -1,17 +1,20 @@
 import type { AppNavigationItem } from "./shell.js";
 
-export type Ctx9ApplicationId = "agents" | "secrets" | "publisher";
+export type Ctx9ApplicationId =
+  "agents" | "secrets" | "publisher" | "testimonials";
 
 export interface Ctx9ApplicationOrigins {
   agents: string;
   secrets: string;
   publisher: string;
+  testimonials: string;
 }
 
 const applications = [
   { id: "agents", label: "Agents" },
   { id: "secrets", label: "Secrets" },
   { id: "publisher", label: "Publisher" },
+  { id: "testimonials", label: "Testimonials" },
 ] as const satisfies readonly {
   id: Ctx9ApplicationId;
   label: string;
