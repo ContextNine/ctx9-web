@@ -1,6 +1,6 @@
 # Package release and consumption
 
-GitHub `MDerman/ctx9-web` is the canonical source. A GitHub Actions deploy key mirrors authoritative branches and tags to the private GitLab project `ctx9/web` (`85438020`). GitLab CI validates mirrored refs and publishes immutable tagged releases to its private npm registry.
+GitHub `ContextNine/ctx9-web` is the canonical source. A GitHub Actions deploy key mirrors authoritative branches and tags to the private GitLab project `ctx9/web` (`85438020`). GitLab CI validates mirrored refs and publishes immutable tagged releases to its private npm registry.
 
 ## Release
 
