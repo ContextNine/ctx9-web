@@ -35,6 +35,8 @@ The shared shell accepts the four application origins and current application as
 
 Release 5.0.0 adds Testimonials to All apps and requires every caller to supply its origin. The required origin makes this a breaking TypeScript contract change. Both packages use the same release version. The complete local package check and clean temporary-consumer archive check passed. GitLab [pipeline #2861051110](https://gitlab.com/ctx9/web/-/pipelines/2861051110) passed its check and publish stages for commit `44dc88b4`. The registry lists `@ctx9/ui` 5.0.0 with archive SHA-1 `62760aa1d5f3f2cd7b741dcb8b05a401a7a6517d` and `@ctx9/web-auth` 5.0.0 with archive SHA-1 `e93cfc2a6dbfcce1590115e4d5beba4b26f31868`. Consumer lockfile changes and clean image checks remain separate acceptance gates.
 
+Release 6.0.0 removes the retired Agents product from the application ID, origin contract and All apps menu. Active consumers must remove their Agents origin and pin both packages to 6.0.0. The major version keeps the public TypeScript contract aligned with the live product topology instead of accepting an ignored legacy origin.
+
 ## Upgrade and rollback
 
 - Upgrade one component at a time with an exact package version and run its full component checks.

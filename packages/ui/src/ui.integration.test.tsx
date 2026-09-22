@@ -57,7 +57,6 @@ describe("shared product primitives", () => {
           products={createCtx9Applications({
             current: "secrets",
             origins: {
-              agents: "/agents",
               secrets: "/secrets",
               publisher: "/publisher",
               testimonials: "/testimonials",
@@ -108,7 +107,7 @@ describe("shared product primitives", () => {
     await user.click(applicationMenu);
     expect(
       screen.getAllByRole("menuitem").map((item) => item.textContent.trim()),
-    ).toEqual(["Agents", "Secrets", "Publisher", "Testimonials"]);
+    ).toEqual(["Secrets", "Publisher", "Testimonials"]);
     await user.keyboard("{Escape}");
     expect(document.activeElement).toBe(applicationMenu);
 
