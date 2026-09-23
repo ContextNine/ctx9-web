@@ -1,6 +1,7 @@
 import {
   Check,
   ChevronDown,
+  ChevronLeft,
   ChevronsUpDown,
   LogOut,
   Menu,
@@ -11,6 +12,14 @@ import {
 import * as React from "react";
 
 import { Button } from "./button.js";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "./breadcrumb.js";
 import { cn } from "./cn.js";
 import { NavigationLink } from "./navigation.js";
 import {
@@ -27,6 +36,12 @@ export interface AppNavigationItem {
   label: string;
   href: string;
   current?: boolean;
+}
+
+export interface AppBreadcrumbItem {
+  id: string;
+  label: string;
+  href?: string;
 }
 
 export interface AccountTenant {
@@ -75,7 +90,7 @@ function AccountAction({ action }: { action: AccountMenuAction }) {
       <span className="grid size-4 place-items-center text-muted-foreground">
         {action.icon}
       </span>
-      <span>{action.label}</span>
+      <span className="whitespace-nowrap">{action.label}</span>
     </>
   );
   return (
@@ -155,7 +170,7 @@ export function AccountMenu({
         side="top"
         align="start"
         sideOffset={8}
-        className="w-[270px] rounded-lg p-1.5"
+        className="w-max min-w-[320px] max-w-[calc(100vw-1rem)] rounded-lg p-1.5"
       >
         <div className="grid gap-0.5 px-2 py-1.5">
           <strong className="truncate text-sm font-semibold">{userName}</strong>
@@ -415,7 +430,7 @@ export function ApplicationLayout({
   className,
   skipLinkLabel = "Skip to content",
   mainId = "main-content",
-  header,
+  breadcrumbs,
 }: {
   product: string;
   products: readonly AppNavigationItem[];
@@ -425,7 +440,7 @@ export function ApplicationLayout({
   className?: string;
   skipLinkLabel?: string;
   mainId?: string;
-  header?: React.ReactNode;
+  breadcrumbs: readonly AppBreadcrumbItem[];
 }): React.JSX.Element {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
@@ -499,9 +514,26 @@ export function ApplicationLayout({
           >
             <PanelLeft aria-hidden="true" className="size-4" />
           </Button>
-          <span className="min-w-0 flex-1 text-sm font-semibold">
-            {header ?? product}
-          </span>
+          <div className="min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <Breadcrumb>
+              <BreadcrumbList className="w-max flex-nowrap font-semibold">
+                {breadcrumbs.map((item, index) => (
+                  <React.Fragment key={item.id}>
+                    {index > 0 && <BreadcrumbSeparator />}
+                    <BreadcrumbItem>
+                      {item.href ? (
+                        <BreadcrumbLink href={item.href}>
+                          {item.label}
+                        </BreadcrumbLink>
+                      ) : (
+                        <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                      )}
+                    </BreadcrumbItem>
+                  </React.Fragment>
+                ))}
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
         </header>
         {children}
       </ApplicationMain>
@@ -605,11 +637,13 @@ export function PageHeading({
   title,
   description,
   actions,
+  parent,
   className,
 }: {
   title: React.ReactNode;
   description?: string;
   actions?: React.ReactNode;
+  parent?: { href: string; label: string };
   className?: string;
 }): React.JSX.Element {
   return (
@@ -619,11 +653,26 @@ export function PageHeading({
         className,
       )}
     >
-      <div className="grid gap-1.5">
-        <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
-        {description && (
-          <p className="text-sm text-muted-foreground">{description}</p>
+      <div className="flex min-w-0 items-start gap-2">
+        {parent && (
+          <Button
+            asChild
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="mt-0.5 size-8 shrink-0"
+          >
+            <NavigationLink href={parent.href} aria-label={parent.label}>
+              <ChevronLeft aria-hidden="true" className="size-4" />
+            </NavigationLink>
+          </Button>
         )}
+        <div className="grid min-w-0 gap-1.5">
+          <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+          {description && (
+            <p className="text-sm text-muted-foreground">{description}</p>
+          )}
+        </div>
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
     </header>

@@ -1,0 +1,1241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="icon.svg" />
+    <title>CTX9 Publisher redesign mock</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --canvas: #000;
+        --sidebar: #070707;
+        --panel: #0d0d0e;
+        --input: #141416;
+        --line: #28282b;
+        --strong: #4b4b50;
+        --text: #f4f4f5;
+        --muted: #98989f;
+        --success: #8bd4a8;
+        --warning: #e8c77a;
+        --danger: #e59a9a;
+        font-family: Geist, Inter, ui-sans-serif, system-ui, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      body {
+        margin: 0;
+        min-width: 320px;
+        min-height: 100vh;
+        background: var(--canvas);
+        color: var(--text);
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button,
+      input,
+      select {
+        min-height: 34px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--input);
+        color: var(--text);
+        padding: 0 10px;
+      }
+      button {
+        cursor: pointer;
+      }
+      button:hover {
+        border-color: var(--strong);
+        background: #1a1a1d;
+      }
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      a:focus-visible {
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+      }
+      a {
+        color: inherit;
+      }
+      .app {
+        display: grid;
+        grid-template-columns: 246px minmax(0, 1fr);
+        min-height: 100vh;
+      }
+      .sidebar {
+        position: sticky;
+        top: 0;
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        border-right: 1px solid var(--line);
+        background: var(--sidebar);
+      }
+      .brand {
+        display: flex;
+        min-height: 64px;
+        align-items: center;
+        gap: 10px;
+        padding: 0 14px;
+      }
+      .mark {
+        width: 32px;
+        height: 32px;
+      }
+      .brand strong {
+        flex: 1;
+      }
+      .local-nav {
+        display: grid;
+        gap: 4px;
+        padding: 8px;
+      }
+      .local-nav small {
+        color: var(--muted);
+        padding: 8px;
+      }
+      .local-nav button {
+        border-color: transparent;
+        background: transparent;
+        text-align: left;
+      }
+      .local-nav button[aria-current="page"] {
+        background: #202023;
+      }
+      .account {
+        position: relative;
+        margin-top: auto;
+        border-top: 1px solid var(--line);
+        padding: 8px;
+      }
+      .account-trigger {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 40px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 9px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        text-align: left;
+      }
+      .avatar {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border: 1px solid var(--strong);
+        border-radius: 50%;
+        background: #19191b;
+        font-size: 12px;
+      }
+      .account-copy {
+        min-width: 0;
+      }
+      .account-copy strong,
+      .account-copy small {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .account-copy small {
+        color: var(--muted);
+      }
+      .account-menu {
+        position: absolute;
+        z-index: 20;
+        left: 8px;
+        bottom: 66px;
+        display: none;
+        width: max-content;
+        min-width: 320px;
+        border: 1px solid var(--strong);
+        border-radius: 8px;
+        background: #111113;
+        padding: 7px;
+        box-shadow: 0 18px 60px rgb(0 0 0 / 70%);
+      }
+      .account-menu[data-open="true"] {
+        display: grid;
+      }
+      .account-menu button {
+        display: grid;
+        grid-template-columns: 18px 1fr;
+        gap: 8px;
+        border: 0;
+        background: transparent;
+        text-align: left;
+        white-space: nowrap;
+      }
+      .account-menu .tenant {
+        padding: 10px;
+        color: var(--muted);
+      }
+      .main {
+        min-width: 0;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        min-height: 52px;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid var(--line);
+        background: rgb(0 0 0 / 96%);
+        padding: 0 16px;
+      }
+      .icon-button {
+        display: inline-grid;
+        width: 34px;
+        padding: 0;
+        place-items: center;
+        background: transparent;
+      }
+      .breadcrumbs {
+        display: flex;
+        min-width: 0;
+        flex: 1;
+        align-items: center;
+        gap: 7px;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+        font-size: 14px;
+      }
+      .breadcrumbs::-webkit-scrollbar {
+        display: none;
+      }
+      .breadcrumbs a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .breadcrumbs a:hover {
+        color: var(--text);
+      }
+      .separator {
+        color: #5f5f65;
+      }
+      .mock-switcher {
+        width: 150px;
+        background: #09090b;
+      }
+      .content {
+        width: min(100%, 1320px);
+        margin: 0 auto;
+        padding: 30px 28px 72px;
+      }
+      .screen[hidden] {
+        display: none;
+      }
+      .heading {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 24px;
+      }
+      .title-line {
+        display: flex;
+        align-items: start;
+        gap: 8px;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+      h1 {
+        margin-bottom: 6px;
+        font-size: 26px;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+      }
+      h2 {
+        font-size: 17px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .actions,
+      .toolbar,
+      .fact-line,
+      .details-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+      }
+      .toolbar {
+        margin-bottom: 12px;
+      }
+      .toolbar input {
+        width: min(320px, 100%);
+      }
+      .toolbar .columns {
+        margin-left: auto;
+      }
+      .table-wrap {
+        min-width: 0;
+        overflow-x: auto;
+        border-block: 1px solid var(--line);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      th {
+        height: 38px;
+        color: var(--muted);
+        font-weight: 500;
+        text-align: left;
+      }
+      th,
+      td {
+        padding: 0 11px;
+        border-bottom: 1px solid #202023;
+        white-space: nowrap;
+      }
+      tbody tr {
+        height: 46px;
+      }
+      tbody tr[data-editable="true"] {
+        cursor: pointer;
+      }
+      tbody tr[data-editable="true"]:hover,
+      tbody tr[data-editable="true"]:focus-within {
+        background: #0b0b0c;
+      }
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+      .open-cell {
+        width: 42px;
+      }
+      .open-link {
+        display: inline-grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 5px;
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .open-link:hover {
+        background: #202023;
+        color: var(--text);
+      }
+      .title-link {
+        font-weight: 600;
+        text-underline-offset: 3px;
+      }
+      .status {
+        color: var(--success);
+      }
+      .draft {
+        color: var(--warning);
+      }
+      .mono {
+        font-family:
+          "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+      }
+      .group-label {
+        height: 35px;
+        background: #09090a;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .editor-fields {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .field {
+        display: grid;
+        gap: 6px;
+        min-width: 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .field input,
+      .field select {
+        width: 100%;
+        color: var(--text);
+        font-size: 14px;
+      }
+      .field-wide {
+        grid-column: span 2;
+      }
+      .editor-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 18px;
+      }
+      .editor-footer .right {
+        display: flex;
+        gap: 8px;
+      }
+      .primary {
+        background: var(--text);
+        color: #000;
+        border-color: var(--text);
+      }
+      .danger {
+        color: var(--danger);
+      }
+      .inline-editor {
+        display: none;
+      }
+      .inline-editor[data-open="true"] {
+        display: table-row;
+      }
+      .inline-editor td {
+        padding: 20px 14px 22px;
+        background: #0a0a0b;
+        white-space: normal;
+      }
+      .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 30;
+        display: none;
+        background: rgb(0 0 0 / 68%);
+      }
+      .overlay[data-open="true"] {
+        display: block;
+      }
+      .sheet {
+        position: absolute;
+        inset: 0 0 0 auto;
+        width: min(520px, 100%);
+        border-left: 1px solid var(--strong);
+        background: #0b0b0c;
+        padding: 24px;
+        overflow-y: auto;
+      }
+      .dialog-wrap {
+        display: grid;
+        min-height: 100%;
+        place-items: center;
+        padding: 20px;
+      }
+      .dialog {
+        width: min(760px, 100%);
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+        border: 1px solid var(--strong);
+        border-radius: 8px;
+        background: #0b0b0c;
+        padding: 24px;
+      }
+      .editor-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .detail-top {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .fact-line {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .fact-line strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+      .render-frame {
+        min-height: 500px;
+        border: 1px solid var(--line);
+        background: #f8f8f7;
+        color: #191919;
+        padding: clamp(24px, 5vw, 58px);
+      }
+      .render-frame article {
+        max-width: 720px;
+        margin: 0 auto;
+        line-height: 1.65;
+      }
+      .details-panel {
+        display: none;
+        margin-top: 18px;
+        padding-top: 16px;
+      }
+      .details-panel[data-open="true"] {
+        display: block;
+      }
+      .detail-rows {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 34px;
+      }
+      .detail-row {
+        display: grid;
+        grid-template-columns: 130px minmax(0, 1fr);
+        gap: 12px;
+        padding: 8px 0;
+      }
+      .detail-row dt {
+        color: var(--muted);
+      }
+      .detail-row dd {
+        min-width: 0;
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+      .route-example {
+        min-height: 440px;
+      }
+      .route-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+      .fake-editor {
+        min-height: 320px;
+        border: 1px solid var(--line);
+        background: #09090a;
+        padding: 18px;
+        line-height: 1.85;
+        color: #dedee2;
+      }
+      .response {
+        max-width: 760px;
+      }
+      .response blockquote {
+        margin: 24px 0;
+        border-left: 2px solid var(--strong);
+        padding-left: 18px;
+        color: #d4d4d8;
+        line-height: 1.7;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
+        gap: 28px;
+      }
+      .form-stack {
+        display: grid;
+        gap: 14px;
+      }
+      .preview {
+        min-height: 360px;
+        border-left: 1px solid var(--line);
+        padding-left: 28px;
+      }
+      @media (max-width: 850px) {
+        .app {
+          display: block;
+        }
+        .sidebar {
+          display: none;
+        }
+        .topbar {
+          padding-inline: 10px;
+        }
+        .content {
+          padding: 22px 14px 56px;
+        }
+        .mock-switcher {
+          width: 116px;
+        }
+        .toolbar .columns {
+          margin-left: 0;
+        }
+        .editor-fields,
+        .detail-rows,
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .field-wide {
+          grid-column: auto;
+        }
+        .preview {
+          border-left: 0;
+          border-top: 1px solid var(--line);
+          padding: 22px 0 0;
+        }
+      }
+      @media (max-width: 520px) {
+        .heading {
+          display: block;
+        }
+        .heading .actions {
+          margin-top: 14px;
+        }
+        .toolbar input {
+          width: 100%;
+        }
+        .detail-row {
+          grid-template-columns: 105px minmax(0, 1fr);
+        }
+        .account-menu {
+          max-width: calc(100vw - 16px);
+          min-width: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <img class="mark" src="icon.svg" alt="" /><strong>CTX9</strong
+          ><span class="muted">⌄</span>
+        </div>
+        <nav class="local-nav" aria-label="Publisher">
+          <small>Publisher</small
+          ><button aria-current="page" data-screen-link="inventory">
+            Publications
+          </button>
+        </nav>
+        <div class="account">
+          <button class="account-trigger" type="button" data-account-trigger>
+            <span class="avatar">MD</span
+            ><span class="account-copy"
+              ><strong>CTX9</strong><small>Matt Derman</small></span
+            ><span>⌃</span>
+          </button>
+          <div class="account-menu" data-account-menu>
+            <div class="tenant">CTX9<br /><small>matt@example.test</small></div>
+            <button type="button">
+              <span>⚙</span><span>Tenant and account settings</span>
+            </button>
+            <button type="button"><span>↪</span><span>Sign out</span></button>
+          </div>
+        </div>
+      </aside>
+      <main class="main">
+        <header class="topbar">
+          <button class="icon-button" aria-label="Collapse sidebar">☷</button>
+          <nav
+            class="breadcrumbs"
+            aria-label="Breadcrumb"
+            data-breadcrumbs
+          ></nav>
+          <select
+            class="mock-switcher"
+            aria-label="Mock screen"
+            data-screen-select
+          >
+            <option value="inventory">Publications</option>
+            <option value="detail">Publication detail</option>
+            <option value="secrets">Secrets path</option>
+            <option value="form">Form editor</option>
+            <option value="response">Response detail</option>
+          </select>
+        </header>
+        <div class="content">
+          <section class="screen" data-screen="inventory">
+            <div class="heading">
+              <div>
+                <h1>Publications</h1>
+                <p class="muted">128 publications</p>
+              </div>
+              <button type="button">Filters</button>
+            </div>
+            <div class="toolbar">
+              <input
+                type="search"
+                aria-label="Find publication"
+                placeholder="Find publication"
+              />
+              <select aria-label="Kind">
+                <option>Any kind</option>
+                <option>Document</option>
+                <option>File</option>
+                <option>Evidence</option>
+              </select>
+              <select aria-label="Group by" data-group>
+                <option value="none">Group by: None</option>
+                <option value="kind">Group by: Kind</option>
+                <option value="namespace">Group by: Namespace</option>
+                <option value="status">Group by: Status</option>
+                <option value="owner">Group by: Owner</option>
+              </select>
+              <button class="columns" type="button">Columns</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Kind</th>
+                    <th>Namespace</th>
+                    <th>Status</th>
+                    <th>Owner</th>
+                    <th>Updated</th>
+                  </tr>
+                </thead>
+                <tbody data-table-body>
+                  <tr data-editable="true" tabindex="0" data-row>
+                    <td class="open-cell">
+                      <a
+                        class="open-link"
+                        href="#detail"
+                        aria-label="Open deployment report"
+                        data-open-detail
+                        >↗</a
+                      >
+                    </td>
+                    <td>
+                      <a class="title-link" href="#detail" data-open-detail
+                        >Deployment report</a
+                      >
+                    </td>
+                    <td>Evidence</td>
+                    <td class="mono">private</td>
+                    <td class="status">Published</td>
+                    <td>delivery / release</td>
+                    <td>Today, 09:42</td>
+                  </tr>
+                  <tr class="inline-editor" data-inline-editor>
+                    <td colspan="7" data-editor-slot></td>
+                  </tr>
+                  <tr data-editable="true" tabindex="0" data-row>
+                    <td class="open-cell">
+                      <a
+                        class="open-link"
+                        href="#detail"
+                        aria-label="Open customer handoff"
+                        data-open-detail
+                        >↗</a
+                      >
+                    </td>
+                    <td>
+                      <a class="title-link" href="#detail" data-open-detail
+                        >Customer handoff</a
+                      >
+                    </td>
+                    <td>Document</td>
+                    <td class="mono">public</td>
+                    <td class="status">Published</td>
+                    <td>agents / handoff</td>
+                    <td>Yesterday</td>
+                  </tr>
+                  <tr data-editable="true" tabindex="0" data-row>
+                    <td class="open-cell">
+                      <a
+                        class="open-link"
+                        href="#detail"
+                        aria-label="Open database restore proof"
+                        data-open-detail
+                        >↗</a
+                      >
+                    </td>
+                    <td>
+                      <a class="title-link" href="#detail" data-open-detail
+                        >Database restore proof</a
+                      >
+                    </td>
+                    <td>Evidence</td>
+                    <td class="mono">git</td>
+                    <td class="draft">Draft</td>
+                    <td>incident-controller / incident</td>
+                    <td>21 Sep</td>
+                  </tr>
+                  <tr data-editable="true" tabindex="0" data-row>
+                    <td class="open-cell">
+                      <a
+                        class="open-link"
+                        href="#detail"
+                        aria-label="Open product brief PDF"
+                        data-open-detail
+                        >↗</a
+                      >
+                    </td>
+                    <td>
+                      <a class="title-link" href="#detail" data-open-detail
+                        >Product brief.pdf</a
+                      >
+                    </td>
+                    <td>File</td>
+                    <td class="mono">public</td>
+                    <td class="status">Published</td>
+                    <td>publisher / resource</td>
+                    <td>20 Sep</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="detail" hidden>
+            <div class="heading">
+              <div class="title-line">
+                <button
+                  class="icon-button"
+                  type="button"
+                  aria-label="Return to Publications"
+                  data-return-inventory
+                >
+                  ‹
+                </button>
+                <div><h1>Deployment report</h1></div>
+              </div>
+              <div class="actions">
+                <button type="button">Edit</button
+                ><button type="button">Source</button
+                ><button class="primary" type="button">Publish</button>
+              </div>
+            </div>
+            <div class="detail-top">
+              <div class="fact-line">
+                <strong>Evidence</strong><span>·</span
+                ><span class="status">Published</span><span>·</span
+                ><span>Private</span><span>·</span><span>Tenant</span
+                ><span>·</span><span>v4</span><span>·</span
+                ><span>Updated today at 09:42</span>
+              </div>
+              <div class="details-actions">
+                <select aria-label="Version">
+                  <option>v4 · Today, 09:42</option>
+                  <option>v3 · 21 Sep</option></select
+                ><button type="button" data-details-trigger>Details</button>
+              </div>
+            </div>
+            <div class="render-frame">
+              <article>
+                <h2>Deployment report</h2>
+                <p>
+                  Release verification completed against the synthetic local
+                  environment.
+                </p>
+                <h3>Checks</h3>
+                <ul>
+                  <li>Browser routes returned 200</li>
+                  <li>Database migrations completed</li>
+                  <li>Rollback image recorded</li>
+                </ul>
+              </article>
+            </div>
+            <section class="details-panel" data-details-panel>
+              <div class="detail-rows">
+                <dl>
+                  <div class="detail-row">
+                    <dt>Owner</dt>
+                    <dd>delivery / release / ctx9-2026-09-22</dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Tags</dt>
+                    <dd>release, acceptance</dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Created</dt>
+                    <dd>18 Sep 2026, 14:08</dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Updated</dt>
+                    <dd>22 Sep 2026, 09:42</dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Expires</dt>
+                    <dd>Never</dd>
+                  </div>
+                </dl>
+                <dl>
+                  <div class="detail-row">
+                    <dt>Publication ID</dt>
+                    <dd class="mono">aaaaaaaaaaaaaaaa</dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Revision</dt>
+                    <dd>7</dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Media</dt>
+                    <dd>text/markdown · rendered</dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Source</dt>
+                    <dd><a href="#">Download source</a></dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Manifest</dt>
+                    <dd><a href="#">Open manifest</a></dd>
+                  </div>
+                </dl>
+              </div>
+            </section>
+          </section>
+
+          <section class="screen route-example" data-screen="secrets" hidden>
+            <div class="heading">
+              <div class="title-line">
+                <button
+                  class="icon-button"
+                  aria-label="Return to publisher repository"
+                >
+                  ‹
+                </button>
+                <div><h1>publisher / prod</h1></div>
+              </div>
+              <div class="actions">
+                <span class="muted">Saved</span
+                ><button type="button">Publish</button>
+              </div>
+            </div>
+            <div class="route-toolbar">
+              <select>
+                <option>contracts/publisher/.env.base</option></select
+              ><input type="search" placeholder="Find variable" />
+            </div>
+            <pre class="fake-editor mono">
+# Database
+DATABASE_URL=••••••••••••          Tenant shared
+DATABASE_POOL_SIZE=20              Git
+
+# Storage
+PUBLISHER_BUCKET=ctx9-publisher    Git
+PUBLISHER_ACCESS_KEY=••••••••••    Repository</pre>
+          </section>
+
+          <section class="screen route-example" data-screen="form" hidden>
+            <div class="heading">
+              <div class="title-line">
+                <button class="icon-button" aria-label="Return to Forms">
+                  ‹
+                </button>
+                <div>
+                  <h1>Customer story</h1>
+                  <p class="muted">Published v3</p>
+                </div>
+              </div>
+              <div class="actions">
+                <button>Save draft</button
+                ><button class="primary">Publish</button>
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="form-stack">
+                <label class="field"
+                  >Title<input value="Tell us about your experience" /></label
+                ><label class="field"
+                  >Introduction<input
+                    value="A few thoughtful answers are enough." /></label
+                ><label class="field"
+                  >Button label<input value="Start"
+                /></label>
+              </div>
+              <div class="preview">
+                <h2>Tell us about your experience</h2>
+                <p class="muted">A few thoughtful answers are enough.</p>
+                <button class="primary">Start</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="screen route-example" data-screen="response" hidden>
+            <div class="heading">
+              <div class="title-line">
+                <button class="icon-button" aria-label="Return to Responses">
+                  ‹
+                </button>
+                <div>
+                  <h1>Alex Morgan</h1>
+                  <p class="muted">Text response · Pending</p>
+                </div>
+              </div>
+              <div class="actions">
+                <button>Reject</button><button class="primary">Approve</button>
+              </div>
+            </div>
+            <article class="response">
+              <p class="muted">22 Sep 2026, 08:14</p>
+              <blockquote>
+                CTX9 made the release trail easy to follow without hiding the
+                important details.
+              </blockquote>
+              <div class="detail-rows">
+                <dl>
+                  <div class="detail-row">
+                    <dt>Permission</dt>
+                    <dd>Granted</dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Form version</dt>
+                    <dd>3</dd>
+                  </div>
+                </dl>
+                <dl>
+                  <div class="detail-row">
+                    <dt>Email</dt>
+                    <dd>alex@example.test</dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Response ID</dt>
+                    <dd class="mono">bbbbbbbbbbbbbbbb</dd>
+                  </div>
+                </dl>
+              </div>
+            </article>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="overlay" data-editor-overlay>
+      <div class="sheet" data-sheet><div data-editor-host></div></div>
+      <div class="dialog-wrap" data-dialog-wrap>
+        <div class="dialog"><div data-editor-host></div></div>
+      </div>
+    </div>
+
+    <template data-editor-template>
+      <div class="editor-head">
+        <div>
+          <h2>Edit publication</h2>
+          <p class="muted mono">aaaaaaaaaaaaaaaa · revision 7</p>
+        </div>
+        <button
+          class="icon-button"
+          type="button"
+          aria-label="Close editor"
+          data-close-editor
+        >
+          ×
+        </button>
+      </div>
+      <div class="editor-fields">
+        <label class="field field-wide"
+          >Title<input value="Deployment report"
+        /></label>
+        <label class="field"
+          >Kind<select>
+            <option>Evidence</option>
+            <option>Document</option>
+          </select></label
+        >
+        <label class="field"
+          >Namespace<select>
+            <option>Private</option>
+            <option>Git</option>
+            <option>Public</option>
+          </select></label
+        >
+        <label class="field"
+          >Visibility<select>
+            <option>Tenant</option>
+            <option>Restricted</option>
+          </select></label
+        >
+        <label class="field"
+          >Status<select>
+            <option>Published</option>
+            <option>Tombstoned</option>
+          </select></label
+        >
+        <label class="field">Owner domain<input value="delivery" /></label>
+        <label class="field">Owner type<input value="release" /></label>
+        <label class="field field-wide"
+          >Owner reference<input value="ctx9-2026-09-22"
+        /></label>
+        <label class="field">Expires<input value="Never" /></label>
+        <label class="field field-wide"
+          >Tags<input value="release, acceptance"
+        /></label>
+      </div>
+      <div class="editor-footer">
+        <button class="danger" type="button">Tombstone</button>
+        <div class="right">
+          <button type="button" data-close-editor>Cancel</button
+          ><button class="primary" type="button" data-close-editor>Save</button>
+        </div>
+      </div>
+    </template>
+
+    <script>
+      const params = new URLSearchParams(location.search);
+      const direction = ["inline", "sheet", "dialog"].includes(
+        params.get("direction"),
+      )
+        ? params.get("direction")
+        : "inline";
+      document.body.dataset.direction = direction;
+      const screenSelect = document.querySelector("[data-screen-select]");
+      const crumbs = document.querySelector("[data-breadcrumbs]");
+      const screens = [...document.querySelectorAll("[data-screen]")];
+      const accountMenu = document.querySelector("[data-account-menu]");
+      const overlay = document.querySelector("[data-editor-overlay]");
+      const inlineEditor = document.querySelector("[data-inline-editor]");
+      const editorTemplate = document.querySelector("[data-editor-template]");
+      const editorSlots = [
+        ...document.querySelectorAll("[data-editor-host], [data-editor-slot]"),
+      ];
+      const crumbMap = {
+        inventory: [["Publications"]],
+        detail: [["Publications", "inventory"], ["aaaaaaaaaaaaaaaa"]],
+        secrets: [
+          ["Repositories", "inventory"],
+          ["publisher", "inventory"],
+          ["prod"],
+        ],
+        form: [
+          ["Spaces", "inventory"],
+          ["CTX9", "inventory"],
+          ["Forms", "inventory"],
+          ["customer-story"],
+        ],
+        response: [
+          ["Spaces", "inventory"],
+          ["CTX9", "inventory"],
+          ["Responses", "inventory"],
+          ["bbbbbbbbbbbbbbbb"],
+        ],
+      };
+      function renderCrumbs(id) {
+        crumbs.replaceChildren();
+        crumbMap[id].forEach(([label, target], index) => {
+          if (index > 0) {
+            const separator = document.createElement("span");
+            separator.className = "separator";
+            separator.textContent = "/";
+            crumbs.append(separator);
+          }
+          if (target) {
+            const link = document.createElement("a");
+            link.href = `#${target}`;
+            link.textContent = label;
+            link.addEventListener("click", (event) => {
+              event.preventDefault();
+              show(target);
+            });
+            crumbs.append(link);
+          } else {
+            const current = document.createElement("span");
+            current.textContent = label;
+            current.setAttribute("aria-current", "page");
+            crumbs.append(current);
+          }
+        });
+      }
+      function show(id) {
+        screens.forEach((screen) => {
+          screen.hidden = screen.dataset.screen !== id;
+        });
+        screenSelect.value = id;
+        renderCrumbs(id);
+        history.replaceState(
+          {},
+          "",
+          `${location.pathname}?direction=${direction}#${id}`,
+        );
+      }
+      function editorContent() {
+        return editorTemplate.content.cloneNode(true);
+      }
+      function bindClose(root) {
+        root
+          .querySelectorAll("[data-close-editor]")
+          .forEach((button) => button.addEventListener("click", closeEditor));
+      }
+      function closeEditor() {
+        overlay.dataset.open = "false";
+        inlineEditor.dataset.open = "false";
+        editorSlots.forEach((slot) => slot.replaceChildren());
+      }
+      function openEditor() {
+        closeEditor();
+        if (direction === "inline") {
+          const slot = document.querySelector("[data-editor-slot]");
+          slot.append(editorContent());
+          bindClose(slot);
+          inlineEditor.dataset.open = "true";
+        } else {
+          document.querySelector("[data-sheet]").hidden = direction !== "sheet";
+          document.querySelector("[data-dialog-wrap]").hidden =
+            direction !== "dialog";
+          const host =
+            direction === "sheet"
+              ? document.querySelector("[data-sheet] [data-editor-host]")
+              : document.querySelector("[data-dialog-wrap] [data-editor-host]");
+          host.append(editorContent());
+          bindClose(host);
+          overlay.dataset.open = "true";
+        }
+      }
+      screenSelect.addEventListener("change", () => show(screenSelect.value));
+      document
+        .querySelector("[data-account-trigger]")
+        .addEventListener("click", () => {
+          accountMenu.dataset.open =
+            accountMenu.dataset.open === "true" ? "false" : "true";
+        });
+      document.querySelectorAll("[data-row]").forEach((row) => {
+        row.addEventListener("click", (event) => {
+          if (event.target.closest("a,button,input,select")) return;
+          openEditor();
+        });
+        row.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openEditor();
+          }
+        });
+      });
+      document.querySelectorAll("[data-open-detail]").forEach((link) =>
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          show("detail");
+        }),
+      );
+      document
+        .querySelector("[data-return-inventory]")
+        .addEventListener("click", () => show("inventory"));
+      document
+        .querySelector("[data-details-trigger]")
+        .addEventListener("click", (event) => {
+          const panel = document.querySelector("[data-details-panel]");
+          panel.dataset.open = panel.dataset.open === "true" ? "false" : "true";
+          event.currentTarget.textContent =
+            panel.dataset.open === "true" ? "Hide details" : "Details";
+        });
+      document
+        .querySelector("[data-group]")
+        .addEventListener("change", (event) => {
+          const body = document.querySelector("[data-table-body]");
+          body
+            .querySelectorAll("[data-group-row]")
+            .forEach((row) => row.remove());
+          if (event.target.value === "none") return;
+          const group = document.createElement("tr");
+          group.dataset.groupRow = "true";
+          group.className = "group-label";
+          group.innerHTML = `<td colspan="7">${event.target.options[event.target.selectedIndex].textContent.replace("Group by: ", "")} · Synthetic grouping preview</td>`;
+          body.prepend(group);
+        });
+      document
+        .querySelectorAll("[data-screen-link]")
+        .forEach((button) =>
+          button.addEventListener("click", () =>
+            show(button.dataset.screenLink),
+          ),
+        );
+      show(location.hash.slice(1) || "inventory");
+    </script>
+  </body>
+</html>

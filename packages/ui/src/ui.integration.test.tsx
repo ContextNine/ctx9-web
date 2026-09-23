@@ -19,7 +19,7 @@ import {
 } from "./dialog.js";
 import { NavigationProvider } from "./navigation.js";
 import { Skeleton } from "./feedback.js";
-import { ApplicationLayout } from "./shell.js";
+import { ApplicationLayout, PageHeading } from "./shell.js";
 import {
   TenantAccountSettingsDialog,
   type TenantAccountSettingsTabId,
@@ -73,6 +73,10 @@ describe("shared product primitives", () => {
             { id: "overview", label: "Overview", href: "/", current: true },
             { id: "settings", label: "Settings", href: "/settings" },
           ]}
+          breadcrumbs={[
+            { id: "home", label: "Home", href: "/" },
+            { id: "secrets", label: "Secrets" },
+          ]}
         >
           <div className="grid gap-2">
             <Label htmlFor="search">Search services</Label>
@@ -92,6 +96,8 @@ describe("shared product primitives", () => {
         .getAttribute("href"),
     ).toBe("#main-content");
     expect(screen.getByRole("main").getAttribute("tabindex")).toBe("-1");
+    expect(screen.getByRole("navigation", { name: "Breadcrumb" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Home" })).toBeTruthy();
     expect(screen.getByLabelText("Search services")).toBeTruthy();
     expect(
       screen.getByRole("link", { name: "Settings" }).dataset.routerLink,
@@ -131,6 +137,30 @@ describe("shared product primitives", () => {
       rules: { "color-contrast": { enabled: false } },
     });
     expect(results.violations).toHaveLength(0);
+  });
+
+  it("renders an icon-only parent action beside a page title", () => {
+    render(
+      <NavigationProvider
+        link={React.forwardRef<HTMLAnchorElement, React.ComponentProps<"a">>(
+          ({ children, ...props }, ref) => (
+            <a ref={ref} {...props}>
+              {children}
+            </a>
+          ),
+        )}
+      >
+        <PageHeading
+          title="Publication title"
+          parent={{ href: "/", label: "Back to publications" }}
+        />
+      </NavigationProvider>,
+    );
+    const parent = screen.getByRole("link", { name: "Back to publications" });
+    expect(parent.textContent).toBe("");
+    expect(
+      screen.getByRole("heading", { name: "Publication title" }),
+    ).toBeTruthy();
   });
 
   it("sorts typed table rows and supports keyboard row navigation", async () => {

@@ -23,7 +23,7 @@ This guide is canonical for CTX9-owned internal applications: Platform, Auth, en
 - Product content uses a compact top bar and a readable maximum width where the task permits it.
 - Dense tables may scroll horizontally; ordinary pages must not.
 - Pages remain vertically scrollable. A dialog scrolls internally only when taller than the viewport.
-- Authentication uses the shared two-column `AuthShell` on desktop and one focused column on mobile. Authenticated products use `ApplicationLayout`, with product switching and product-local navigation in the collapsible left sidebar.
+- Authentication uses the shared two-column `AuthShell` on desktop and one focused column on mobile. Authenticated products use `ApplicationLayout`, with product switching and product-local navigation in the collapsible left sidebar. Its top bar always shows the complete route breadcrumb. Ancestors are links and the current page is plain text.
 - Prefer section boundaries and aligned rows over card grids. A bordered panel exists only when content needs a distinct interaction or security boundary.
 
 ## Controls
@@ -44,5 +44,7 @@ The runtime variables, shadcn controls, typed data table, feedback states, Auth 
 - Mobile navigation is an off-canvas drawer with an explicit open button, close button, backdrop, Escape handling, and focus-visible controls.
 - The footer trigger uses a 40px round avatar, current tenant, and user name. Its menu is 270px wide and follows Impression's space/brand switcher hierarchy.
 - The account menu contains current and switchable tenants, an optional product-settings action, Tenant and account settings, and Sign out. Do not add product settings until the product has a real settings page.
+- Keep `Tenant and account settings` on one line. The menu may grow wider to preserve the label.
+- Detail-page titles use `PageHeading`'s icon-only parent chevron. Do not add visible `Back` actions or put parent navigation on the right.
 - Tenant and account settings opens in the current app. Its near-full-viewport dialog uses a left tab rail for Tenant, Access, capability-backed Provisioning, and Account security. The dialog uses one 300ms opacity and scale transition and disables scale motion for reduced-motion users.
 - Route and tab changes keep the shell and useful cached content mounted. Never replace a page with visible loading copy, a spinner, or an animated placeholder.

@@ -37,6 +37,8 @@ Release 5.0.0 adds Testimonials to All apps and requires every caller to supply 
 
 Release 6.0.0 removes the retired Agents product from the application ID, origin contract and All apps menu. Active consumers must remove their Agents origin and pin both packages to 6.0.0. The major version keeps the public TypeScript contract aligned with the live product topology instead of accepting an ignored legacy origin.
 
+Release 7.0.0 replaces `ApplicationLayout.header` with the required typed `breadcrumbs` contract, adds the shared page-title parent chevron, widens the account menu for its longest action, and publishes the canonical favicon asset. The old arbitrary header prop is intentionally unsupported.
+
 ## Upgrade and rollback
 
 - Upgrade one component at a time with an exact package version and run its full component checks.
