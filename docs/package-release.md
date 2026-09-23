@@ -37,7 +37,7 @@ Release 5.0.0 adds Testimonials to All apps and requires every caller to supply 
 
 Release 6.0.0 removes the retired Agents product from the application ID, origin contract and All apps menu. Active consumers must remove their Agents origin and pin both packages to 6.0.0. The major version keeps the public TypeScript contract aligned with the live product topology instead of accepting an ignored legacy origin.
 
-Release 7.0.0 replaces `ApplicationLayout.header` with the required typed `breadcrumbs` contract, adds the shared page-title parent chevron, widens the account menu for its longest action, and publishes the canonical favicon asset. The old arbitrary header prop is intentionally unsupported.
+Release 7.0.0 replaces `ApplicationLayout.header` with the required typed `breadcrumbs` contract, adds the shared page-title parent chevron, widens the account menu for its longest action, and publishes the canonical favicon asset. The old arbitrary header prop is intentionally unsupported. GitLab [pipeline #2874071020](https://gitlab.com/ctx9/web/-/pipelines/2874071020) passed its check and publish stages for commit `1e9cb756`. The registry lists both packages at 7.0.0. The release archives use SHA-512 integrity `sha512-v7fXMPqZghPXjpL5qczgNBkk7PN+MbWKgxC5/i+DoBO1yZAs7IwyudUlbvCQuH102fA52Dg7HIPqwBsBgbziTA==` for `@ctx9/ui` and `sha512-6YQaLhTwP23c154I+4KaKruXlIyZJRjVWH07Je0YYTLs3S8xkCARpykKNiDxImvfQC+KxdZdzi4CS2wp+gK7VA==` for `@ctx9/web-auth`.
 
 ## Upgrade and rollback
 
