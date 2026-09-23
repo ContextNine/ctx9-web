@@ -16,6 +16,7 @@
     "archives:check": "tsx scripts/check-package-archives.ts",
     "packages:check": "tsx scripts/check-packages.ts",
     "provenance:check": "tsx scripts/check-provenance.ts",
+    "release:build": "tsx scripts/build-package-release.ts",
     "styles:check": "tsx scripts/check-styles.ts",
     "test": "vitest run",
     "typecheck": "pnpm --recursive typecheck",

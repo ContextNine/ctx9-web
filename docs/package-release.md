@@ -12,6 +12,11 @@ GitHub `ContextNine/ctx9-web` is the canonical source. A GitHub Actions deploy k
 6. Create and push the matching `vX.Y.Z` tag on GitHub.
 7. Wait for the mirror and GitLab publish job, then record registry archive hashes and pipeline URLs.
 
+The publish job creates both package archives once, records their SHA-256
+digests and the full source commit in `web-X.Y.Z.release.json`, and publishes
+those exact archives. The tagged pipeline retains the archives, checksum file,
+and release record as non-expiring artifacts.
+
 Never republish or overwrite a released version. Correct a package with a new patch version.
 
 ## CI consumption
