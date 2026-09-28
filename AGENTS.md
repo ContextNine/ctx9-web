@@ -2,6 +2,7 @@
 
 This package-only repository owns the CTX9 internal-product design system and shared browser identity protocol.
 
+- Always work on master unless instructed not to.
 - Read `docs/style-guide.md`, `docs/component-inventory.md`, `docs/error-handling.md`, `docs/source-provenance.md`, and `docs/package-release.md` before changing public exports.
 - Dark mode only: true black `#000` canvas, white primary text, no theme toggle, light tokens, or `prefers-color-scheme` fork.
 - Do not import Impression at runtime or copy product-specific/public-marketing components.
