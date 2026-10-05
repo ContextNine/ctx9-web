@@ -6,6 +6,8 @@ GitHub `ContextNine/ctx9-web` is the canonical source. A GitHub Actions deploy k
 
 The v8 replacement is still unpublished. Its complete local check passes under Node 22.16.0, including 21 integration tests and isolated archive installation, typechecking, rendering, and policy checks. MultipleSelector has an additional 48-case browser comparison at desktop/mobile widths in light, class-based dark, and attribute-based dark. The port and combined stylesheet produce zero changed pixels. The direct compiled-stylesheet comparison differs only in the duplicate WebKit text-decoration transition alias; the full consumer-build CSS and remaining component/interaction matrix are still required before a v8 tag.
 
+The Button fixture covers 169 cases at desktop/mobile widths in light/dark. After restoring Impression's existing 11px tiny typography variant, component output has identical computed styles, geometry, and pixels across 676 comparisons. Adding shared CSS also yields zero changed pixels. The remaining rendered-property difference is the WebKit transition alias. Added package variables and equivalent minified custom-property values differ textually, so this does not accept literal full-consumer CSS or the remaining interaction matrix.
+
 1. Confirm the approved visual identifiers and component provenance are recorded.
 2. Set both package versions to the same exact semantic version.
 3. Run `pnpm install --frozen-lockfile` and `pnpm check` under the Impression-authoritative Node 22.16.0 and pnpm 11.1.2 versions.

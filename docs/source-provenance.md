@@ -31,6 +31,8 @@ The shared `Ctx9Mark` is the original six-cell vector served by `ctx9.com/tenant
 
 The MultipleSelector port uses Impression `06967d08d`, `apps/next/src/components/ui/multiple-selector.tsx`. Its selection/search behavior and existing option normalization are retained. The linked-account height and shared pill background become typed variants; remove/clear actions are private appearance-owned buttons. Nested input and command appearance overrides are not part of the new contract. Impression's call sites remain unmigrated until visual verification.
 
+The Button comparison uses Impression `01dd4e76d`, `apps/next/src/components/ui/button.tsx`. Its existing `typography="tiny"` variant stays at 11px. Changing it to `text-xs` would alter live outreach actions, so the migration preserves that existing size rather than applying a design change.
+
 ## Font provenance
 
 The package vendors normal variable fonts for standalone consumers. They are emitted inside `@ctx9/ui`; production makes no third-party font request. Font utilities first consume the host's `--font-geist-sans` and `--font-inter` bindings, preserving Impression's existing font selection when the stylesheets are combined. Standalone applications use the package's self-hosted defaults.

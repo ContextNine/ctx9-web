@@ -215,7 +215,7 @@ export const buttonVariants = cva(
         mono: "font-mono",
         normal: "font-normal",
         base: "text-base",
-        tiny: "text-xs font-medium",
+        tiny: "text-[11px] font-medium",
       },
       minWidth: {
         default: "",
