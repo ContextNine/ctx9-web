@@ -2,7 +2,7 @@
 
 Private shared web architecture for CTX9 internal products.
 
-- `@ctx9/ui` owns dark-only product tokens, recipes, primitives, and error presentation.
+- `@ctx9/ui` owns Impression-aligned light/dark tokens, typed components, and shared style enforcement for internal products.
 - `@ctx9/web-auth` owns framework-neutral confidential OIDC BFF protocol behavior.
 
 This repository publishes packages only. It is not a deployable service, Kubernetes workload, identity authority, session database, or shared browser application.

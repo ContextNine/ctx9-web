@@ -1,39 +1,8 @@
-import * as ToastPrimitive from "@radix-ui/react-toast";
-import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { Button } from "./button.js";
 import { cn } from "./cn.js";
 import type { ErrorDescriptor } from "./error.js";
-
-const badgeVariants = cva(
-  "inline-flex min-h-6 items-center rounded-sm border px-2 text-xs font-medium",
-  {
-    variants: {
-      tone: {
-        neutral: "border-border-strong bg-surface text-muted-foreground",
-        selected: "border-focus bg-selected text-foreground",
-        success: "border-success/40 bg-success/10 text-success",
-        warning: "border-warning/40 bg-warning/10 text-warning",
-        danger: "border-danger/40 bg-danger/10 text-danger",
-      },
-    },
-    defaultVariants: { tone: "neutral" },
-  },
-);
-
-export interface BadgeProps
-  extends
-    React.HTMLAttributes<HTMLSpanElement>,
-    VariantProps<typeof badgeVariants> {}
-
-export function Badge({
-  tone,
-  className,
-  ...props
-}: BadgeProps): React.JSX.Element {
-  return <span className={cn(badgeVariants({ tone }), className)} {...props} />;
-}
 
 export function StatusText({
   tone = "neutral",
@@ -70,54 +39,6 @@ export function InlineStatus({
     />
   );
 }
-
-export function Skeleton({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>): React.JSX.Element {
-  return (
-    <div
-      aria-hidden="true"
-      className={cn("rounded-sm bg-surface-raised", className)}
-      {...props}
-    />
-  );
-}
-
-export const ToastProvider = ToastPrimitive.Provider;
-export const ToastViewport = React.forwardRef<
-  React.ComponentRef<typeof ToastPrimitive.Viewport>,
-  React.ComponentPropsWithoutRef<typeof ToastPrimitive.Viewport>
->(({ className, ...props }, ref) => (
-  <ToastPrimitive.Viewport
-    ref={ref}
-    className={cn(
-      "fixed right-0 bottom-0 z-[100] flex max-h-dvh w-full flex-col gap-2 p-4 sm:max-w-sm",
-      className,
-    )}
-    {...props}
-  />
-));
-ToastViewport.displayName = ToastPrimitive.Viewport.displayName;
-
-export const Toast = React.forwardRef<
-  React.ComponentRef<typeof ToastPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ToastPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <ToastPrimitive.Root
-    ref={ref}
-    className={cn(
-      "grid gap-1 rounded-md border border-border-strong bg-popover p-4 text-foreground shadow-2xl",
-      className,
-    )}
-    {...props}
-  />
-));
-Toast.displayName = ToastPrimitive.Root.displayName;
-export const ToastTitle = ToastPrimitive.Title;
-export const ToastDescription = ToastPrimitive.Description;
-export const ToastAction = ToastPrimitive.Action;
-export const ToastClose = ToastPrimitive.Close;
 
 interface StatePageProps {
   title: string;
@@ -181,7 +102,7 @@ export function ErrorPage({
           {error.retry && (
             <Button
               type="button"
-              variant="default"
+              variant="primary"
               onClick={error.retry.action}
             >
               {error.retry.label}

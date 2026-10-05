@@ -3,7 +3,14 @@ import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 export default defineConfig(
-  { ignores: ["**/dist/**", "**/coverage/**", "**/*.d.ts"] },
+  {
+    ignores: [
+      "**/dist/**",
+      "**/coverage/**",
+      "**/*.d.ts",
+      "**/tailwind.config.cjs",
+    ],
+  },
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,

@@ -1,5 +1,8 @@
 packages:
   - packages/*
+overrides:
+  motion-dom: 12.23.23
+  motion-utils: 12.23.6
 allowBuilds:
   "@parcel/watcher": true
   esbuild: true

@@ -1,19 +1,15 @@
 "use client";
 
 import {
-  columnFilteringFeature,
-  columnVisibilityFeature,
   createColumnHelper,
-  createFilteredRowModel,
-  createPaginatedRowModel,
-  createSortedRowModel,
-  filterFn_includesString,
-  rowPaginationFeature,
-  rowSortingFeature,
-  tableFeatures,
-  useTable,
-  type ColumnDef,
-  type ColumnVisibilityState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+  type TableOptions,
+  type VisibilityState,
   type OnChangeFn,
   type PaginationState,
   type RowData,
@@ -24,13 +20,13 @@ import * as React from "react";
 
 import { Button } from "./button.js";
 import { cn } from "./cn.js";
-import { Input } from "./controls.js";
+import { Input } from "./input.js";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "./overlays.js";
+} from "./dropdown-menu.js";
 import {
   Table,
   TableBody,
@@ -38,24 +34,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./data.js";
+} from "./table.js";
 
-export const dataTableFeatures = tableFeatures({
-  columnFilteringFeature,
-  columnVisibilityFeature,
-  rowPaginationFeature,
-  rowSortingFeature,
-  filteredRowModel: createFilteredRowModel(),
-  paginatedRowModel: createPaginatedRowModel(),
-  sortedRowModel: createSortedRowModel(),
-  filterFns: { includesString: filterFn_includesString },
-});
-
-type Features = typeof dataTableFeatures;
-export type DataTableColumn<TData extends RowData> = ColumnDef<Features, TData>;
+export type DataTableColumn<TData extends RowData> =
+  TableOptions<TData>["columns"][number];
 
 export function createDataTableColumnHelper<TData extends RowData>() {
-  return createColumnHelper<Features, TData>();
+  return createColumnHelper<TData>();
 }
 
 export interface DataTableProps<TData extends RowData> {
@@ -71,8 +56,8 @@ export interface DataTableProps<TData extends RowData> {
   pageCount?: number;
   rowCount?: number;
   manualPagination?: boolean;
-  columnVisibility?: ColumnVisibilityState;
-  onColumnVisibilityChange?: OnChangeFn<ColumnVisibilityState>;
+  columnVisibility?: VisibilityState;
+  onColumnVisibilityChange?: OnChangeFn<VisibilityState>;
   filter?: {
     columnId: string;
     value: string;
@@ -115,12 +100,15 @@ export function DataTable<TData extends RowData>({
     pageSize: 25,
   });
   const [columnVisibility, setColumnVisibility] =
-    React.useState<ColumnVisibilityState>({});
+    React.useState<VisibilityState>({});
 
-  const table = useTable({
-    features: dataTableFeatures,
-    data,
-    columns,
+  const table = useReactTable({
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    data: [...data],
+    columns: [...columns],
     state: {
       sorting: controlledSorting ?? sorting,
       pagination: controlledPagination ?? pagination,
@@ -208,10 +196,13 @@ export function DataTable<TData extends RowData>({
                           type="button"
                           variant="ghost"
                           size="sm"
-                          className="h-8 justify-start px-0 text-left text-xs text-muted-foreground hover:bg-transparent hover:text-foreground"
+                          preset="tableSort"
                           onClick={header.column.getToggleSortingHandler()}
                         >
-                          <table.FlexRender header={header} />
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                           {sorted === "asc" ? (
                             <ArrowUp aria-hidden="true" className="size-3.5" />
                           ) : sorted === "desc" ? (
@@ -227,7 +218,10 @@ export function DataTable<TData extends RowData>({
                           )}
                         </Button>
                       ) : (
-                        <table.FlexRender header={header} />
+                        flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )
                       )}
                     </TableHead>
                   );
@@ -263,7 +257,10 @@ export function DataTable<TData extends RowData>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      <table.FlexRender cell={cell} />
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -287,7 +284,7 @@ export function DataTable<TData extends RowData>({
           className="flex items-center justify-end gap-2"
         >
           <span className="mr-2 text-sm text-muted-foreground">
-            Page {table.state.pagination.pageIndex + 1} of{" "}
+            Page {table.getState().pagination.pageIndex + 1} of{" "}
             {table.getPageCount()}
           </span>
           <Button
@@ -297,8 +294,8 @@ export function DataTable<TData extends RowData>({
             disabled={!table.getCanPreviousPage()}
             onClick={() => {
               (onPaginationChange ?? setPagination)({
-                ...table.state.pagination,
-                pageIndex: table.state.pagination.pageIndex - 1,
+                ...table.getState().pagination,
+                pageIndex: table.getState().pagination.pageIndex - 1,
               });
             }}
           >
@@ -311,8 +308,8 @@ export function DataTable<TData extends RowData>({
             disabled={!table.getCanNextPage()}
             onClick={() => {
               (onPaginationChange ?? setPagination)({
-                ...table.state.pagination,
-                pageIndex: table.state.pagination.pageIndex + 1,
+                ...table.getState().pagination,
+                pageIndex: table.getState().pagination.pageIndex + 1,
               });
             }}
           >

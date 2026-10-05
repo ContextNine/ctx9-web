@@ -1,5 +1,6 @@
-@import "tailwindcss" source(none);
-@source "./**/*.{ts,tsx}";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @font-face {
   font-family: "Geist";
@@ -10,127 +11,140 @@
 }
 
 @font-face {
-  font-family: "JetBrains Mono";
+  font-family: "Inter";
   font-style: normal;
   font-display: swap;
-  font-weight: 100 800;
-  src: url("./fonts/jetbrains-mono-latin-variable.woff2")
-    format("woff2-variations");
-  unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
-    U+2215, U+FEFF, U+FFFD;
+  font-weight: 100 900;
+  src: url("./fonts/inter-normal-variable.ttf") format("truetype");
 }
 
 :root {
-  color-scheme: dark;
-  --ctx9-canvas: #000000;
-  --ctx9-mono-970: #050505;
-  --ctx9-mono-960: #080808;
-  --ctx9-mono-950: #0d0d0d;
-  --ctx9-mono-900: #171717;
-  --ctx9-mono-850: #202020;
-  --ctx9-mono-800: #292929;
-  --ctx9-mono-700: #404040;
-  --ctx9-mono-500: #737373;
-  --ctx9-mono-400: #a3a3a3;
-  --ctx9-mono-300: #c4c4c4;
-  --ctx9-mono-200: #e0e0e0;
-  --ctx9-mono-100: #f5f5f5;
-  --ctx9-foreground: var(--ctx9-mono-100);
-  --ctx9-secondary-foreground: var(--ctx9-mono-300);
-  --ctx9-nav-foreground: var(--ctx9-mono-300);
-  --ctx9-muted-foreground: var(--ctx9-mono-400);
-  --ctx9-sidebar: var(--ctx9-mono-960);
-  --ctx9-sidebar-hover: var(--ctx9-mono-950);
-  --ctx9-panel: var(--ctx9-mono-970);
-  --ctx9-surface: var(--ctx9-mono-970);
-  --ctx9-surface-raised: var(--ctx9-mono-850);
-  --ctx9-popover: var(--ctx9-mono-950);
-  --ctx9-border: var(--ctx9-mono-800);
-  --ctx9-border-strong: #404040;
-  --ctx9-input: var(--ctx9-mono-900);
-  --ctx9-focus: var(--ctx9-mono-200);
-  --ctx9-selected: var(--ctx9-mono-850);
-  --ctx9-link: var(--ctx9-mono-200);
-  --ctx9-success: #4ade80;
-  --ctx9-warning: #fbbf24;
-  --ctx9-danger: #f87171;
-  --ctx9-disabled: #525252;
-  --ctx9-radius-sm: 0.25rem;
-  --ctx9-radius-md: 0.375rem;
-  --ctx9-radius-lg: 0.5rem;
-  --ctx9-font-sans:
+  color-scheme: light;
+  --background: 0 0% 100%;
+  --foreground: 0 0% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 3.9%;
+  --popover-foreground: 0 0% 3.9%;
+  --primary: 0 0% 9%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 36 10% 93.1%;
+  --secondary-foreground: 0 0% 9%;
+  --muted: 36 25% 96%;
+  --accent: 36 20% 89%;
+  --accent-foreground: 0 0% 7%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 0 0% 3.9%;
+  --nav-foreground: 0 0% 25%;
+  --muted-foreground: 36 5% 39%;
+  --sidebar: 36 60% 98%;
+  --sidebar-hover: 36 25% 96%;
+  --panel: 0 0% 100%;
+  --surface: 0 0% 100%;
+  --surface-raised: 36 25% 96%;
+  --popover: 0 0% 100%;
+  --border: 36 20% 89.8%;
+  --border-strong: 36 15% 82%;
+  --input: 36 20% 89.8%;
+  --focus: 0 0% 3.9%;
+  --selected: 36 20% 89%;
+  --link: 0 0% 9%;
+  --success: 142 69% 35%;
+  --warning: 38 92% 38%;
+  --danger: 0 72% 51%;
+  --disabled: 0 0% 64%;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius: 0.65rem;
+  --neutral-10: hsl(36, 80%, 99%);
+  --neutral-15: hsl(36, 60%, 98%);
+  --neutral-20: hsl(36, 50%, 97%);
+  --neutral-30: hsl(36, 45%, 96%);
+  --neutral-50: hsl(36, 40%, 95%);
+  --neutral-100: hsl(36, 35%, 93%);
+  --neutral-150: hsl(36, 29%, 89%);
+  --neutral-200: hsl(36, 20%, 85%);
+  --neutral-300: hsl(36, 15%, 82%);
+  --neutral-400: hsl(36, 12%, 76%);
+  --neutral-500: hsl(36, 10%, 68%);
+  --neutral-600: hsl(0, 0%, 32%);
+  --neutral-700: hsl(0, 0%, 25%);
+  --neutral-800: hsl(0, 0%, 15%);
+  --neutral-850: hsl(0, 0%, 10%);
+  --neutral-900: hsl(0, 0%, 9%);
+  --neutral-950: hsl(0, 0%, 5%);
+  --mono-50: hsl(0, 0%, 98%);
+  --mono-100: hsl(0, 0%, 96%);
+  --mono-150: hsl(0, 0%, 93%);
+  --mono-200: hsl(0, 0%, 90%);
+  --mono-300: hsl(0, 0%, 83%);
+  --mono-400: hsl(0, 0%, 64%);
+  --mono-500: hsl(0, 0%, 45%);
+  --mono-600: hsl(0, 0%, 32%);
+  --mono-700: hsl(0, 0%, 25%);
+  --mono-800: hsl(0, 0%, 15%);
+  --mono-850: hsl(0, 0%, 12%);
+  --mono-900: hsl(0, 0%, 9%);
+  --mono-910: hsl(0, 0%, 8%);
+  --mono-920: hsl(0, 0%, 7%);
+  --mono-930: hsl(0, 0%, 6%);
+  --mono-940: hsl(0, 0%, 5.5%);
+  --mono-950: hsl(0, 0%, 5%);
+  --mono-955: hsl(0, 0%, 4%);
+  --mono-960: hsl(0, 0%, 3%);
+  --mono-970: hsl(0, 0%, 2%);
+  --colors-brandPrimary: #3139fb;
+  --colors-brandPrimaryLight: #4c52ff;
+  --colors-brandPrimaryDarkModeText: #3139fb;
+  --font-sans:
     "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
-  --ctx9-font-mono:
-    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    monospace;
+  --font-mono:
+    "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --theme-secondary: 36 30% 92%;
+  --theme-secondary-foreground: 30 36% 10%;
 }
 
-@theme inline {
-  --color-foreground: var(--ctx9-foreground);
-  --color-secondary-foreground: var(--ctx9-secondary-foreground);
-  --color-nav-foreground: var(--ctx9-nav-foreground);
-  --color-muted-foreground: var(--ctx9-muted-foreground);
-  --color-sidebar: var(--ctx9-sidebar);
-  --color-sidebar-hover: var(--ctx9-sidebar-hover);
-  --color-panel: var(--ctx9-panel);
-  --color-surface: var(--ctx9-surface);
-  --color-surface-raised: var(--ctx9-surface-raised);
-  --color-popover: var(--ctx9-popover);
-  --color-border: var(--ctx9-border);
-  --color-border-strong: var(--ctx9-border-strong);
-  --color-input: var(--ctx9-input);
-  --color-focus: var(--ctx9-focus);
-  --color-selected: var(--ctx9-selected);
-  --color-link: var(--ctx9-link);
-  --color-success: var(--ctx9-success);
-  --color-warning: var(--ctx9-warning);
-  --color-danger: var(--ctx9-danger);
-  --color-disabled: var(--ctx9-disabled);
-  --font-sans: var(--ctx9-font-sans);
-  --font-mono: var(--ctx9-font-mono);
-  --radius-sm: var(--ctx9-radius-sm);
-  --radius-md: var(--ctx9-radius-md);
-  --radius-lg: var(--ctx9-radius-lg);
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  min-width: 320px;
-  background: var(--ctx9-canvas);
-}
-
-body {
-  min-height: 100vh;
-  margin: 0;
-  background: var(--ctx9-canvas);
-  color: var(--ctx9-foreground);
-  font-family: var(--ctx9-font-sans);
-  text-rendering: optimizeLegibility;
-}
-
-input,
-textarea,
-select {
-  color: inherit;
-  font: inherit;
-}
-
-a {
-  color: var(--ctx9-link);
-  text-underline-offset: 0.2em;
-}
-
-::selection {
-  background: var(--ctx9-selected);
-  color: var(--ctx9-foreground);
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 0 0% 9%;
+  --secondary: 0 0% 14.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 14.9%;
+  --accent: 0 0% 12%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 0 0% 83.1%;
+  --nav-foreground: 0 0% 83%;
+  --muted-foreground: 0 0% 63.9%;
+  --sidebar: 0 0% 3%;
+  --sidebar-hover: 0 0% 5%;
+  --panel: 0 0% 2%;
+  --surface: 0 0% 2%;
+  --surface-raised: 0 0% 12%;
+  --popover: 0 0% 3.9%;
+  --border: 0 0% 14.9%;
+  --border-strong: 0 0% 25%;
+  --input: 0 0% 14.9%;
+  --focus: 0 0% 90%;
+  --selected: 0 0% 12%;
+  --link: 0 0% 90%;
+  --success: 142 69% 58%;
+  --warning: 43 96% 56%;
+  --danger: 0 91% 71%;
+  --disabled: 0 0% 32%;
+  --theme-secondary: 30 0% 92%;
+  --theme-secondary-foreground: 30 0% 9%;
 }
 
 @keyframes ctx9-settings-dialog-enter {

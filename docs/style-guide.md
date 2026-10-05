@@ -1,22 +1,22 @@
 # CTX9 internal product style guide
 
-Status: Operational Dense with the Split Editor selected for v4.
+Status: shared Impression internal application system for v8.
 
 ## Scope
 
-This guide is canonical for CTX9-owned internal applications: Platform, Auth, enrollment, recovery, tenant administration, Secrets, Artifacts, Incidents, Releases, and Backups. It does not govern the public `ctx9.com` site, Impression marketing pages, GitLab, or Grafana.
+This guide is canonical for Impression's authenticated application and CTX9-owned internal applications. It does not govern public Impression pages, the public `ctx9.com` site, GitLab, or Grafana.
 
 ## Standing visual contract
 
-- Dark mode only with `color-scheme: dark`.
-- True black `#000` page canvas and white primary text.
+- One semantic light theme and one semantic dark theme. Applications select the theme with `:root` and `.dark` or `[data-theme='dark']`.
+- CTX9 applications may default to dark. They do not define a separate CTX9 palette.
+- The dark page canvas remains true black `#000`. The light theme uses Impression's warm neutral application tokens.
 - Information-dense layouts with deliberate whitespace, not decorative nested cards.
 - Minimal copy. No eyebrows, all-caps interface labels, light-gray subtitle rails, or em dashes.
 - Thin neutral borders define structure. Surfaces remain close to black.
-- Blue is not a general interface accent. Links, focus, selection, and primary actions use neutral white and mono treatments. Semantic green, amber, and red communicate real state.
+- Links, focus, selection, and primary actions use the shared Impression semantic tokens. Green, amber, and red communicate real state.
 - Controls expose visible hover, focus, selected, disabled, loading, empty, warning, success, and error states.
-- Motion is discrete and functional. No pulse, shimmer, blur, spinner, animated gradient, stars, or continuously repainting decoration.
-- Geist Sans is the interface face. JetBrains Mono is for hashes, identifiers, recovery material, code, and audit references. Both are self-hosted before v1 publication.
+- Geist Sans 1.5.1 is the interface face. The `font-mono` utility maps to Inter, matching Impression's existing Tailwind contract. Both fonts are self-hosted. Host font bindings take precedence so importing shared CSS does not change Impression's selected fonts.
 
 ## Layout
 
@@ -32,11 +32,17 @@ This guide is canonical for CTX9-owned internal applications: Platform, Auth, en
 - Labels remain visible. Placeholder text does not replace a label.
 - Focus uses a high-contrast neutral ring and never relies on color alone.
 - Destructive actions are visually restrained until the confirmation boundary.
-- Recovery material, secrets metadata, and artifact identifiers use the mono face and selectable wrapping.
+- Recovery material, secrets metadata, and artifact identifiers use the shared `font-mono` utility and selectable wrapping.
 - Standard actions use `Button`. Its `loading` state keeps the same text dimensions and never adds a spinner.
 - Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
 
-The runtime variables, shadcn controls, typed data table, feedback states, Auth composition, sidebar, account menu, and responsive layout live in `@ctx9/ui`. Next applications inject their link implementation through `NavigationProvider`, so internal navigation uses the Next router without adding a Next dependency to the package.
+The runtime variables, controls, typed data table, feedback states, Auth composition, sidebar, account menu, responsive layout, and style policy live in `@ctx9/ui`. Next applications inject their link implementation through `NavigationProvider`, so internal navigation uses the Next router without adding a Next dependency to the package.
+
+Call sites may supply placement and product-specific geometry. Colors, backgrounds, borders, radius, padding, typography, hover, focus, selected, disabled, and standard control dimensions belong to component variants. The package style check enforces this boundary.
+
+Run `ctx9-ui-style-check src --exceptions ui-style-exceptions.json` in each consumer. The checker resolves aliases and namespace imports from `@ctx9/ui`, follows local class constants, and rejects appearance classes, inline appearance, unresolved recipes, and opaque prop spreads. Select a typed variant, size, or preset instead of feeding a recipe through `className`.
+
+The optional exceptions file is a JSON array. Each entry names one exact repository-relative file and component, a reason of `framework-adapter`, `control-composition`, or `feature-geometry`, and a written explanation. Do not exempt whole source roots. Public Impression policy remains with its public package.
 
 ## Sidebar and account menu
 
@@ -47,4 +53,4 @@ The runtime variables, shadcn controls, typed data table, feedback states, Auth 
 - Keep `Tenant and account settings` on one line. The menu may grow wider to preserve the label.
 - Detail-page titles use `PageHeading`'s icon-only parent chevron. Do not add visible `Back` actions or put parent navigation on the right.
 - Tenant and account settings opens in the current app. Its near-full-viewport dialog uses a left tab rail for Tenant, Access, capability-backed Provisioning, and Account security. The dialog uses one 300ms opacity and scale transition and disables scale motion for reduced-motion users.
-- Route and tab changes keep the shell and useful cached content mounted. Never replace a page with visible loading copy, a spinner, or an animated placeholder.
+- Route and tab changes keep the shell and useful cached content mounted. Never replace a page with visible loading copy or a spinner.

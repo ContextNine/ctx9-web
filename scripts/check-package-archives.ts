@@ -71,9 +71,9 @@ try {
       for (const expected of [
         "package/dist/styles.css",
         "package/dist/fonts/geist-sans-variable.woff2",
-        "package/dist/fonts/jetbrains-mono-latin-variable.woff2",
+        "package/dist/fonts/inter-normal-variable.ttf",
         "package/dist/fonts/licenses/geist-ofl.txt",
-        "package/dist/fonts/licenses/jetbrains-mono-ofl.txt",
+        "package/dist/fonts/licenses/inter-ofl.txt",
       ]) {
         if (!entries.includes(expected))
           throw new Error(`ui-package-entry-missing:${expected}`);

@@ -1,6 +1,6 @@
 {
   "name": "@ctx9/web-auth",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "Shared CTX9 confidential OIDC BFF protocol",
   "license": "UNLICENSED",
   "type": "module",
@@ -37,7 +37,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
-    "node": ">=24.19.0 <25"
+    "node": "22.16.0"
   },
   "dependencies": {
     "jose": "6.2.8",

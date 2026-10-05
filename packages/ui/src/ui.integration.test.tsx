@@ -8,7 +8,9 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { Button, buttonVariants } from "./button.js";
 import { createCtx9Applications } from "./applications.js";
-import { Checkbox, Input, Label } from "./controls.js";
+import { Input } from "./input.js";
+import { Label } from "./label.js";
+import { Checkbox } from "./checkbox.js";
 import { DataTable, createDataTableColumnHelper } from "./data-table.js";
 import {
   Dialog,
@@ -18,7 +20,7 @@ import {
   DialogTrigger,
 } from "./dialog.js";
 import { NavigationProvider } from "./navigation.js";
-import { Skeleton } from "./feedback.js";
+import { Skeleton } from "./skeleton.js";
 import { ApplicationLayout, PageHeading } from "./shell.js";
 import {
   TenantAccountSettingsDialog,
@@ -29,9 +31,9 @@ afterEach(cleanup);
 
 describe("shared product primitives", () => {
   it("keeps standard actions neutral and high contrast", () => {
-    const primary = buttonVariants({ variant: "default" });
-    expect(primary).toContain("bg-black");
-    expect(primary).toContain("text-white");
+    const primary = buttonVariants({ variant: "primary" });
+    expect(primary).toContain("bg-primary");
+    expect(primary).toContain("text-primary-foreground");
     expect(primary).not.toContain("bg-selected");
 
     render(<Button loading>Save</Button>);
@@ -96,7 +98,7 @@ describe("shared product primitives", () => {
         .getAttribute("href"),
     ).toBe("#main-content");
     expect(screen.getByRole("main").getAttribute("tabindex")).toBe("-1");
-    expect(screen.getByRole("navigation", { name: "Breadcrumb" })).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "breadcrumb" })).toBeTruthy();
     expect(screen.getByRole("link", { name: "Home" })).toBeTruthy();
     expect(screen.getByLabelText("Search services")).toBeTruthy();
     expect(
@@ -170,10 +172,10 @@ describe("shared product primitives", () => {
       state: string;
     }
     const helper = createDataTableColumnHelper<ServiceRow>();
-    const columns = helper.columns([
+    const columns = [
       helper.accessor("name", { header: "Name" }),
       helper.accessor("state", { header: "State", enableSorting: false }),
-    ]);
+    ];
     const onNavigate = vi.fn();
     function TableExample() {
       const [filter, setFilter] = React.useState("");
@@ -228,13 +230,13 @@ describe("shared product primitives", () => {
       state: string;
     }
     const helper = createDataTableColumnHelper<ServiceRow>();
-    const columns = helper.columns([
+    const columns = [
       helper.accessor("name", {
         header: "Name",
         enableHiding: false,
       }),
       helper.accessor("state", { header: "State" }),
-    ]);
+    ];
     const onIntent = vi.fn();
     const { container } = render(
       <DataTable
@@ -274,10 +276,12 @@ describe("shared product primitives", () => {
     expect(container.querySelector(".overflow-x-auto")).toBeTruthy();
   });
 
-  it("renders static loading geometry without animation", () => {
+  it("renders Impression's loading geometry and pulse", () => {
     const { container } = render(<Skeleton className="h-8 w-40" />);
     const skeleton = container.firstElementChild;
-    expect(skeleton?.className).toBe("rounded-sm bg-surface-raised h-8 w-40");
+    expect(skeleton?.className).toBe(
+      "animate-pulse rounded-md bg-muted h-8 w-40",
+    );
   });
 
   it("traps dialog focus and restores it to the trigger", async () => {

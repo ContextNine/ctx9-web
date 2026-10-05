@@ -1,3 +1,5 @@
+"use client";
+
 import { format } from "date-fns";
 import * as React from "react";
 import {
@@ -7,15 +9,15 @@ import {
 } from "react-day-picker";
 
 import { cn } from "./cn.js";
+import { Input, type InputProps } from "./input.js";
+import { Label } from "./label.js";
 import {
-  Input,
-  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./controls.js";
+} from "./select.js";
 
 export type CalendarProps = DayPickerProps;
 
@@ -56,10 +58,8 @@ export function Calendar({
   );
 }
 
-export interface TimePickerProps extends Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "type" | "value" | "onChange"
-> {
+export interface TimePickerProps
+  extends Omit<InputProps, "type" | "value" | "onChange" | "size"> {
   value?: string;
   onValueChange?: (value: string) => void;
 }

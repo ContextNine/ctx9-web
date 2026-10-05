@@ -14,7 +14,7 @@ variables:
 check:
   extends: .delivery-runner-guard
   stage: check
-  image: node:24.19.0-alpine@sha256:d32cdf619f63fe0471182d08996dd516c6275bb5fd31ae06e55a570bd9e1ad43
+  image: node:22.16.0-bookworm-slim@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34
   tags: [ctx9-self-managed]
   interruptible: true
   script:
@@ -30,7 +30,7 @@ check:
 publish:
   extends: .delivery-runner-guard
   stage: publish
-  image: node:24.19.0-alpine@sha256:d32cdf619f63fe0471182d08996dd516c6275bb5fd31ae06e55a570bd9e1ad43
+  image: node:22.16.0-bookworm-slim@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34
   tags: [ctx9-self-managed]
   variables:
     DELIVERY_REQUIRE_PROTECTED_REF: "true"

@@ -1,36 +1,107 @@
-import * as React from "react";
-import {
-  Controller,
-  FormProvider,
-  useFormContext,
-  type ControllerProps,
-  type FieldPath,
-  type FieldValues,
+"use client";
+// style-check-allow-primitive-override -- control-composition
+
+import type { VariantProps } from "class-variance-authority";
+import type {
+  ControllerProps,
+  FieldPath,
+  FieldValues,
+  FormProviderProps,
 } from "react-hook-form";
-
+import * as React from "react";
 import { cn } from "./cn.js";
-import { Label } from "./controls.js";
+import type * as LabelPrimitive from "@radix-ui/react-label";
+import { Slot } from "@radix-ui/react-slot";
+import { cva } from "class-variance-authority";
+import { Check, ChevronDown, Info, Plus, X } from "lucide-react";
+import { Controller, FormProvider, useFormContext } from "react-hook-form";
 
-export const Form = FormProvider;
+import type { ButtonProps } from "./button.js";
+import type { ControlSurface } from "./control-variants.js";
+import { panelTitleStyles, sidebarTextStyles } from "./impression-recipes.js";
+import { Button } from "./button.js";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "./collapsible.js";
+import { Label } from "./label.js";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./tooltip.js";
 
-interface FormFieldContextValue {
-  name: string;
+export type FormSurface = ControlSurface;
+export type FormVariant = "default" | "compact";
+export type FormItemVariant = "default" | "compact" | "inline";
+export type FormSectionVariant = "default" | "divided" | "compact";
+export type FormRowVariant = "stacked" | "inline" | "compact";
+export type FormDisclosureVariant = "advanced" | "quiet" | "info" | "compact";
+export type FormDisclosureMotion = "animated" | "instant";
+export type FormExampleActionVariant =
+  | "select"
+  | "insert"
+  | "suggestion"
+  | "clear";
+export type FormActionsVariant = "end" | "split" | "full" | "stacked";
+
+interface FormStyleContextValue {
+  surface: FormSurface;
+  variant: FormVariant;
+}
+
+const FormStyleContext = React.createContext<FormStyleContextValue>({
+  surface: "app",
+  variant: "default",
+});
+
+function useFormStyle(surface?: FormSurface) {
+  const context = React.useContext(FormStyleContext);
+  return { ...context, surface: surface ?? context.surface };
+}
+
+function Form<
+  TFieldValues extends FieldValues,
+  TContext = unknown,
+  TTransformedValues = TFieldValues,
+>({
+  surface = "app",
+  variant = "default",
+  ...props
+}: FormProviderProps<TFieldValues, TContext, TTransformedValues> & {
+  surface?: FormSurface;
+  variant?: FormVariant;
+}) {
+  return (
+    <FormStyleContext.Provider value={{ surface, variant }}>
+      <FormProvider {...props} />
+    </FormStyleContext.Provider>
+  );
+}
+
+interface FormFieldContextValue<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> {
+  name: TName;
 }
 
 const FormFieldContext = React.createContext<FormFieldContextValue | undefined>(
   undefined,
 );
 
-export function FormField<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
->(props: ControllerProps<TFieldValues, TName>): React.JSX.Element {
-  return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
-      <Controller {...props} />
-    </FormFieldContext.Provider>
-  );
-}
+const FormField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>(
+  props: ControllerProps<TFieldValues, TName>,
+) => (
+  <FormFieldContext.Provider value={{ name: props.name }}>
+    <Controller {...props} />
+  </FormFieldContext.Provider>
+);
 
 interface FormItemContextValue {
   id: string;
@@ -40,179 +111,602 @@ const FormItemContext = React.createContext<FormItemContextValue | undefined>(
   undefined,
 );
 
-export function FormItem({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>): React.JSX.Element {
-  const id = React.useId();
-  return (
-    <FormItemContext.Provider value={{ id }}>
-      <div className={cn("grid gap-1.5", className)} {...props} />
-    </FormItemContext.Provider>
-  );
-}
+const useFormField = () => {
+  const fieldContext = React.useContext(FormFieldContext);
+  const itemContext = React.useContext(FormItemContext);
+  const { getFieldState, formState } = useFormContext();
 
-function useFormField() {
-  const field = React.useContext(FormFieldContext);
-  const item = React.useContext(FormItemContext);
-  const form = useFormContext();
-  if (!field || !item) throw new Error("form-field-context-missing");
-  const state = form.getFieldState(field.name, form.formState);
+  if (!fieldContext)
+    throw new Error("useFormField should be used within <FormField>");
+  if (!itemContext)
+    throw new Error("useFormField should be used within <FormItem>");
+
+  const fieldState = getFieldState(fieldContext.name, formState);
+  const { id } = itemContext;
+
   return {
-    ...state,
-    name: field.name,
-    formItemId: `${item.id}-control`,
-    formDescriptionId: `${item.id}-description`,
-    formMessageId: `${item.id}-message`,
+    id,
+    name: fieldContext.name,
+    formItemId: `${id}-form-item`,
+    formDescriptionId: `${id}-form-item-description`,
+    formMessageId: `${id}-form-item-message`,
+    ...fieldState,
   };
-}
+};
 
-export const FormLabel = React.forwardRef<
-  React.ComponentRef<typeof Label>,
-  React.ComponentPropsWithoutRef<typeof Label>
->(({ className, ...props }, ref) => {
+const formItemVariants = cva("", {
+  variants: {
+    variant: {
+      default: "space-y-2",
+      compact: "space-y-1",
+      inline: "flex items-start justify-between gap-4",
+    },
+  },
+  defaultVariants: { variant: "default" },
+});
+
+type FormItemProps = React.HTMLAttributes<HTMLDivElement> & {
+  surface?: FormSurface;
+  variant?: FormItemVariant;
+};
+
+const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
+  ({ className, surface, variant, ...props }, ref) => {
+    const id = React.useId();
+    const style = useFormStyle(surface);
+    const resolvedVariant =
+      variant ?? (style.variant === "compact" ? "compact" : "default");
+
+    return (
+      <FormItemContext.Provider value={{ id }}>
+        <div
+          ref={ref}
+          className={cn(
+            formItemVariants({ variant: resolvedVariant }),
+            className,
+          )}
+          {...props}
+        />
+      </FormItemContext.Provider>
+    );
+  },
+);
+FormItem.displayName = "FormItem";
+
+const formLabelVariants = cva(
+  "peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  {
+    variants: {
+      surface: {
+        app: sidebarTextStyles,
+        auth: "text-mono-700 dark:text-mono-200",
+      },
+      variant: {
+        default: "text-sm font-medium leading-none",
+        choice: "text-sm font-normal leading-5",
+      },
+    },
+    defaultVariants: { surface: "app", variant: "default" },
+  },
+);
+
+type FormLabelProps = React.ComponentPropsWithoutRef<
+  typeof LabelPrimitive.Root
+> &
+  Omit<VariantProps<typeof formLabelVariants>, "surface" | "variant"> & {
+    surface?: FormSurface;
+    variant?: "default" | "choice";
+  };
+
+const FormLabel = React.forwardRef<
+  React.ComponentRef<typeof LabelPrimitive.Root>,
+  FormLabelProps
+>(({ className, surface, variant = "default", ...props }, ref) => {
   const { error, formItemId } = useFormField();
+  const style = useFormStyle(surface);
+
   return (
     <Label
       ref={ref}
+      className={cn(
+        formLabelVariants({ surface: style.surface, variant }),
+        error && "text-destructive",
+        className,
+      )}
       htmlFor={formItemId}
-      data-error={error ? true : undefined}
-      className={cn(error && "text-danger", className)}
       {...props}
     />
   );
 });
 FormLabel.displayName = "FormLabel";
 
-export const FormControl = React.forwardRef<
-  React.ComponentRef<"div">,
-  React.HTMLAttributes<HTMLDivElement> & { children: React.ReactElement }
->(({ children, ...props }, ref) => {
+const FormControl = React.forwardRef<
+  React.ComponentRef<typeof Slot>,
+  React.ComponentPropsWithoutRef<typeof Slot>
+>((props, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
+
   return (
-    <div ref={ref} {...props}>
-      {React.cloneElement(children, {
-        id: formItemId,
-        "aria-describedby": error
-          ? `${formDescriptionId} ${formMessageId}`
-          : formDescriptionId,
-        "aria-invalid": Boolean(error),
-      } as React.HTMLAttributes<HTMLElement>)}
-    </div>
+    <Slot
+      ref={ref}
+      id={formItemId}
+      aria-describedby={
+        !error ? formDescriptionId : `${formDescriptionId} ${formMessageId}`
+      }
+      aria-invalid={Boolean(error)}
+      {...props}
+    />
   );
 });
 FormControl.displayName = "FormControl";
 
-export const FormDescription = React.forwardRef<
+type FormDescriptionProps = React.HTMLAttributes<HTMLParagraphElement> & {
+  surface?: FormSurface;
+  variant?: "default" | "inline";
+};
+
+const FormDescription = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => {
+  FormDescriptionProps
+>(({ className, surface, variant, ...props }, ref) => {
   const { formDescriptionId } = useFormField();
+  const style = useFormStyle(surface);
+  const resolvedVariant =
+    variant ?? (style.variant === "compact" ? "inline" : "default");
+
   return (
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn(
+        resolvedVariant === "default" ? "text-sm" : "text-xs",
+        style.surface === "app"
+          ? "text-muted-foreground"
+          : "text-mono-500 dark:text-mono-400",
+        className,
+      )}
       {...props}
     />
   );
 });
 FormDescription.displayName = "FormDescription";
 
-export const FormMessage = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField();
-  const content = error?.message ?? children;
-  if (!content) return null;
-  return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      role="alert"
-      className={cn("text-sm text-danger", className)}
-      {...props}
-    >
-      {content}
-    </p>
-  );
-});
+type FormMessageProps = React.HTMLAttributes<HTMLParagraphElement> & {
+  surface?: FormSurface;
+  variant?: "default" | "compact";
+};
+
+const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
+  ({ className, children, surface, variant, ...props }, ref) => {
+    const { error, formMessageId } = useFormField();
+    const style = useFormStyle(surface);
+    const resolvedVariant =
+      variant ?? (style.variant === "compact" ? "compact" : "default");
+    const body = error?.message ?? children;
+
+    if (!body) return null;
+
+    return (
+      <p
+        ref={ref}
+        id={formMessageId}
+        className={cn(
+          "font-medium text-destructive",
+          resolvedVariant === "default" ? "pb-2 text-sm" : "text-xs",
+          className,
+        )}
+        {...props}
+      >
+        {body}
+      </p>
+    );
+  },
+);
 FormMessage.displayName = "FormMessage";
 
-export function FormSection({
-  title,
-  description,
-  className,
-  children,
-}: {
-  title?: string;
-  description?: string;
-  className?: string;
-  children: React.ReactNode;
-}): React.JSX.Element {
-  return (
-    <section
-      className={cn(
-        "grid gap-4 border-t border-border py-5 first:border-t-0",
-        className,
-      )}
-    >
-      {(title !== undefined || description !== undefined) && (
-        <header className="grid gap-1">
-          {title && <h2 className="text-base font-medium">{title}</h2>}
+const formSectionVariants = cva("", {
+  variants: {
+    variant: {
+      default: "space-y-4",
+      divided: "space-y-4 border-b pb-4",
+      compact: "space-y-2",
+    },
+  },
+  defaultVariants: { variant: "default" },
+});
+
+type FormSectionProps = React.HTMLAttributes<HTMLElement> & {
+  action?: React.ReactNode;
+  description?: React.ReactNode;
+  headingAs?: "h2" | "h3";
+  surface?: FormSurface;
+  title?: React.ReactNode;
+  variant?: FormSectionVariant;
+};
+
+const FormSection = React.forwardRef<HTMLElement, FormSectionProps>(
+  (
+    {
+      action,
+      children,
+      className,
+      description,
+      headingAs: Heading = "h2",
+      surface,
+      title,
+      variant = "default",
+      ...props
+    },
+    ref,
+  ) => {
+    const style = useFormStyle(surface);
+
+    return (
+      <section
+        ref={ref}
+        className={cn(formSectionVariants({ variant }), className)}
+        {...props}
+      >
+        {Boolean(title ?? description ?? action) && (
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0 space-y-1">
+              {title && (
+                <Heading
+                  className={cn(
+                    style.surface === "app"
+                      ? cn("text-xl font-semibold", panelTitleStyles)
+                      : "font-inter text-lg font-semibold text-mono-900 dark:text-white",
+                  )}
+                >
+                  {title}
+                </Heading>
+              )}
+              {description && (
+                <p
+                  className={cn(
+                    "text-sm",
+                    style.surface === "app"
+                      ? "text-muted-foreground"
+                      : "text-mono-600 dark:text-mono-300",
+                  )}
+                >
+                  {description}
+                </p>
+              )}
+            </div>
+            {action}
+          </div>
+        )}
+        {children}
+      </section>
+    );
+  },
+);
+FormSection.displayName = "FormSection";
+
+const formRowVariants = cva("", {
+  variants: {
+    variant: {
+      stacked: "space-y-2",
+      inline: "flex items-start justify-between gap-4",
+      compact: "space-y-1",
+    },
+  },
+  defaultVariants: { variant: "stacked" },
+});
+
+type FormRowProps = React.HTMLAttributes<HTMLDivElement> & {
+  action?: React.ReactNode;
+  controlId?: string;
+  description?: React.ReactNode;
+  label?: React.ReactNode;
+  surface?: FormSurface;
+  variant?: FormRowVariant;
+};
+
+const FormRow = React.forwardRef<HTMLDivElement, FormRowProps>(
+  (
+    {
+      action,
+      children,
+      className,
+      controlId,
+      description,
+      label,
+      surface,
+      variant = "stacked",
+      ...props
+    },
+    ref,
+  ) => {
+    const style = useFormStyle(surface);
+    const copy =
+      label || description ? (
+        <div className="min-w-0 space-y-1">
+          {label && (
+            <Label
+              htmlFor={controlId}
+              className={cn(
+                style.surface === "app"
+                  ? sidebarTextStyles
+                  : "text-mono-700 dark:text-mono-200",
+              )}
+            >
+              {label}
+            </Label>
+          )}
           {description && (
             <p className="text-sm text-muted-foreground">{description}</p>
           )}
-        </header>
-      )}
-      {children}
-    </section>
-  );
+        </div>
+      ) : null;
+
+    return (
+      <div
+        ref={ref}
+        className={cn(formRowVariants({ variant }), className)}
+        {...props}
+      >
+        {copy}
+        {children}
+        {action}
+      </div>
+    );
+  },
+);
+FormRow.displayName = "FormRow";
+
+type FormDisclosureProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onChange" | "title"
+> & {
+  contentClassName?: string;
+  defaultOpen?: boolean;
+  disabled?: boolean;
+  label: React.ReactNode;
+  motion?: FormDisclosureMotion;
+  onOpenChange?: (open: boolean) => void;
+  open?: boolean;
+  surface?: FormSurface;
+  title?: React.ReactNode;
+  tooltipContent?: React.ReactNode;
+  tooltipSide?: "top" | "right" | "bottom" | "left";
+  variant?: FormDisclosureVariant;
+};
+
+function disclosureButtonAppearance(
+  surface: FormSurface,
+  variant: FormDisclosureVariant,
+): ButtonProps {
+  if (surface === "auth") return { surface: "auth", variant: "secondary" };
+  return {
+    surface: "app",
+    variant: variant === "quiet" || variant === "info" ? "ghost" : "secondary",
+  };
 }
 
-export function FormRow({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>): React.JSX.Element {
-  return (
-    <div className={cn("grid gap-4 sm:grid-cols-2", className)} {...props} />
-  );
-}
+const FormDisclosure = React.forwardRef<HTMLDivElement, FormDisclosureProps>(
+  (
+    {
+      children,
+      className,
+      contentClassName,
+      defaultOpen,
+      disabled,
+      label,
+      motion = "animated",
+      onOpenChange,
+      open,
+      surface,
+      title,
+      tooltipContent,
+      tooltipSide = "bottom",
+      variant = "advanced",
+      ...props
+    },
+    ref,
+  ) => {
+    const style = useFormStyle(surface);
+    const contentId = React.useId();
+    const appearance = disclosureButtonAppearance(style.surface, variant);
+    const triggerButton = (
+      <Button
+        {...appearance}
+        type="button"
+        size={variant === "compact" || variant === "info" ? "xs" : "default"}
+        aria-controls={contentId}
+        className={cn(
+          "group/disclosure justify-between",
+          variant === "advanced" || variant === "quiet" ? "w-full" : "w-fit",
+        )}
+      >
+        <span className="flex items-center gap-2">
+          {variant === "info" && <Info className="h-4 w-4" />}
+          {label}
+        </span>
+        <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]/disclosure:rotate-180" />
+      </Button>
+    );
+    const trigger = tooltipContent ? (
+      <TooltipProvider delayDuration={650}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <CollapsibleTrigger asChild>{triggerButton}</CollapsibleTrigger>
+          </TooltipTrigger>
+          <TooltipContent side={tooltipSide}>{tooltipContent}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    ) : (
+      <CollapsibleTrigger asChild>{triggerButton}</CollapsibleTrigger>
+    );
 
-export function FormDisclosure({
-  label,
-  className,
-  children,
-  ...props
-}: React.DetailsHTMLAttributes<HTMLDetailsElement> & {
-  label: string;
-}): React.JSX.Element {
-  return (
-    <details
-      className={cn("border-t border-border py-3", className)}
-      {...props}
-    >
-      <summary className="cursor-pointer text-sm font-medium text-muted-foreground marker:text-muted-foreground hover:text-foreground">
-        {label}
-      </summary>
-      <div className="pt-3">{children}</div>
-    </details>
-  );
-}
+    return (
+      <Collapsible
+        {...(open === undefined ? {} : { open })}
+        {...(defaultOpen === undefined ? {} : { defaultOpen })}
+        {...(onOpenChange === undefined ? {} : { onOpenChange })}
+        {...(disabled === undefined ? {} : { disabled })}
+      >
+        <div ref={ref} className={className} {...props}>
+          {title ? (
+            <div className="inline-flex items-center pt-0">
+              <h2
+                className={cn("pr-2 text-lg font-semibold", sidebarTextStyles)}
+              >
+                {title}
+              </h2>
+              {trigger}
+            </div>
+          ) : (
+            trigger
+          )}
+          <CollapsibleContent
+            id={contentId}
+            className={cn(
+              "overflow-hidden pt-2",
+              motion === "animated" &&
+                "data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down motion-reduce:animate-none",
+              contentClassName,
+            )}
+          >
+            {children}
+          </CollapsibleContent>
+        </div>
+      </Collapsible>
+    );
+  },
+);
+FormDisclosure.displayName = "FormDisclosure";
 
-export function FormActions({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>): React.JSX.Element {
-  return (
+type FormExampleActionProps = Omit<
+  React.ComponentPropsWithoutRef<typeof Button>,
+  "surface" | "variant" | "state"
+> & {
+  icon?: React.ReactNode;
+  state?: "default" | "selected";
+  tooltipContent?: React.ReactNode;
+  tooltipSide?: "top" | "right" | "bottom" | "left";
+  variant?: FormExampleActionVariant;
+};
+
+const FormExampleAction = React.forwardRef<
+  HTMLButtonElement,
+  FormExampleActionProps
+>(
+  (
+    {
+      children,
+      className,
+      icon,
+      size,
+      state = "default",
+      tooltipContent,
+      tooltipSide = "bottom",
+      variant = "select",
+      ...props
+    },
+    ref,
+  ) => {
+    const appearance: ButtonProps = {
+      surface: "app",
+      variant:
+        variant === "insert"
+          ? "quiet"
+          : variant === "clear"
+            ? "ghost"
+            : "secondary",
+    };
+    const defaultIcon =
+      variant === "select" ? (
+        <Check className={cn("h-4 w-4", state !== "selected" && "opacity-0")} />
+      ) : variant === "insert" || variant === "suggestion" ? (
+        <Plus className="h-4 w-4" />
+      ) : (
+        <X className="h-4 w-4" />
+      );
+
+    const action = (
+      <Button
+        ref={ref}
+        {...appearance}
+        {...props}
+        type={props.type ?? "button"}
+        size={
+          size ??
+          (variant === "clear"
+            ? "iconSm"
+            : variant === "suggestion"
+              ? "default"
+              : "xs")
+        }
+        state={state === "selected" ? "selected" : "default"}
+        aria-pressed={variant === "select" ? state === "selected" : undefined}
+        className={cn(
+          "gap-2",
+          variant === "suggestion" &&
+            "h-auto w-full justify-start whitespace-normal px-3 py-3 text-left font-normal leading-6",
+          className,
+        )}
+      >
+        {icon ?? defaultIcon}
+        {children}
+      </Button>
+    );
+
+    if (!tooltipContent) return action;
+
+    return (
+      <TooltipProvider delayDuration={650}>
+        <Tooltip>
+          <TooltipTrigger asChild>{action}</TooltipTrigger>
+          <TooltipContent side={tooltipSide}>{tooltipContent}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  },
+);
+FormExampleAction.displayName = "FormExampleAction";
+
+const formActionsVariants = cva("flex gap-2", {
+  variants: {
+    variant: {
+      end: "justify-end",
+      split: "[&>*]:flex-1",
+      full: "flex-col [&>*]:w-full",
+      stacked: "flex-col-reverse sm:flex-row sm:justify-end",
+    },
+  },
+  defaultVariants: { variant: "end" },
+});
+
+type FormActionsProps = React.HTMLAttributes<HTMLDivElement> & {
+  variant?: FormActionsVariant;
+};
+
+const FormActions = React.forwardRef<HTMLDivElement, FormActionsProps>(
+  ({ className, variant = "end", ...props }, ref) => (
     <div
-      className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-        className,
-      )}
+      ref={ref}
+      className={cn(formActionsVariants({ variant }), className)}
       {...props}
     />
-  );
-}
+  ),
+);
+FormActions.displayName = "FormActions";
+
+export {
+  Form,
+  FormActions,
+  FormControl,
+  FormDescription,
+  FormDisclosure,
+  FormExampleAction,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormRow,
+  FormSection,
+  useFormField,
+};

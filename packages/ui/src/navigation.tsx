@@ -2,10 +2,8 @@
 
 import * as React from "react";
 
-export interface NavigationLinkProps extends Omit<
-  React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  "href"
-> {
+export interface NavigationLinkProps
+  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
   href: string;
   ref?: React.Ref<HTMLAnchorElement>;
 }

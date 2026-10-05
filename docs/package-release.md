@@ -4,9 +4,11 @@ GitHub `ContextNine/ctx9-web` is the canonical source. A GitHub Actions deploy k
 
 ## Release
 
+The v8 replacement is still unpublished. Its complete local check passes under Node 22.16.0, including 21 integration tests and isolated archive installation, typechecking, rendering, and policy checks. MultipleSelector has an additional 48-case browser comparison at desktop/mobile widths in light, class-based dark, and attribute-based dark. The port and combined stylesheet produce zero changed pixels. The direct compiled-stylesheet comparison differs only in the duplicate WebKit text-decoration transition alias; the full consumer-build CSS and remaining component/interaction matrix are still required before a v8 tag.
+
 1. Confirm the approved visual identifiers and component provenance are recorded.
 2. Set both package versions to the same exact semantic version.
-3. Run `pnpm install --frozen-lockfile` and `pnpm check` under the pinned Node 24 and pnpm versions.
+3. Run `pnpm install --frozen-lockfile` and `pnpm check` under the Impression-authoritative Node 22.16.0 and pnpm 11.1.2 versions.
 4. Prove both generated archives install and build in a clean isolated consumer.
 5. Commit and push `master` to GitHub. Wait for the GitHub mirror and matching GitLab check pipeline.
 6. Create and push the matching `vX.Y.Z` tag on GitHub.
@@ -18,6 +20,8 @@ those exact archives. The tagged pipeline retains the archives, checksum file,
 and release record as non-expiring artifacts.
 
 Never republish or overwrite a released version. Correct a package with a new patch version.
+
+The v8 package line uses Tailwind 3 and the exact frontend dependency matrix captured from Impression for the release. Consumers align to that matrix before installing the new major version.
 
 ## CI consumption
 

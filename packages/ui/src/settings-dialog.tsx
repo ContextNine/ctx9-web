@@ -1,21 +1,26 @@
+"use client";
+
 import * as React from "react";
 
 import { Button } from "./button.js";
+import { Input } from "./input.js";
+import { Label } from "./label.js";
 import {
-  Input,
-  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./controls.js";
+} from "./select.js";
 import { Dialog, DialogContent, DialogTitle } from "./dialog.js";
 import { FormSection } from "./form.js";
 import { NavigationLink } from "./navigation.js";
 
 export type TenantAccountSettingsTabId =
-  "tenant" | "access" | "provisioning" | "account-security";
+  | "tenant"
+  | "access"
+  | "provisioning"
+  | "account-security";
 
 export type TenantRole = "tenant_admin" | "member";
 export type TenantMembershipState = "active" | "suspended" | "revoked";
@@ -498,12 +503,13 @@ export function TenantAccountSettingsDialog(
   return (
     <Dialog open={props.open} onOpenChange={props.onOpenChange}>
       <DialogContent
-        className="ctx9-settings-dialog-content h-[calc(100dvh-1rem)] max-h-[calc(100dvh-1rem)] max-w-[calc(100vw-1rem)] gap-0 overflow-hidden rounded-lg bg-panel p-0 sm:h-[92dvh] sm:max-h-[92dvh] sm:w-[90vw] sm:max-w-[1600px]"
-        overlayClassName="ctx9-settings-dialog-overlay"
+        variant="tenantSettings"
+        className="ctx9-settings-dialog-content"
+        dialogOverlayClassName="ctx9-settings-dialog-overlay"
       >
         <div className="grid h-full min-h-0 sm:grid-cols-[minmax(14rem,28%)_minmax(0,1fr)]">
           <aside className="border-b border-border bg-sidebar px-3 py-5 sm:border-r sm:border-b-0 sm:px-5 sm:py-20">
-            <DialogTitle className="px-2 text-xl">Settings</DialogTitle>
+            <DialogTitle variant="tenantSettings">Settings</DialogTitle>
             <nav
               aria-label="Tenant and account settings"
               className="mt-4 flex gap-1 overflow-x-auto sm:grid sm:overflow-visible"
@@ -513,9 +519,10 @@ export function TenantAccountSettingsDialog(
                   key={tab.id}
                   type="button"
                   variant="ghost"
-                  selected={tab.id === selected}
+                  state={tab.id === selected ? "selected" : "default"}
                   aria-current={tab.id === selected ? "page" : undefined}
-                  className="shrink-0 justify-start sm:w-full"
+                  align="start"
+                  preset="settingsTab"
                   onClick={() => {
                     props.onActiveTabChange(tab.id);
                   }}

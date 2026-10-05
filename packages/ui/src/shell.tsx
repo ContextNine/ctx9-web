@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Check,
   ChevronDown,
@@ -29,7 +31,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./overlays.js";
+} from "./dropdown-menu.js";
 
 export interface AppNavigationItem {
   id: string;
@@ -95,7 +97,7 @@ function AccountAction({ action }: { action: AccountMenuAction }) {
   );
   return (
     <DropdownMenuItem
-      className="grid min-h-9 cursor-pointer grid-cols-[1rem_minmax(0,1fr)] gap-2 rounded-md px-2 text-sm"
+      preset="accountAction"
       asChild={Boolean(action.href)}
       {...(action.onSelect ? { onSelect: action.onSelect } : {})}
     >
@@ -146,11 +148,7 @@ export function AccountMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          type="button"
-          variant="ghost"
-          className="h-auto w-full justify-start rounded-full border-transparent p-1.5 text-left"
-        >
+        <Button type="button" variant="ghost" preset="accountTrigger">
           <Initials value={userName} />
           <span className="grid min-w-0 flex-1 gap-0.5 md:group-data-[collapsed=true]/sidebar:hidden">
             <span className="truncate text-sm font-semibold text-foreground">
@@ -170,7 +168,7 @@ export function AccountMenu({
         side="top"
         align="start"
         sideOffset={8}
-        className="w-max min-w-[320px] max-w-[calc(100vw-1rem)] rounded-lg p-1.5"
+        preset="account"
       >
         <div className="grid gap-0.5 px-2 py-1.5">
           <strong className="truncate text-sm font-semibold">{userName}</strong>
@@ -184,7 +182,7 @@ export function AccountMenu({
         {availableTenants.map((item) => (
           <DropdownMenuItem
             key={item.id}
-            className="min-h-12 cursor-pointer gap-2 rounded-md p-1"
+            preset="tenant"
             {...(item.onSelect ? { onSelect: item.onSelect } : {})}
           >
             <Initials value={item.name} />
@@ -208,10 +206,7 @@ export function AccountMenu({
           <AccountAction key={action.id} action={action} />
         ))}
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="grid min-h-9 cursor-pointer grid-cols-[1rem_minmax(0,1fr)] gap-2 rounded-md px-2 text-sm"
-          onSelect={onSignOut}
-        >
+        <DropdownMenuItem preset="accountAction" onSelect={onSignOut}>
           <LogOut aria-hidden="true" className="size-4 text-muted-foreground" />
           <span>Sign out</span>
         </DropdownMenuItem>
@@ -256,7 +251,7 @@ export function AppSidebarHeader({
           <Button
             type="button"
             variant="ghost"
-            className="h-12 w-full justify-start gap-2.5 border-transparent px-2"
+            preset="appSwitcher"
             aria-label={`Open All apps. Current app: ${product}`}
           >
             <Ctx9Mark />
@@ -273,15 +268,11 @@ export function AppSidebarHeader({
           side="bottom"
           align="start"
           sideOffset={4}
-          className="w-[230px] rounded-lg p-1.5"
+          preset="appSwitcher"
         >
           <DropdownMenuLabel>All apps</DropdownMenuLabel>
           {products.map((item) => (
-            <DropdownMenuItem
-              key={item.id}
-              asChild
-              className="min-h-9 cursor-pointer gap-2 rounded-md px-2 text-sm"
-            >
+            <DropdownMenuItem key={item.id} asChild preset="application">
               <NavigationLink href={item.href} className="no-underline">
                 <span className="min-w-0 flex-1 truncate">{item.label}</span>
                 {item.current && (
@@ -387,8 +378,8 @@ export function AppSidebar({
         <Button
           type="button"
           variant="ghost"
-          size="icon"
-          className="m-3 size-8 md:hidden"
+          size="iconSm"
+          className="m-3 md:hidden"
           onClick={onCloseMobile}
           aria-label="Close menu"
         >
@@ -456,7 +447,7 @@ export function ApplicationLayout({
   return (
     <div
       className={cn(
-        "min-h-dvh bg-black text-foreground md:grid",
+        "min-h-dvh bg-background text-foreground dark:bg-black md:grid",
         "md:grid-cols-[246px_minmax(0,1fr)]",
         "data-[collapsed=true]:md:grid-cols-[56px_minmax(0,1fr)]",
         className,
@@ -481,7 +472,7 @@ export function ApplicationLayout({
         <Button
           type="button"
           variant="ghost"
-          className="fixed inset-0 z-30 h-auto w-auto rounded-none border-0 bg-black/70 p-0 md:hidden"
+          preset="mobileBackdrop"
           onClick={() => {
             setMobileOpen(false);
           }}
@@ -489,12 +480,12 @@ export function ApplicationLayout({
         />
       )}
       <ApplicationMain mainId={mainId}>
-        <header className="sticky top-0 z-20 flex min-h-13 items-center gap-3 border-b border-border bg-black/95 px-4">
+        <header className="sticky top-0 z-20 flex min-h-14 items-center gap-3 border-b border-border bg-background/95 px-4 dark:bg-black/95">
           <Button
             type="button"
             variant="ghost"
-            size="icon"
-            className="size-8 md:hidden"
+            size="iconSm"
+            className="md:hidden"
             onClick={() => {
               setMobileOpen(true);
             }}
@@ -505,8 +496,8 @@ export function ApplicationLayout({
           <Button
             type="button"
             variant="ghost"
-            size="icon"
-            className="hidden size-8 md:inline-flex"
+            size="iconSm"
+            className="hidden md:inline-flex"
             onClick={() => {
               setCollapsed((value) => !value);
             }}
@@ -559,7 +550,7 @@ export function AuthShell({
   brandDescription?: string;
 }): React.JSX.Element {
   return (
-    <main className="grid min-h-dvh bg-black text-foreground lg:grid-cols-2">
+    <main className="grid min-h-dvh bg-background text-foreground dark:bg-black lg:grid-cols-2">
       <section className="flex min-w-0 items-center justify-center bg-sidebar px-5 py-10 sm:px-8">
         <div className="w-full max-w-md">
           <NavigationLink
@@ -582,12 +573,12 @@ export function AuthShell({
           )}
         </div>
       </section>
-      <aside className="hidden min-w-0 items-center justify-center border-l border-border bg-black p-14 lg:flex">
+      <aside className="hidden min-w-0 items-center justify-center border-l border-mono-800 bg-black p-14 text-white lg:flex">
         <div className="w-full max-w-lg border border-border p-11">
           <h2 className="text-4xl font-semibold leading-tight tracking-[-0.035em] xl:text-5xl">
             {brandTitle}
           </h2>
-          <p className="mt-7 max-w-md font-mono text-sm leading-7 text-secondary-foreground">
+          <p className="mt-7 max-w-md font-mono text-sm leading-7 text-mono-300">
             {brandDescription}
           </p>
         </div>
@@ -610,7 +601,7 @@ export function FocusedShell({
   className?: string;
 }): React.JSX.Element {
   return (
-    <main className="min-h-dvh bg-black px-4 py-12 text-foreground sm:px-6">
+    <main className="min-h-dvh bg-background px-4 py-12 text-foreground dark:bg-black sm:px-6">
       <div className={cn("mx-auto grid w-full max-w-md gap-6", className)}>
         <NavigationLink
           href="https://platform.ctx9.com"
@@ -659,8 +650,8 @@ export function PageHeading({
             asChild
             type="button"
             variant="ghost"
-            size="icon"
-            className="mt-0.5 size-8 shrink-0"
+            size="iconSm"
+            className="mt-0.5 shrink-0"
           >
             <NavigationLink href={parent.href} aria-label={parent.label}>
               <ChevronLeft aria-hidden="true" className="size-4" />

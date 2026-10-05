@@ -6,10 +6,10 @@ import * as React from "react";
 
 import { Button } from "./button.js";
 import { cn } from "./cn.js";
-import { Input } from "./controls.js";
-import { Separator } from "./data.js";
+import { Input } from "./input.js";
+import { Separator } from "./separator.js";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "./sheet.js";
-import { Skeleton } from "./feedback.js";
+import { Skeleton } from "./skeleton.js";
 import { NavigationLink, type NavigationLinkProps } from "./navigation.js";
 
 interface SidebarContextValue {
@@ -174,7 +174,7 @@ export function SidebarTrigger({
     <Button
       type="button"
       variant="ghost"
-      size="icon-sm"
+      size="iconSm"
       aria-label={
         isMobile
           ? "Open navigation"
@@ -279,7 +279,8 @@ export function SidebarGroupAction({
       type="button"
       variant="ghost"
       data-slot="sidebar-group-action"
-      className={cn("ml-auto size-8", className)}
+      size="iconSm"
+      className={cn("ml-auto", className)}
       {...props}
     />
   );
@@ -344,7 +345,8 @@ export function SidebarMenuAction({
       type="button"
       variant="ghost"
       data-slot="sidebar-menu-action"
-      className={cn("absolute top-0 right-0 size-9", className)}
+      size="icon"
+      className={cn("absolute top-0 right-0", className)}
       {...props}
     />
   );

@@ -1,0 +1,146 @@
+"use client";
+
+import type { VariantProps } from "class-variance-authority";
+import * as React from "react";
+
+import { cn } from "./cn.js";
+import { ControlGlow } from "./control-glow.js";
+import { controlShapeClassNames, type ControlShape } from "./control-shape.js";
+import {
+  controlVariants,
+  type AppControlVariant,
+  type AuthControlVariant,
+  type ControlEffect,
+  type ControlSurface,
+} from "./control-variants.js";
+import { scrollbarStyles } from "./impression-recipes.js";
+import { useDebounceValue } from "./use-debounce-value.js";
+
+type ControlVariantProps = VariantProps<typeof controlVariants>;
+type TextareaMinHeight =
+  | "default"
+  | "14"
+  | "24"
+  | "28"
+  | "32"
+  | "100"
+  | "110"
+  | "120"
+  | "150"
+  | "180"
+  | "280"
+  | "320";
+
+const textareaMinHeightClassNames: Record<TextareaMinHeight, string> = {
+  default: "",
+  "14": "min-h-14",
+  "24": "min-h-24",
+  "28": "min-h-28",
+  "32": "min-h-32",
+  "100": "min-h-[100px]",
+  "110": "min-h-[110px]",
+  "120": "min-h-[120px]",
+  "150": "min-h-[150px]",
+  "180": "min-h-[180px]",
+  "280": "min-h-[280px]",
+  "320": "min-h-[320px]",
+};
+
+export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> &
+  Omit<ControlVariantProps, "surface" | "variant" | "size"> & {
+    surface?: ControlSurface;
+    variant?: AppControlVariant | AuthControlVariant;
+    autoResize?: boolean;
+    effect?: ControlEffect;
+    minHeight?: TextareaMinHeight;
+    resize?: "default" | "none" | "y";
+    scroll?: "default" | "auto" | "styled";
+    grow?: boolean;
+    shape?: ControlShape;
+    tone?: "default" | "paper" | "editor";
+  };
+
+export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  (
+    {
+      autoResize = false,
+      className,
+      effect,
+      grow = false,
+      minHeight = "default",
+      onInput,
+      resize = "default",
+      scroll = "default",
+      shape = "default",
+      surface = "app",
+      tone = "default",
+      value,
+      variant = "default",
+      ...props
+    },
+    ref,
+  ) => {
+    const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+    const debouncedValue = useDebounceValue(value, 100);
+    const resolvedEffect = effect ?? (surface === "auth" ? "glow" : "standard");
+
+    const adjustHeight = React.useCallback(() => {
+      if (!autoResize || !textareaRef.current) return;
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${String(
+        Math.min(Math.max(textareaRef.current.scrollHeight, 80), 150),
+      )}px`;
+    }, [autoResize]);
+
+    React.useEffect(() => {
+      adjustHeight();
+    }, [adjustHeight, debouncedValue]);
+
+    React.useEffect(() => {
+      if (!autoResize) return;
+      window.addEventListener("resize", adjustHeight);
+      return () => {
+        window.removeEventListener("resize", adjustHeight);
+      };
+    }, [adjustHeight, autoResize]);
+
+    const control = (
+      <textarea
+        className={cn(
+          "flex min-h-[80px]",
+          controlVariants({ surface, variant, size: "auto" }),
+          controlShapeClassNames[shape],
+          resolvedEffect === "glow" &&
+            cn("resize-y overflow-y-auto", scrollbarStyles),
+          textareaMinHeightClassNames[minHeight],
+          resize === "none" && "resize-none",
+          resize === "y" && "resize-y",
+          scroll === "auto" && "overflow-y-auto",
+          scroll === "styled" && cn("overflow-y-auto", scrollbarStyles),
+          grow && "flex-1",
+          tone === "paper" && "bg-white dark:bg-mono-900",
+          tone === "editor" && "bg-white dark:bg-mono-950",
+          className,
+        )}
+        ref={(node) => {
+          textareaRef.current = node;
+          if (typeof ref === "function") ref(node);
+          else if (ref) ref.current = node;
+        }}
+        value={value}
+        onInput={(event) => {
+          adjustHeight();
+          onInput?.(event);
+        }}
+        {...props}
+      />
+    );
+
+    return resolvedEffect === "glow" ? (
+      <ControlGlow disabled={props.disabled}>{control}</ControlGlow>
+    ) : (
+      control
+    );
+  },
+);
+Textarea.displayName = "Textarea";
