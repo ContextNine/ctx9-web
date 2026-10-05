@@ -33,7 +33,7 @@ export const controlVariants = cva(
           "border-transparent bg-transparent text-right shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background",
         time: "w-[48px] text-center font-mono text-base tabular-nums caret-transparent focus:bg-accent focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none",
         number:
-          "w-8 p-0 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
+          "w-8 p-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
       },
       size: {
         sm: "h-8",
@@ -49,9 +49,16 @@ export const controlVariants = cva(
       {
         surface: "auth",
         variant: "default",
-        size: ["default", "auto"],
+        size: "default",
         className:
-          "h-9 rounded-md border-none bg-white px-3 py-2 text-sm text-black shadow-input transition duration-300 placeholder:text-mono-400 group-hover/input:shadow-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-200 dark:bg-black dark:text-white dark:placeholder:text-mono-600 dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] dark:focus-visible:ring-neutral-600",
+          "dark:placeholder-text-mono-600 h-9 rounded-md border-none bg-white px-3 py-2 text-sm text-black shadow-input transition duration-300 placeholder:text-mono-400 group-hover/input:shadow-none focus-visible:outline-none focus-visible:ring-[1px] focus-visible:ring-neutral-200 dark:bg-black dark:text-white dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] dark:focus-visible:ring-neutral-600",
+      },
+      {
+        surface: "auth",
+        variant: "default",
+        size: "auto",
+        className:
+          "dark:placeholder-text-mono-600 rounded-md border-none bg-white px-3 py-2 text-sm text-black shadow-input transition duration-300 placeholder:text-mono-400 group-hover/input:shadow-none focus-visible:outline-none focus-visible:ring-[1px] focus-visible:ring-neutral-200 dark:bg-black dark:text-white dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] dark:focus-visible:ring-neutral-600",
       },
     ],
     defaultVariants: {

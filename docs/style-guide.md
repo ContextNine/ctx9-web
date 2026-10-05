@@ -28,7 +28,10 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 
 ## Controls
 
-- Standard height is 36px; compact height is 32px.
+- Standard buttons are 36px high; compact buttons are 32px. App fields default to
+  40px and auth fields to 36px. Select the component's variants rather than
+  recreating these dimensions at call sites. Auto-height fields retain their
+  content-driven sizing.
 - Labels remain visible. Placeholder text does not replace a label.
 - Focus uses a high-contrast neutral ring and never relies on color alone.
 - Destructive actions are visually restrained until the confirmation boundary.

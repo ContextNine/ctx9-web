@@ -35,6 +35,17 @@ The Button comparison uses Impression `01dd4e76d`, `apps/next/src/components/ui/
 
 The interaction comparison also preserves Impression's `focus:dark:` and `hover:dark:` modifier order and onboarding dark-mode important flags. Normalizing those strings changed focus/hover colors when combined with the retained host stylesheet. The shared recipes keep the source class contracts unchanged.
 
+Auth fields retain Impression's separate default-height and auto-height recipes,
+including the inactive `dark:placeholder-text-mono-600` token and existing
+`focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the
+placeholder token would restyle existing auth fields rather than extract them.
+
+Checkbox recipes match Impression's current `a0ff86dae` source in
+`apps/next/src/components/styles/common.tsx`. The browser comparison caught
+missing indeterminate black/white colors and unchecked, checked, and
+indeterminate hover rules in the draft. These source recipes are restored,
+including the existing `/12` hover token, without normalizing their meaning.
+
 ## Font provenance
 
 The package vendors normal variable fonts for standalone consumers. They are emitted inside `@ctx9/ui`; production makes no third-party font request. Font utilities first consume the host's `--font-geist-sans` and `--font-inter` bindings, preserving Impression's existing font selection when the stylesheets are combined. Standalone applications use the package's self-hosted defaults.

@@ -10,6 +10,25 @@ The Button fixture covers 169 cases at desktop/mobile widths in light/dark. Afte
 
 A separate Button interaction fixture covers 29 cases across light/dark hover/focus states, 116 comparisons per stylesheet mode. It caught and corrected dark focus colors and onboarding hover text by restoring source modifier ordering and important flags. Component computed properties and geometry now match exactly, with zero changed pixels. Adding shared CSS also has zero changed pixels and differs only in the WebKit transition alias. Other shared controls and full-consumer acceptance remain pending.
 
+The Input/Textarea fixture covers 35 hydrated app/auth cases across six
+desktop/mobile width/theme combinations and 220 targeted interaction cases.
+All 430 comparisons preserve computed properties, custom properties,
+placeholder styles, geometry, native attributes, refs, events, and values. The
+comparison caught fixed-height auth recipes incorrectly applied to auto-height
+fields. Static screenshots now match exactly. Six whole-page interaction
+captures have one or two changed shadow pixels; their strict pixel gate remains
+open. Fresh unchanged-original public field captures also reproduce this shadow
+variability. No masks or pixel tolerance were added.
+
+Checkbox and Switch have 23 hydrated cases and 166 browser states across 1440,
+390, and 411px in light/dark. All 298 comparisons match computed properties,
+custom properties, geometry, refs, values, checked/ARIA states, event counts,
+and pixels. The interactions include hover, focus, click, Space, and Enter.
+Restoring the missing indeterminate black/white and source hover recipes fixed
+the draft regressions. The complete package check still passes all 21 tests and
+isolated archive acceptance. These component checks do not accept complete
+consumer pages or authorize a v8 tag.
+
 1. Confirm the approved visual identifiers and component provenance are recorded.
 2. Set both package versions to the same exact semantic version.
 3. Run `pnpm install --frozen-lockfile` and `pnpm check` under the Impression-authoritative Node 22.16.0 and pnpm 11.1.2 versions.

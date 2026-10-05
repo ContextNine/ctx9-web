@@ -84,7 +84,9 @@ export const checkboxBrandStyles = cn(
   "border-brandPrimary bg-transparent",
   "data-[state=checked]:border-brandPrimary data-[state=checked]:bg-brandPrimary data-[state=checked]:text-white",
   "data-[state=indeterminate]:border-brandPrimary data-[state=indeterminate]:bg-brandPrimary data-[state=indeterminate]:text-white",
-  "data-[state=unchecked]:border-brandPrimary data-[state=unchecked]:hover:bg-brandPrimary/10",
+  "data-[state=unchecked]:hover:bg-brandPrimary/12 data-[state=unchecked]:hover:border-brandPrimary",
+  "data-[state=checked]:hover:border-brandPrimary data-[state=checked]:hover:bg-brandPrimary",
+  "data-[state=indeterminate]:hover:border-brandPrimary data-[state=indeterminate]:hover:bg-brandPrimary",
   "ring-offset-white dark:ring-offset-black",
 );
 export const checkboxBlackWhiteStyles = cn(
@@ -92,7 +94,11 @@ export const checkboxBlackWhiteStyles = cn(
   "border-neutral-300 bg-transparent dark:border-mono-600",
   "data-[state=checked]:border-neutral-300 data-[state=checked]:bg-white data-[state=checked]:text-neutral-600",
   "data-[state=checked]:dark:border-mono-600 data-[state=checked]:dark:bg-black data-[state=checked]:dark:text-mono-300",
+  "data-[state=indeterminate]:border-neutral-300 data-[state=indeterminate]:bg-white data-[state=indeterminate]:text-neutral-600",
+  "data-[state=indeterminate]:dark:border-mono-600 data-[state=indeterminate]:dark:bg-black data-[state=indeterminate]:dark:text-mono-300",
   "data-[state=unchecked]:hover:bg-neutral-100 data-[state=unchecked]:hover:dark:bg-mono-800",
+  "data-[state=checked]:hover:bg-white data-[state=checked]:hover:dark:bg-black",
+  "data-[state=indeterminate]:hover:bg-white data-[state=indeterminate]:hover:dark:bg-black",
   "ring-offset-white dark:ring-offset-black",
 );
 
