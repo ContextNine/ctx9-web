@@ -33,6 +33,8 @@ The MultipleSelector port uses Impression `06967d08d`, `apps/next/src/components
 
 The Button comparison uses Impression `01dd4e76d`, `apps/next/src/components/ui/button.tsx`. Its existing `typography="tiny"` variant stays at 11px. Changing it to `text-xs` would alter live outreach actions, so the migration preserves that existing size rather than applying a design change.
 
+The interaction comparison also preserves Impression's `focus:dark:` and `hover:dark:` modifier order and onboarding dark-mode important flags. Normalizing those strings changed focus/hover colors when combined with the retained host stylesheet. The shared recipes keep the source class contracts unchanged.
+
 ## Font provenance
 
 The package vendors normal variable fonts for standalone consumers. They are emitted inside `@ctx9/ui`; production makes no third-party font request. Font utilities first consume the host's `--font-geist-sans` and `--font-inter` bindings, preserving Impression's existing font selection when the stylesheets are combined. Standalone applications use the package's self-hosted defaults.

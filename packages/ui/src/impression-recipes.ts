@@ -11,7 +11,7 @@ export const dropdownButtonStyles = "w-full justify-start rounded-sm px-3";
 export const postExpansionButtonStyles =
   "rounded-xl bg-muted/30 px-4 py-2 text-sm text-muted-foreground transition-all duration-300 hover:text-foreground";
 export const billingPageButtonStyles =
-  "w-[220px] bg-white text-black transition-all duration-300 hover:scale-[103%] focus:bg-white focus:text-black dark:bg-mono-200 dark:text-black dark:hover:bg-white dark:hover:text-black dark:focus:bg-white dark:focus:text-black";
+  "bg-white text-black dark:bg-mono-200 dark:text-black hover:dark:bg-white hover:dark:text-black w-[220px] hover:scale-[103%] transition-all duration-300 focus:dark:bg-white focus:dark:text-black focus:bg-white focus:text-black";
 export const btnTertiaryStyles =
   "bg-neutral-200 hover:bg-neutral-300 dark:bg-mono-700 dark:hover:bg-mono-800";
 export const funkyOutlineStyles = "border border-input";
@@ -29,11 +29,11 @@ export const selectedSidebarStyles = "bg-neutral-150 dark:bg-mono-850";
 export const selectedBgStyles = "bg-neutral-100 dark:bg-mono-850";
 export const selectedTextStyles = "text-black dark:text-white";
 export const hoverStyles =
-  "hover:bg-neutral-50 hover:text-black dark:hover:bg-mono-950 dark:hover:text-white";
+  "hover:bg-neutral-50 hover:dark:bg-mono-950 hover:text-black hover:dark:text-white";
 export const hoverSideTabsStyles =
-  "hover:bg-neutral-200 hover:text-black dark:hover:bg-mono-900 dark:hover:text-white";
+  "hover:bg-neutral-200 hover:dark:bg-mono-900 hover:text-black hover:dark:text-white";
 export const focusStyles =
-  "focus:bg-neutral-100 focus:text-black dark:focus:bg-mono-850 dark:focus:text-white";
+  "focus:bg-neutral-100 focus:dark:bg-mono-850 focus:text-black focus:dark:text-white";
 export const outlineButtonStyles = cn(
   "border border-input bg-white dark:bg-mono-970",
   hoverStyles,

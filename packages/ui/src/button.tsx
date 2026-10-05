@@ -99,7 +99,7 @@ export const buttonVariants = cva(
         destructive: cn(
           "bg-white hover:bg-neutral-20 dark:bg-black dark:hover:bg-mono-950",
           outlineButtonStyles,
-          "text-primary focus:text-black dark:focus:text-white",
+          "text-primary focus:text-black focus:dark:text-white",
         ),
         ghost: hoverStyles,
         navigation: appNavigationStyles,
@@ -271,7 +271,7 @@ export const buttonVariants = cva(
         platformLink:
           "w-full scale-100 space-x-2 border-2 transition-transform hover:scale-[102%]",
         billingPlan: cn(
-          "w-full border-mono-200 bg-white/80 text-mono-900 dark:border-mono-700 dark:bg-mono-900 dark:text-mono-100 dark:hover:bg-mono-850 sm:w-[225px]",
+          "border-mono-200 bg-white/80 text-mono-900 dark:border-mono-700 dark:bg-mono-900 dark:text-mono-100 hover:dark:bg-mono-850 w-full sm:w-[225px]",
           defaultButtonStyles,
         ),
         cookieAction:
@@ -282,7 +282,7 @@ export const buttonVariants = cva(
           hoverSideTabsStyles,
         ),
         settingsDangerItem: cn(
-          "flex w-full items-center justify-start gap-2 p-0 text-left transition-colors duration-200 hover:bg-neutral-300 hover:text-black dark:hover:bg-mono-900 dark:hover:text-white",
+          "flex w-full items-center justify-start gap-2 p-0 text-left transition-colors duration-200 hover:bg-neutral-300 hover:text-black hover:dark:bg-mono-900 hover:dark:text-white",
           buttonStyles,
         ),
         defaultAction: defaultButtonStyles,
@@ -296,9 +296,9 @@ export const buttonVariants = cva(
         sidebarNudge:
           "h-auto min-h-10 w-full justify-start gap-2 whitespace-normal px-3 py-2 text-left text-sm text-mono-700 dark:text-mono-300 [&_svg]:shrink-0",
         onboardingSecondary:
-          "h-12 rounded-none border-neutral-800/80 bg-white px-6 text-mono-900 hover:bg-neutral-100 dark:border-neutral-800/80 dark:bg-white dark:text-mono-900 dark:hover:bg-neutral-100",
+          "h-12 rounded-none border-neutral-800/80 bg-white px-6 text-mono-900 hover:bg-neutral-100 dark:!border-neutral-800/80 dark:!bg-white dark:!text-mono-900 dark:hover:!bg-neutral-100",
         onboardingBack:
-          "h-auto rounded-none border-neutral-800/80 bg-white px-4 py-2 text-sm text-mono-700 hover:bg-neutral-100 dark:border-neutral-800/80 dark:bg-white dark:text-mono-700 dark:hover:bg-neutral-100",
+          "h-auto rounded-none border-neutral-800/80 bg-white px-4 py-2 text-sm text-mono-700 hover:bg-neutral-100 dark:!border-neutral-800/80 dark:!bg-white dark:!text-mono-700 dark:hover:!bg-neutral-100",
       },
     },
     compoundVariants: [
