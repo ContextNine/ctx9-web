@@ -85,3 +85,8 @@ through `funkyStable`; Impression's Button recipes and defaults remain unchanged
 The direct AlertDialog, DropdownMenu and Popover dependencies now use the
 versions already included by Impression's `radix-ui@1.4.3`. This removes the
 mixed old wrapper/new primitive graph without introducing a new version line.
+
+The Publisher pilot adds semantic Badge success/warning choices and a metadata
+Sheet variant with bordered header/footer choices. These are active consumer
+compositions using the shared tokens, not compatibility exports. Existing
+Impression Badge and Sheet defaults are unchanged.

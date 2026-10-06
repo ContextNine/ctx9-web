@@ -21,7 +21,7 @@ The v8 inventory uses Impression's internal application components and semantic 
 - Avatar, Badge, Breadcrumb, Button, Card, Chart, Checkbox, DropdownMenu, Input, Label, Select, Separator, Sheet, Sidebar, Skeleton, Sonner, Table, Tabs, Toggle, ToggleGroup, Tooltip;
 - typed TanStack Table v8 building blocks with sorting, pagination, column visibility, keyboard row navigation, and background-refresh state;
 - resizable panel groups, panels, and keyboard-accessible handles, aligned with Impression's assistant sidebar;
-- Badge and status text;
+- Badge with semantic success, warning and destructive variants, and status text;
 - Calendar, date input, time input, date-time, timezone selector, and date range;
 - Toast/status announcement and ErrorPage;
 - Skeleton uses Impression's existing pulse animation.
@@ -38,3 +38,8 @@ The v8 inventory uses Impression's internal application components and semantic 
 Impression public-marketing components, product-specific recipes, and editor/social components are excluded. Light and dark internal variants are included.
 
 The unused Sheet-based Drawer aliases are removed in v8. None of the four migration consumers or Impression imports Drawer. Impression's unused Vaul implementation is not ported. Mobile navigation continues to use the shared Sheet implementation.
+
+Publisher metadata editing uses SheetContent's `metadata` variant and bordered
+SheetHeader/SheetFooter variants. The shared component owns panel sizing, border
+and spacing rules; default Sheet output remains unchanged. Shared style checks
+cover the sheet header, footer, title and description as well as its content.

@@ -72,6 +72,10 @@ export const standardizedComponents = new Set([
   "TableCell",
   "TableRow",
   "SheetContent",
+  "SheetHeader",
+  "SheetFooter",
+  "SheetTitle",
+  "SheetDescription",
   "CommandItem",
 ]);
 
