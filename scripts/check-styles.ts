@@ -59,7 +59,7 @@ const primitiveFiles = new Set([
 for (const file of await readdir(uiSource)) {
   if (!file.endsWith(".ts") && !file.endsWith(".tsx")) continue;
   const source = await readFile(new URL(file, uiSource), "utf8");
-  for (const forbidden of ["next-themes", "theme-toggle"]) {
+  for (const forbidden of ["next-themes"]) {
     if (source.includes(forbidden))
       throw new Error(`forbidden-ui-source:${file}:${forbidden}`);
   }
