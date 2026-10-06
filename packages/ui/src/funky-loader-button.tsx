@@ -42,6 +42,7 @@ export const FunkyLoaderButton = React.forwardRef<
       asChild = false,
       href,
       type = "submit",
+      width,
       ...props
     },
     ref,
@@ -54,6 +55,7 @@ export const FunkyLoaderButton = React.forwardRef<
       className: cn(
         "group/btn relative",
         surface === "app" && "px-4 font-medium shadow-none",
+        width === "grow" && "w-full",
         className,
       ),
       disabled: isLinkLike ? props.disabled : isLoading || props.disabled,
@@ -62,6 +64,7 @@ export const FunkyLoaderButton = React.forwardRef<
       id,
       surface,
       variant,
+      width,
       ...(!isLinkLike ? { type } : {}),
     };
 

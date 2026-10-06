@@ -14,6 +14,8 @@ The v8 inventory uses Impression's internal application components and semantic 
 
 - Button with stable loading text, ButtonGroup, and Impression's animated
   FunkyLoaderButton with typed loading and gradient options;
+- FunkyLoaderButton's growing-row width owns the existing full-width flex
+  composition used by paired actions;
 - AppButtonProps and AuthButtonProps constrain product wrappers to their own
   surface and variant family without copying the Button contract;
 - Input, Textarea, Label, Checkbox, Select, Switch;

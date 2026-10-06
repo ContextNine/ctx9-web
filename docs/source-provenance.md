@@ -62,6 +62,11 @@ gradient choices are retained; arbitrary gradient class overrides are not part
 of the shared contract. This port is
 unpublished and does not accept consumer appearance parity by itself.
 
+The loader's growing-row width includes Impression's existing `w-full flex-1`
+composition from data-integration actions. The width variant owns both classes,
+so paired actions do not pass a width override through `className`. Loading,
+gradient, surface and default-width behavior remain unchanged.
+
 The animated action comparison also caught a draft auth recipe mismatch. Auth
 buttons retain Impression's `common-public.tsx` recipe, including its 40px
 height, `border-input`, and shadow treatment. The earlier generic 36px auth
