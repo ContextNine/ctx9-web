@@ -15,6 +15,11 @@ The v8 inventory uses Impression's internal application components and semantic 
 - Button with stable loading text, ButtonGroup, and Impression's animated
   FunkyLoaderButton with typed loading and gradient options;
 - Input, Textarea, Label, Checkbox, Select, Switch;
+- Textarea's `code` and `codeOverlay` presets own code-field appearance. The
+  overlay inherits editor typography and accepts gutter geometry through the
+  containing editor's `--code-overlay-padding`; highlighting and editing
+  workflows stay in the product. `scroll="hidden"` supports content-driven
+  fields without changing the standard auto-resize height limit.
 - MultipleSelector with keyboard selection, async search, grouping, fixed choices, and typed single-row and selection-tone variants. Its private remove/clear actions own their classes; consumers cannot override nested input, command, or button appearance.
 - Form field, description, and error association;
 - Dialog, AlertDialog, Popover, DropdownMenu, Tooltip;
@@ -24,6 +29,8 @@ The v8 inventory uses Impression's internal application components and semantic 
 - Badge with semantic success, warning and destructive variants, and status text;
 - Calendar, date input, time input, date-time, timezone selector, and date range;
 - Toast/status announcement and ErrorPage;
+- InlineStatus has semantic neutral, success, warning and danger tones.
+  PopoverContent's `notice` variant owns compact explanatory-message spacing.
 - Skeleton uses Impression's existing pulse animation.
 
 ## Product compositions

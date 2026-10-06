@@ -27,14 +27,23 @@ export function StatusText({
 }
 
 export function InlineStatus({
+  tone = "neutral",
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>): React.JSX.Element {
+}: React.HTMLAttributes<HTMLDivElement> & {
+  tone?: "neutral" | "success" | "warning" | "danger";
+}): React.JSX.Element {
   return (
     <div
       role="status"
       aria-live="polite"
-      className={cn("border-l-2 border-focus pl-3 text-sm", className)}
+      className={cn(
+        "border-l-2 border-focus pl-3 text-sm",
+        tone === "success" && "border-success text-success",
+        tone === "warning" && "border-warning text-warning",
+        tone === "danger" && "border-danger text-danger",
+        className,
+      )}
       {...props}
     />
   );

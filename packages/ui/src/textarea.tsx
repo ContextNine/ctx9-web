@@ -54,10 +54,10 @@ export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> &
     effect?: ControlEffect;
     minHeight?: TextareaMinHeight;
     resize?: "default" | "none" | "y";
-    scroll?: "default" | "auto" | "styled";
+    scroll?: "default" | "auto" | "styled" | "hidden";
     grow?: boolean;
     shape?: ControlShape;
-    tone?: "default" | "paper" | "editor";
+    tone?: "default" | "paper" | "editor" | "code" | "codeOverlay";
   };
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -107,9 +107,13 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const control = (
       <textarea
         className={cn(
-          "flex min-h-[80px]",
-          controlVariants({ surface, variant, size: "auto" }),
-          controlShapeClassNames[shape],
+          tone === "codeOverlay"
+            ? "ctx9-code-overlay-input"
+            : cn(
+                "flex min-h-[80px]",
+                controlVariants({ surface, variant, size: "auto" }),
+                controlShapeClassNames[shape],
+              ),
           resolvedEffect === "glow" &&
             cn("resize-y overflow-y-auto", scrollbarStyles),
           textareaMinHeightClassNames[minHeight],
@@ -117,9 +121,11 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           resize === "y" && "resize-y",
           scroll === "auto" && "overflow-y-auto",
           scroll === "styled" && cn("overflow-y-auto", scrollbarStyles),
+          scroll === "hidden" && "overflow-y-hidden",
           grow && "flex-1",
           tone === "paper" && "bg-white dark:bg-mono-900",
           tone === "editor" && "bg-white dark:bg-mono-950",
+          tone === "code" && "font-mono text-xs leading-relaxed",
           className,
         )}
         ref={(node) => {

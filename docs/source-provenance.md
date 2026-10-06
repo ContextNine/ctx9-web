@@ -93,3 +93,9 @@ The Publisher pilot adds semantic Badge success/warning choices and a metadata
 Sheet variant with bordered header/footer choices. These are active consumer
 compositions using the shared tokens, not compatibility exports. Existing
 Impression Badge and Sheet defaults are unchanged.
+
+The Secret Bindings pilot adds generic code-field and transparent overlay
+Textarea presets, semantic InlineStatus tones, and a compact notice Popover.
+These consume the shared theme tokens. The product still owns syntax
+highlighting, gutter geometry, protected-data handling and autosave. Existing
+Impression field, feedback and Popover defaults are unchanged.

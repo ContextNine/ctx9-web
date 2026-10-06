@@ -11,12 +11,13 @@ const Popover = PopoverPrimitive.Root;
 
 const PopoverTrigger = PopoverPrimitive.Trigger;
 
-export type PopoverContentVariant = "standard" | "panel";
+export type PopoverContentVariant = "standard" | "panel" | "notice";
 
 const popoverContentVariantClassNames: Record<PopoverContentVariant, string> = {
   standard: "",
   panel:
     "w-full max-w-lg rounded-lg border bg-popover p-0 text-popover-foreground sm:min-w-96",
+  notice: "max-w-sm",
 };
 
 const PopoverContent = React.forwardRef<
@@ -68,6 +69,7 @@ const PopoverContent = React.forwardRef<
           className={cn(
             "w-full max-w-lg rounded-lg border bg-popover p-0 text-popover-foreground shadow-2xl sm:min-w-64",
             popoverContentVariantClassNames[variant],
+            variant === "notice" && "p-3 text-sm leading-relaxed sm:min-w-0",
             className,
             noBg && "border-0 bg-transparent shadow-none",
           )}
