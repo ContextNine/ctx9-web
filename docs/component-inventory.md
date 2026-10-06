@@ -29,6 +29,8 @@ The v8 inventory uses Impression's internal application components and semantic 
 - Badge with semantic success, warning and destructive variants, and status text;
 - Calendar, date input, time input, date-time, timezone selector, and date range;
 - Toast/status announcement and ErrorPage;
+- Sonner retains its original animated loading spinner. The pre-v8 static-dot
+  override is removed with the retired no-spinner restriction.
 - InlineStatus has semantic neutral, success, warning and danger tones.
   PopoverContent's `notice` variant owns compact explanatory-message spacing.
 - Skeleton uses Impression's existing pulse animation.

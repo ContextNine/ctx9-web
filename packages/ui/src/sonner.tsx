@@ -13,7 +13,6 @@ export function Toaster(props: ToasterProps) {
         info: <Info className="size-4" />,
         warning: <TriangleAlert className="size-4" />,
         error: <OctagonX className="size-4" />,
-        loading: <span aria-hidden="true" className="size-2 bg-foreground" />,
       }}
       toastOptions={{
         classNames: {

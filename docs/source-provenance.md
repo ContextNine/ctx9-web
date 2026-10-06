@@ -99,3 +99,8 @@ Textarea presets, semantic InlineStatus tones, and a compact notice Popover.
 These consume the shared theme tokens. The product still owns syntax
 highlighting, gutter geometry, protected-data handling and autosave. Existing
 Impression field, feedback and Popover defaults are unchanged.
+
+The pre-v8 Toaster's static loading-dot override was introduced under the
+retired no-spinner guide. Removing that override restores Sonner's native
+animated loader, also used by Impression's current Toaster. Other toast
+appearance and theme adoption still need their own Impression comparisons.
