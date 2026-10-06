@@ -51,7 +51,12 @@ in scope. This adds the public Button, FunkyLoaderButton, CTAActionButton,
 fields, and form controls without adding a public-package runtime dependency.
 Public component types separately forbid all call-site `className` and `style`
 props. The programmatic API accepts `{ packages, exceptions }` as its third
-argument.
+argument. Add `--project <tsconfig.json>` when a consumer uses typed controller
+fields or adapter props. TypeScript must prove that a spread has no usable
+`className` or `style` property. Unknown, `any`, indexed, and unresolved props
+still fail; literal appearance keys remain forbidden. Keep the consumer's
+typecheck in CI alongside this check. The programmatic API accepts the same
+consumer `program` in its options.
 
 The optional exceptions file is a JSON array. Each entry names one exact repository-relative file and component, a reason of `framework-adapter`, `control-composition`, or `feature-geometry`, and a written explanation. Do not exempt whole source roots. Public-specific design rules remain in Impression; the shared engine owns the control-appearance boundary.
 

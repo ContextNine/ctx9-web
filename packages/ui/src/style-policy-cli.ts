@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { readFile, readdir } from "node:fs/promises";
 import { relative, resolve } from "node:path";
+import ts from "typescript";
 import { checkStyleSource, type StyleException } from "./style-policy.js";
 
 function parseExceptions(value: unknown): StyleException[] {
@@ -53,6 +54,7 @@ async function walk(directory: string): Promise<string[]> {
 const roots: string[] = [];
 const packages: string[] = [];
 let exceptions: StyleException[] = [];
+let project: string | undefined;
 const args = process.argv.slice(2);
 for (let index = 0; index < args.length; index++) {
   const arg = args[index];
@@ -62,6 +64,10 @@ for (let index = 0; index < args.length; index++) {
     exceptions = parseExceptions(
       JSON.parse(await readFile(path, "utf8")) as unknown,
     );
+  } else if (arg === "--project") {
+    project = args[++index];
+    if (!project || project.startsWith("--"))
+      throw new Error("--project requires a tsconfig file.");
   } else if (arg === "--package") {
     const name = args[++index];
     if (!name || name.startsWith("--"))
@@ -72,20 +78,38 @@ for (let index = 0; index < args.length; index++) {
 }
 if (!roots.length)
   throw new Error(
-    "Usage: ctx9-ui-style-check <source roots> [--package <name>] [--exceptions <file.json>]",
+    "Usage: ctx9-ui-style-check <source roots> [--package <name>] [--project <tsconfig.json>] [--exceptions <file.json>]",
   );
 const files = [
   ...new Set(
     (await Promise.all(roots.map((root) => walk(resolve(root))))).flat(),
   ),
 ];
+let program: ts.Program | undefined;
+if (project) {
+  const config = ts.getParsedCommandLineOfConfigFile(
+    resolve(project),
+    { noEmit: true },
+    {
+      ...ts.sys,
+      onUnRecoverableConfigFileDiagnostic: (diagnostic) => {
+        throw new Error(
+          ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n"),
+        );
+      },
+    },
+  );
+  if (!config || config.errors.length)
+    throw new Error("Cannot load consumer tsconfig.");
+  program = ts.createProgram(config.fileNames, config.options);
+}
 const failures = (
   await Promise.all(
     files.map(async (file) =>
       checkStyleSource(
         relative(process.cwd(), file).replaceAll("\\", "/"),
         await readFile(file, "utf8"),
-        { packages, exceptions },
+        { packages, exceptions, ...(program ? { program } : {}) },
       ),
     ),
   )

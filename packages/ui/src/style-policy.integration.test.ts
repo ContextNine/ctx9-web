@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { resolve } from "node:path";
+import ts from "typescript";
 import { checkStyleSource } from "./style-policy.js";
 
 describe("consumer style policy", () => {
@@ -49,5 +51,57 @@ describe("consumer style policy", () => {
         },
       ),
     ).toEqual([]);
+
+    const file = resolve("src/typed-consumer.tsx");
+    const source = `
+      import { Input } from '@ctx9/ui';
+      declare const field: { name: string; value: string; onChange: () => void; disabled?: boolean };
+      declare const styled: { value: string; className?: string; style?: { color: string } };
+      declare const forbidden: { className?: never; style?: never; disabled?: boolean };
+      declare const unknownProps: unknown;
+      declare const anyProps: any;
+      declare const dynamic: Record<string, unknown>;
+      declare const mixed: { value: string } | { style: { color: string } };
+      const { className, style, ...adapterProps } = styled;
+      const page = <><Input {...field} /><Input {...adapterProps} /><Input {...forbidden} />
+        <Input {...styled} /><Input {...unknownProps} /><Input {...anyProps} />
+        <Input {...dynamic} /><Input {...mixed} />
+        <Input {...{ style: undefined }} /></>;
+    `;
+    const options = { strict: true, jsx: ts.JsxEmit.Preserve, noEmit: true };
+    const host = ts.createCompilerHost(options);
+    const originalGetSourceFile = host.getSourceFile.bind(host);
+    host.getSourceFile = (
+      name,
+      languageVersion,
+      onError,
+      shouldCreateNewSourceFile,
+    ) =>
+      name === file
+        ? ts.createSourceFile(
+            file,
+            source,
+            languageVersion,
+            true,
+            ts.ScriptKind.TSX,
+          )
+        : originalGetSourceFile(
+            name,
+            languageVersion,
+            onError,
+            shouldCreateNewSourceFile,
+          );
+    const program = ts.createProgram([file], options, host);
+    const typedViolations = checkStyleSource(file, source, { program });
+    expect(typedViolations.map((value) => value.message)).toEqual([
+      "Appearance cannot be supplied through a JSX spread.",
+      "Use explicit control props so className and style can be checked.",
+      "Use explicit control props so className and style can be checked.",
+      "Use explicit control props so className and style can be checked.",
+      "Appearance cannot be supplied through a JSX spread.",
+      "Appearance cannot be supplied through a JSX spread.",
+    ]);
+    expect(checkStyleSource(file, source).length).toBe(9);
+    expect(checkStyleSource(file, source + "\n", { program }).length).toBe(9);
   });
 });

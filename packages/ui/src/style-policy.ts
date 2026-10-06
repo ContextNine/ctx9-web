@@ -1,4 +1,5 @@
 import ts from "typescript";
+import { resolve } from "node:path";
 
 /** Appearance belongs to component variants; consumers may supply placement. */
 export const standardizedComponents = new Set([
@@ -91,6 +92,8 @@ export interface StylePolicyOptions {
   /** Additional component packages use the same appearance boundary. */
   packages?: readonly string[];
   exceptions?: readonly StyleException[];
+  /** Optional consumer type information for otherwise opaque control props. */
+  program?: ts.Program;
 }
 
 // Placement, display and outer geometry are allowed. Text alignment is appearance.
@@ -114,15 +117,21 @@ function utilityName(token: string) {
 export function checkStyleSource(
   file: string,
   source: string,
-  { packages = [], exceptions = [] }: StylePolicyOptions = {},
+  { packages = [], exceptions = [], program }: StylePolicyOptions = {},
 ) {
-  const tree = ts.createSourceFile(
-    file,
-    source,
-    ts.ScriptTarget.Latest,
-    true,
-    ts.ScriptKind.TSX,
-  );
+  const checkedSource = program?.getSourceFile(resolve(file));
+  const tree =
+    checkedSource?.text === source
+      ? checkedSource
+      : ts.createSourceFile(
+          file,
+          source,
+          ts.ScriptTarget.Latest,
+          true,
+          ts.ScriptKind.TSX,
+        );
+  const checker =
+    tree === checkedSource ? program?.getTypeChecker() : undefined;
   const aliases = new Map<string, string>();
   const namespaces = new Set<string>();
   const constants = new Map<string, ts.Expression>();
@@ -162,6 +171,52 @@ export function checkStyleSource(
     ts.forEachChild(node, collect);
   }
   collect(tree);
+
+  function typedSpreadAppearance(
+    expression: ts.Expression,
+  ): "appearance" | "opaque" | undefined {
+    if (!checker) return "opaque";
+    const inspect = (type: ts.Type): "appearance" | "opaque" | undefined => {
+      if (
+        type.flags &
+        (ts.TypeFlags.Any | ts.TypeFlags.Unknown | ts.TypeFlags.TypeParameter)
+      )
+        return "opaque";
+      if (type.isUnion()) {
+        const results = type.types.map(inspect);
+        return results.includes("appearance")
+          ? "appearance"
+          : results.includes("opaque")
+            ? "opaque"
+            : undefined;
+      }
+      if (
+        type.flags &
+        (ts.TypeFlags.Undefined | ts.TypeFlags.Null | ts.TypeFlags.Never)
+      )
+        return undefined;
+      if (
+        !(type.flags & ts.TypeFlags.Object) ||
+        checker.getIndexInfosOfType(type).length
+      )
+        return "opaque";
+      for (const name of ["className", "style"]) {
+        const property = checker.getPropertyOfType(type, name);
+        if (!property) continue;
+        const value = checker.getTypeOfSymbolAtLocation(property, expression);
+        const members = value.isUnion() ? value.types : [value];
+        if (
+          members.some(
+            (member) =>
+              !(member.flags & (ts.TypeFlags.Never | ts.TypeFlags.Undefined)),
+          )
+        )
+          return "appearance";
+      }
+      return undefined;
+    };
+    return inspect(checker.getTypeAtLocation(expression));
+  }
 
   function spreadAppearance(
     expression: ts.Expression,
@@ -276,7 +331,11 @@ export function checkStyleSource(
         if (!excepted)
           for (const attribute of node.attributes.properties) {
             if (ts.isJsxSpreadAttribute(attribute)) {
-              const result = spreadAppearance(attribute.expression);
+              const syntaxResult = spreadAppearance(attribute.expression);
+              const result =
+                syntaxResult === "opaque"
+                  ? typedSpreadAppearance(attribute.expression)
+                  : syntaxResult;
               if (result === "appearance")
                 report(
                   attribute,
