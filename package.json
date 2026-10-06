@@ -3,10 +3,10 @@
   "version": "8.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.1.2",
+  "packageManager": "pnpm@11.22.0",
   "engines": {
     "node": "22.16.0",
-    "pnpm": "11.1.2"
+    "pnpm": "11.22.0"
   },
   "scripts": {
     "build": "pnpm --recursive build",

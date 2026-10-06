@@ -71,7 +71,7 @@ complete migrated pages are still required before publication.
 
 1. Confirm the approved visual identifiers and component provenance are recorded.
 2. Set both package versions to the same exact semantic version.
-3. Run `pnpm install --frozen-lockfile` and `pnpm check` under the Impression-authoritative Node 22.16.0 and pnpm 11.1.2 versions.
+3. Run `pnpm install --frozen-lockfile` and `pnpm check` under the Impression-authoritative Node 22.16.0 and pnpm 11.22.0 versions.
 4. Prove both generated archives install and build in a clean isolated consumer.
 5. Commit and push `master` to GitHub. Wait for the GitHub mirror and matching GitLab check pipeline.
 6. Create and push the matching `vX.Y.Z` tag on GitHub.
