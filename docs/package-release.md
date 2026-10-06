@@ -92,6 +92,15 @@ Never republish or overwrite a released version. Correct a package with a new pa
 
 The v8 package line uses Tailwind 3 and the exact frontend dependency matrix captured from Impression for the release. Consumers align to that matrix before installing the new major version.
 
+The CSS build explicitly uses Impression's PostCSS 8.5.18, Autoprefixer 10.4.22
+and resolved browser-data versions instead of the Tailwind CLI's bundled
+prefixer defaults. Next 15's browser targets and emitted transition-list order
+are preserved without adding a Next dependency. The corrected combined Button
+fixture has zero changed pixels, geometry differences or rendered-property
+differences across 676 comparisons. Added package custom properties and
+equivalent minified custom-property strings still differ textually; whole-app
+CSS and other component-family acceptance remain separate.
+
 ## CI consumption
 
 Consumer projects pin exact versions. The package project allowlists the consumer project for inbound CI job-token access. A consumer job creates an ephemeral npm configuration containing:

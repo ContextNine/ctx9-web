@@ -31,7 +31,7 @@
     "ctx9-ui-style-check": "./dist/style-policy-cli.js"
   },
   "scripts": {
-    "build": "pnpm clean && tsc -p tsconfig.build.json && tailwindcss -c tailwind.config.cjs -i src/styles.css -o dist/styles.css --minify && mkdir -p dist/assets dist/fonts && cp src/assets/icon.svg dist/assets/icon.svg && cp -R src/fonts/. dist/fonts/",
+    "build": "pnpm clean && tsc -p tsconfig.build.json && tailwindcss -c tailwind.config.cjs -i src/styles.css -o dist/styles.css --postcss ../../postcss.config.js --no-autoprefixer --minify && mkdir -p dist/assets dist/fonts && cp src/assets/icon.svg dist/assets/icon.svg && cp -R src/fonts/. dist/fonts/",
     "clean": "rm -rf dist",
     "prepack": "pnpm build",
     "typecheck": "tsc -p tsconfig.json --noEmit"

@@ -72,6 +72,13 @@ module.exports = {
       "7xl": "5rem",
     },
     extend: {
+      // Preserve Impression's emitted Next CSS, including alias order.
+      transitionProperty: {
+        DEFAULT:
+          "color, background-color, border-color, -webkit-text-decoration-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter, backdrop-filter",
+        colors:
+          "color, background-color, border-color, -webkit-text-decoration-color, text-decoration-color, fill, stroke",
+      },
       width: {
         xs: "20rem",
         sm: "24rem",

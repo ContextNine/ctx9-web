@@ -1,6 +1,12 @@
 packages:
   - packages/*
 overrides:
+  browserslist: 4.28.7
+  caniuse-lite: 1.0.30001756
+  electron-to-chromium: 1.5.434
+  node-releases: 2.0.56
+  postcss: 8.5.18
+  update-browserslist-db: 1.2.3
   motion-dom: 12.23.23
   motion-utils: 12.23.6
 allowBuilds:

@@ -110,3 +110,10 @@ settings, campaign navigation, the admin sidebar and compact inspiration tabs.
 Existing Tabs defaults and keyboard behavior remain unchanged. The compact
 trigger retains the source's 11px typography; changing it to 12px would restyle
 the existing control. Consumer migration still requires browser comparison.
+
+The CSS compiler is aligned to Impression `25e5df778`: PostCSS 8.5.18 and
+Autoprefixer 10.4.22, with its resolved Browserslist and browser-data versions.
+The explicit browser targets match Next 15's modern-browser defaults. The
+shared build does not import Next. Its default and color transition lists keep
+Impression's emitted WebKit aliases in the same order, preserving the existing
+computed properties when both stylesheets are loaded.
