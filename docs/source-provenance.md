@@ -104,3 +104,9 @@ The pre-v8 Toaster's static loading-dot override was introduced under the
 retired no-spinner guide. Removing that override restores Sonner's native
 animated loader, also used by Impression's current Toaster. Other toast
 appearance and theme adoption still need their own Impression comparisons.
+
+The Tabs presets extract the active Impression `8b501f147` recipes from space
+settings, campaign navigation, the admin sidebar and compact inspiration tabs.
+Existing Tabs defaults and keyboard behavior remain unchanged. The compact
+trigger retains the source's 11px typography; changing it to 12px would restyle
+the existing control. Consumer migration still requires browser comparison.

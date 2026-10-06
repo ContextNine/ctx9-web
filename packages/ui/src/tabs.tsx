@@ -10,6 +10,7 @@ import {
   panelTabStyles,
   panelTabTextStyles,
   tabsBgStyles,
+  hoverSideTabsStyles,
 } from "./impression-recipes.js";
 
 const Tabs = TabsPrimitive.Root;
@@ -23,6 +24,14 @@ const tabsListVariants = cva("inline-flex items-center justify-center", {
         tabsBgStyles,
       ),
       bare: "h-auto rounded-none bg-transparent p-0 text-muted-foreground",
+      compact:
+        "h-8 gap-1 rounded-xl border border-neutral-200 bg-white/90 p-1 text-muted-foreground dark:border-mono-800 dark:bg-mono-950/95",
+      subtle:
+        "h-9 rounded-md bg-neutral-100 p-1 text-muted-foreground dark:bg-mono-900",
+      settings:
+        "flex h-9 w-fit flex-grow grid-cols-3 justify-between rounded-md bg-muted p-1 text-muted-foreground",
+      sidebar:
+        "flex h-auto w-full flex-col items-stretch gap-1 rounded-md bg-transparent p-0 text-muted-foreground",
     },
   },
   defaultVariants: { variant: "default" },
@@ -37,6 +46,15 @@ const tabsTriggerVariants = cva(
           "rounded-sm px-3 py-1.5 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
         panel: cn(panelTabStyles, panelTabTextStyles, "px-3 py-1.5"),
         bare: "rounded-none p-0 data-[state=active]:bg-transparent data-[state=active]:shadow-none",
+        compact:
+          "h-6 gap-1 rounded-lg px-2 py-1.5 text-[11px] data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
+        settings:
+          "h-8 flex-grow rounded-sm px-3 py-1.5 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
+        sidebar: cn(
+          "h-auto w-full items-start justify-start whitespace-normal rounded-xl px-3 py-3 text-left shadow-none",
+          hoverSideTabsStyles,
+          "data-[state=active]:bg-neutral-150 data-[state=active]:text-black data-[state=active]:shadow-none dark:data-[state=active]:bg-mono-850 dark:data-[state=active]:text-white",
+        ),
       },
     },
     defaultVariants: { variant: "default" },
@@ -69,17 +87,33 @@ const TabsTrigger = React.forwardRef<
 ));
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
+const tabsContentVariants = cva(
+  "mt-0 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+  {
+    variants: {
+      variant: {
+        default: "",
+        surface: "mt-2 h-full w-full rounded-2xl p-6 shadow-input",
+      },
+      padding: {
+        none: "",
+        comfortable: "p-4",
+        responsive: "px-4 lg:px-6",
+      },
+    },
+    defaultVariants: { variant: "default", padding: "none" },
+  },
+);
+
 const TabsContent = React.forwardRef<
   React.ComponentRef<typeof TabsPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> &
+    VariantProps<typeof tabsContentVariants>
+>(({ className, variant, padding, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
     suppressHydrationWarning
-    className={cn(
-      "mt-0 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-      className,
-    )}
+    className={cn(tabsContentVariants({ variant, padding }), className)}
     {...props}
   />
 ));
@@ -92,4 +126,5 @@ export {
   TabsTrigger,
   tabsTriggerVariants,
   TabsContent,
+  tabsContentVariants,
 };
