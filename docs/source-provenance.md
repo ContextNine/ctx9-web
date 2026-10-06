@@ -67,6 +67,13 @@ composition from data-integration actions. The width variant owns both classes,
 so paired actions do not pass a width override through `className`. Loading,
 gradient, surface and default-width behavior remain unchanged.
 
+The loader's presets extract the remaining existing Impression action recipes
+from auth recovery, onboarding, billing, form actions and settings. They apply
+after the loader's private padding and font defaults. The earlier inherited
+Button presets could be overwritten by those defaults; loaders now expose
+only their own presets. Default loader output remains unchanged. Product
+workflows and public-marketing recipes stay outside the shared package.
+
 The animated action comparison also caught a draft auth recipe mismatch. Auth
 buttons retain Impression's `common-public.tsx` recipe, including its 40px
 height, `border-input`, and shadow treatment. The earlier generic 36px auth

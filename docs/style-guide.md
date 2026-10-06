@@ -49,6 +49,10 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   `isLoading` and `gradient` options preserve the existing icon, hover gradient,
   disabled behavior, and link composition. The component owns this appearance;
   call sites do not recreate the loader or gradient classes.
+- Loader presets own the existing compact, large, recovery, paired-action,
+  fixed-width and form-action recipes. They apply after the loader's defaults;
+  ordinary Button presets are not loader presets. Choose `width` for standard
+  full/fit/growing placement rather than duplicating width classes.
 - Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
 
 The runtime variables, controls, typed data table, feedback states, Auth composition, sidebar, account menu, responsive layout, and style policy live in `@ctx9/ui`. Next applications inject their link implementation through `NavigationProvider`, so internal navigation uses the Next router without adding a Next dependency to the package.
