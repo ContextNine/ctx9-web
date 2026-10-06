@@ -118,4 +118,4 @@ export const tiempos7xlHeadingStyles =
   "font-tiempos text-5xl leading-[0.94] tracking-[-0.02em] md:text-7xl";
 
 export const authButtonClassName =
-  "border border-neutral-200 bg-white text-black hover:bg-neutral-100 hover:text-black dark:border-neutral-700 dark:bg-white dark:text-black dark:hover:bg-neutral-100 dark:hover:text-black";
+  "h-10 border border-input bg-white text-black shadow-none hover:bg-neutral-100 hover:text-black dark:bg-white dark:text-black dark:hover:bg-neutral-100 dark:hover:text-black";

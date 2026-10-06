@@ -54,6 +54,11 @@ gradient choices are retained; arbitrary gradient class overrides are not part
 of the shared contract. Standard `Button` loading remains static. This port is
 unpublished and does not accept consumer appearance parity by itself.
 
+The animated action comparison also caught a draft auth recipe mismatch. Auth
+buttons retain Impression's `common-public.tsx` recipe, including its 40px
+height, `border-input`, and shadow treatment. The earlier generic 36px auth
+adaptation was not appearance-equivalent.
+
 ## Font provenance
 
 The package vendors normal variable fonts for standalone consumers. They are emitted inside `@ctx9/ui`; production makes no third-party font request. Font utilities first consume the host's `--font-geist-sans` and `--font-inter` bindings, preserving Impression's existing font selection when the stylesheets are combined. Standalone applications use the package's self-hosted defaults.
