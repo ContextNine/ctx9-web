@@ -49,6 +49,12 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 
 The runtime variables, controls, typed data table, feedback states, Auth composition, sidebar, account menu, responsive layout, and style policy live in `@ctx9/ui`. Next applications inject their link implementation through `NavigationProvider`, so internal navigation uses the Next router without adding a Next dependency to the package.
 
+Import `@ctx9/ui/styles.css` once before product styles. The compiled stylesheet
+includes Tailwind 3 Preflight, so standalone products have the same control
+reset as Impression. Products do not add a second reset or copy shared control
+rules. The application skip link is hidden outside keyboard focus and stays
+out of the sidebar/content grid.
+
 Call sites may supply placement and product-specific geometry. Colors, backgrounds, borders, radius, padding, typography, hover, focus, selected, disabled, and standard control dimensions belong to component variants. The package style check enforces this boundary.
 
 When checking `@impression/public-ui`, the same policy covers its priority

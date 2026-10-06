@@ -54,7 +54,6 @@ const variableScale = (name, values) =>
 module.exports = {
   darkMode: ["class", ":is(.dark, [data-theme='dark'])"],
   content: ["./src/**/*.{ts,tsx}"],
-  corePlugins: { preflight: false },
   theme: {
     fontSize: {
       xs: ".8rem",
