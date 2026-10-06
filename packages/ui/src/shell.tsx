@@ -237,7 +237,7 @@ export function AccountMenu({
 function Ctx9Mark(): React.JSX.Element {
   return (
     <svg aria-hidden="true" className="size-8 shrink-0" viewBox="0 0 64 64">
-      <g fill="#f3ecec" shapeRendering="crispEdges">
+      <g fill="currentColor" shapeRendering="crispEdges">
         <rect x="10" y="10" width="12" height="12" />
         <rect x="26" y="10" width="12" height="12" />
         <rect x="42" y="26" width="12" height="12" />
