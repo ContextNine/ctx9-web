@@ -3,6 +3,8 @@ import ts from "typescript";
 /** Appearance belongs to component variants; consumers may supply placement. */
 export const standardizedComponents = new Set([
   "Button",
+  "FunkyLoaderButton",
+  "CTAActionButton",
   "ButtonGroup",
   "Checkbox",
   "MultipleSelector",
@@ -85,6 +87,11 @@ export interface StyleViolation {
   component: string;
   message: string;
 }
+export interface StylePolicyOptions {
+  /** Additional component packages use the same appearance boundary. */
+  packages?: readonly string[];
+  exceptions?: readonly StyleException[];
+}
 
 // Placement, display and outer geometry are allowed. Text alignment is appearance.
 const appearanceClass =
@@ -107,7 +114,7 @@ function utilityName(token: string) {
 export function checkStyleSource(
   file: string,
   source: string,
-  exceptions: readonly StyleException[] = [],
+  { packages = [], exceptions = [] }: StylePolicyOptions = {},
 ) {
   const tree = ts.createSourceFile(
     file,
@@ -120,6 +127,7 @@ export function checkStyleSource(
   const namespaces = new Set<string>();
   const constants = new Map<string, ts.Expression>();
   const violations: StyleViolation[] = [];
+  const componentPackages = ["@ctx9/ui", ...packages];
 
   function collect(node: ts.Node) {
     if (
@@ -127,7 +135,11 @@ export function checkStyleSource(
       ts.isStringLiteral(node.moduleSpecifier)
     ) {
       const module = node.moduleSpecifier.text;
-      if (module === "@ctx9/ui" || module.startsWith("@ctx9/ui/")) {
+      if (
+        componentPackages.some(
+          (name) => module === name || module.startsWith(`${name}/`),
+        )
+      ) {
         const bindings = node.importClause?.namedBindings;
         if (bindings && ts.isNamedImports(bindings)) {
           for (const element of bindings.elements) {
@@ -150,6 +162,43 @@ export function checkStyleSource(
     ts.forEachChild(node, collect);
   }
   collect(tree);
+
+  function spreadAppearance(
+    expression: ts.Expression,
+    seen = new Set<string>(),
+  ): "appearance" | "opaque" | undefined {
+    if (ts.isParenthesizedExpression(expression))
+      return spreadAppearance(expression.expression, seen);
+    if (ts.isIdentifier(expression)) {
+      if (seen.has(expression.text)) return "opaque";
+      const initializer = constants.get(expression.text);
+      return initializer
+        ? spreadAppearance(initializer, new Set([...seen, expression.text]))
+        : "opaque";
+    }
+    if (!ts.isObjectLiteralExpression(expression)) return "opaque";
+    let opaque = false;
+    for (const property of expression.properties) {
+      if (ts.isSpreadAssignment(property)) {
+        const result = spreadAppearance(property.expression, seen);
+        if (result === "appearance") return result;
+        opaque ||= result === "opaque";
+      } else {
+        const name = property.name;
+        const literal = ts.isComputedPropertyName(name)
+          ? name.expression
+          : name;
+        if (ts.isIdentifier(literal) && !ts.isComputedPropertyName(name)) {
+          if (["className", "style"].includes(literal.text))
+            return "appearance";
+        } else if (ts.isStringLiteralLike(literal)) {
+          if (["className", "style"].includes(literal.text))
+            return "appearance";
+        } else opaque = true;
+      }
+    }
+    return opaque ? "opaque" : undefined;
+  }
 
   function classStrings(
     node: ts.Node,
@@ -227,22 +276,14 @@ export function checkStyleSource(
         if (!excepted)
           for (const attribute of node.attributes.properties) {
             if (ts.isJsxSpreadAttribute(attribute)) {
-              const spread = attribute.expression;
-              if (ts.isObjectLiteralExpression(spread)) {
-                if (
-                  spread.properties.some(
-                    (property) =>
-                      property.name?.getText(tree) === "className" ||
-                      property.name?.getText(tree) === "style",
-                  )
-                ) {
-                  report(
-                    attribute,
-                    component,
-                    "Appearance cannot be supplied through a JSX spread.",
-                  );
-                }
-              } else
+              const result = spreadAppearance(attribute.expression);
+              if (result === "appearance")
+                report(
+                  attribute,
+                  component,
+                  "Appearance cannot be supplied through a JSX spread.",
+                );
+              else if (result === "opaque")
                 report(
                   attribute,
                   component,

@@ -51,6 +51,7 @@ async function walk(directory: string): Promise<string[]> {
 }
 
 const roots: string[] = [];
+const packages: string[] = [];
 let exceptions: StyleException[] = [];
 const args = process.argv.slice(2);
 for (let index = 0; index < args.length; index++) {
@@ -61,11 +62,17 @@ for (let index = 0; index < args.length; index++) {
     exceptions = parseExceptions(
       JSON.parse(await readFile(path, "utf8")) as unknown,
     );
-  } else if (arg) roots.push(arg);
+  } else if (arg === "--package") {
+    const name = args[++index];
+    if (!name || name.startsWith("--"))
+      throw new Error("--package requires a component package name.");
+    packages.push(name);
+  } else if (arg?.startsWith("--")) throw new Error(`Unknown option: ${arg}`);
+  else if (arg) roots.push(arg);
 }
 if (!roots.length)
   throw new Error(
-    "Usage: ctx9-ui-style-check <source roots> [--exceptions <file.json>]",
+    "Usage: ctx9-ui-style-check <source roots> [--package <name>] [--exceptions <file.json>]",
   );
 const files = [
   ...new Set(
@@ -78,7 +85,7 @@ const failures = (
       checkStyleSource(
         relative(process.cwd(), file).replaceAll("\\", "/"),
         await readFile(file, "utf8"),
-        exceptions,
+        { packages, exceptions },
       ),
     ),
   )

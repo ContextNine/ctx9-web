@@ -43,9 +43,17 @@ The runtime variables, controls, typed data table, feedback states, Auth composi
 
 Call sites may supply placement and product-specific geometry. Colors, backgrounds, borders, radius, padding, typography, hover, focus, selected, disabled, and standard control dimensions belong to component variants. The package style check enforces this boundary.
 
-Run `ctx9-ui-style-check src --exceptions ui-style-exceptions.json` in each consumer. The checker resolves aliases and namespace imports from `@ctx9/ui`, follows local class constants, and rejects appearance classes, inline appearance, unresolved recipes, and opaque prop spreads. Select a typed variant, size, or preset instead of feeding a recipe through `className`.
+Run `ctx9-ui-style-check src --exceptions ui-style-exceptions.json` in each consumer. The checker resolves aliases and namespace imports from `@ctx9/ui`, follows local class constants, and rejects appearance classes, inline appearance, unresolved recipes, and opaque prop spreads. Nested object spreads and quoted or computed appearance keys are checked too. Select a typed variant, size, or preset instead of feeding a recipe through `className`.
 
-The optional exceptions file is a JSON array. Each entry names one exact repository-relative file and component, a reason of `framework-adapter`, `control-composition`, or `feature-geometry`, and a written explanation. Do not exempt whole source roots. Public Impression policy remains with its public package.
+Add `--package @impression/public-ui` to check public controls with the same
+engine. Repeat `--package` for other component packages; `@ctx9/ui` always stays
+in scope. This adds the public Button, FunkyLoaderButton, CTAActionButton,
+fields, and form controls without adding a public-package runtime dependency.
+Public component types separately forbid all call-site `className` and `style`
+props. The programmatic API accepts `{ packages, exceptions }` as its third
+argument.
+
+The optional exceptions file is a JSON array. Each entry names one exact repository-relative file and component, a reason of `framework-adapter`, `control-composition`, or `feature-geometry`, and a written explanation. Do not exempt whole source roots. Public-specific design rules remain in Impression; the shared engine owns the control-appearance boundary.
 
 ## Sidebar and account menu
 
