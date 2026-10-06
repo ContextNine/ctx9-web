@@ -103,6 +103,7 @@ export function ErrorPage({
             <Button
               type="button"
               variant="primary"
+              effect="funkyStable"
               onClick={error.retry.action}
             >
               {error.retry.label}
@@ -111,6 +112,7 @@ export function ErrorPage({
           {back && (
             <Button
               type="button"
+              effect="funkyStable"
               onClick={() => {
                 back.action();
               }}

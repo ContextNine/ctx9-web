@@ -26,6 +26,12 @@ link only while focused. Rebuild source-specific archives and repeat standalone
 and combined Impression appearance checks before accepting this correction.
 Earlier archive comparisons do not cover these changed foundation rules.
 
+The next candidate restores Impression's base semantic border rule alongside
+Preflight. Its account menu opens settings after menu focus/pointer cleanup;
+settings restores the initiating control on close, and handled Escape events
+do not also close mobile navigation. The standalone browser acceptance must
+cover repeated open/close, pointer recovery, both themes and mobile navigation.
+
 The Button fixture covers 169 cases at desktop/mobile widths in light/dark. After restoring Impression's existing 11px tiny typography variant, component output has identical computed styles, geometry, and pixels across 676 comparisons. Adding shared CSS also yields zero changed pixels. The remaining rendered-property difference is the WebKit transition alias. Added package variables and equivalent minified custom-property values differ textually, so this does not accept literal full-consumer CSS or the remaining interaction matrix.
 
 A separate Button interaction fixture covers 29 cases across light/dark hover/focus states, 116 comparisons per stylesheet mode. It caught and corrected dark focus colors and onboarding hover text by restoring source modifier ordering and important flags. Component computed properties and geometry now match exactly, with zero changed pixels. Adding shared CSS also has zero changed pixels and differs only in the WebKit transition alias. Other shared controls and full-consumer acceptance remain pending.

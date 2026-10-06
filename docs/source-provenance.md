@@ -78,3 +78,10 @@ The package vendors normal variable fonts for standalone consumers. They are emi
 | `inter-normal-variable.ttf` | Impression `35c1d4f85f1b637b363b5c245c4dbd5b17539fd9`, `apps/next/public/fonts/inter/normal-variable.ttf` | SIL Open Font License, copied as `dist/fonts/licenses/inter-ofl.txt` | `29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031` |
 
 The implementation is reviewed against this mapping before publication. Runtime dependency licenses are enforced by `scripts/check-provenance.ts`.
+
+The standalone v8 foundation includes Tailwind 3 Preflight and Impression's
+semantic base border color. CTX9 compositions own their primary action effect
+through `funkyStable`; Impression's Button recipes and defaults remain unchanged.
+The direct AlertDialog, DropdownMenu and Popover dependencies now use the
+versions already included by Impression's `radix-ui@1.4.3`. This removes the
+mixed old wrapper/new primitive graph without introducing a new version line.

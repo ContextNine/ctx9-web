@@ -217,6 +217,7 @@ function TenantTab({
             </div>
             <Button
               className="justify-self-start"
+              effect="funkyStable"
               type="submit"
               loading={busy === true}
               loadingLabel="Creating…"
@@ -303,6 +304,7 @@ function AccessTab({
             </Select>
           </div>
           <Button
+            effect="funkyStable"
             type="submit"
             loading={busy === true}
             loadingLabel="Inviting…"
@@ -484,6 +486,7 @@ function AccountSecurityTab({
 export function TenantAccountSettingsDialog(
   props: TenantAccountSettingsDialogProps,
 ): React.JSX.Element {
+  const returnFocus = React.useRef<HTMLElement | null>(null);
   const membership = props.snapshot?.access.memberships.find(
     (item) => item.tenantId === props.snapshot?.selectedTenantId,
   );
@@ -506,6 +509,17 @@ export function TenantAccountSettingsDialog(
         variant="tenantSettings"
         className="ctx9-settings-dialog-content"
         dialogOverlayClassName="ctx9-settings-dialog-overlay"
+        aria-describedby={undefined}
+        onOpenAutoFocus={() => {
+          returnFocus.current =
+            document.activeElement instanceof HTMLElement
+              ? document.activeElement
+              : null;
+        }}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          returnFocus.current?.focus();
+        }}
       >
         <div className="grid h-full min-h-0 sm:grid-cols-[minmax(14rem,28%)_minmax(0,1fr)]">
           <aside className="border-b border-border bg-sidebar px-3 py-5 sm:border-r sm:border-b-0 sm:px-5 sm:py-20">

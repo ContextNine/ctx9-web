@@ -119,6 +119,9 @@ export function AccountMenu({
   onOpenTenantAccountSettings,
   onSignOut,
 }: AccountMenuProps): React.JSX.Element {
+  const [open, setOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const settingsPending = React.useRef(false);
   const menuActions: AccountMenuAction[] = [
     ...(productSettings
       ? [
@@ -136,7 +139,10 @@ export function AccountMenu({
     {
       id: "tenant-account-settings",
       label: "Tenant and account settings",
-      onSelect: onOpenTenantAccountSettings,
+      onSelect: () => {
+        settingsPending.current = true;
+        setOpen(false);
+      },
       icon: <Settings aria-hidden="true" className="size-4" />,
     },
   ];
@@ -146,9 +152,14 @@ export function AccountMenu({
       : [{ id: "current", name: tenant, current: true }];
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <Button type="button" variant="ghost" preset="accountTrigger">
+        <Button
+          ref={triggerRef}
+          type="button"
+          variant="ghost"
+          preset="accountTrigger"
+        >
           <Initials value={userName} />
           <span className="grid min-w-0 flex-1 gap-0.5 md:group-data-[collapsed=true]/sidebar:hidden">
             <span className="truncate text-sm font-semibold text-foreground">
@@ -169,6 +180,14 @@ export function AccountMenu({
         align="start"
         sideOffset={8}
         preset="account"
+        onCloseAutoFocus={(event) => {
+          if (!settingsPending.current) return;
+          settingsPending.current = false;
+          event.preventDefault();
+          triggerRef.current?.focus();
+          // Open after the menu releases its modal focus and pointer guards.
+          window.requestAnimationFrame(onOpenTenantAccountSettings);
+        }}
       >
         <div className="grid gap-0.5 px-2 py-1.5">
           <strong className="truncate text-sm font-semibold">{userName}</strong>
@@ -437,7 +456,8 @@ export function ApplicationLayout({
   const [collapsed, setCollapsed] = React.useState(false);
   React.useEffect(() => {
     const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMobileOpen(false);
+      if (event.key === "Escape" && !event.defaultPrevented)
+        setMobileOpen(false);
     };
     window.addEventListener("keydown", close);
     return () => {

@@ -40,6 +40,10 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 - Destructive actions are visually restrained until the confirmation boundary.
 - Recovery material, secrets metadata, and artifact identifiers use the shared `font-mono` utility and selectable wrapping.
 - Standard actions use `Button`. Its `loading` and `loadingLabel` props own the loading state.
+- CTX9 primary application actions select `effect="funkyStable"` for the
+  established bordered, high-contrast action in both themes. Secondary and
+  navigation actions keep their own variants. This does not change Impression's
+  existing Button defaults or recipes.
 - Animations, including spinners, pulses, and glow effects, are supported. The component owns the effect; there is no animation prohibition based on browser repaint cost.
 - Impression's existing animated actions use `FunkyLoaderButton`. Its typed
   `isLoading` and `gradient` options preserve the existing icon, hover gradient,
