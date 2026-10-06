@@ -42,6 +42,14 @@ the draft regressions. The complete package check still passes all 21 tests and
 isolated archive acceptance. These component checks do not accept complete
 consumer pages or authorize a v8 tag.
 
+The October 6 candidate archives were installed into a separate Impression
+verification consumer. Their Checkbox/Switch exports also pass the complete
+298-comparison browser matrix. Impression typechecks against those installed
+declarations. Checkbox/Switch now own their appearance in both their props and
+runtime implementation; their 23-case DOM comparison passes with attribute and
+class ordering ignored. A final archive from the stricter committed source and
+complete migrated pages are still required before publication.
+
 1. Confirm the approved visual identifiers and component provenance are recorded.
 2. Set both package versions to the same exact semantic version.
 3. Run `pnpm install --frozen-lockfile` and `pnpm check` under the Impression-authoritative Node 22.16.0 and pnpm 11.1.2 versions.

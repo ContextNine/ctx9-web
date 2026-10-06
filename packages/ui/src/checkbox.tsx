@@ -39,20 +39,26 @@ const checkboxVariants = cva("", {
 type CheckboxVariant = "brand" | "blackWhite" | "dailyGoal";
 
 interface CheckboxProps
-  extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,
+  extends Omit<
+      React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,
+      "className" | "style"
+    >,
     VariantProps<typeof checkboxVariants> {
   variant?: CheckboxVariant;
+  className?: never;
+  style?: never;
 }
 
 const Checkbox = React.forwardRef<
   React.ComponentRef<typeof CheckboxPrimitive.Root>,
   CheckboxProps
->(({ className, interaction, variant = "brand", ...props }, ref) => {
+>(({ interaction, variant = "brand", ...props }, ref) => {
   return (
     <CheckboxPrimitive.Root
-      ref={ref}
-      className={cn(checkboxVariants({ interaction, variant }), className)}
       {...props}
+      ref={ref}
+      className={cn(checkboxVariants({ interaction, variant }))}
+      style={undefined}
     >
       <CheckboxPrimitive.Indicator className="flex items-center justify-center text-current">
         <CheckIcon size={16} strokeWidth={3} />

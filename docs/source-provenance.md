@@ -51,13 +51,22 @@ The animated action port uses Impression `dce669e84`,
 `components/aceternity/bottom-gradient.tsx`. It keeps the existing loader icon,
 gradient colors, hover treatment, and link/disabled composition. Only the typed
 gradient choices are retained; arbitrary gradient class overrides are not part
-of the shared contract. Standard `Button` loading remains static. This port is
+of the shared contract. This port is
 unpublished and does not accept consumer appearance parity by itself.
 
 The animated action comparison also caught a draft auth recipe mismatch. Auth
 buttons retain Impression's `common-public.tsx` recipe, including its 40px
 height, `border-input`, and shadow treatment. The earlier generic 36px auth
 adaptation was not appearance-equivalent.
+
+Checkbox and Switch now reject consumer `className` and `style` props in their
+types and ignore those overrides at runtime. All 49 existing Impression usages
+across 24 source files already follow that contract. The archived port passes
+298 browser comparisons with no pixel or computed-style differences. The
+stricter implementation also preserves the DOM across all 23 control cases,
+apart from attribute and class ordering. Full Impression typechecking passes
+against both the installed archive and the stricter compiled declarations.
+Complete migrated-page acceptance remains separate.
 
 ## Font provenance
 

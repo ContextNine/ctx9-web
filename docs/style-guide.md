@@ -33,10 +33,13 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   recreating these dimensions at call sites. Auto-height fields retain their
   content-driven sizing.
 - Labels remain visible. Placeholder text does not replace a label.
+- Checkbox and Switch reject `className` and `style` in their props. Checkbox
+  appearance uses its `variant` and `interaction` choices; Switch owns its
+  established on/off appearance. Put placement classes on the containing row.
 - Focus uses a high-contrast neutral ring and never relies on color alone.
 - Destructive actions are visually restrained until the confirmation boundary.
 - Recovery material, secrets metadata, and artifact identifiers use the shared `font-mono` utility and selectable wrapping.
-- Standard actions use `Button`. Its default `loading` state keeps the same text dimensions and uses a static indicator.
+- Standard actions use `Button`. Its `loading` and `loadingLabel` props own the loading state.
 - Animations, including spinners, pulses, and glow effects, are supported. The component owns the effect; there is no animation prohibition based on browser repaint cost.
 - Impression's existing animated actions use `FunkyLoaderButton`. Its typed
   `isLoading` and `gradient` options preserve the existing icon, hover gradient,
