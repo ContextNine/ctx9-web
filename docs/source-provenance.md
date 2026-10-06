@@ -17,7 +17,7 @@ The shared `Ctx9Mark` is the original six-cell vector served by `ctx9.com/tenant
 | light, dark, mono, and semantic tokens | `tooling/tailwind/colors.css`                                                                                             | aligned        | Internal light and dark tokens retained; public marketing-only tokens remain outside this package                                            |
 | reusable layout/control recipes        | `apps/next/src/components/styles/common.tsx`                                                                              | aligned        | Product and social recipes remain in Impression; reusable internal recipes move with their components                                        |
 | class merging                          | generic `cn` usage across UI                                                                                              | rewritten      | Small typed `clsx` plus `tailwind-merge` utility                                                                                             |
-| input/label/textarea direction         | `apps/next/src/components/aceternity/input.tsx`, `label.tsx`, `text-area.tsx`                                             | adapted        | Decorative gradients and animation excluded; shared shape tokens used                                                                        |
+| input/label/textarea direction         | `apps/next/src/components/aceternity/input.tsx`, `label.tsx`, `text-area.tsx`                                             | adapted        | Existing glow and field behavior retained through component-owned effects and shape variants                                                 |
 | buttons and control variants           | `apps/next/src/components/ui/button.tsx`, `components/aceternity/input.tsx`, `components/aceternity/text-area.tsx`        | aligned        | Typed internal variants and light/dark behavior retained; public and product-specific effects excluded                                       |
 | checkbox                               | `apps/next/src/components/ui/checkbox.tsx`                                                                                | adapted        | Radix behavior retained through a direct dependency                                                                                          |
 | dialogs and form system                | `apps/next/src/components/ui/dialog.tsx`, `alert-dialog.tsx`, `form.tsx`                                                  | adapted        | Next-specific imports removed; accessibility relationships retained                                                                          |
@@ -45,6 +45,14 @@ Checkbox recipes match Impression's current `a0ff86dae` source in
 missing indeterminate black/white colors and unchecked, checked, and
 indeterminate hover rules in the draft. These source recipes are restored,
 including the existing `/12` hover token, without normalizing their meaning.
+
+The animated action port uses Impression `dce669e84`,
+`apps/next/src/components/buttons/funky-loader-button.tsx` and
+`components/aceternity/bottom-gradient.tsx`. It keeps the existing loader icon,
+gradient colors, hover treatment, and link/disabled composition. Only the typed
+gradient choices are retained; arbitrary gradient class overrides are not part
+of the shared contract. Standard `Button` loading remains static. This port is
+unpublished and does not accept consumer appearance parity by itself.
 
 ## Font provenance
 

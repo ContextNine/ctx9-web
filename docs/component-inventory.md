@@ -12,7 +12,8 @@ The v8 inventory uses Impression's internal application components and semantic 
 
 ## Shared controls
 
-- Button with stable loading text, and ButtonGroup;
+- Button with stable loading text, ButtonGroup, and Impression's animated
+  FunkyLoaderButton with typed loading and gradient options;
 - Input, Textarea, Label, Checkbox, Select, Switch;
 - MultipleSelector with keyboard selection, async search, grouping, fixed choices, and typed single-row and selection-tone variants. Its private remove/clear actions own their classes; consumers cannot override nested input, command, or button appearance.
 - Form field, description, and error association;
@@ -30,7 +31,7 @@ The v8 inventory uses Impression's internal application components and semantic 
 - `ApplicationLayout`, `AppSidebar`, `AppSidebarHeader`, `AppSidebarGroup`, `AppSidebarLink`, `AppSidebarFooter`, `AccountMenu`, `TenantAccountSettingsDialog`, `AuthShell`, `FocusedShell`, and `PageHeading` are published shared compositions. `ApplicationLayout` accepts a typed complete breadcrumb path, while `PageHeading` accepts an optional typed parent link rendered as an icon-only chevron. `createCtx9Applications` owns the fixed Secrets, Publisher, Testimonials ordering. `AppSidebarHeader` owns the CTX9 grid mark and All apps menu. Product navigation stays text-only.
 - `@ctx9/ui/icon.svg` is the canonical self-contained CTX9 browser icon copied into each Next application's `app/icon.svg`.
 - `NavigationProvider` and `NavigationLink` form the framework-neutral link adapter. Next consumers supply `next/link` once at the provider boundary.
-- `AppShell`, `OperationalList`, `OperationalRow`, `LoadingButton`, and `FunkyLoaderButton` were removed in the v4 breaking release. Products use `ApplicationLayout`, `DataTable`, and `Button` directly.
+- `AppShell`, `OperationalList`, `OperationalRow`, and `LoadingButton` were removed in the v4 breaking release. Products use `ApplicationLayout`, `DataTable`, and `Button` directly. The v8 `FunkyLoaderButton` comes from Impression's current component, not the retired pre-v4 implementation.
 - The shared tenant and account dialog owns layout, motion, focus, and typed tab identifiers. Host applications provide authorized tab content through their same-origin BFF. Authentication, enrollment, recovery, member and invitation forms, artifact viewers, and protected-action boundaries remain owner-specific compositions built from shared controls.
 - Unavailable, denied, not-found, renderer-error, loading, and empty states use the shared state primitives.
 

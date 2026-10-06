@@ -16,8 +16,6 @@ const compiled = await readFile(
 for (const forbidden of [
   "prefers-color-scheme",
   "next-themes",
-  "shimmer",
-  "shooting-stars",
   "Google Fonts",
 ]) {
   if (css.includes(forbidden)) throw new Error(`forbidden-style:${forbidden}`);
@@ -61,13 +59,7 @@ const primitiveFiles = new Set([
 for (const file of await readdir(uiSource)) {
   if (!file.endsWith(".ts") && !file.endsWith(".tsx")) continue;
   const source = await readFile(new URL(file, uiSource), "utf8");
-  for (const forbidden of [
-    "next-themes",
-    "theme-toggle",
-    "animate-spin",
-    "shimmer",
-    "shooting-stars",
-  ]) {
+  for (const forbidden of ["next-themes", "theme-toggle"]) {
     if (source.includes(forbidden))
       throw new Error(`forbidden-ui-source:${file}:${forbidden}`);
   }

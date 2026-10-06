@@ -36,7 +36,12 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 - Focus uses a high-contrast neutral ring and never relies on color alone.
 - Destructive actions are visually restrained until the confirmation boundary.
 - Recovery material, secrets metadata, and artifact identifiers use the shared `font-mono` utility and selectable wrapping.
-- Standard actions use `Button`. Its `loading` state keeps the same text dimensions and never adds a spinner.
+- Standard actions use `Button`. Its default `loading` state keeps the same text dimensions and uses a static indicator.
+- Animations, including spinners, pulses, and glow effects, are supported. The component owns the effect; there is no animation prohibition based on browser repaint cost.
+- Impression's existing animated actions use `FunkyLoaderButton`. Its typed
+  `isLoading` and `gradient` options preserve the existing icon, hover gradient,
+  disabled behavior, and link composition. The component owns this appearance;
+  call sites do not recreate the loader or gradient classes.
 - Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
 
 The runtime variables, controls, typed data table, feedback states, Auth composition, sidebar, account menu, responsive layout, and style policy live in `@ctx9/ui`. Next applications inject their link implementation through `NavigationProvider`, so internal navigation uses the Next router without adding a Next dependency to the package.
@@ -69,4 +74,4 @@ The optional exceptions file is a JSON array. Each entry names one exact reposit
 - Keep `Tenant and account settings` on one line. The menu may grow wider to preserve the label.
 - Detail-page titles use `PageHeading`'s icon-only parent chevron. Do not add visible `Back` actions or put parent navigation on the right.
 - Tenant and account settings opens in the current app. Its near-full-viewport dialog uses a left tab rail for Tenant, Access, capability-backed Provisioning, and Account security. The dialog uses one 300ms opacity and scale transition and disables scale motion for reduced-motion users.
-- Route and tab changes keep the shell and useful cached content mounted. Never replace a page with visible loading copy or a spinner.
+- Route and tab changes keep the shell and useful cached content mounted. Loading indicators may animate without replacing useful content.
