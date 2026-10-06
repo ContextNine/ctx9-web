@@ -11,6 +11,9 @@ describe("consumer style policy", () => {
       import { Button as Action, Checkbox, MultipleSelector } from '@ctx9/ui';
       import * as UI from '@ctx9/ui';
       import { FunkyLoaderButton as PublicAction } from '@impression/public-ui/button';
+      import { PriorityPill as Priority } from '@impression/public-ui/priority-pill';
+      import * as PublicTooltip from '@impression/public-ui/tooltip';
+      import { ThemeToggle } from '@impression/public-ui';
       const bad = 'hover:bg-red-500 px-4';
       const safeProps = { type: 'button', disabled: true };
       const override = { 'className': 'px-4' };
@@ -22,7 +25,11 @@ describe("consumer style policy", () => {
         <PublicAction preset="compact" {...safeProps} />
         <PublicAction {...{ ...override }} />
         <PublicAction {...{ ['style']: { color: 'red' } }} />
-        <PublicAction {...{ ...unknownProps }} /></>;
+        <PublicAction {...{ ...unknownProps }} />
+        <Priority label="Action" highlighted />
+        <Priority label="Action" className={bad} />
+        <PublicTooltip.TooltipTrigger className="px-3" />
+        <ThemeToggle style={{ background: 'red' }} /></>;
     `,
       { packages: ["@impression/public-ui"] },
     );
@@ -34,6 +41,9 @@ describe("consumer style policy", () => {
       "FunkyLoaderButton",
       "FunkyLoaderButton",
       "FunkyLoaderButton",
+      "PriorityPill",
+      "TooltipTrigger",
+      "ThemeToggle",
     ]);
     expect(
       checkStyleSource(

@@ -48,6 +48,11 @@ The runtime variables, controls, typed data table, feedback states, Auth composi
 
 Call sites may supply placement and product-specific geometry. Colors, backgrounds, borders, radius, padding, typography, hover, focus, selected, disabled, and standard control dimensions belong to component variants. The package style check enforces this boundary.
 
+When checking `@impression/public-ui`, the same policy covers its priority
+actions, theme selector, and tooltip triggers as well as buttons, fields,
+alerts, and tooltip content. Public styling remains in that package, not in
+the shared internal runtime.
+
 Run `ctx9-ui-style-check src --exceptions ui-style-exceptions.json` in each consumer. The checker resolves aliases and namespace imports from `@ctx9/ui`, follows local class constants, and rejects appearance classes, inline appearance, unresolved recipes, and opaque prop spreads. Nested object spreads and quoted or computed appearance keys are checked too. Select a typed variant, size, or preset instead of feeding a recipe through `className`.
 
 Add `--package @impression/public-ui` to check public controls with the same
