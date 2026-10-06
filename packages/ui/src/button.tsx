@@ -380,6 +380,16 @@ type ButtonSharedProps = Omit<
     loadingLabel?: string;
   };
 
+export type AppButtonProps = ButtonSharedProps & {
+  surface?: "app";
+  variant?: AppButtonVariant;
+};
+
+export type AuthButtonProps = ButtonSharedProps & {
+  surface: "auth";
+  variant?: AuthButtonVariant;
+};
+
 export type ButtonProps = ButtonSharedProps & {
   surface?: "app" | "auth";
   variant?: AppButtonVariant | AuthButtonVariant;

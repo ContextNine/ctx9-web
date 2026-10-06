@@ -14,6 +14,8 @@ The v8 inventory uses Impression's internal application components and semantic 
 
 - Button with stable loading text, ButtonGroup, and Impression's animated
   FunkyLoaderButton with typed loading and gradient options;
+- AppButtonProps and AuthButtonProps constrain product wrappers to their own
+  surface and variant family without copying the Button contract;
 - Input, Textarea, Label, Checkbox, Select, Switch;
 - Textarea's `code` and `codeOverlay` presets own code-field appearance. The
   overlay inherits editor typography and accepts gutter geometry through the

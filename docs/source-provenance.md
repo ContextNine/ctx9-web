@@ -38,6 +38,11 @@ The Button comparison uses Impression `01dd4e76d`, `apps/next/src/components/ui/
 
 The interaction comparison also preserves Impression's `focus:dark:` and `hover:dark:` modifier order and onboarding dark-mode important flags. Normalizing those strings changed focus/hover colors when combined with the retained host stylesheet. The shared recipes keep the source class contracts unchanged.
 
+The internal Button migration also exposes Impression's app-only and auth-only
+prop types for product-owned tooltip, carousel and sidebar wrappers. They derive
+from the shared control props and narrow the surface and variant choices. This
+changes declarations only; Button rendering, defaults and recipes stay unchanged.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the
