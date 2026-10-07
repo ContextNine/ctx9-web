@@ -48,6 +48,12 @@ settings and upload actions. They preserve the existing expanded/collapsed
 alignment, selected background and upload drag styling. The presets do not
 change Button defaults or own product navigation and upload behavior.
 
+The chat action presets extract Impression `726be8a4d` recipes from
+`components/assistant-ui/thread-list.tsx`, `thread.tsx` and the outreach
+reply composer. They preserve thread-row hover, overflow-menu reveal,
+suggestion layout and draft-action colors. Framework markers and product
+behavior remain local; the presets do not change Button defaults.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the

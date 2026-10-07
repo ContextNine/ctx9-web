@@ -264,6 +264,14 @@ export const buttonVariants = cva(
         accentIcon: "size-7 bg-accent text-accent-foreground",
         threadReveal:
           "h-6 w-6 p-1 text-muted-foreground opacity-0 transition-opacity group-hover/thread-item:opacity-100",
+        threadNew:
+          "h-9 justify-start gap-2 rounded-lg px-3 text-sm hover:bg-muted data-active:bg-muted",
+        threadMenu:
+          "size-7 p-0 opacity-0 transition-opacity group-hover:opacity-100 data-[state=open]:bg-accent data-[state=open]:opacity-100 group-data-active:opacity-100",
+        threadSuggestion:
+          "h-auto w-full @md:flex-col flex-wrap items-start justify-start gap-1 rounded-2xl border px-4 py-3 text-left text-sm transition-colors hover:bg-muted",
+        composerDraft:
+          "size-8 p-1 hover:bg-muted-foreground/15 dark:hover:bg-muted-foreground/30",
         analyticsRefresh:
           "h-10 rounded-xl border-border/70 bg-background/90 px-4 text-sm font-medium shadow-sm",
         mutedComment:

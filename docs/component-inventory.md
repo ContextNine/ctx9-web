@@ -25,6 +25,9 @@ The v8 inventory uses Impression's internal application components and semantic 
   presets. The sidebar prop owns expanded/collapsed sizing and alignment;
   selected and dragging states remain typed choices. Product navigation and
   file-upload behavior stay in the consumer.
+- Chat thread creation, overflow menus, suggestions and draft actions use
+  Button presets. Thread selection, menu state and message generation stay
+  in the consumer; hover and group-reveal appearance belong to the component.
 - Input, Textarea, Label, Checkbox, Select, Switch;
 - Textarea's `code` and `codeOverlay` presets own code-field appearance. The
   overlay inherits editor typography and accepts gutter geometry through the

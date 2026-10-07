@@ -59,6 +59,9 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   with `sidebar="expanded"` or `sidebar="collapsed"`. Choose
   `state="sidebarSelected"` or `state="sidebarDragging"` for their existing
   selected and upload states; do not recreate those appearance recipes.
+- Chat actions use the `threadNew`, `threadMenu`, `threadSuggestion` and
+  `composerDraft` presets. Thread markers and external placement can remain
+  local, but sizing, padding, hover and menu-reveal styling stay in Button.
 
 The runtime variables, controls, typed data table, feedback states, Auth composition, sidebar, account menu, responsive layout, and style policy live in `@ctx9/ui`. Next applications inject their link implementation through `NavigationProvider`, so internal navigation uses the Next router without adding a Next dependency to the package.
 
