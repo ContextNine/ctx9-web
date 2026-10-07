@@ -2,6 +2,12 @@
 
 Reference repository: Impression
 
+The Avatar pass retains Impression's working source at `17168442e`, with
+per-file hashes in its comparison artifacts. Sizes, comment/thread borders,
+attachment crop and fallback typography become typed choices. AvatarIcon's
+initials behavior and 56px default stay unchanged. Public blog and social-preview
+recipes remain in Impression, not in the internal package. Installed-archive
+browser checks and complete-page acceptance are separate gates.
 The Calendar Card pass retains Impression's working source at `36294becb`,
 with per-file hashes in its comparison artifacts. Generic tile variants own
 the existing palette/status surfaces, selection precedence and fading.

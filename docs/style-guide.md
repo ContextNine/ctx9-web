@@ -28,6 +28,11 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 
 ## Controls
 
+- Avatar owns recurring sizes and comment, thread and attachment appearance
+  through `size` and `variant`. Image crop uses `fit`; fallback typography uses
+  `typography`. AvatarIcon owns the initials fallback and defaults to 56px.
+  Products keep placement, image URLs and upload behavior local. Public author
+  and social-preview recipes belong to Impression's public package.
 - Standard app buttons are 36px high; compact buttons are 32px and auth buttons are 40px. App fields default to
   40px and auth fields to 36px. Select the component's variants rather than
   recreating these dimensions at call sites. Auto-height fields retain their

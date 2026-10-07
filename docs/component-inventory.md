@@ -12,6 +12,9 @@ The v8 inventory uses Impression's internal application components and semantic 
 
 ## Shared controls
 
+- Avatar and AvatarIcon own recurring dimensions, comment/thread borders,
+  attachment corners, image crop and existing small fallback typography.
+  Radix image loading, fallback delay and refs remain unchanged.
 - Button with stable loading text, ButtonGroup, and Impression's animated
   FunkyLoaderButton with typed loading and gradient options;
 - FunkyLoaderButton's growing-row width owns the existing full-width flex
