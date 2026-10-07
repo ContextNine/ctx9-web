@@ -144,6 +144,7 @@ export const buttonVariants = cva(
         groupReveal:
           "pointer-events-none opacity-0 group-hover/post-card:pointer-events-auto group-hover/post-card:opacity-100",
         sidebarSelected: selectedSidebarStyles,
+        sidebarDragging: "",
         settingsSelected: cn(selectedBgStyles, selectedTextStyles),
       },
       effect: {
@@ -241,6 +242,12 @@ export const buttonVariants = cva(
       cursor: {
         default: "",
         pointer: "cursor-pointer",
+        notAllowed: "cursor-not-allowed",
+      },
+      sidebar: {
+        default: "",
+        expanded: "",
+        collapsed: "",
       },
       preset: {
         default: "",
@@ -295,6 +302,22 @@ export const buttonVariants = cva(
         campaignSecondary: cn(defaultInputStyles, funkyOutlineStyles),
         sidebarNudge:
           "h-auto min-h-10 w-full justify-start gap-2 whitespace-normal px-3 py-2 text-left text-sm text-mono-700 dark:text-mono-300 [&_svg]:shrink-0",
+        workspaceOption:
+          "flex h-full w-full cursor-pointer items-center justify-start gap-2 rounded-md p-1",
+        sidebarMenu: cn(
+          "mb-1 h-8 w-full cursor-pointer items-center truncate",
+          hoverSideTabsStyles,
+          sidebarTextStyles,
+          "inline-flex whitespace-nowrap rounded-md text-sm font-medium",
+        ),
+        sidebarSettings: cn(buttonStyles, hoverSideTabsStyles),
+        sidebarUpload: cn(
+          "h-8 w-full cursor-pointer duration-400 items-center truncate border-2 border-dashed transition-colors",
+          hoverSideTabsStyles,
+          sidebarTextStyles,
+          "border-neutral-150 hover:border-mono-500 dark:border-mono-850 hover:dark:border-mono-800",
+          "inline-flex whitespace-nowrap rounded-md text-sm font-medium",
+        ),
         onboardingSecondary:
           "h-12 rounded-none border-neutral-800/80 bg-white px-6 text-mono-900 hover:bg-neutral-100 dark:!border-neutral-800/80 dark:!bg-white dark:!text-mono-900 dark:hover:!bg-neutral-100",
         onboardingBack:
@@ -302,6 +325,18 @@ export const buttonVariants = cva(
       },
     },
     compoundVariants: [
+      {
+        sidebar: "expanded",
+        className: "justify-start pl-4",
+      },
+      {
+        sidebar: "collapsed",
+        className: "justify-center w-10",
+      },
+      {
+        state: "sidebarDragging",
+        className: "border-primary bg-primary/10",
+      },
       {
         surface: "auth",
         variant: ["primary", "secondary"],
@@ -360,6 +395,7 @@ export const buttonVariants = cva(
       display: "default",
       height: "default",
       cursor: "default",
+      sidebar: "default",
       preset: "default",
     },
   },
@@ -422,6 +458,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       display,
       height,
       cursor,
+      sidebar,
       preset,
       loading = false,
       loadingLabel = "Working…",
@@ -461,6 +498,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             display,
             height,
             cursor,
+            sidebar,
             preset,
           }),
           controlShapeClassNames[shape],

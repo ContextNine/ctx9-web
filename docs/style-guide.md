@@ -54,6 +54,11 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   ordinary Button presets are not loader presets. Choose `width` for standard
   full/fit/growing placement rather than duplicating width classes.
 - Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
+- Workspace-switch choices use `preset="workspaceOption"`. Impression's
+  sidebar uses `sidebarMenu`, `sidebarSettings` and `sidebarUpload` presets
+  with `sidebar="expanded"` or `sidebar="collapsed"`. Choose
+  `state="sidebarSelected"` or `state="sidebarDragging"` for their existing
+  selected and upload states; do not recreate those appearance recipes.
 
 The runtime variables, controls, typed data table, feedback states, Auth composition, sidebar, account menu, responsive layout, and style policy live in `@ctx9/ui`. Next applications inject their link implementation through `NavigationProvider`, so internal navigation uses the Next router without adding a Next dependency to the package.
 

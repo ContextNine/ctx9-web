@@ -43,6 +43,11 @@ prop types for product-owned tooltip, carousel and sidebar wrappers. They derive
 from the shared control props and narrow the surface and variant choices. This
 changes declarations only; Button rendering, defaults and recipes stay unchanged.
 
+The sidebar presets extract Impression `b7a9ceb45` workspace choices, menu,
+settings and upload actions. They preserve the existing expanded/collapsed
+alignment, selected background and upload drag styling. The presets do not
+change Button defaults or own product navigation and upload behavior.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the

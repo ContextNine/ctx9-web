@@ -21,6 +21,10 @@ The v8 inventory uses Impression's internal application components and semantic 
   These preserve the original recipes without consumer appearance classes;
 - AppButtonProps and AuthButtonProps constrain product wrappers to their own
   surface and variant family without copying the Button contract;
+- Workspace options and sidebar menu, settings and upload actions use Button
+  presets. The sidebar prop owns expanded/collapsed sizing and alignment;
+  selected and dragging states remain typed choices. Product navigation and
+  file-upload behavior stay in the consumer.
 - Input, Textarea, Label, Checkbox, Select, Switch;
 - Textarea's `code` and `codeOverlay` presets own code-field appearance. The
   overlay inherits editor typography and accepts gutter geometry through the
