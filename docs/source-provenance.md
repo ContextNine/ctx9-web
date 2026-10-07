@@ -10,7 +10,19 @@ original markup and typography. Chat state and scroll-lock callbacks stay in
 Impression. FormDisclosure's existing motion/layout choices now feed the
 Collapsible content variant; its unused content-class override is removed.
 Alert's existing success, destructive and default variants are unchanged.
-Installed-archive, native browser and complete-page checks remain required.
+Impression installs the unpublished archive from shared source `3f0247a`.
+The full package check, 21 integration tests and isolated archive installation
+pass. All 768 native case/state comparisons match computed styles, geometry,
+native attributes, refs and sampled callbacks across both widths and themes.
+Twelve full-fixture screenshots retain edge-pixel differences and remain
+unaccepted. An unchanged-source control also differs by 11–40 pixels despite
+identical classes and recorded rendering properties. Disabling GPU acceleration
+does not remove the differences. These diagnostics do not accept the migration.
+The Alert and autoform-error sections match exactly in all 120 states, without
+masks or tolerance. Host CSS is byte-identical; shared CSS adds 18 selectors
+without changing or removing existing effective declarations. FormDisclosure's
+other compiled component dependencies are byte-identical to the prior archive.
+Complete-page and release acceptance remain separate gates.
 
 The Badge extraction retains Impression's working source at `7da69f91d`,
 with hashes in its `badge-retained-source.json` comparison artifact. Standard
