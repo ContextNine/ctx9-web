@@ -148,10 +148,22 @@ const formItemVariants = cva("", {
 type FormItemProps = React.HTMLAttributes<HTMLDivElement> & {
   surface?: FormSurface;
   variant?: FormItemVariant;
+  layout?: "default" | "full" | "choice" | "choiceSpaced";
+  align?: "default" | "center";
 };
 
 const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
-  ({ className, surface, variant, ...props }, ref) => {
+  (
+    {
+      className,
+      surface,
+      variant,
+      layout = "default",
+      align = "default",
+      ...props
+    },
+    ref,
+  ) => {
     const id = React.useId();
     const style = useFormStyle(surface);
     const resolvedVariant =
@@ -163,6 +175,12 @@ const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
           ref={ref}
           className={cn(
             formItemVariants({ variant: resolvedVariant }),
+            layout === "full" && "w-full",
+            layout === "choice" &&
+              "flex flex-row items-start space-x-3 space-y-0",
+            layout === "choiceSpaced" &&
+              "mb-4 flex flex-row items-start space-x-3 space-y-0 pt-2",
+            align === "center" && "items-center",
             className,
           )}
           {...props}
@@ -196,28 +214,47 @@ type FormLabelProps = React.ComponentPropsWithoutRef<
   Omit<VariantProps<typeof formLabelVariants>, "surface" | "variant"> & {
     surface?: FormSurface;
     variant?: "default" | "choice";
+    tone?: "default" | "emphasis";
+    preset?: "default" | "settings" | "entity" | "section" | "choice";
   };
 
 const FormLabel = React.forwardRef<
   React.ComponentRef<typeof LabelPrimitive.Root>,
   FormLabelProps
->(({ className, surface, variant = "default", ...props }, ref) => {
-  const { error, formItemId } = useFormField();
-  const style = useFormStyle(surface);
+>(
+  (
+    {
+      className,
+      surface,
+      variant = "default",
+      tone = "default",
+      preset = "default",
+      ...props
+    },
+    ref,
+  ) => {
+    const { error, formItemId } = useFormField();
+    const style = useFormStyle(surface);
 
-  return (
-    <Label
-      ref={ref}
-      className={cn(
-        formLabelVariants({ surface: style.surface, variant }),
-        error && "text-destructive",
-        className,
-      )}
-      htmlFor={formItemId}
-      {...props}
-    />
-  );
-});
+    return (
+      <Label
+        ref={ref}
+        className={cn(
+          formLabelVariants({ surface: style.surface, variant }),
+          error && "text-destructive",
+          tone === "emphasis" && "text-mono-800 dark:text-mono-100",
+          preset === "settings" && "mb-1",
+          preset === "entity" && "pl-2 text-xs",
+          preset === "section" && "text-base",
+          preset === "choice" && "font-normal",
+          className,
+        )}
+        htmlFor={formItemId}
+        {...props}
+      />
+    );
+  },
+);
 FormLabel.displayName = "FormLabel";
 
 const FormControl = React.forwardRef<
@@ -244,12 +281,13 @@ FormControl.displayName = "FormControl";
 type FormDescriptionProps = React.HTMLAttributes<HTMLParagraphElement> & {
   surface?: FormSurface;
   variant?: "default" | "inline";
+  preset?: "default" | "settings";
 };
 
 const FormDescription = React.forwardRef<
   HTMLParagraphElement,
   FormDescriptionProps
->(({ className, surface, variant, ...props }, ref) => {
+>(({ className, surface, variant, preset = "default", ...props }, ref) => {
   const { formDescriptionId } = useFormField();
   const style = useFormStyle(surface);
   const resolvedVariant =
@@ -264,6 +302,7 @@ const FormDescription = React.forwardRef<
         style.surface === "app"
           ? "text-muted-foreground"
           : "text-mono-500 dark:text-mono-400",
+        preset === "settings" && "pr-10",
         className,
       )}
       {...props}
@@ -283,7 +322,7 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
     const style = useFormStyle(surface);
     const resolvedVariant =
       variant ?? (style.variant === "compact" ? "compact" : "default");
-    const body = error?.message ?? children;
+    const body = error?.message?.length ? error.message : children;
 
     if (!body) return null;
 
@@ -348,7 +387,9 @@ const FormSection = React.forwardRef<HTMLElement, FormSectionProps>(
         className={cn(formSectionVariants({ variant }), className)}
         {...props}
       >
-        {Boolean(title ?? description ?? action) && (
+        {/* Preserve the original truthy-content test, including empty strings. */}
+        {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+        {(title || description || action) && (
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 space-y-1">
               {title && (
@@ -462,6 +503,7 @@ type FormDisclosureProps = Omit<
   "onChange" | "title"
 > & {
   contentClassName?: string;
+  contentLayout?: "default" | "indented" | "fields";
   defaultOpen?: boolean;
   disabled?: boolean;
   label: React.ReactNode;
@@ -492,6 +534,7 @@ const FormDisclosure = React.forwardRef<HTMLDivElement, FormDisclosureProps>(
       children,
       className,
       contentClassName,
+      contentLayout = "default",
       defaultOpen,
       disabled,
       label,
@@ -516,10 +559,9 @@ const FormDisclosure = React.forwardRef<HTMLDivElement, FormDisclosureProps>(
         type="button"
         size={variant === "compact" || variant === "info" ? "xs" : "default"}
         aria-controls={contentId}
-        className={cn(
-          "group/disclosure justify-between",
-          variant === "advanced" || variant === "quiet" ? "w-full" : "w-fit",
-        )}
+        preset="formDisclosure"
+        align="between"
+        width={variant === "advanced" || variant === "quiet" ? "full" : "fit"}
       >
         <span className="flex items-center gap-2">
           {variant === "info" && <Info className="h-4 w-4" />}
@@ -568,6 +610,8 @@ const FormDisclosure = React.forwardRef<HTMLDivElement, FormDisclosureProps>(
               motion === "animated" &&
                 "data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down motion-reduce:animate-none",
               contentClassName,
+              contentLayout === "indented" && "my-0 mt-1 pl-2",
+              contentLayout === "fields" && "space-y-4",
             )}
           >
             {children}
@@ -581,13 +625,16 @@ FormDisclosure.displayName = "FormDisclosure";
 
 type FormExampleActionProps = Omit<
   React.ComponentPropsWithoutRef<typeof Button>,
-  "surface" | "variant" | "state"
+  "surface" | "variant" | "state" | "preset" | "className" | "style"
 > & {
+  className?: never;
+  style?: never;
   icon?: React.ReactNode;
   state?: "default" | "selected";
   tooltipContent?: React.ReactNode;
   tooltipSide?: "top" | "right" | "bottom" | "left";
   variant?: FormExampleActionVariant;
+  placement?: "default" | "field";
 };
 
 const FormExampleAction = React.forwardRef<
@@ -597,13 +644,13 @@ const FormExampleAction = React.forwardRef<
   (
     {
       children,
-      className,
       icon,
       size,
       state = "default",
       tooltipContent,
       tooltipSide = "bottom",
       variant = "select",
+      placement = "default",
       ...props
     },
     ref,
@@ -629,8 +676,8 @@ const FormExampleAction = React.forwardRef<
     const action = (
       <Button
         ref={ref}
-        {...appearance}
         {...props}
+        {...appearance}
         type={props.type ?? "button"}
         size={
           size ??
@@ -642,12 +689,16 @@ const FormExampleAction = React.forwardRef<
         }
         state={state === "selected" ? "selected" : "default"}
         aria-pressed={variant === "select" ? state === "selected" : undefined}
-        className={cn(
-          "gap-2",
-          variant === "suggestion" &&
-            "h-auto w-full justify-start whitespace-normal px-3 py-3 text-left font-normal leading-6",
-          className,
-        )}
+        gap="standard"
+        preset={
+          variant === "suggestion"
+            ? "formSuggestion"
+            : placement === "field"
+              ? "formClear"
+              : "default"
+        }
+        className={undefined}
+        style={undefined}
       >
         {icon ?? defaultIcon}
         {children}
@@ -682,13 +733,18 @@ const formActionsVariants = cva("flex gap-2", {
 
 type FormActionsProps = React.HTMLAttributes<HTMLDivElement> & {
   variant?: FormActionsVariant;
+  preset?: "default" | "inline";
 };
 
 const FormActions = React.forwardRef<HTMLDivElement, FormActionsProps>(
-  ({ className, variant = "end", ...props }, ref) => (
+  ({ className, variant = "end", preset = "default", ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(formActionsVariants({ variant }), className)}
+      className={cn(
+        formActionsVariants({ variant }),
+        preset === "inline" && "items-center pr-2",
+        className,
+      )}
       {...props}
     />
   ),

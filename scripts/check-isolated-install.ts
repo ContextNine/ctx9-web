@@ -44,7 +44,7 @@ try {
   await writeFile(
     join(scratch, "consumer.tsx"),
     `
-import { Button, Input, Checkbox, ColorPicker, ShimmerBorderButton, FunkyLoaderButton, DataTable, createDataTableColumnHelper, AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogAction, AlertDialogCancel } from '@ctx9/ui';
+import { Button, Input, Checkbox, ColorPicker, NumberSelect, FormDisclosure, FormExampleAction, ShimmerBorderButton, FunkyLoaderButton, DataTable, createDataTableColumnHelper, AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogAction, AlertDialogCancel } from '@ctx9/ui';
 import * as auth from '@ctx9/web-auth';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { checkStyleSource } from '@ctx9/ui/style-policy';
@@ -58,6 +58,9 @@ const app = <><Button variant="primary">Save</Button><Input aria-label="Name" />
 <Checkbox aria-label="Selected" /><DataTable data={[{ id: '1', name: 'Example' }]}
 columns={columns} getRowId={row => row.id} emptyMessage="Empty" />
 <ColorPicker value="#3275F8" onChange={() => undefined} layer="raised" />
+<NumberSelect value={2} min={1} max={5} onChange={() => undefined} />
+<FormDisclosure label="Advanced" contentLayout="fields"><p>Options</p></FormDisclosure>
+<FormExampleAction variant="suggestion">Example</FormExampleAction>
 <AlertDialog><AlertDialogTrigger asChild><Button>Confirm action</Button></AlertDialogTrigger>
 <AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Confirm</AlertDialogTitle>
 <AlertDialogDescription>Confirm this action.</AlertDialogDescription></AlertDialogHeader>

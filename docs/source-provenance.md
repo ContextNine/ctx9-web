@@ -201,6 +201,15 @@ Native animation, installed archive and complete-page acceptance stay separate.
 The package also owns Impression's `shimmer 2s linear infinite` keyframes so
 the effect remains animated without a host application stylesheet.
 
+Form and NumberSelect are extracted from Impression's local controls at
+`9707a83ff38fae1f92e33de1de257af1e3502d32`. Form's recurring caller recipes
+become typed choices; public forms remain in `@impression/public-ui`.
+NumberSelect retains its callbacks, input parsing and drag listeners, including
+existing event propagation. Private navigation buttons consume a shared preset
+and the input consumes a typed dragging state. Existing defaults and animations
+are unchanged. Installed-archive and native browser comparisons remain distinct
+from whole-page acceptance.
+
 ## Font provenance
 
 The package vendors normal variable fonts for standalone consumers. They are emitted inside `@ctx9/ui`; production makes no third-party font request. Font utilities first consume the host's `--font-geist-sans` and `--font-inter` bindings, preserving Impression's existing font selection when the stylesheets are combined. Standalone applications use the package's self-hosted defaults.

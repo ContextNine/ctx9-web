@@ -38,6 +38,7 @@ export * from "./error.js";
 export * from "./feedback.js";
 export * from "./form.js";
 export { Input, type InputProps } from "./input.js";
+export { NumberSelect, type NumberSelectProps } from "./number-select.js";
 export * from "./navigation.js";
 export * from "./sheet.js";
 export * from "./sidebar.js";

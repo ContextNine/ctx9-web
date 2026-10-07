@@ -42,6 +42,7 @@ export type InputProps = Omit<
       | "search"
       | "filter";
     inset?: "default" | "action" | "newsletter";
+    interaction?: "default" | "dragging";
   };
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -61,6 +62,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       tone = "default",
       width = "default",
       inset = "default",
+      interaction = "default",
       ...props
     },
     ref,
@@ -92,6 +94,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           width === "filter" && "min-w-[200px]",
           inset === "action" && "pr-20",
           inset === "newsletter" && "max-[410px]:pr-5",
+          interaction === "dragging" && "select-none cursor-grabbing",
           className,
         )}
         ref={ref}

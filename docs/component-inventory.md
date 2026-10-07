@@ -72,6 +72,13 @@ The v8 inventory uses Impression's internal application components and semantic 
   fields without changing the standard auto-resize height limit.
 - MultipleSelector with keyboard selection, async search, grouping, fixed choices, and typed single-row and selection-tone variants. Its private remove/clear actions own their classes; consumers cannot override nested input, command, or button appearance.
 - Form field, description, and error association;
+- Form owns recurring choice-row, settings-label, compact-entity and disclosure
+  content recipes through typed layout and preset props. Disclosure and example
+  actions use Button variants, including the existing animated disclosure;
+  example actions reject caller class/style overrides.
+- NumberSelect owns the small previous/next buttons, adjacent value previews,
+  numeric input and dragging cursor. It retains Impression's bounded editing,
+  arrow-key and mouse/touch drag behavior without consumer appearance props.
 - Dialog, AlertDialog, Popover, DropdownMenu, Tooltip;
 - AlertDialog owns its overlay, content, header, footer, title, description,
   primary action and cancellation styling. Its existing responsive layout,

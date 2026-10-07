@@ -67,6 +67,7 @@ export const standardizedComponents = new Set([
   "FormDisclosure",
   "FormExampleAction",
   "FormActions",
+  "NumberSelect",
   "TabsList",
   "TabsTrigger",
   "TabsContent",

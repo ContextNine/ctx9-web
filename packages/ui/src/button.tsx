@@ -267,6 +267,7 @@ export const buttonVariants = cva(
         notAllowed: "cursor-not-allowed",
         hoverPointer: "hover:cursor-pointer",
         hoverHelp: "hover:cursor-help",
+        hoverCopy: "hover:cursor-copy",
       },
       sidebar: {
         default: "",
@@ -275,6 +276,11 @@ export const buttonVariants = cva(
       },
       preset: {
         default: "",
+        numberStepper: "h-7 w-7 opacity-50 hover:opacity-100 p-1",
+        formDisclosure: "group/disclosure",
+        formSuggestion:
+          "h-auto w-full justify-start whitespace-normal px-3 py-3 text-left font-normal leading-6",
+        formClear: "mt-1 flex-shrink-0",
         accountTrigger:
           "h-auto w-full justify-start rounded-full border-transparent p-1.5 text-left",
         settingsTab: "shrink-0 sm:w-full",
