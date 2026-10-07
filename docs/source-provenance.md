@@ -212,6 +212,14 @@ from whole-page acceptance.
 
 ## Font provenance
 
+The Dialog ownership pass retains Impression `af6c8a2d3`. Existing settings
+and pricing dimensions, manual-publish gaps, raised overlays and attachment
+trigger appearance move into typed choices. Ordinary defaults stay unchanged.
+Public extension-install typography and its full-screen renderer move to
+`@impression/public-ui`; the internal package no longer owns Tiempos headings.
+Product dismissal, focus callbacks and pointer coordinates stay local.
+Installed-archive and native comparisons remain required before acceptance.
+
 The Select and DropdownMenu ownership pass retains Impression `e3ef84f0d`.
 Select owns the existing week-start, sidebar and table-height recipes and
 time-control focus choices without changing its defaults. DropdownMenu's

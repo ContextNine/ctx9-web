@@ -12,11 +12,34 @@ import {
   scrollbarStyles,
   sidebarTextStyles,
 } from "./impression-recipes.js";
-import { tiempos7xlHeadingStyles } from "./impression-recipes.js";
 
 const Dialog = DialogPrimitive.Root;
 
-const DialogTrigger = DialogPrimitive.Trigger;
+type OwnedAppearance<Props> = Omit<Props, "className" | "style"> & {
+  className?: never;
+  style?: never;
+};
+
+const DialogTrigger = React.forwardRef<
+  React.ComponentRef<typeof DialogPrimitive.Trigger>,
+  OwnedAppearance<
+    React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>
+  > & {
+    preset?: "default" | "attachment";
+  }
+>(({ preset = "default", ...props }, ref) => (
+  <DialogPrimitive.Trigger
+    {...props}
+    ref={ref}
+    {...(preset === "attachment"
+      ? {
+          className:
+            "aui-attachment-preview-trigger cursor-pointer transition-colors hover:bg-accent/50",
+        }
+      : {})}
+  />
+));
+DialogTrigger.displayName = DialogPrimitive.Trigger.displayName;
 
 const DialogPortal = DialogPrimitive.Portal;
 
@@ -54,18 +77,18 @@ const dialogContentVariants = cva(
         settingsWorkspace: cn(
           defaultDialogContentStyles,
           "flex justify-center gap-0 bg-transparent p-0",
+          "h-[100vh] max-h-[100vh] max-w-[100vw]",
+          "lg:max-h-[calc(92vh)] lg:min-h-[calc(92vh)] lg:min-w-[calc(90vw)] lg:max-w-[calc(90vw)] 3xl:w-[1600px] 3xl:max-w-[1600px]",
         ),
         tenantSettings: cn(
           defaultDialogContentStyles,
           "h-[calc(100dvh-1rem)] max-h-[calc(100dvh-1rem)] max-w-[calc(100vw-1rem)] gap-0 overflow-hidden rounded-lg bg-panel p-0 sm:h-[92dvh] sm:max-h-[92dvh] sm:w-[90vw] sm:max-w-[1600px]",
+          "ctx9-settings-dialog-content",
         ),
         fullScreen: cn(
           defaultDialogContentStyles,
           "m-0 flex max-w-full gap-0 rounded-none border-0 bg-transparent p-0 shadow-none dark:border-0",
-        ),
-        extensionFullScreen: cn(
-          defaultDialogContentStyles,
-          "m-0 max-w-full gap-0 rounded-none border-0 bg-transparent p-0 shadow-none",
+          "h-[100dvh] max-h-[100dvh] w-screen justify-center overflow-hidden",
         ),
         attachmentPreview: cn(
           defaultDialogContentStyles,
@@ -118,6 +141,15 @@ const dialogContentVariants = cva(
         default: "",
         column: "flex-col",
       },
+      gap: {
+        default: "",
+        relaxed: "gap-6",
+      },
+      width: {
+        default: "",
+        auto: "w-auto",
+        responsiveFull: "sm:w-full",
+      },
       layer: {
         default: "",
         consent: "z-[3001]",
@@ -135,21 +167,32 @@ const dialogContentVariants = cva(
 
 const DialogOverlay = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & {
+  OwnedAppearance<
+    React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+  > & {
     overlay?: boolean;
+    layer?: "default" | "raised" | "foreground";
+    preset?: "default" | "tenantSettings";
   }
->(({ className, overlay = true, ...props }, ref) => (
-  <DialogPrimitive.Overlay
-    ref={ref}
-    className={cn(
-      "fixed inset-0 z-40 grid max-h-screen place-items-center",
-      overlay && "bg-black/30 backdrop-blur-sm",
-      "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className,
-    )}
-    {...props}
-  />
-));
+>(
+  (
+    { overlay = true, layer = "default", preset = "default", ...props },
+    ref,
+  ) => (
+    <DialogPrimitive.Overlay
+      ref={ref}
+      className={cn(
+        "fixed inset-0 z-40 grid max-h-screen place-items-center",
+        overlay && "bg-black/30 backdrop-blur-sm",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+        layer === "raised" && "z-60",
+        layer === "foreground" && "z-[80]",
+        preset === "tenantSettings" && "ctx9-settings-dialog-overlay",
+      )}
+      {...props}
+    />
+  ),
+);
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
@@ -157,7 +200,7 @@ const DialogContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
     showCloseIcon?: boolean;
     overlay?: boolean;
-    dialogOverlayClassName?: string;
+    overlayLayer?: "default" | "raised" | "foreground";
   } & VariantProps<typeof dialogContentVariants>
 >(
   (
@@ -166,19 +209,25 @@ const DialogContent = React.forwardRef<
       children,
       showCloseIcon = true,
       overlay = true,
-      dialogOverlayClassName,
+      overlayLayer = "default",
       variant,
       spacing,
       size,
       viewport,
       layout,
+      gap,
+      width,
       layer,
       ...props
     },
     ref,
   ) => (
     <DialogPortal>
-      <DialogOverlay overlay={overlay} className={dialogOverlayClassName}>
+      <DialogOverlay
+        overlay={overlay}
+        layer={overlayLayer}
+        preset={variant === "tenantSettings" ? "tenantSettings" : "default"}
+      >
         <DialogPrimitive.Content
           ref={ref}
           className={cn(
@@ -188,6 +237,8 @@ const DialogContent = React.forwardRef<
               size,
               viewport,
               layout,
+              gap,
+              width,
               layer,
             }),
             className,
@@ -227,7 +278,6 @@ const dialogHeaderVariants = cva("flex flex-col", {
       default: "",
       rowCompact: "flex-row items-center gap-1",
       rowBetween: "flex-row items-center justify-between",
-      hero: "mx-auto w-full max-w-4xl items-center",
     },
   },
   defaultVariants: {
@@ -302,7 +352,6 @@ const dialogTitleVariants = cva(
         hidden: "sr-only",
         attachmentHidden: "aui-sr-only sr-only",
         compact: "text-md",
-        extensionHero: tiempos7xlHeadingStyles,
       },
       align: {
         default: "",

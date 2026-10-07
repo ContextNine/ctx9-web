@@ -58,6 +58,12 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   footer, heading and action recipes. Do not pass class/style overrides to
   its trigger, content, overlay, header, footer, title, description or actions.
   Products keep confirmation callbacks, loading state and copy local.
+- Dialog's settings and full-screen variants own their established viewport
+  dimensions. Select content `gap="relaxed"`, `width="responsiveFull"` or
+  `width="auto"` where needed. Raised overlays use `overlayLayer`; attachment
+  triggers use `preset="attachment"`. Public install dialogs and headings
+  belong to Impression's public package. Keep pointer coordinates and product
+  dismissal behavior local.
 - Recovery material, secrets metadata, and artifact identifiers use the shared `font-mono` utility and selectable wrapping.
 - Standard actions use `Button`. Its `loading` and `loadingLabel` props own the loading state.
 - CTX9 primary application actions select `effect="funkyStable"` for the

@@ -86,6 +86,10 @@ The v8 inventory uses Impression's internal application components and semantic 
   arrow-key and mouse/touch drag behavior without consumer appearance props.
   Its optional fit width owns the existing compact placement in settings.
 - Dialog, AlertDialog, Popover, DropdownMenu, Tooltip;
+- Dialog owns settings/full-screen dimensions, content width and gap choices,
+  raised overlay layers and the attachment trigger preset. Product coordinates,
+  outside-dismissal policy and callbacks stay local. Public extension headings
+  and the public full-screen variant belong to Impression's public package.
 - AlertDialog owns its overlay, content, header, footer, title, description,
   primary action and cancellation styling. Its existing responsive layout,
   animations and Radix focus behavior are retained; these controls reject

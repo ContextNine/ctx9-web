@@ -507,8 +507,6 @@ export function TenantAccountSettingsDialog(
     <Dialog open={props.open} onOpenChange={props.onOpenChange}>
       <DialogContent
         variant="tenantSettings"
-        className="ctx9-settings-dialog-content"
-        dialogOverlayClassName="ctx9-settings-dialog-overlay"
         aria-describedby={undefined}
         onOpenAutoFocus={() => {
           returnFocus.current =

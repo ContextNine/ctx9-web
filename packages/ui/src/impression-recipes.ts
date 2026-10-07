@@ -114,8 +114,6 @@ export const tooltipContentCompactStyles =
   "w-fit max-w-[300px] rounded-md border bg-popover p-1 text-popover-foreground shadow-md";
 export const tooltipContentBareStyles =
   "w-fit border-0 bg-transparent p-0 text-popover-foreground shadow-none";
-export const tiempos7xlHeadingStyles =
-  "font-tiempos text-5xl leading-[0.94] tracking-[-0.02em] md:text-7xl";
 
 export const authButtonClassName =
   "h-10 border border-input bg-white text-black shadow-none hover:bg-neutral-100 hover:text-black dark:bg-white dark:text-black dark:hover:bg-neutral-100 dark:hover:text-black";
