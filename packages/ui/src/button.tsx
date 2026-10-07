@@ -5,6 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { cn } from "./cn.js";
+import { controlShapeClassNames, type ControlShape } from "./control-shape.js";
 import {
   authButtonClassName,
   billingPageButtonStyles,
@@ -30,20 +31,7 @@ import {
   sidebarTextStyles,
 } from "./impression-recipes.js";
 
-export type ControlShape =
-  | "default"
-  | "large"
-  | "extraLarge"
-  | "pill"
-  | "square";
-
-const controlShapeClassNames: Record<ControlShape, string> = {
-  default: "",
-  large: "rounded-lg",
-  extraLarge: "rounded-xl",
-  pill: "rounded-full",
-  square: "rounded-none",
-};
+export type { ControlShape } from "./control-shape.js";
 
 export type AppButtonVariant =
   | "primary"
@@ -313,6 +301,8 @@ export const buttonVariants = cva(
         workspaceOption:
           "flex h-full w-full cursor-pointer items-center justify-start gap-2 rounded-md p-1",
         assistantIcon: "size-6 p-1",
+        primaryTooltipIcon:
+          "h-8 w-8 rounded-xl p-2 hover:cursor-pointer hover:bg-brandPrimary transition-colors duration-300",
         assistantScroll:
           "size-6 rounded-full p-4 disabled:invisible dark:bg-background dark:hover:bg-accent",
         assistantSend: "size-8 rounded-full p-1",

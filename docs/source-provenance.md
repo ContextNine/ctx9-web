@@ -61,6 +61,15 @@ open/closed states. The product wrapper now limits its class prop to existing
 framework markers and placement; appearance uses shared presets. This is
 focused extraction evidence, not tooltip-interaction or whole-page acceptance.
 
+The tooltip action presets extract Impression `dfb02d632` loader-wrapper,
+generation-group, composer-send, content-action and primary-tooltip-icon
+recipes. Eight loader configurations and selected/unselected primary icons
+match 36 normalized markup comparisons, including loading and disabled
+states. The medium corner choice uses the common shape map instead of a
+private wrapper class; existing shape choices and defaults are unchanged.
+Tooltip timing, focus behavior, gradients and spinners are retained. Native
+browser and full-consumer checks remain separate acceptance gates.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the

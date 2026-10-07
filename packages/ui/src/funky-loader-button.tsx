@@ -26,6 +26,8 @@ const groupChevronStyles = cn(
   groupedActionStyles,
   "origin-center transition-all duration-300 ml-0 flex items-center justify-center rounded-br-xl rounded-tr-xl p-0",
 );
+const activeSelectionStyles =
+  "border-input bg-brandPrimary text-white hover:bg-brandPrimary hover:text-white dark:bg-brandPrimary dark:text-white dark:hover:bg-brandPrimary";
 
 const presetClassNames = {
   default: "",
@@ -64,6 +66,24 @@ const presetClassNames = {
   ),
   groupChevron: cn(groupChevronStyles, "w-[36px] border-l-0"),
   groupChevronCompact: cn(groupChevronStyles, "w-[30px] border-l-0"),
+  groupAction: cn(groupedActionStyles, "m-0 w-fit"),
+  groupActionStart: cn(
+    groupedActionStyles,
+    "m-0 w-fit rounded-br-none rounded-tr-none",
+  ),
+  groupActionMiddle: cn(
+    groupedActionStyles,
+    "m-0 w-fit border-l-0 rounded-none",
+  ),
+  composerSend: cn(
+    "h-[36px] rounded-xl origin-center transition duration-300 ml-0 flex w-full items-center justify-center rounded-xl px-1 py-1",
+    sidebarTextStyles,
+    "border border-input bg-inherit bg-white dark:bg-black",
+    funkyBlueButtonColourAndText,
+    "group/btn relative size-[42px] overflow-hidden rounded-full",
+  ),
+  contentAction:
+    "h-8 w-8 min-w-8 rounded-xl border border-input p-0 shadow-none",
 };
 
 export type FunkyLoaderButtonProps = Omit<
@@ -73,6 +93,7 @@ export type FunkyLoaderButtonProps = Omit<
   isLoading?: boolean;
   gradient?: BottomGradientVariant;
   preset?: keyof typeof presetClassNames;
+  selection?: "default" | "active";
 };
 
 function defaultGradient(variant: ButtonProps["variant"]) {
@@ -98,6 +119,7 @@ export const FunkyLoaderButton = React.forwardRef<
       type = "submit",
       width,
       preset = "default",
+      selection = "default",
       ...props
     },
     ref,
@@ -112,6 +134,10 @@ export const FunkyLoaderButton = React.forwardRef<
         surface === "app" && "px-4 font-medium shadow-none",
         width === "grow" && "w-full",
         presetClassNames[preset],
+        selection === "active" && activeSelectionStyles,
+        preset === "contentAction" &&
+          props.disabled &&
+          "cursor-not-allowed opacity-50",
         className,
       ),
       disabled: isLinkLike ? props.disabled : isLoading || props.disabled,

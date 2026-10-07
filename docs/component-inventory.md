@@ -22,6 +22,12 @@ The v8 inventory uses Impression's internal application components and semantic 
 - Grouped scheduling/generation actions use loader start, end and chevron
   presets. Standalone round, accent and card-icon actions also have owned
   presets; loading and gradient behavior remain unchanged.
+- Tooltip-backed generation groups, the composer send action and compact
+  selected content actions have loader-owned presets. The shared medium
+  shape retains the tooltip loader's rounded default; private tooltip
+  behavior and framework markers remain in Impression.
+- Primary tooltip icons own their compact dimensions, padding and hover
+  recipe through a Button preset, with the standard typed selected state.
 - AppButtonProps and AuthButtonProps constrain product wrappers to their own
   surface and variant family without copying the Button contract;
 - Workspace options and sidebar menu, settings and upload actions use Button

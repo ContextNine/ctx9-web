@@ -57,6 +57,15 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   `groupChevronCompact`. Their shared border, corner and hover recipes stay
   in the component. `roundIcon`, `accentIcon` and `accentCardIcon` own the
   corresponding standalone icon recipes.
+- Tooltip-backed loader actions select `shape="medium"` for their existing
+  rounded default. `groupAction`, `groupActionStart` and `groupActionMiddle`
+  retain the standard loader padding used by generation menus. They are not
+  interchangeable with the narrower scheduling presets.
+- Composer send uses the loader's `composerSend` preset. Compact content
+  actions use `contentAction` and `selection="active"` when selected;
+  this preset also owns its existing disabled cursor and opacity.
+- Primary tooltip icons use Button's `primaryTooltipIcon` preset and
+  `state="selected"` where selected. Tooltip behavior stays local.
 - Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
 - Workspace-switch choices use `preset="workspaceOption"`. Impression's
   sidebar uses `sidebarMenu`, `sidebarSettings` and `sidebarUpload` presets
