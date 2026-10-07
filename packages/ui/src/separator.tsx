@@ -19,6 +19,10 @@ const separatorVariants = cva("shrink-0 bg-border", {
       default: "",
       toggleHover: "opacity-100 group-hover/ToggleButton:opacity-0",
     },
+    extent: {
+      default: "",
+      compact: "data-[orientation=vertical]:h-4",
+    },
   },
 });
 
@@ -32,6 +36,7 @@ const Separator = React.forwardRef<
       className,
       tone,
       visibility,
+      extent,
       orientation = "horizontal",
       decorative = true,
       ...props
@@ -43,7 +48,7 @@ const Separator = React.forwardRef<
       decorative={decorative}
       orientation={orientation}
       className={cn(
-        separatorVariants({ tone, visibility }),
+        separatorVariants({ tone, visibility, extent }),
         orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
         className,
       )}
