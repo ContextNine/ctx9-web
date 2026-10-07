@@ -103,6 +103,14 @@ loading output. Table drag activators retain the existing Mouse, Touch and
 Keyboard sensor handlers through explicit props. Product geometry and behavior
 remain local. Native interactions and complete pages require separate checks.
 
+The connection/navigation extraction uses Impression `989e35e48` platform-link
+colors and post-creation button recipes. Five product-neutral palettes and four
+expanded/collapsed accent/neutral loader presets match 54 normalized markup
+comparisons across 19 configurations, including disabled and loading states.
+Products retain domain mappings and activation behavior. The cursor-only
+unavailable action remains enabled in the DOM, as in the original composition.
+Archive, native interaction and complete-page acceptance remain separate gates.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the

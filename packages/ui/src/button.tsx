@@ -188,6 +188,14 @@ export const buttonVariants = cva(
         draftNavigation:
           "text-mono-600 hover:bg-mono-50 dark:text-mono-400 dark:hover:bg-mono-800",
       },
+      palette: {
+        default: "",
+        neutral: "",
+        sky: "",
+        red: "",
+        indigo: "",
+        pink: "",
+      },
       elevation: {
         default: "",
         none: "shadow-none",
@@ -431,6 +439,36 @@ export const buttonVariants = cva(
     },
     compoundVariants: [
       {
+        preset: "platformLink",
+        palette: "neutral",
+        className:
+          "bg-mono-200 border-mono-300 dark:bg-black hover:bg-mono-100 dark:hover:bg-mono-900 transition-colors duration-300",
+      },
+      {
+        preset: "platformLink",
+        palette: "sky",
+        className:
+          "bg-sky-100 border-sky-300 dark:bg-sky-900 hover:bg-sky-200 hover:dark:bg-sky-800 transition-colors duration-300",
+      },
+      {
+        preset: "platformLink",
+        palette: "red",
+        className:
+          "bg-red-100 border-red-300 dark:bg-red-800 hover:bg-red-200 hover:dark:bg-red-700 transition-colors duration-300",
+      },
+      {
+        preset: "platformLink",
+        palette: "indigo",
+        className:
+          "bg-indigo-100 border-indigo-300 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors duration-300",
+      },
+      {
+        preset: "platformLink",
+        palette: "pink",
+        className:
+          "bg-pink-100 border-pink-300 dark:bg-pink-900 hover:bg-pink-200 hover:dark:bg-pink-800 transition-colors duration-300",
+      },
+      {
         sidebar: "expanded",
         className: "justify-start pl-4",
       },
@@ -544,6 +582,7 @@ export const buttonVariants = cva(
       align: "center",
       gap: "none",
       tone: "default",
+      palette: "default",
       elevation: "default",
       padding: "default",
       emphasis: "default",
@@ -608,6 +647,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       align,
       gap,
       tone,
+      palette,
       elevation,
       padding,
       emphasis,
@@ -649,6 +689,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             align,
             gap,
             tone,
+            palette,
             elevation,
             padding,
             emphasis,

@@ -48,6 +48,9 @@ The v8 inventory uses Impression's internal application components and semantic 
   presets. The sidebar prop owns expanded/collapsed sizing and alignment;
   selected and dragging states remain typed choices. Product navigation and
   file-upload behavior stay in the consumer.
+- Connection palettes and accent/neutral loader navigation presets own their
+  existing colors, transitions, sizing and alignment. Domain-to-palette maps,
+  OAuth, post creation and cursor-only availability behavior stay local.
 - Chat thread creation, overflow menus, suggestions and draft actions use
   Button presets. Thread selection, menu state and message generation stay
   in the consumer; hover and group-reveal appearance belong to the component.

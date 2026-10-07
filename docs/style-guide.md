@@ -110,6 +110,12 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 - Animated upgrade actions use loader-owned `upgradeCompact`, `upgradePanel`,
   `upgradeIcon` or `upgradeNavigation`. These preserve their established
   blue recipe and spinner, rather than recreating them through caller classes.
+- Connection actions select `platformLink` with a typed neutral, sky, red,
+  indigo or pink `palette`. Products map their domain identifiers to those
+  choices; they do not pass background or hover recipes. Loader navigation
+  actions use `navigationAccent` or `navigationNeutral`, with the corresponding
+  icon preset when collapsed. Products retain activation and availability
+  behavior, including a cursor-only unavailable state where already used.
 - Chat actions use the `threadNew`, `threadMenu`, `threadSuggestion` and
   `composerDraft` presets. Thread markers and external placement can remain
   local, but sizing, padding, hover and menu-reveal styling stay in Button.

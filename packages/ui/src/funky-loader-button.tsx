@@ -8,6 +8,7 @@ import { Loader2Icon } from "lucide-react";
 import {
   buttonStyles,
   funkyBlueButtonColourAndText,
+  hoverStyles,
   sidebarTextStyles,
 } from "./impression-recipes.js";
 
@@ -31,6 +32,16 @@ const activeSelectionStyles =
   "border-input bg-brandPrimary text-white hover:bg-brandPrimary hover:text-white dark:bg-brandPrimary dark:text-white dark:hover:bg-brandPrimary";
 const solidBrandStyles =
   "dark:text-mono-100 rounded-xl bg-brandPrimary dark:bg-brandPrimary text-white hover:bg-brandPrimary hover:dark:bg-brandPrimary";
+const navigationActionStyles = cn(
+  "group/NewPostButton",
+  sidebarTextStyles,
+  buttonStyles,
+  hoverStyles,
+);
+const navigationAccentStyles =
+  "bg-inherit rounded-xl transition-colors duration-300 hover:bg-brandPrimary hover:dark:bg-brandPrimary hover:text-white";
+const navigationNeutralStyles =
+  "hover:bg-black bg-inherit rounded-xl transition-colors duration-300 hover:dark:bg-black hover:text-white";
 
 const presetClassNames = {
   default: "",
@@ -52,6 +63,26 @@ const presetClassNames = {
   inlineAction: "m-0 flex items-center",
   inlineRoomy: "m-0 flex items-center p-4",
   nowrap: "text-nowrap",
+  navigationAccent: cn(
+    "w-full justify-start",
+    navigationActionStyles,
+    navigationAccentStyles,
+  ),
+  navigationAccentIcon: cn(
+    "w-10 justify-center",
+    navigationActionStyles,
+    navigationAccentStyles,
+  ),
+  navigationNeutral: cn(
+    "w-full justify-start",
+    navigationActionStyles,
+    navigationNeutralStyles,
+  ),
+  navigationNeutralIcon: cn(
+    "w-10 justify-center",
+    navigationActionStyles,
+    navigationNeutralStyles,
+  ),
   upgradeCompact: cn(
     "h-9 min-h-0 w-full rounded-lg px-3 py-2 text-sm font-semibold shadow-none",
     solidBrandStyles,

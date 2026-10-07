@@ -108,6 +108,11 @@ appearance overrides. Archive, browser and complete-page gates remain separate.
 
 ## CI consumption
 
+Connection palettes and loader navigation presets have 54 normalized markup
+comparisons across 19 configurations. This includes disabled/loading output
+without changing existing defaults or animations. Installed archive, native
+interaction and complete-page acceptance remain required.
+
 The navigation-control extraction has 80 normalized markup comparisons across
 35 configurations, including selected, disabled and loading output. Installed
 archive, native interaction and complete-page acceptance remain separate gates.
