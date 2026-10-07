@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { dirname, join, relative, resolve } from "node:path";
 
 /** Find the normal Code/ctx9/web checkout, including from nested workspaces. */
@@ -41,6 +42,12 @@ export function getLocalUiConfig(appDirectory = process.cwd()) {
   const compiledDirectory = join(packageDirectory, ".ctx9-ui-dev", appId);
   const source = join(compiledDirectory, "index.js");
   const stylesheet = join(resolve(appDirectory), ".ctx9-ui/styles.css");
+  // ResponsiveContainer and consumer chart children must share Recharts context.
+  const recharts = dirname(
+    createRequire(join(packageDirectory, "package.json")).resolve(
+      "recharts/package.json",
+    ),
+  );
   let root = resolve(appDirectory);
   while (relative(root, packageDirectory).startsWith(".."))
     root = dirname(root);
@@ -53,11 +60,13 @@ export function getLocalUiConfig(appDirectory = process.cwd()) {
       resolveAlias: {
         "@ctx9/ui": `./${relative(resolve(appDirectory), source).replaceAll("\\", "/")}`,
         "@ctx9/ui/styles.css": "./.ctx9-ui/styles.css",
+        recharts: `./${relative(resolve(appDirectory), recharts).replaceAll("\\", "/")}`,
       },
     },
     webpackAliases: {
       "@ctx9/ui$": source,
       "@ctx9/ui/styles.css$": stylesheet,
+      recharts$: recharts,
     },
   };
 }

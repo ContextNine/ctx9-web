@@ -14,6 +14,9 @@ test("consumer checkouts share live source in dev without changing production re
       JSON.stringify({ name: "@ctx9/ui" }),
     );
     await writeFile(join(ui, "src/index.ts"), "export {};\n");
+    const recharts = join(ui, "node_modules/recharts");
+    await mkdir(recharts, { recursive: true });
+    await writeFile(join(recharts, "package.json"), '{"name":"recharts"}\n');
     const compiledDirectories = new Set<string>();
     for (const path of [
       "impression/apps/next",
@@ -40,6 +43,7 @@ test("consumer checkouts share live source in dev without changing production re
       expect(config.turbopack.resolveAlias["@ctx9/ui/styles.css"]).toBe(
         "./.ctx9-ui/styles.css",
       );
+      expect(config.webpackAliases.recharts$).toBe(recharts);
       vi.stubEnv("NODE_ENV", "production");
       expect(getLocalUiConfig(app)).toBeUndefined();
     }

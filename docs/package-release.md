@@ -177,6 +177,9 @@ JavaScript because the package's relative imports use `.js` extensions.
 Each project's compiler output lives in an ignored, project-specific directory
 under `packages/ui/.ctx9-ui-dev/`. It never shares `dist` with release builds or
 another app's dev server, so package builds cannot delete live module factories.
+The dev aliases also use the SDK's Recharts instance for consumer chart children.
+Its context must match the shared ResponsiveContainer and tooltip; separate
+dependency trees otherwise render blank plots. Production resolution is unchanged.
 
 Web dev commands run through `ctx9-ui-dev -- next dev ...`. It builds shared
 TypeScript and Tailwind CSS before the first request, then watches both

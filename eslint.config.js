@@ -6,6 +6,7 @@ export default defineConfig(
   {
     ignores: [
       "**/dist/**",
+      "**/.ctx9-ui-dev/**",
       "**/coverage/**",
       "**/*.d.ts",
       "**/tailwind.config.cjs",
