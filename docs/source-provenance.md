@@ -10,6 +10,14 @@ The pre-v8 package used a shadcn `base-nova` snapshot and CTX9-only dark adaptat
 
 `@ctx9/ui` never imports Impression at build or runtime. Source moves are reviewed and recorded against the exact Impression commit, then owned and released from this repository.
 
+The Card recipe extraction retains Impression's current working sources at
+`b0a395d46`, with file hashes in its consumer artifacts. Existing stretch-card,
+preview-height, editor-surface and integration-section recipes become typed
+choices. The original 45/65 ghost opacity tokens are preserved as written,
+not repaired during extraction. Public marketing recipes and domain color
+mappings stay outside the shared runtime. Defaults remain unchanged;
+installed-archive and browser acceptance are still required.
+
 The Skeleton and Separator ownership pass retains Impression's working source
 at `dfcc6e204`, with per-file hashes in the consumer artifacts. Existing corner,
 subdued/inverse color and toggle-hover recipes become typed choices. Defaults,

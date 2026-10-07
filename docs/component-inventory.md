@@ -111,6 +111,9 @@ The v8 inventory uses Impression's internal application components and semantic 
 - InlineStatus has semantic neutral, success, warning and danger tones.
   PopoverContent's `notice` variant owns compact explanatory-message spacing.
 - Skeleton uses Impression's existing pulse animation.
+- Card has typed flat/editor surfaces, stretch-column and preview-height
+  choices, spotlight extent, header gaps, secondary descriptions and section
+  content spacing. Products retain their own geometry and behavior.
 - Skeleton owns existing corner and color choices through `shape` and `tone`.
   Separator owns existing colors and toggle-hover visibility. Both controls
   participate in shared consumer style enforcement; geometry remains local.

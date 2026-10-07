@@ -71,6 +71,11 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   navigation actions keep their own variants. This does not change Impression's
   existing Button defaults or recipes.
 - Animations, including spinners, pulses, and glow effects, are supported. The component owns the effect; there is no animation prohibition based on browser repaint cost.
+- Card owns the existing flat and editor surfaces, stretch-column layout,
+  preview heights, inset section spacing and spotlight scroll extent. Its
+  content owns growing/full-column layouts and sidebar text. Header gaps and
+  descriptions use typed choices. Products retain measured widths, positioning,
+  rotation and workflow callbacks. Existing defaults remain unchanged.
 - Skeleton retains its pulse and owns round, large and extra-large corners
   through `shape`. Subdued and inverse colors use `tone`; content-dependent
   widths and placement stay local. Choose `height` for its existing height

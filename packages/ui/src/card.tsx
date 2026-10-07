@@ -25,6 +25,8 @@ const cardVariants = cva(
         panel: cardPanelStyles,
         outer: outerCardStyles,
         bare: "rounded-none border-0 bg-transparent shadow-none",
+        flat: "shadow-none",
+        editorSurface: editorBg,
         analytics:
           "rounded-xl border-border bg-white shadow-none dark:bg-black",
         contentPanel: cn(
@@ -55,28 +57,50 @@ const cardVariants = cva(
       container: {
         none: "",
         card: "@container/card",
+        unnamed: "@container",
+      },
+      layout: {
+        default: "",
+        stretchColumn: "flex h-full min-h-0 flex-col",
+      },
+      emphasis: {
+        default: "",
+        ghostLeading: "opacity-65",
+        ghostTrailing: "opacity-45",
       },
       height: {
         default: "",
         full: "h-full",
+        tall: "h-[560px]",
+        previewFront: "h-[500px] sm:h-[560px]",
+        previewBack: "h-[480px] sm:h-[536px]",
+      },
+      minHeight: {
+        default: "",
+        preview: "min-h-[500px]",
       },
       maxWidth: {
         default: "",
         small: "max-w-sm",
         large: "max-w-2xl",
         editor: "w-[360px]",
+        spotlight: "w-[330px]",
       },
       overflow: {
         default: "",
         hidden: "overflow-hidden",
         scrollEditor: "max-h-[360px] overflow-y-auto",
+        scrollSpotlight: cn("max-h-[500px] overflow-y-auto", scrollbarStyles),
       },
     },
     defaultVariants: {
       variant: "default",
       width: "default",
       container: "none",
+      layout: "default",
+      emphasis: "default",
       height: "default",
+      minHeight: "default",
       maxWidth: "default",
       overflow: "default",
     },
@@ -92,8 +116,11 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     {
       className,
       container,
+      emphasis,
       height,
+      layout,
       maxWidth,
+      minHeight,
       overflow,
       variant,
       width,
@@ -104,7 +131,17 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     <div
       ref={ref}
       className={cn(
-        cardVariants({ container, height, maxWidth, overflow, variant, width }),
+        cardVariants({
+          container,
+          emphasis,
+          height,
+          layout,
+          maxWidth,
+          minHeight,
+          overflow,
+          variant,
+          width,
+        }),
         className,
       )}
       {...props}
@@ -120,6 +157,7 @@ const cardHeaderVariants = cva("flex flex-col space-y-1.5", {
       analytics: "p-2 pb-3",
       analyticsTight: "p-2 pb-2",
       comfortable: "p-5",
+      integration: "flex-none space-y-3 p-5",
     },
     divider: {
       none: "",
@@ -136,6 +174,7 @@ const cardHeaderVariants = cva("flex flex-col space-y-1.5", {
     gap: {
       default: "",
       comfortable: "gap-4",
+      compact: "gap-2",
     },
   },
   defaultVariants: {
@@ -169,6 +208,7 @@ const cardTitleVariants = cva("leading-none tracking-tight", {
       default: "text-2xl font-semibold",
       section: "text-lg font-medium",
       compact: "text-lg font-semibold",
+      integration: "text-sm font-medium leading-tight tracking-normal",
       metric: "text-2xl font-semibold tabular-nums @[250px]/card:text-3xl",
     },
     tone: {
@@ -200,12 +240,16 @@ CardTitle.displayName = "CardTitle";
 
 const cardDescriptionVariants = cva("text-sm text-muted-foreground", {
   variants: {
+    tone: {
+      default: "",
+      secondary: "text-mono-500 dark:text-mono-400",
+    },
     leading: {
       default: "",
       relaxed: "leading-6",
     },
   },
-  defaultVariants: { leading: "default" },
+  defaultVariants: { leading: "default", tone: "default" },
 });
 
 type CardDescriptionProps = React.HTMLAttributes<HTMLParagraphElement> &
@@ -214,10 +258,10 @@ type CardDescriptionProps = React.HTMLAttributes<HTMLParagraphElement> &
 const CardDescription = React.forwardRef<
   HTMLParagraphElement,
   CardDescriptionProps
->(({ className, leading, ...props }, ref) => (
+>(({ className, leading, tone, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn(cardDescriptionVariants({ leading }), className)}
+    className={cn(cardDescriptionVariants({ leading, tone }), className)}
     {...props}
   />
 ));
@@ -236,6 +280,8 @@ const cardContentVariants = cva("", {
       editor: "p-3",
       chart: "px-2 py-4 pt-2 sm:px-6 sm:py-6",
       chartTop: "px-2 pt-4 sm:px-6 sm:pt-6",
+      section: "p-6 px-5 pb-5 pt-0",
+      integration: "p-6 px-5 pb-5 pt-2",
     },
     tone: {
       default: "",
@@ -247,7 +293,10 @@ const cardContentVariants = cva("", {
       default: "",
       column: "flex flex-col",
       fullColumn: "flex h-full flex-col",
+      fullColumnStart:
+        "flex h-full flex-col items-start justify-start gap-4 text-left",
       growingColumn: "flex min-h-0 flex-1 flex-col",
+      growingColumnEnd: "flex flex-1 flex-col justify-end",
       centeredRow: "flex items-center gap-2",
     },
     flow: {
@@ -255,6 +304,7 @@ const cardContentVariants = cva("", {
       compact: "space-y-2",
       comfortable: "space-y-3",
       relaxed: "space-y-4",
+      spacious: "space-y-5",
     },
   },
   defaultVariants: {
