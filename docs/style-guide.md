@@ -28,6 +28,13 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 
 ## Controls
 
+- Toast owns its viewport, title/description body, action and dismissal
+  appearance. Its existing default, destructive, success and pro-feature
+  variants retain their recipes and native motion. Use ToastBody for the
+  title/description layout. ResizablePanelGroup and ResizableHandle own their
+  existing dimensions, borders and focus styling; `withHandle` selects the
+  existing grip. Products keep toast state and panel sizing callbacks local.
+  These appearance-owning controls reject caller class/style overrides.
 - Collapsible owns notification, grouped-post, sidebar and chat-disclosure
   appearance through `preset`. Its existing outline, ghost and muted surfaces
   use `variant`; `animationDuration` supplies the measured motion timing.

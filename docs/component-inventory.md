@@ -12,6 +12,10 @@ The v8 inventory uses Impression's internal application components and semantic 
 
 ## Shared controls
 
+- Toast and ToastBody own the existing viewport, text layout, action and
+  close-control recipes. Resizable groups and handles retain native panel
+  measurements, pointer resizing, keyboard behavior and grip appearance.
+  Their existing defaults and motion stay unchanged.
 - Collapsible, CollapsibleTrigger and CollapsibleContent own existing settings,
   grouping, sidebar and chat-disclosure recipes. CollapsibleCount retains its
   native span and existing count typography. FormDisclosure content uses typed

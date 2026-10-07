@@ -2,6 +2,15 @@
 
 Reference repository: Impression
 
+The Toast and Resizable ownership pass retains Impression's working source at
+`371819b9a`, with hashes in its `feedback-retained-source.json` artifact.
+Existing Toast variants, viewport and action/close recipes become an owned
+contract without caller appearance overrides. ToastBody owns the existing
+title/description grid. Resizable group and handle defaults keep their current
+native library behavior and optional grip. Product toast state, scheduling,
+undo callbacks and assistant content stay local. Installed-archive, native
+browser and complete-page acceptance remain required.
+
 The Collapsible and Alert pass retains Impression's working source at
 `d06286428`, with hashes in its `disclosure-retained-source.json` artifact.
 Existing settings, grouped-post, sidebar and chat-disclosure recipes become
