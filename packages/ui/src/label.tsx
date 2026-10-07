@@ -16,12 +16,14 @@ const Label = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
     VariantProps<typeof labelVariants> & {
       tone?: "default" | "contrast" | "sidebar";
+      variant?: "default" | "field";
     }
->(({ className, tone = "default", ...props }, ref) => (
+>(({ className, tone = "default", variant = "default", ...props }, ref) => (
   <LabelPrimitive.Root
     ref={ref}
     className={cn(
       labelVariants(),
+      variant === "field" && "text-sm font-medium",
       tone === "contrast" && "text-black dark:text-white",
       tone === "sidebar" && "text-mono-700 dark:text-mono-300",
       className,

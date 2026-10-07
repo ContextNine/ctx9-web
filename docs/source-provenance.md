@@ -216,6 +216,8 @@ The field ownership migration uses Impression `45b51955a`. Input owns the
 existing onboarding, sidebar and measured-title recipes. Textarea owns the
 onboarding and reply-composer recipes, including the transparent highlight
 overlay state. Label's contrast and sidebar tones retain their existing colors.
+The field Label variant also retains the original `text-sm` override's removal
+of `leading-none`; colors alone would not preserve that label's line height.
 Auth textarea callers explicitly retain the Aceternity wrapper's auto-resize
 default; the shared app textarea default remains unchanged. Product measurement,
 highlighting and editing behavior stay in Impression. Installed-archive and
