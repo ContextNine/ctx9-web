@@ -1,6 +1,6 @@
 {
   "name": "@ctx9/ui",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Shared Impression and CTX9 internal application UI",
   "license": "UNLICENSED",
   "type": "module",
@@ -12,6 +12,10 @@
     "README.md"
   ],
   "exports": {
+    "./dev": {
+      "types": "./dist/dev.d.ts",
+      "default": "./dist/dev.js"
+    },
     "./style-policy": {
       "types": "./dist/style-policy.d.ts",
       "default": "./dist/style-policy.js"
@@ -28,6 +32,7 @@
     "registry": "https://gitlab.com/api/v4/projects/85438020/packages/npm/"
   },
   "bin": {
+    "ctx9-ui-dev": "./dist/dev-cli.js",
     "ctx9-ui-style-check": "./dist/style-policy-cli.js"
   },
   "scripts": {
