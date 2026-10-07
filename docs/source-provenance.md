@@ -6,8 +6,16 @@ The Table extraction retains Impression's working source at `bff247b34`,
 with hashes in `.cache/dist/table-extraction-20261007/retained-source.json`.
 Settings, analytics, grouped/selected rows and empty-cell recipes become typed
 choices. Existing defaults and native table elements remain unchanged.
-Impression adoption and installed-archive browser acceptance remain open;
-the source extraction alone does not accept its consumer pages.
+Impression's nine consumer files use these choices. Its installed-archive
+comparison passes 45 configurations at both widths in both themes through
+default, hover, selected, dragging and focused states. All 900 case/state
+comparisons match pixels, computed styles, geometry, attributes, refs and sampled
+callbacks. Product logic and selection predicates remain unchanged. The host
+CSS is byte-identical; package CSS adds selectors and regroups backdrop-filter
+declarations without changing existing effective declarations. The unused
+local Table copy is removed. The repeated post-removal comparison also passes
+all 900 case/state comparisons; types and style enforcement pass. Complete-page
+acceptance remains a separate gate.
 The Avatar pass retains Impression's working source at `17168442e`, with
 per-file hashes in its comparison artifacts. Sizes, comment/thread borders,
 attachment crop and fallback typography become typed choices. AvatarIcon's
