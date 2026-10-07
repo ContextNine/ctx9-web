@@ -502,7 +502,6 @@ type FormDisclosureProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
   "onChange" | "title"
 > & {
-  contentClassName?: string;
   contentLayout?: "default" | "indented" | "fields";
   defaultOpen?: boolean;
   disabled?: boolean;
@@ -533,7 +532,6 @@ const FormDisclosure = React.forwardRef<HTMLDivElement, FormDisclosureProps>(
     {
       children,
       className,
-      contentClassName,
       contentLayout = "default",
       defaultOpen,
       disabled,
@@ -605,14 +603,9 @@ const FormDisclosure = React.forwardRef<HTMLDivElement, FormDisclosureProps>(
           )}
           <CollapsibleContent
             id={contentId}
-            className={cn(
-              "overflow-hidden pt-2",
-              motion === "animated" &&
-                "data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down motion-reduce:animate-none",
-              contentClassName,
-              contentLayout === "indented" && "my-0 mt-1 pl-2",
-              contentLayout === "fields" && "space-y-4",
-            )}
+            preset="formDisclosure"
+            motion={motion}
+            layout={contentLayout}
           >
             {children}
           </CollapsibleContent>

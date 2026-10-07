@@ -12,6 +12,10 @@ The v8 inventory uses Impression's internal application components and semantic 
 
 ## Shared controls
 
+- Collapsible, CollapsibleTrigger and CollapsibleContent own existing settings,
+  grouping, sidebar and chat-disclosure recipes. CollapsibleCount retains its
+  native span and existing count typography. FormDisclosure content uses typed
+  layout and motion choices instead of passing nested appearance classes.
 - Badge owns recurring count, filter, metric, table, status and selection
   recipes. SourceBadge owns the source-link badge's existing typography,
   corners, colors, sizing and focus recipe without changing its span/slot DOM.

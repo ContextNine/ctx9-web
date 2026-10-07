@@ -28,6 +28,14 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 
 ## Controls
 
+- Collapsible owns notification, grouped-post, sidebar and chat-disclosure
+  appearance through `preset`. Its existing outline, ghost and muted surfaces
+  use `variant`; `animationDuration` supplies the measured motion timing.
+  Trigger and Content presets keep their original native Radix elements.
+  CollapsibleCount owns the grouped-post count pill. FormDisclosure forwards
+  its existing `motion` and content layout to the owned content variant.
+  These controls reject caller class/style overrides; state, callbacks and
+  scroll-lock behavior stay in the product.
 - Badge presets own compact counts, filter states, metrics, table labels,
   status typography and selection pills. Select `active` for a filter count
   and `selectionTone` for the existing muted selector pill. SourceBadge retains

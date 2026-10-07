@@ -2,6 +2,16 @@
 
 Reference repository: Impression
 
+The Collapsible and Alert pass retains Impression's working source at
+`d06286428`, with hashes in its `disclosure-retained-source.json` artifact.
+Existing settings, grouped-post, sidebar and chat-disclosure recipes become
+owned presets. The native grouped-post trigger and count span retain their
+original markup and typography. Chat state and scroll-lock callbacks stay in
+Impression. FormDisclosure's existing motion/layout choices now feed the
+Collapsible content variant; its unused content-class override is removed.
+Alert's existing success, destructive and default variants are unchanged.
+Installed-archive, native browser and complete-page checks remain required.
+
 The Badge extraction retains Impression's working source at `7da69f91d`,
 with hashes in its `badge-retained-source.json` comparison artifact. Standard
 round badges and compact source-link badges retain their distinct DOM and
