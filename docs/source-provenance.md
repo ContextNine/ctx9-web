@@ -7,7 +7,16 @@ with hashes in its `badge-retained-source.json` comparison artifact. Standard
 round badges and compact source-link badges retain their distinct DOM and
 defaults. Counts, filter states, table/metric labels, status typography and
 selection pills become owned choices. Existing hover precedence and 10/11px
-typography stay unchanged. Installed-archive and browser acceptance remain open.
+typography stay unchanged. Impression installs the archive from shared source
+`27149cb`. Its full package check, 21 integration tests and isolated install
+pass. All 452 installed-archive browser comparisons match computed styles,
+geometry, native attributes, refs and sampled callbacks at both widths in both
+themes. Of these, 433 screenshots match exactly; nineteen retain small edge-pixel
+differences and remain unaccepted. A repeated fresh-render check of one focused
+case matches exactly but does not accept the full matrix. Host CSS is byte-identical;
+package CSS adds 38 selectors without changing existing effective declarations.
+Impression's unused local badge copies remain until appearance acceptance.
+Complete-page, real-service and publication acceptance remain separate gates.
 
 The Table extraction retains Impression's working source at `bff247b34`,
 with hashes in `.cache/dist/table-extraction-20261007/retained-source.json`.
