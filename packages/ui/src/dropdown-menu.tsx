@@ -179,12 +179,10 @@ const DropdownMenuTrigger = React.forwardRef<
     preset?: "default" | "workspace";
     sidebar?: "expanded" | "collapsed" | "sheet";
   }
->(({ className, preset = "default", sidebar = "collapsed", ...props }, ref) => (
-  <DropdownMenuPrimitive.Trigger
-    ref={ref}
-    className={
-      cn(
-        preset === "workspace" && [
+>(({ className, preset = "default", sidebar = "collapsed", ...props }, ref) => {
+  const triggerClassName =
+    preset === "workspace"
+      ? cn(
           "flex items-center transition-[margin] duration-150 ease-in-out",
           hoverStyles,
           sidebarTextStyles,
@@ -194,13 +192,19 @@ const DropdownMenuTrigger = React.forwardRef<
               ? "mx-auto justify-center space-x-2"
               : "mx-auto justify-center",
           "rounded-bl-[60px] rounded-tl-[60px] rounded-br-[60px] rounded-tr-[60px]",
-        ],
-        className,
-      ) || undefined
-    }
-    {...props}
-  />
-));
+          className,
+        )
+      : className;
+  return (
+    <DropdownMenuPrimitive.Trigger
+      ref={ref}
+      {...(triggerClassName === undefined
+        ? {}
+        : { className: triggerClassName })}
+      {...props}
+    />
+  );
+});
 DropdownMenuTrigger.displayName = DropdownMenuPrimitive.Trigger.displayName;
 
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
