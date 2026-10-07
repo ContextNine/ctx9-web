@@ -108,6 +108,11 @@ appearance overrides. Archive, browser and complete-page gates remain separate.
 
 ## CI consumption
 
+The menu/rail extraction has 62 normalized markup comparisons across 29
+configurations. This includes disabled/loading controls and the unchanged
+shimmer spinner and gradient markup. Its native interaction/animation and
+installed-archive comparisons are required before consumer acceptance.
+
 Consumer projects pin exact versions. The package project allowlists the consumer project for inbound CI job-token access. A consumer job creates an ephemeral npm configuration containing:
 
 ```ini

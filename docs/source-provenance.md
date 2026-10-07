@@ -86,6 +86,15 @@ match 184 normalized markup comparisons, including disabled and both icon
 families. This is source-level extraction evidence, not installed-archive,
 native interaction or complete-page appearance acceptance.
 
+The menu/rail presets extract Impression `fdc4c2fa6` filter, platform and format
+trigger recipes, inline actions, assistant cancellation and editor rail icons.
+The rail density retains the important sizing classes previously injected by
+the action list. Shimmer's solid-blue recipe and loading hover overrides move
+into Button; its existing spinner, direction timer and gradient motion stay in
+the tooltip composition. All 29 configurations match 62 normalized markup
+comparisons against retained installed controls, including disabled and loader
+states. Archive, native animation and complete-page checks remain separate.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the

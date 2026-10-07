@@ -46,6 +46,8 @@ const presetClassNames = {
   fixedWide: "w-[300px] border border-input",
   responsiveCentered: "m-0 w-full justify-center text-nowrap sm:w-auto",
   formSubmit: "mt-4 w-fit",
+  inlineAction: "m-0 flex items-center",
+  inlineRoomy: "m-0 flex items-center p-4",
   roundIcon: "w-fit rounded-xl px-0",
   accentIcon: cn(
     groupedActionStyles,

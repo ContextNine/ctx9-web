@@ -36,6 +36,10 @@ The v8 inventory uses Impression's internal application components and semantic 
 - Compact editor, media, dismissal, filter and preview actions have owned
   Button presets. Selection, copied-state emphasis and hover cursors use
   typed choices; standard dimensions, padding and defaults remain unchanged.
+- Filter/selection triggers, inline actions, compact generation chips and
+  editor rail icons have owned presets. Typed rail density replaces injected
+  important size classes; active and shimmer-loading states retain their
+  established recipes without changing Button defaults or animations.
 - Workspace options and sidebar menu, settings and upload actions use Button
   presets. The sidebar prop owns expanded/collapsed sizing and alignment;
   selected and dragging states remain typed choices. Product navigation and

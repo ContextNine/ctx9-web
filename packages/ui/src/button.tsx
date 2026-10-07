@@ -138,6 +138,8 @@ export const buttonVariants = cva(
         brandSelected: "",
         pinkSelected: "",
         highlighted: "",
+        brandActive: "",
+        shimmerLoading: "",
       },
       effect: {
         standard: "",
@@ -329,12 +331,40 @@ export const buttonVariants = cva(
           "h-fit w-fit rounded p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
         floatingScroll: "rounded-full p-4 disabled:invisible",
         dropdownCompact: cn(dropdownButtonStyles, "w-fit min-w-[100px] px-2"),
+        filterCompact: cn(
+          defaultButtonStyles,
+          "h-9 w-fit min-w-[70px] max-w-[120px]",
+        ),
+        filterTrigger: cn(
+          defaultButtonStyles,
+          "h-9 w-fit min-w-[180px] justify-between rounded-md px-3",
+        ),
+        filterIcon: cn(
+          defaultButtonStyles,
+          "h-9 w-9 justify-center rounded-md p-0",
+        ),
+        selectorTrigger: cn(
+          defaultButtonStyles,
+          "h-9 w-full min-w-[120px] max-w-full justify-between md:max-w-[230px]",
+        ),
+        selectorIcon: cn(defaultButtonStyles, "h-9 w-14 p-0"),
+        selectorFlags: cn(defaultButtonStyles, "h-9 min-w-14 px-2"),
+        inlineAction: "m-0 flex items-center p-0",
+        inlineRoomy: "m-0 flex items-center p-4",
+        navigationOption: "flex items-center justify-start space-x-2",
+        inlineGenerate:
+          "inline-flex h-5 min-h-5 w-5 min-w-5 items-center justify-center rounded-md border border-neutral-400 text-primary transition-all hover:scale-[120%] disabled:cursor-not-allowed disabled:opacity-40 dark:border-mono-600",
+        railIcon: "m-0 h-7 w-7 min-w-7 gap-0 rounded-xl px-0",
+        railFunkyIcon:
+          "m-0 h-7 w-7 min-w-7 gap-0 rounded-xl px-0 group/btn relative overflow-hidden border border-input shadow-none",
+        shimmerAction: "",
         previewIcon:
           "size-9 rounded-xl border border-black/8 bg-white/95 text-mono-500 shadow-sm transition-colors hover:bg-neutral-100 hover:text-mono-900 dark:border-white/10 dark:bg-black/80 dark:text-mono-300 dark:hover:bg-mono-950 dark:hover:text-white",
         previewAction: cn(funkyBlueHoverButtonStyles, "px-2"),
         assistantScroll:
           "size-6 rounded-full p-4 disabled:invisible dark:bg-background dark:hover:bg-accent",
         assistantSend: "size-8 rounded-full p-1",
+        assistantCancel: "size-8",
         assistantMenu: "size-6 p-1 data-[state=open]:bg-accent",
         assistantEdit: "size-6 p-4",
         assistantModal:
@@ -364,6 +394,10 @@ export const buttonVariants = cva(
           "h-12 rounded-none border-neutral-800/80 bg-white px-6 text-mono-900 hover:bg-neutral-100 dark:!border-neutral-800/80 dark:!bg-white dark:!text-mono-900 dark:hover:!bg-neutral-100",
         onboardingBack:
           "h-auto rounded-none border-neutral-800/80 bg-white px-4 py-2 text-sm text-mono-700 hover:bg-neutral-100 dark:!border-neutral-800/80 dark:!bg-white dark:!text-mono-700 dark:hover:!bg-neutral-100",
+      },
+      density: {
+        standard: "",
+        rail: "!h-7 !w-7 !min-w-7 !rounded-xl !p-0",
       },
     },
     compoundVariants: [
@@ -431,6 +465,25 @@ export const buttonVariants = cva(
         state: "highlighted",
         className: "text-brandPrimary dark:text-brandPrimaryLight",
       },
+      {
+        state: "brandActive",
+        className:
+          "border-input bg-brandPrimary text-white hover:bg-brandPrimary hover:text-white dark:bg-brandPrimary dark:text-white dark:hover:bg-brandPrimary",
+      },
+      {
+        preset: ["filterTrigger", "filterIcon"],
+        width: "full",
+        className: "w-full",
+      },
+      {
+        preset: "shimmerAction",
+        className:
+          "group/btn relative z-10 px-4 font-medium shadow-none dark:text-mono-100 rounded-xl bg-brandPrimary dark:bg-brandPrimary text-white hover:bg-brandPrimary hover:dark:bg-brandPrimary",
+      },
+      {
+        state: "shimmerLoading",
+        className: "hover:scale-100 hover:cursor-auto",
+      },
     ],
     defaultVariants: {
       surface: "app",
@@ -453,6 +506,7 @@ export const buttonVariants = cva(
       cursor: "default",
       sidebar: "default",
       preset: "default",
+      density: "standard",
     },
   },
 );
@@ -516,6 +570,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       cursor,
       sidebar,
       preset,
+      density,
       loading = false,
       loadingLabel = "Working…",
       disabled,
@@ -556,6 +611,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             cursor,
             sidebar,
             preset,
+            density,
           }),
           controlShapeClassNames[shape],
           className,

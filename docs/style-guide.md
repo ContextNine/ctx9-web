@@ -76,6 +76,20 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   Minor actions, media controls, dismissals and filters select `minorAction`,
   `mediaIcon`, `overlayDismiss`, `filterToggle` or `compactToggle`. Selected
   recipes and hover cursor choices belong to Button, not caller classes.
+- Filter and selection triggers use `filterCompact`, `filterTrigger`,
+  `filterIcon`, `selectorTrigger`, `selectorIcon` or `selectorFlags`. Choose
+  `width="full"` on a filter trigger for its existing growing layout.
+  Inline actions use `inlineAction` or `inlineRoomy`; navigation rows use
+  `navigationOption`. The animated loader has its own matching inline presets.
+- Editor rail controls use `railIcon` or `railFunkyIcon`, with
+  `state="brandActive"` for the established solid-blue active treatment.
+  `density="rail"` owns the important 28px sizing override used by cloned
+  editor actions without changing their original size recipes. Ordinary
+  usages and action-list compositions do not inject appearance classes.
+- Compact generation chips use `inlineGenerate`. Shimmer actions use
+  `shimmerAction`, with `state="shimmerLoading"` while their existing spinner
+  and gradient animation run. The tooltip composition owns its timing and
+  motion; Button owns its colors, padding, corners and loading hover treatment.
 - Workspace-switch choices use `preset="workspaceOption"`. Impression's
   sidebar uses `sidebarMenu`, `sidebarSettings` and `sidebarUpload` presets
   with `sidebar="expanded"` or `sidebar="collapsed"`. Choose
