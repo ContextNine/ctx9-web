@@ -212,6 +212,14 @@ from whole-page acceptance.
 
 ## Font provenance
 
+The Select and DropdownMenu ownership pass retains Impression `e3ef84f0d`.
+Select owns the existing week-start, sidebar and table-height recipes and
+time-control focus choices without changing its defaults. DropdownMenu's
+workspace preset retains both sidebar switchers' original corner, hover,
+typography and expanded/collapsed/sheet recipes. Selection and workspace
+switching remain product behavior. Archive and browser acceptance are separate
+from complete-page verification.
+
 The field ownership migration uses Impression `45b51955a`. Input owns the
 existing onboarding, sidebar and measured-title recipes. Textarea owns the
 onboarding and reply-composer recipes, including the transparent highlight

@@ -22,6 +22,7 @@ export const standardizedComponents = new Set([
   "SelectItem",
   "SelectLabel",
   "DropdownMenuContent",
+  "DropdownMenuTrigger",
   "DropdownMenuItem",
   "DropdownMenuCheckboxItem",
   "DropdownMenuRadioItem",

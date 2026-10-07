@@ -40,6 +40,11 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   Product title measurement and snippet highlighting remain local. Auth
   textarea callers choose `autoResize` explicitly when replacing the former
   auth wrapper. Standard shared field defaults are unchanged.
+- Select trigger presets `outline`, `sidebar` and `tableCompact` preserve
+  existing button-like, sidebar and compact table recipes. Its typed focus
+  choices retain the time controls' accent or no-ring treatment. Dropdown
+  workspace triggers own their expanded, collapsed and sheet appearance.
+  Products keep selection, navigation and placement local.
 - Checkbox and Switch reject `className` and `style` in their props. Checkbox
   appearance uses its `variant` and `interaction` choices; Switch owns its
   established on/off appearance. Put placement classes on the containing row.

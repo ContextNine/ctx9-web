@@ -12,6 +12,7 @@ import type { ControlSurface } from "./control-variants.js";
 import type { MenuVariant } from "./menu-variants.js";
 import { controlShapeClassNames } from "./control-shape.js";
 import { menuContentVariants, menuItemVariants } from "./menu-variants.js";
+import { hoverStyles, sidebarTextStyles } from "./impression-recipes.js";
 
 const dropdownContentLayoutVariants = cva("", {
   variants: {
@@ -172,7 +173,35 @@ const DropdownMenu = ({
   </DropdownMenuStyleContext.Provider>
 );
 
-const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
+const DropdownMenuTrigger = React.forwardRef<
+  React.ComponentRef<typeof DropdownMenuPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger> & {
+    preset?: "default" | "workspace";
+    sidebar?: "expanded" | "collapsed" | "sheet";
+  }
+>(({ className, preset = "default", sidebar = "collapsed", ...props }, ref) => (
+  <DropdownMenuPrimitive.Trigger
+    ref={ref}
+    className={
+      cn(
+        preset === "workspace" && [
+          "flex items-center transition-[margin] duration-150 ease-in-out",
+          hoverStyles,
+          sidebarTextStyles,
+          sidebar === "expanded"
+            ? "ml-3 mr-3 w-fit justify-between space-x-2"
+            : sidebar === "sheet"
+              ? "mx-auto justify-center space-x-2"
+              : "mx-auto justify-center",
+          "rounded-bl-[60px] rounded-tl-[60px] rounded-br-[60px] rounded-tr-[60px]",
+        ],
+        className,
+      ) || undefined
+    }
+    {...props}
+  />
+));
+DropdownMenuTrigger.displayName = DropdownMenuPrimitive.Trigger.displayName;
 
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 

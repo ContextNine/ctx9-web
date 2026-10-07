@@ -9,7 +9,13 @@ import type { ControlShape } from "./control-shape.js";
 import type { ControlSurface } from "./control-variants.js";
 import type { MenuVariant } from "./menu-variants.js";
 import { PortalBoundary } from "./portal-boundary.js";
-import { defaultInputBackgroundStyles } from "./impression-recipes.js";
+import {
+  buttonStyles,
+  defaultButtonStyles,
+  defaultInputBackgroundStyles,
+  outlineButtonStyles,
+  sidebarTextStyles,
+} from "./impression-recipes.js";
 import { controlShapeClassNames } from "./control-shape.js";
 import { controlVariants } from "./control-variants.js";
 import { menuContentVariants, menuItemVariants } from "./menu-variants.js";
@@ -134,14 +140,18 @@ const SelectTrigger = React.forwardRef<
     width?: SelectWidth;
     weight?: "default" | "medium" | "normal";
     status?: "default" | "error";
-    minWidth?: "default" | "194";
+    minWidth?: "default" | "none" | "194";
+    preset?: "default" | "outline" | "sidebar" | "tableCompact";
+    focus?: "default" | "accent" | "noRing";
   }
 >(
   (
     {
       className,
       children,
+      focus = "default",
       minWidth = "default",
+      preset = "default",
       shape,
       size,
       status = "default",
@@ -179,7 +189,13 @@ const SelectTrigger = React.forwardRef<
           weight === "medium" && "font-medium",
           weight === "normal" && "font-normal",
           status === "error" && "border-destructive",
+          minWidth === "none" && "min-w-0",
           minWidth === "194" && "min-w-[194px]",
+          preset === "outline" && cn(defaultButtonStyles, outlineButtonStyles),
+          preset === "sidebar" && cn(sidebarTextStyles, buttonStyles),
+          preset === "tableCompact" && "h-8",
+          focus === "accent" && "focus:bg-accent focus:text-accent-foreground",
+          focus === "noRing" && "focus:ring-0",
           className,
         )}
         {...props}
