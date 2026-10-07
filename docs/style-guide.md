@@ -28,6 +28,12 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 
 ## Controls
 
+- Table's settings preset owns recurring compact typography and selection
+  behavior. Header presets own existing plain, muted, analytics and main-panel
+  surfaces; `sticky` owns their repeated positioning. Rows own rounded,
+  striped analytics, grouping, drag and selected appearances. Head and Cell
+  presets own existing typography, alignment and insets. Products retain
+  column measurements, data, sorting, grouping and drag callbacks.
 - Avatar owns recurring sizes and comment, thread and attachment appearance
   through `size` and `variant`. Image crop uses `fit`; fallback typography uses
   `typography`. AvatarIcon owns the initials fallback and defaults to 56px.

@@ -2,6 +2,12 @@
 
 Reference repository: Impression
 
+The Table extraction retains Impression's working source at `bff247b34`,
+with hashes in `.cache/dist/table-extraction-20261007/retained-source.json`.
+Settings, analytics, grouped/selected rows and empty-cell recipes become typed
+choices. Existing defaults and native table elements remain unchanged.
+Impression adoption and installed-archive browser acceptance remain open;
+the source extraction alone does not accept its consumer pages.
 The Avatar pass retains Impression's working source at `17168442e`, with
 per-file hashes in its comparison artifacts. Sizes, comment/thread borders,
 attachment crop and fallback typography become typed choices. AvatarIcon's

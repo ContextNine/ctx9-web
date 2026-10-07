@@ -12,6 +12,9 @@ The v8 inventory uses Impression's internal application components and semantic 
 
 ## Shared controls
 
+- Table preserves its existing defaults and supplies owned settings,
+  analytics, selectable-row, empty-cell and drag-table recipes. Native table
+  structure, refs, data-state and product callbacks remain unchanged.
 - Avatar and AvatarIcon own recurring dimensions, comment/thread borders,
   attachment corners, image crop and existing small fallback typography.
   Radix image loading, fallback delay and refs remain unchanged.
