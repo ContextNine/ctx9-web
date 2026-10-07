@@ -2,6 +2,13 @@
 
 Reference repository: Impression
 
+The Badge extraction retains Impression's working source at `7da69f91d`,
+with hashes in its `badge-retained-source.json` comparison artifact. Standard
+round badges and compact source-link badges retain their distinct DOM and
+defaults. Counts, filter states, table/metric labels, status typography and
+selection pills become owned choices. Existing hover precedence and 10/11px
+typography stay unchanged. Installed-archive and browser acceptance remain open.
+
 The Table extraction retains Impression's working source at `bff247b34`,
 with hashes in `.cache/dist/table-extraction-20261007/retained-source.json`.
 Settings, analytics, grouped/selected rows and empty-cell recipes become typed

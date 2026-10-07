@@ -28,6 +28,11 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 
 ## Controls
 
+- Badge presets own compact counts, filter states, metrics, table labels,
+  status typography and selection pills. Select `active` for a filter count
+  and `selectionTone` for the existing muted selector pill. SourceBadge retains
+  the compact source-link badge's span/slot structure and owns its link focus
+  treatment through `interactive`; it rejects class/style overrides.
 - Table's settings preset owns recurring compact typography and selection
   behavior. Header presets own existing plain, muted, analytics and main-panel
   surfaces; `sticky` owns their repeated positioning. Rows own rounded,

@@ -44,6 +44,7 @@ export * from "./sheet.js";
 export * from "./sidebar.js";
 export * from "./shell.js";
 export * from "./sonner.js";
+export * from "./source-badge.js";
 export { Textarea, type TextareaProps } from "./textarea.js";
 export * from "./settings-dialog.js";
 export * from "./toggle.js";

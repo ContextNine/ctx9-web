@@ -6,6 +6,7 @@ import * as React from "react";
 import { forwardRef, useEffect } from "react";
 
 import { Badge } from "./badge.js";
+import type { BadgeProps } from "./badge.js";
 import { Command, CommandGroup, CommandItem, CommandList } from "./command.js";
 import { cn } from "./cn.js";
 import { SelectionButton } from "./selection-button.js";
@@ -15,16 +16,6 @@ const selectorVariants = cva(
   {
     variants: { size: { default: "", singleRow: "h-10" } },
     defaultVariants: { size: "default" },
-  },
-);
-
-const selectionVariants = cva(
-  "data-[disabled]:bg-muted-foreground data-[disabled]:text-muted data-[disabled]:hover:bg-muted-foreground data-[fixed]:bg-muted-foreground data-[fixed]:text-muted data-[fixed]:hover:bg-muted-foreground",
-  {
-    variants: {
-      selectionTone: { default: "", muted: "bg-neutral-600 dark:bg-mono-200" },
-    },
-    defaultVariants: { selectionTone: "default" },
   },
 );
 
@@ -45,7 +36,7 @@ type GroupOption = Record<string, MultipleSelectorOption[]>;
 
 export interface MultipleSelectorProps
   extends VariantProps<typeof selectorVariants>,
-    VariantProps<typeof selectionVariants> {
+    Pick<BadgeProps, "selectionTone"> {
   showClearAllButton?: boolean;
   value?: MultipleSelectorOption[];
   defaultOptions?: MultipleSelectorOption[];
@@ -519,7 +510,8 @@ export const MultipleSelector = React.forwardRef<
               return (
                 <Badge
                   key={option.value}
-                  className={selectionVariants({ selectionTone })}
+                  preset="selection"
+                  selectionTone={selectionTone}
                   data-fixed={option.fixed}
                   data-disabled={disabled ? true : undefined}
                 >

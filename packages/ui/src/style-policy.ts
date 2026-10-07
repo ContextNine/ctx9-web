@@ -86,6 +86,7 @@ export const standardizedComponents = new Set([
   "TabsTrigger",
   "TabsContent",
   "Badge",
+  "SourceBadge",
   "Alert",
   "AlertTitle",
   "AlertDescription",

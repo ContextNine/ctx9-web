@@ -12,6 +12,9 @@ The v8 inventory uses Impression's internal application components and semantic 
 
 ## Shared controls
 
+- Badge owns recurring count, filter, metric, table, status and selection
+  recipes. SourceBadge owns the source-link badge's existing typography,
+  corners, colors, sizing and focus recipe without changing its span/slot DOM.
 - Table preserves its existing defaults and supplies owned settings,
   analytics, selectable-row, empty-cell and drag-table recipes. Native table
   structure, refs, data-state and product callbacks remain unchanged.
