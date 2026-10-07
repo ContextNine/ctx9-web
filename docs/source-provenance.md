@@ -76,6 +76,16 @@ external content links. The three recipes retain the existing 32px, 28px
 and 24px dimensions and 200ms color transition. They do not change Button
 defaults or the local tooltip's timing and behavior.
 
+The remaining tooltip-button recipes extract Impression `209d94e65` editor,
+media, filter, dismissal and preview actions. Typed selected states preserve
+the existing brand, pink and copied-state colors; hover cursors and emphasis
+remain component-owned. The small corner choice uses the common shape map.
+Standard and compact post-menu density stays product-owned and selects shared
+Button dimensions instead of passing class strings. All 46 configurations
+match 184 normalized markup comparisons, including disabled and both icon
+families. This is source-level extraction evidence, not installed-archive,
+native interaction or complete-page appearance acceptance.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the

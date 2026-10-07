@@ -1,5 +1,6 @@
 export type ControlShape =
   | "default"
+  | "small"
   | "medium"
   | "large"
   | "extraLarge"
@@ -8,6 +9,7 @@ export type ControlShape =
 
 export const controlShapeClassNames: Record<ControlShape, string> = {
   default: "",
+  small: "rounded-sm",
   medium: "rounded-md",
   large: "rounded-lg",
   extraLarge: "rounded-xl",

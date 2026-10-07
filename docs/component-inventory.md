@@ -33,6 +33,9 @@ The v8 inventory uses Impression's internal application components and semantic 
   existing full-width, start-aligned preset. Tooltip behavior stays local.
 - AppButtonProps and AuthButtonProps constrain product wrappers to their own
   surface and variant family without copying the Button contract;
+- Compact editor, media, dismissal, filter and preview actions have owned
+  Button presets. Selection, copied-state emphasis and hover cursors use
+  typed choices; standard dimensions, padding and defaults remain unchanged.
 - Workspace options and sidebar menu, settings and upload actions use Button
   presets. The sidebar prop owns expanded/collapsed sizing and alignment;
   selected and dragging states remain typed choices. Product navigation and

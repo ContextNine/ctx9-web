@@ -101,6 +101,11 @@ differences across 676 comparisons. Added package custom properties and
 equivalent minified custom-property strings still differ textually; whole-app
 CSS and other component-family acceptance remain separate.
 
+The remaining tooltip action presets match 184 source-level markup comparisons
+across 46 configurations, including disabled states and both icon families.
+The consumer now uses typed appearance and compact menu density instead of
+appearance overrides. Archive, browser and complete-page gates remain separate.
+
 ## CI consumption
 
 Consumer projects pin exact versions. The package project allowlists the consumer project for inbound CI job-token access. A consumer job creates an ephemeral npm configuration containing:

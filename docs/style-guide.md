@@ -71,6 +71,11 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   dimensions, padding and 200ms color transition. Dropdown actions use
   `dropdownAction`, which owns their full width and row alignment.
 - Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
+- Editor icons use `compactIcon`, optionally with `tone="draftNavigation"`.
+  Preview controls use `previewIcon` and `state="highlighted"` after copying.
+  Minor actions, media controls, dismissals and filters select `minorAction`,
+  `mediaIcon`, `overlayDismiss`, `filterToggle` or `compactToggle`. Selected
+  recipes and hover cursor choices belong to Button, not caller classes.
 - Workspace-switch choices use `preset="workspaceOption"`. Impression's
   sidebar uses `sidebarMenu`, `sidebarSettings` and `sidebarUpload` presets
   with `sidebar="expanded"` or `sidebar="collapsed"`. Choose

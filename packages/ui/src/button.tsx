@@ -134,6 +134,10 @@ export const buttonVariants = cva(
         sidebarSelected: selectedSidebarStyles,
         sidebarDragging: "",
         settingsSelected: cn(selectedBgStyles, selectedTextStyles),
+        interactive: "pointer-events-auto",
+        brandSelected: "",
+        pinkSelected: "",
+        highlighted: "",
       },
       effect: {
         standard: "",
@@ -174,6 +178,8 @@ export const buttonVariants = cva(
           "text-mono-600 hover:bg-neutral-100 dark:text-mono-300 dark:hover:bg-mono-800",
         outreachHelp:
           "text-mono-500 hover:bg-neutral-100 hover:text-mono-900 dark:text-mono-400 dark:hover:bg-mono-800 dark:hover:text-mono-50",
+        draftNavigation:
+          "text-mono-600 hover:bg-mono-50 dark:text-mono-400 dark:hover:bg-mono-800",
       },
       elevation: {
         default: "",
@@ -198,6 +204,8 @@ export const buttonVariants = cva(
         default: "",
         subdued: "opacity-70",
         reveal: "opacity-50 hover:opacity-100",
+        hidden: "opacity-0",
+        disabled: "opacity-50",
       },
       typography: {
         default: "",
@@ -231,6 +239,8 @@ export const buttonVariants = cva(
         default: "",
         pointer: "cursor-pointer",
         notAllowed: "cursor-not-allowed",
+        hoverPointer: "hover:cursor-pointer",
+        hoverHelp: "hover:cursor-help",
       },
       sidebar: {
         default: "",
@@ -308,6 +318,20 @@ export const buttonVariants = cva(
           "h-7 w-7 gap-0 rounded-xl p-0 transition-colors duration-200",
         contentLinkCompact:
           "h-6 w-6 rounded-xl p-1 transition-colors duration-200",
+        compactIcon: "h-7 w-7 rounded-lg p-1.5",
+        minorAction: cn(minorButtonStyles, "h-6 w-6 p-1"),
+        mediaIcon: "w-8 hover:bg-neutral-500 dark:hover:bg-mono-400",
+        filterToggle: cn(minorButtonStyles, sidebarTextStyles, "h-9 w-fit p-2"),
+        compactToggle: cn(minorButtonStyles, "h-8 w-fit border p-1 px-3"),
+        microAction:
+          "h-4 w-4 bg-transparent p-0 hover:bg-blue-200 dark:hover:bg-blue-800",
+        overlayDismiss:
+          "h-fit w-fit rounded p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+        floatingScroll: "rounded-full p-4 disabled:invisible",
+        dropdownCompact: cn(dropdownButtonStyles, "w-fit min-w-[100px] px-2"),
+        previewIcon:
+          "size-9 rounded-xl border border-black/8 bg-white/95 text-mono-500 shadow-sm transition-colors hover:bg-neutral-100 hover:text-mono-900 dark:border-white/10 dark:bg-black/80 dark:text-mono-300 dark:hover:bg-mono-950 dark:hover:text-white",
+        previewAction: cn(funkyBlueHoverButtonStyles, "px-2"),
         assistantScroll:
           "size-6 rounded-full p-4 disabled:invisible dark:bg-background dark:hover:bg-accent",
         assistantSend: "size-8 rounded-full p-1",
@@ -392,6 +416,20 @@ export const buttonVariants = cva(
         surface: "app",
         state: "selected",
         className: selectedButtonStyles,
+      },
+      {
+        state: "brandSelected",
+        className:
+          "bg-brandPrimary text-white hover:bg-brandPrimary/90 hover:text-white dark:bg-brandPrimary dark:hover:bg-brandPrimary/90",
+      },
+      {
+        state: "pinkSelected",
+        className:
+          "border border-pink-400/40 bg-pink-500/15 text-pink-600 dark:border-pink-400/30 dark:bg-pink-500/20 dark:text-pink-300",
+      },
+      {
+        state: "highlighted",
+        className: "text-brandPrimary dark:text-brandPrimaryLight",
       },
     ],
     defaultVariants: {
