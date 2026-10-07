@@ -276,7 +276,7 @@ The optional exceptions file is a JSON array. Each entry names one exact reposit
 - Mobile navigation is an off-canvas drawer with an explicit open button, close button, backdrop, Escape handling, and focus-visible controls.
 - The footer trigger uses a 40px round avatar, current tenant, and user name. Its menu is 270px wide and follows Impression's space/brand switcher hierarchy.
 - The account menu contains current and switchable tenants, an optional product-settings action, Tenant and account settings, and Sign out. Do not add product settings until the product has a real settings page.
-- Keep `Tenant and account settings` on one line. The menu may grow wider to preserve the label.
+- Account actions place the icon beside the label's first line. Long labels may wrap inside their text column; they never move beneath the icon.
 - Detail-page titles use `PageHeading`'s icon-only parent chevron. Do not add visible `Back` actions or put parent navigation on the right.
 - Tenant and account settings opens in the current app. Its near-full-viewport dialog uses a left tab rail for Tenant, Access, capability-backed Provisioning, and Account security. The dialog uses one 300ms opacity and scale transition and disables scale motion for reduced-motion users.
 - Route and tab changes keep the shell and useful cached content mounted. Loading indicators may animate without replacing useful content.

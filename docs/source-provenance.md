@@ -2,6 +2,13 @@
 
 Reference repository: Impression
 
+The Secret Bindings editor redesign adds InfoTooltip and PageHeading's `info`
+text as new compositions of the existing shared Button and Tooltip. Matt's
+October 7 direction moves introductory descriptions beside headings. Account
+actions place the icon and wrapping label directly in the menu's two-column
+grid, correcting the extra wrapper that previously stacked them. These are
+requested behavior changes, rather than claims of unchanged source parity.
+
 The October 7 remaining-ownership pass uses Impression's working sources at
 `36aeae3e4c86aed9f963a1b3150c211595910fa0`: Chart, Sidebar, use-mobile,
 Command, ScrollArea, Sheet and the two `packages/ui/src/assistant-*` controls.

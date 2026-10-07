@@ -14,6 +14,7 @@ import {
 import * as React from "react";
 
 import { Button } from "./button.js";
+import { InfoTooltip } from "./tooltip.js";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -89,16 +90,18 @@ function Initials({ value }: { value: string }): React.JSX.Element {
 function AccountAction({ action }: { action: AccountMenuAction }) {
   const content = (
     <>
-      <span className="grid size-4 place-items-center text-muted-foreground">
+      <span className="grid size-4 self-start place-items-center text-muted-foreground">
         {action.icon}
       </span>
-      <span className="whitespace-nowrap">{action.label}</span>
+      <span className="min-w-0 whitespace-normal break-words">
+        {action.label}
+      </span>
     </>
   );
   return (
     <DropdownMenuItem
       preset="accountAction"
-      asChild={Boolean(action.href)}
+      asChild
       {...(action.onSelect ? { onSelect: action.onSelect } : {})}
     >
       {action.href ? (
@@ -650,12 +653,14 @@ export function FocusedShell({
 export function PageHeading({
   title,
   description,
+  info,
   actions,
   parent,
   className,
 }: {
   title: React.ReactNode;
   description?: string;
+  info?: string;
   actions?: React.ReactNode;
   parent?: { href: string; label: string };
   className?: string;
@@ -682,7 +687,20 @@ export function PageHeading({
           </Button>
         )}
         <div className="grid min-w-0 gap-1.5">
-          <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+            {info && (
+              <InfoTooltip
+                label={
+                  typeof title === "string"
+                    ? `About ${title}`
+                    : "Page information"
+                }
+              >
+                {info}
+              </InfoTooltip>
+            )}
+          </div>
           {description && (
             <p className="text-sm text-muted-foreground">{description}</p>
           )}

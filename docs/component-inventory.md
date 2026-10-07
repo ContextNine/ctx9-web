@@ -104,6 +104,8 @@ The v8 inventory uses Impression's internal application components and semantic 
   Its optional fit width owns the existing compact placement in settings.
 - Dialog, AlertDialog, Popover, DropdownMenu, Tooltip;
 - Tooltip and Popover own repeated caller recipes through typed presets.
+  InfoTooltip composes the owned icon trigger and tooltip for heading explanations.
+  It supports hover, keyboard focus, and touch without consumer appearance props.
   Tooltip also exposes layer, spacing and width choices. ContextMenu retains
   its existing menu variants and Radix behavior; product actions remain local.
 - Dialog owns settings/full-screen dimensions, content width and gap choices,

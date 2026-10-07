@@ -5,6 +5,8 @@ import * as React from "react";
 import { cn } from "./cn.js";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { cva } from "class-variance-authority";
+import { Info } from "lucide-react";
+import { Button } from "./button.js";
 
 import {
   tooltipContentBareStyles,
@@ -91,6 +93,40 @@ const TooltipContent = React.forwardRef<
   ),
 );
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
+
+/** Explanatory text beside a heading, available on hover, focus, and touch. */
+export function InfoTooltip({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <TooltipProvider>
+      <Tooltip open={open} onOpenChange={setOpen}>
+        <TooltipTrigger asChild>
+          <Button
+            type="button"
+            variant="ghost"
+            size="iconSm"
+            aria-label={label}
+            onClick={(event) => {
+              event.preventDefault();
+              setOpen(true);
+            }}
+          >
+            <Info aria-hidden="true" className="size-4" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent preset="details" width="compact">
+          {children}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
 
 export {
   Tooltip,
