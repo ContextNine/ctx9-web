@@ -28,12 +28,12 @@ export function findLocalUi(appDirectory = process.cwd()) {
   }
 }
 
-/** Next uses local source only in development. Builds always use installed exports. */
+/** Next uses the watched local build only in dev. Production uses installed exports. */
 export function getLocalUiConfig(appDirectory = process.cwd()) {
   if (process.env.NODE_ENV !== "development") return undefined;
   const packageDirectory = findLocalUi(appDirectory);
   if (!packageDirectory) return undefined;
-  const source = join(packageDirectory, "src/index.ts");
+  const source = join(packageDirectory, "dist/index.js");
   const stylesheet = join(resolve(appDirectory), ".ctx9-ui/styles.css");
   let root = resolve(appDirectory);
   while (relative(root, packageDirectory).startsWith(".."))
@@ -44,8 +44,8 @@ export function getLocalUiConfig(appDirectory = process.cwd()) {
     turbopack: {
       root,
       resolveAlias: {
-        "@ctx9/ui": source,
-        "@ctx9/ui/styles.css": stylesheet,
+        "@ctx9/ui": `./${relative(resolve(appDirectory), source).replaceAll("\\", "/")}`,
+        "@ctx9/ui/styles.css": "./.ctx9-ui/styles.css",
       },
     },
     webpackAliases: {

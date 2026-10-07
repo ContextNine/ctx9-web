@@ -17,8 +17,8 @@ test("consumer checkouts share live source in dev without changing production re
     for (const path of [
       "impression/apps/next",
       "workspaces/impression/test/apps/next",
-      "ctx9/testimonials",
-      "ctx9/publisher",
+      "ctx9/testimonials/web",
+      "ctx9/publisher/web",
       "ctx9/platform/apps/web",
       "ctx9/secret-bindings/apps/console",
     ]) {
@@ -30,10 +30,10 @@ test("consumer checkouts share live source in dev without changing production re
         path.startsWith("ctx9/") ? join(code, "ctx9") : code,
       );
       expect(config?.webpackAliases["@ctx9/ui$"]).toBe(
-        join(ui, "src/index.ts"),
+        join(ui, "dist/index.js"),
       );
       expect(config?.turbopack.resolveAlias["@ctx9/ui/styles.css"]).toBe(
-        join(app, ".ctx9-ui/styles.css"),
+        "./.ctx9-ui/styles.css",
       );
       vi.stubEnv("NODE_ENV", "production");
       expect(getLocalUiConfig(app)).toBeUndefined();

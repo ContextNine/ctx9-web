@@ -2,7 +2,7 @@
 import { spawn } from "node:child_process";
 import { cp, mkdir } from "node:fs/promises";
 import { createRequire } from "node:module";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { getLocalUiConfig } from "./dev.js";
 
 const args = process.argv.slice(2);
@@ -59,7 +59,11 @@ function start(executable: string, argv: string[], cwd = process.cwd()) {
   return child;
 }
 
-const local = getLocalUiConfig();
+const appDirectory =
+  args[0] === "dev" && args[1] && !args[1].startsWith("-")
+    ? resolve(args[1])
+    : process.cwd();
+const local = getLocalUiConfig(appDirectory);
 if (local) {
   const outputDirectory = dirname(local.stylesheet);
   await mkdir(outputDirectory, { recursive: true });
@@ -72,6 +76,11 @@ if (local) {
   );
   const require = createRequire(join(local.packageDirectory, "package.json"));
   const tailwind = require.resolve("tailwindcss/lib/cli.js");
+  const compilerArgs = [
+    require.resolve("typescript/bin/tsc"),
+    "-p",
+    "tsconfig.build.json",
+  ];
   const tailwindArgs = [
     tailwind,
     "-c",
@@ -84,23 +93,31 @@ if (local) {
     "../../postcss.config.js",
     "--no-autoprefixer",
   ];
-  // Paint the first request with complete CSS before either watcher starts.
-  const initial = spawn(process.execPath, tailwindArgs, {
-    cwd: local.packageDirectory,
-    stdio: "inherit",
-    detached: process.platform !== "win32",
-  });
-  children.add(initial);
-  await new Promise<void>((complete, reject) => {
-    initial.once("error", reject);
-    initial.once("exit", (code) => {
-      children.delete(initial);
-      if (code === 0) complete();
-      else reject(new Error("Local UI stylesheet build failed"));
+  // Next 15 Turbopack needs emitted .js imports. Build before serving.
+  for (const buildArgs of [compilerArgs, tailwindArgs]) {
+    if (shutdown.signal.aborted) break;
+    const initial = spawn(process.execPath, buildArgs, {
+      cwd: local.packageDirectory,
+      stdio: "inherit",
+      detached: process.platform !== "win32",
     });
-  });
+    children.add(initial);
+    await new Promise<void>((complete, reject) => {
+      initial.once("error", reject);
+      initial.once("exit", (code) => {
+        children.delete(initial);
+        if (code === 0) complete();
+        else reject(new Error("Local UI build failed"));
+      });
+    });
+  }
   if (!shutdown.signal.aborted) {
     console.log(`Local @ctx9/ui source: ${local.packageDirectory}`);
+    start(
+      process.execPath,
+      [...compilerArgs, "--watch", "--preserveWatchOutput"],
+      local.packageDirectory,
+    );
     start(
       process.execPath,
       [...tailwindArgs, "--watch=always"],

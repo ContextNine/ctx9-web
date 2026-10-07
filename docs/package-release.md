@@ -166,14 +166,19 @@ The generated file is removed with the job workspace and is never committed. Loc
 ## Workspace local overlay
 
 For regular Next development, `@ctx9/ui/dev` discovers the local `Code/ctx9/web`
-checkout by walking upward from the application's cwd. It supports nested
+checkout by walking upward from the Next project directory. Pass `__dirname`
+from `next.config.ts` so root-launched `next dev web` commands resolve the same
+directory as the watcher. It supports nested
 Impression workspaces as well as the four CTX9 consumers. Development-only
-Webpack/Turbopack aliases resolve `@ctx9/ui` directly to its TypeScript source.
-Next performs the compilation and hot reload, including newly added exports.
+Webpack/Turbopack aliases resolve `@ctx9/ui` to the checkout's watched build.
+The TypeScript watcher compiles edits and newly added exports automatically;
+Next watches those files for hot reload. Next 15 Turbopack needs this emitted
+JavaScript because the package's relative imports use `.js` extensions.
 
 Web dev commands run through `ctx9-ui-dev -- next dev ...`. It builds shared
-Tailwind CSS before the first request, then watches it alongside Next. CSS and
-self-hosted fonts live in the application's ignored `.ctx9-ui/` directory.
+TypeScript and Tailwind CSS before the first request, then watches both
+alongside Next. CSS and self-hosted fonts live in the application's ignored
+`.ctx9-ui/` directory.
 Each dev server owns and stops its watcher and child processes. No manifest,
 lockfile, installed package or published artifact is modified by this loop.
 If the checkout is absent, development uses the installed package normally.
