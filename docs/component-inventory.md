@@ -79,6 +79,7 @@ The v8 inventory uses Impression's internal application components and semantic 
 - NumberSelect owns the small previous/next buttons, adjacent value previews,
   numeric input and dragging cursor. It retains Impression's bounded editing,
   arrow-key and mouse/touch drag behavior without consumer appearance props.
+  Its optional fit width owns the existing compact placement in settings.
 - Dialog, AlertDialog, Popover, DropdownMenu, Tooltip;
 - AlertDialog owns its overlay, content, header, footer, title, description,
   primary action and cancellation styling. Its existing responsive layout,

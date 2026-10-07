@@ -14,10 +14,11 @@ export interface NumberSelectProps {
   className?: never;
   style?: never;
   disabled?: boolean;
+  width?: "auto" | "fit";
 }
 
 const NumberSelect = React.forwardRef<HTMLDivElement, NumberSelectProps>(
-  ({ value, onChange, min, max, disabled = false }, ref) => {
+  ({ value, onChange, min, max, disabled = false, width = "auto" }, ref) => {
     const [inputValue, setInputValue] = React.useState(value.toString());
     const [isDragging, setIsDragging] = React.useState(false);
     const [startX, setStartX] = React.useState(0);
@@ -166,7 +167,7 @@ const NumberSelect = React.forwardRef<HTMLDivElement, NumberSelectProps>(
     return (
       <div
         ref={ref}
-        className="relative flex items-center"
+        className={cn("relative flex items-center", width === "fit" && "w-fit")}
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
         onMouseMove={handleMouseMove}
