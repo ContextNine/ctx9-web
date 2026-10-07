@@ -111,6 +111,9 @@ The v8 inventory uses Impression's internal application components and semantic 
 - InlineStatus has semantic neutral, success, warning and danger tones.
   PopoverContent's `notice` variant owns compact explanatory-message spacing.
 - Skeleton uses Impression's existing pulse animation.
+- Skeleton owns existing corner and color choices through `shape` and `tone`.
+  Separator owns existing colors and toggle-hover visibility. Both controls
+  participate in shared consumer style enforcement; geometry remains local.
 - Tabs own the existing compact, settings, subtle and sidebar recipes through
   variants, with typed trigger gaps. TabsContent owns the existing surface,
   main-panel, padded-panel, growing and active-fill recipes;

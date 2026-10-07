@@ -56,6 +56,8 @@ export const standardizedComponents = new Set([
   "PopoverContent",
   "TooltipContent",
   "TooltipTrigger",
+  "Skeleton",
+  "Separator",
   "Card",
   "CardHeader",
   "CardContent",

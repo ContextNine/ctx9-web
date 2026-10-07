@@ -71,6 +71,11 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   navigation actions keep their own variants. This does not change Impression's
   existing Button defaults or recipes.
 - Animations, including spinners, pulses, and glow effects, are supported. The component owns the effect; there is no animation prohibition based on browser repaint cost.
+- Skeleton retains its pulse and owns round, large and extra-large corners
+  through `shape`. Subdued and inverse colors use `tone`; content-dependent
+  dimensions and placement stay local. Separator's typed `tone` owns neutral,
+  muted, sidebar and editor colors; `visibility="toggleHover"` retains its
+  existing group-hover fade. Neither control's default appearance changes.
 - Tooltip content owns recurring action, details, timing, source and upload
   appearances through `preset`. Select its `layer`, `spacing` and `width`
   rather than supplying z-index, padding or wrapping recipes. Placement and

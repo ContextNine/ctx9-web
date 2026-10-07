@@ -10,6 +10,12 @@ The pre-v8 package used a shadcn `base-nova` snapshot and CTX9-only dark adaptat
 
 `@ctx9/ui` never imports Impression at build or runtime. Source moves are reviewed and recorded against the exact Impression commit, then owned and released from this repository.
 
+The Skeleton and Separator ownership pass retains Impression's working source
+at `dfcc6e204`, with per-file hashes in the consumer artifacts. Existing corner,
+subdued/inverse color and toggle-hover recipes become typed choices. Defaults,
+pulse animation, Radix orientation, decorative behavior and refs stay unchanged.
+Installed-archive rendering and complete-page acceptance remain separate gates.
+
 The Tooltip, Popover and ContextMenu ownership pass retains the current
 Impression working sources at `9863a3a52`, with individual source hashes in
 the consumer verification artifacts. Tooltip owns recurring action, details,
