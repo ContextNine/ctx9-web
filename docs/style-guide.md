@@ -76,6 +76,12 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   content owns growing/full-column layouts and sidebar text. Header gaps and
   descriptions use typed choices. Products retain measured widths, positioning,
   rotation and workflow callbacks. Existing defaults remain unchanged.
+- Integration cards select `variant="integration"`. Details use CardInset,
+  CardDetailLabel and CardDetailValue without appearance props. Use label
+  `spacing="group"` between detail groups. Connection badges select
+  `connectionActive` or `connectionIdle` with `width="fit"`; products provide
+  state and copy, not color or hover recipes. Public cards and badges belong
+  to Impression's public package.
 - Skeleton retains its pulse and owns round, large and extra-large corners
   through `shape`. Subdued and inverse colors use `tone`; content-dependent
   widths and placement stay local. Choose `height` for its existing height

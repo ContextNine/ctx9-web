@@ -114,6 +114,11 @@ The v8 inventory uses Impression's internal application components and semantic 
 - Card has typed flat/editor surfaces, stretch-column and preview-height
   choices, spotlight extent, header gaps, secondary descriptions and section
   content spacing. Products retain their own geometry and behavior.
+- Card's integration variant owns the existing query-container column layout.
+  CardInset, CardDetailLabel and CardDetailValue own the neutral detail panel
+  and its typography. Badge's active/idle connection variants own colors and
+  hover treatment; its fit width owns the shrinking pill layout. Product
+  connection state and workflows remain local.
 - Skeleton owns existing corner and color choices through `shape` and `tone`.
   Separator owns existing colors and toggle-hover visibility. Both controls
   participate in shared consumer style enforcement; geometry remains local.

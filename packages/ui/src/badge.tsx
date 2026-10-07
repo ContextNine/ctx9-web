@@ -17,7 +17,15 @@ const badgeVariants = cva(
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         success: "border-success/30 bg-success/10 text-success",
         warning: "border-warning/30 bg-warning/10 text-warning",
+        connectionActive:
+          "border-transparent bg-brandBlue/20 text-mono-900 hover:bg-brandBlue/20 dark:bg-brandBlue/20 dark:text-mono-100 dark:hover:bg-brandBlue/20",
+        connectionIdle:
+          "border-neutral-300 bg-neutral-100 text-mono-700 hover:bg-neutral-100 dark:border-mono-700 dark:bg-mono-900 dark:text-mono-300 dark:hover:bg-mono-900",
         outline: "text-foreground",
+      },
+      width: {
+        default: "",
+        fit: "w-fit shrink-0",
       },
     },
     defaultVariants: {
@@ -30,9 +38,12 @@ export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof badgeVariants> {}
 
-function Badge({ className, variant, ...props }: BadgeProps) {
+function Badge({ className, variant, width, ...props }: BadgeProps) {
   return (
-    <div className={cn(badgeVariants({ variant }), className)} {...props} />
+    <div
+      className={cn(badgeVariants({ variant, width }), className)}
+      {...props}
+    />
   );
 }
 

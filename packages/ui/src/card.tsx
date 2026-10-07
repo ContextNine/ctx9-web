@@ -26,6 +26,7 @@ const cardVariants = cva(
         outer: outerCardStyles,
         bare: "rounded-none border-0 bg-transparent shadow-none",
         flat: "shadow-none",
+        integration: "relative flex flex-col @container shadow-none",
         editorSurface: editorBg,
         analytics:
           "rounded-xl border-border bg-white shadow-none dark:bg-black",
@@ -332,6 +333,56 @@ const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
 );
 CardContent.displayName = "CardContent";
 
+type CardDetailProps = Omit<
+  React.ComponentProps<"p">,
+  "className" | "style"
+> & {
+  spacing?: "default" | "group";
+  className?: never;
+  style?: never;
+};
+
+const CardInset = React.forwardRef<
+  HTMLDivElement,
+  Omit<React.ComponentProps<"div">, "className" | "style"> & {
+    className?: never;
+    style?: never;
+  }
+>((props, ref) => (
+  <div
+    {...props}
+    ref={ref}
+    className="mb-4 rounded-lg border border-neutral-200 bg-neutral-50 p-3 dark:border-mono-700 dark:bg-mono-950"
+  />
+));
+CardInset.displayName = "CardInset";
+
+const CardDetailLabel = React.forwardRef<HTMLParagraphElement, CardDetailProps>(
+  ({ spacing = "default", ...props }, ref) => (
+    <p
+      {...props}
+      ref={ref}
+      className={cn(
+        "text-xs font-medium text-mono-600 dark:text-mono-400",
+        spacing === "group" && "mt-2",
+      )}
+    />
+  ),
+);
+CardDetailLabel.displayName = "CardDetailLabel";
+
+const CardDetailValue = React.forwardRef<
+  HTMLParagraphElement,
+  Omit<CardDetailProps, "spacing">
+>((props, ref) => (
+  <p
+    {...props}
+    ref={ref}
+    className="text-sm text-mono-800 dark:text-mono-200"
+  />
+));
+CardDetailValue.displayName = "CardDetailValue";
+
 function CardAction({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -390,4 +441,7 @@ export {
   CardTitle,
   CardDescription,
   CardContent,
+  CardInset,
+  CardDetailLabel,
+  CardDetailValue,
 };

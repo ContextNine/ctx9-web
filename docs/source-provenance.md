@@ -2,6 +2,14 @@
 
 Reference repository: Impression
 
+The integration-card ownership pass retains Impression's working source at
+`47f1e9f37`, with per-file hashes in its comparison artifacts. Card owns the
+existing integration root and detail inset/label/value recipes; Badge owns
+the active/idle connection treatments and fit width. OAuth data, callbacks
+and public marketing recipes remain outside the shared package. Existing
+component defaults stay unchanged. Installed-archive browser and complete-page
+acceptance remain separate gates.
+
 Implementation authority: Impression `master` at `ccc4fd09d4f3f5eee0adb501f145c4ceb5d51e41` for the v8 migration baseline. Each later package release records the exact source commit used.
 
 Structural sidebar reference: shadcn/ui `dashboard-01` at `b9938d94635fca7a4560449713b0b1ba87d77bc6` (MIT).
