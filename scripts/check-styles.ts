@@ -51,6 +51,8 @@ for (const expected of [
 const uiSource = new URL("../packages/ui/src/", import.meta.url);
 const primitiveFiles = new Set([
   "button.tsx",
+  // Published animated button implementation with variant-owned appearance.
+  "shimmer-border-button.tsx",
   "input.tsx",
   "textarea.tsx",
   // Private compound-control action with no className or style prop.

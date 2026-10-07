@@ -180,6 +180,19 @@ apart from attribute and class ordering. Full Impression typechecking passes
 against both the installed archive and the stricter compiled declarations.
 Complete migrated-page acceptance remains separate.
 
+The shimmer action extraction uses Impression `754aa61fa`,
+`components/marketing/marketing-ui/shimmer-and-border-button.tsx`, and its
+active internal billing settings, pro-feature toast and pricing consumers.
+Fourteen markup comparisons preserve both pricing surfaces and all five
+existing shimmer recipes, including disabled states and the checkout marker's
+DOM location. The recurring Inter-backed mono typography becomes the default.
+Rotating radial highlights, the direction timer, hover scale and gradient
+animation are retained. Public pricing owns its renderer in Impression's
+public package; there is no public-package import in this shared runtime.
+Native animation, installed archive and complete-page acceptance stay separate.
+The package also owns Impression's `shimmer 2s linear infinite` keyframes so
+the effect remains animated without a host application stylesheet.
+
 ## Font provenance
 
 The package vendors normal variable fonts for standalone consumers. They are emitted inside `@ctx9/ui`; production makes no third-party font request. Font utilities first consume the host's `--font-geist-sans` and `--font-inter` bindings, preserving Impression's existing font selection when the stylesheets are combined. Standalone applications use the package's self-hosted defaults.

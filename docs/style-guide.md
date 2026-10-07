@@ -53,6 +53,12 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   `isLoading` and `gradient` options preserve the existing icon, hover gradient,
   disabled behavior, and link composition. The component owns this appearance;
   call sites do not recreate the loader or gradient classes.
+- `ShimmerBorderButton` retains the established rotating radial highlight and
+  hover shimmer. Its presets own pricing, upgrade, toast and top-up appearance;
+  no caller passes class or container recipes. The shared default uses the
+  recurring `font-mono` typography. Loader pricing actions use `preset="pricing"`.
+  Product checkout callbacks stay local; the pricing preset preserves the
+  existing checkout integration marker in its original DOM location.
 - Loader presets own the existing compact, large, recovery, paired-action,
   fixed-width and form-action recipes. They apply after the loader's defaults;
   ordinary Button presets are not loader presets. Choose `width` for standard

@@ -16,6 +16,9 @@ The v8 inventory uses Impression's internal application components and semantic 
   FunkyLoaderButton with typed loading and gradient options;
 - FunkyLoaderButton's growing-row width owns the existing full-width flex
   composition used by paired actions;
+- ShimmerBorderButton owns the existing rotating gradient, hover motion and
+  pricing/upgrade/top-up recipes. It rejects class/style overrides. Pricing
+  loaders likewise own their established appearance through a typed preset;
 - FunkyLoaderButton has its own typed presets for Impression's existing
   recovery, compact, large, fixed-width, responsive and form-submit actions.
   These preserve the original recipes without consumer appearance classes;

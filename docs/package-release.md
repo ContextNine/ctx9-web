@@ -108,6 +108,12 @@ appearance overrides. Archive, browser and complete-page gates remain separate.
 
 ## CI consumption
 
+Pricing and shimmer controls have 14 exact normalized markup comparisons
+against retained Impression `754aa61fa` source. The shared checker covers
+ShimmerBorderButton, and isolated consumers render its upgrade preset and the
+loader's pricing preset. Installed-archive, native animation and complete-page
+checks remain required. The package does not depend on Impression's public UI.
+
 Date-time trigger presets match 44 normalized closed-markup comparisons across
 11 existing configurations, including date presence and disabled states.
 Consumers use typed layouts and empty/intended states without appearance

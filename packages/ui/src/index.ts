@@ -5,6 +5,7 @@ export * from "./breadcrumb.js";
 export * from "./common.js";
 export * from "./button.js";
 export * from "./funky-loader-button.js";
+export * from "./shimmer-border-button.js";
 export * from "./card.js";
 export * from "./chart.js";
 export * from "./checkbox.js";

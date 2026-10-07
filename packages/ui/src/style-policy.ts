@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 export const standardizedComponents = new Set([
   "Button",
   "FunkyLoaderButton",
+  "ShimmerBorderButton",
   "CTAActionButton",
   "PriorityPill",
   "ThemeToggle",

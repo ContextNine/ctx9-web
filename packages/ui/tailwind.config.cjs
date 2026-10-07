@@ -72,6 +72,15 @@ module.exports = {
       "7xl": "5rem",
     },
     extend: {
+      keyframes: {
+        shimmer: {
+          from: { backgroundPosition: "0 0" },
+          to: { backgroundPosition: "-200% 0" },
+        },
+      },
+      animation: {
+        shimmer: "shimmer 2s linear infinite",
+      },
       // Preserve Impression's emitted Next CSS, including alias order.
       transitionProperty: {
         DEFAULT:

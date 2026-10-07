@@ -60,6 +60,13 @@ const presetClassNames = {
   fixedWide: "w-[300px] border border-input",
   responsiveCentered: "m-0 w-full justify-center text-nowrap sm:w-auto",
   formSubmit: "mt-4 w-fit",
+  pricing: cn(
+    "flex h-10 items-center justify-center px-3.5 py-2.5 text-center font-mono text-sm font-semibold",
+    "block w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+    "scale-[100%] transition-transform duration-300 hover:scale-[102%]",
+    "lemonsqueezy-button rounded-lg",
+    "dark:bg-white hover:dark:bg-white dark:text-black text-white bg-black",
+  ),
   inlineAction: "m-0 flex items-center",
   inlineRoomy: "m-0 flex items-center p-4",
   nowrap: "text-nowrap",
