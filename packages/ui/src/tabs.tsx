@@ -56,8 +56,13 @@ const tabsTriggerVariants = cva(
           "data-[state=active]:bg-neutral-150 data-[state=active]:text-black data-[state=active]:shadow-none dark:data-[state=active]:bg-mono-850 dark:data-[state=active]:text-white",
         ),
       },
+      gap: {
+        default: "",
+        tight: "gap-1",
+        standard: "gap-2",
+      },
     },
-    defaultVariants: { variant: "default" },
+    defaultVariants: { variant: "default", gap: "default" },
   },
 );
 
@@ -78,10 +83,10 @@ const TabsTrigger = React.forwardRef<
   React.ComponentRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> &
     VariantProps<typeof tabsTriggerVariants>
->(({ className, variant, ...props }, ref) => (
+>(({ className, variant, gap, ...props }, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
-    className={cn(tabsTriggerVariants({ variant }), className)}
+    className={cn(tabsTriggerVariants({ variant, gap }), className)}
     {...props}
   />
 ));
@@ -94,14 +99,21 @@ const tabsContentVariants = cva(
       variant: {
         default: "",
         surface: "mt-2 h-full w-full rounded-2xl p-6 shadow-input",
+        mainPanel: "m-0 mt-0 w-full h-0 focus-visible:h-full px-1",
       },
       padding: {
         none: "",
         comfortable: "p-4",
         responsive: "px-4 lg:px-6",
       },
+      layout: {
+        default: "",
+        grow: "min-h-0 flex-1",
+        activeFill:
+          "data-[state=active]:h-full data-[state=active]:flex-1 data-[state=active]:overflow-hidden",
+      },
     },
-    defaultVariants: { variant: "default", padding: "none" },
+    defaultVariants: { variant: "default", padding: "none", layout: "default" },
   },
 );
 
@@ -109,11 +121,11 @@ const TabsContent = React.forwardRef<
   React.ComponentRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> &
     VariantProps<typeof tabsContentVariants>
->(({ className, variant, padding, ...props }, ref) => (
+>(({ className, variant, padding, layout, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
     suppressHydrationWarning
-    className={cn(tabsContentVariants({ variant, padding }), className)}
+    className={cn(tabsContentVariants({ variant, padding, layout }), className)}
     {...props}
   />
 ));

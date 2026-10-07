@@ -85,6 +85,12 @@ Button presets could be overwritten by those defaults; loaders now expose
 only their own presets. Default loader output remains unchanged. Product
 workflows and public-marketing recipes stay outside the shared package.
 
+The grouped loader presets extract Impression `20d550bca` recipes from its
+generation dropdown, queue/scheduling actions and post-type header action.
+Seven presets preserve 28 normalized markup comparisons, including 14
+loading spinners. These are focused extraction checks, not complete page
+or browser appearance acceptance.
+
 The animated action comparison also caught a draft auth recipe mismatch. Auth
 buttons retain Impression's `common-public.tsx` recipe, including its 40px
 height, `border-input`, and shadow treatment. The earlier generic 36px auth
@@ -138,6 +144,12 @@ settings, campaign navigation, the admin sidebar and compact inspiration tabs.
 Existing Tabs defaults and keyboard behavior remain unchanged. The compact
 trigger retains the source's 11px typography; changing it to 12px would restyle
 the existing control. Consumer migration still requires browser comparison.
+
+The Tabs migration also extracts Impression `20d550bca` main-panel,
+campaign growing-panel, table padding and icon-gap recipes. Eleven layouts
+match 22 normalized markup comparisons against the retained local Tabs.
+Defaults and Radix behavior stay unchanged. Keyboard, rendered-property and
+pixel comparisons remain separate acceptance checks.
 
 The CSS compiler is aligned to Impression `25e5df778`: PostCSS 8.5.18 and
 Autoprefixer 10.4.22, with its resolved Browserslist and browser-data versions.

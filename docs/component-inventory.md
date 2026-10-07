@@ -19,6 +19,9 @@ The v8 inventory uses Impression's internal application components and semantic 
 - FunkyLoaderButton has its own typed presets for Impression's existing
   recovery, compact, large, fixed-width, responsive and form-submit actions.
   These preserve the original recipes without consumer appearance classes;
+- Grouped scheduling/generation actions use loader start, end and chevron
+  presets. Standalone round, accent and card-icon actions also have owned
+  presets; loading and gradient behavior remain unchanged.
 - AppButtonProps and AuthButtonProps constrain product wrappers to their own
   surface and variant family without copying the Button contract;
 - Workspace options and sidebar menu, settings and upload actions use Button
@@ -49,7 +52,8 @@ The v8 inventory uses Impression's internal application components and semantic 
   PopoverContent's `notice` variant owns compact explanatory-message spacing.
 - Skeleton uses Impression's existing pulse animation.
 - Tabs own the existing compact, settings, subtle and sidebar recipes through
-  variants. TabsContent owns the existing surface and padded-panel recipes;
+  variants, with typed trigger gaps. TabsContent owns the existing surface,
+  main-panel, padded-panel, growing and active-fill recipes;
   product content and navigation state remain in the consumer.
 
 ## Product compositions

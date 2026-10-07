@@ -5,6 +5,10 @@ import * as React from "react";
 import { Button } from "./button.js";
 import { cn } from "./cn.js";
 import { Loader2Icon } from "lucide-react";
+import {
+  funkyBlueButtonColourAndText,
+  sidebarTextStyles,
+} from "./impression-recipes.js";
 
 import {
   BottomGradient,
@@ -12,6 +16,16 @@ import {
 } from "./bottom-gradient.js";
 
 const buttonLoadingIconStyles = "mr-2 h-4 w-4 animate-spin";
+const groupedActionStyles = cn(
+  "h-[36px] rounded-xl",
+  sidebarTextStyles,
+  "border border-input bg-inherit",
+  funkyBlueButtonColourAndText,
+);
+const groupChevronStyles = cn(
+  groupedActionStyles,
+  "origin-center transition-all duration-300 ml-0 flex items-center justify-center rounded-br-xl rounded-tr-xl p-0",
+);
 
 const presetClassNames = {
   default: "",
@@ -30,6 +44,26 @@ const presetClassNames = {
   fixedWide: "w-[300px] border border-input",
   responsiveCentered: "m-0 w-full justify-center text-nowrap sm:w-auto",
   formSubmit: "mt-4 w-fit",
+  roundIcon: "w-fit rounded-xl px-0",
+  accentIcon: cn(
+    groupedActionStyles,
+    "origin-center transition-all duration-300 m-0 flex w-fit items-center justify-center px-2 py-1",
+  ),
+  accentCardIcon: cn(
+    groupedActionStyles,
+    "m-0 w-fit px-0",
+    "bg-white dark:bg-mono-900 hover:bg-neutral-10 hover:dark:bg-mono-800 hover:text-black hover:dark:text-white",
+  ),
+  groupStart: cn(
+    groupedActionStyles,
+    "m-0 w-fit rounded-br-none rounded-tr-none px-2",
+  ),
+  groupEnd: cn(
+    groupedActionStyles,
+    "origin-center transition-all duration-300 ml-0 flex w-[36px] items-center justify-center rounded-none rounded-br-xl rounded-tr-xl border-l-0 px-0 py-1",
+  ),
+  groupChevron: cn(groupChevronStyles, "w-[36px] border-l-0"),
+  groupChevronCompact: cn(groupChevronStyles, "w-[30px] border-l-0"),
 };
 
 export type FunkyLoaderButtonProps = Omit<

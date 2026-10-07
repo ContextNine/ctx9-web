@@ -53,6 +53,10 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   fixed-width and form-action recipes. They apply after the loader's defaults;
   ordinary Button presets are not loader presets. Choose `width` for standard
   full/fit/growing placement rather than duplicating width classes.
+- Grouped loader actions use `groupStart`, `groupEnd`, `groupChevron` or
+  `groupChevronCompact`. Their shared border, corner and hover recipes stay
+  in the component. `roundIcon`, `accentIcon` and `accentCardIcon` own the
+  corresponding standalone icon recipes.
 - Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
 - Workspace-switch choices use `preset="workspaceOption"`. Impression's
   sidebar uses `sidebarMenu`, `sidebarSettings` and `sidebarUpload` presets
@@ -62,6 +66,11 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 - Chat actions use the `threadNew`, `threadMenu`, `threadSuggestion` and
   `composerDraft` presets. Thread markers and external placement can remain
   local, but sizing, padding, hover and menu-reveal styling stay in Button.
+- Tabs use the existing `compact`, `settings`, `subtle` and `sidebar`
+  variants. Choose trigger `gap="tight"` or `gap="standard"` for icon
+  spacing. TabsContent owns `surface` and `mainPanel` appearance; its
+  `padding` and `layout` choices cover padded, growing and active-fill
+  panels. Product navigation state stays local.
 
 The runtime variables, controls, typed data table, feedback states, Auth composition, sidebar, account menu, responsive layout, and style policy live in `@ctx9/ui`. Next applications inject their link implementation through `NavigationProvider`, so internal navigation uses the Next router without adding a Next dependency to the package.
 
