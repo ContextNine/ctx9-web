@@ -42,6 +42,10 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   Its props reject `className` and `style`; products own the chosen value.
 - Focus uses a high-contrast neutral ring and never relies on color alone.
 - Destructive actions are visually restrained until the confirmation boundary.
+- AlertDialog supplies its standard overlay, 24px content inset, responsive
+  footer, heading and action recipes. Do not pass class/style overrides to
+  its trigger, content, overlay, header, footer, title, description or actions.
+  Products keep confirmation callbacks, loading state and copy local.
 - Recovery material, secrets metadata, and artifact identifiers use the shared `font-mono` utility and selectable wrapping.
 - Standard actions use `Button`. Its `loading` and `loadingLabel` props own the loading state.
 - CTX9 primary application actions select `effect="funkyStable"` for the

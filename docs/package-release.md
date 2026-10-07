@@ -108,6 +108,11 @@ appearance overrides. Archive, browser and complete-page gates remain separate.
 
 ## CI consumption
 
+AlertDialog's ownership contract preserves Impression's existing default
+recipes and rejects caller class/style overrides, including on nested titles,
+descriptions and actions. Its three Impression consumers still require
+installed-archive interaction and appearance checks before acceptance.
+
 Pricing and shimmer controls have 14 exact normalized markup comparisons
 against retained Impression `754aa61fa` source. The shared checker covers
 ShimmerBorderButton, and isolated consumers render its upgrade preset and the

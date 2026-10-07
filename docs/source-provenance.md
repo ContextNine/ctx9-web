@@ -10,6 +10,14 @@ The pre-v8 package used a shadcn `base-nova` snapshot and CTX9-only dark adaptat
 
 `@ctx9/ui` never imports Impression at build or runtime. Source moves are reviewed and recorded against the exact Impression commit, then owned and released from this repository.
 
+The AlertDialog ownership migration uses Impression `ee5fd7680`,
+`apps/next/src/components/ui/alert-dialog.tsx`, and its three internal
+analytics, onboarding and deletion consumers. Their existing default recipes
+and Radix behavior remain unchanged. The shared contract rejects caller
+class/style overrides throughout the dialog; style enforcement also covers
+its header, footer, title, description, overlay and trigger. Full consumer-page
+acceptance remains separate from component comparisons.
+
 The shared `Ctx9Mark` is the original six-cell vector served by `ctx9.com/tenants/ctx9/icons/favicon.svg`. The package embeds the mark so internal products make no runtime request to the public site.
 Its five neutral cells inherit the shared foreground for light/dark contrast;
 the existing yellow accent cell and vector geometry stay unchanged. The

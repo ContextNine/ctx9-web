@@ -73,6 +73,10 @@ The v8 inventory uses Impression's internal application components and semantic 
 - MultipleSelector with keyboard selection, async search, grouping, fixed choices, and typed single-row and selection-tone variants. Its private remove/clear actions own their classes; consumers cannot override nested input, command, or button appearance.
 - Form field, description, and error association;
 - Dialog, AlertDialog, Popover, DropdownMenu, Tooltip;
+- AlertDialog owns its overlay, content, header, footer, title, description,
+  primary action and cancellation styling. Its existing responsive layout,
+  animations and Radix focus behavior are retained; these controls reject
+  caller class/style overrides, including on the trigger.
 - Avatar, Badge, Breadcrumb, Button, Card, Chart, Checkbox, DropdownMenu, Input, Label, Select, Separator, Sheet, Sidebar, Skeleton, Sonner, Table, Tabs, Toggle, ToggleGroup, Tooltip;
 - typed TanStack Table v8 building blocks with sorting, pagination, column visibility, keyboard row navigation, and background-refresh state;
 - resizable panel groups, panels, and keyboard-accessible handles, aligned with Impression's assistant sidebar;
