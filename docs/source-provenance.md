@@ -8,8 +8,22 @@ Existing Toast variants, viewport and action/close recipes become an owned
 contract without caller appearance overrides. ToastBody owns the existing
 title/description grid. Resizable group and handle defaults keep their current
 native library behavior and optional grip. Product toast state, scheduling,
-undo callbacks and assistant content stay local. Installed-archive, native
-browser and complete-page acceptance remain required.
+undo callbacks and assistant content stay local. Impression installs the
+unpublished archive from shared source `bebad871`. Its full check, 21 integration
+tests and isolated installation pass under Node 22. All 92 installed-archive
+native comparisons match computed styles, geometry, native attributes, refs,
+callbacks, toast state and sampled motion across both widths and themes.
+Eighty-eight full-fixture screenshots match exactly; four toast states differ
+by 1–75 pixels and remain unaccepted. All 460 Resizable and assistant-composition
+section comparisons match pixels exactly, without masks or tolerance. The
+unused local Resizable copy is removed; the local Toast copy remains pending
+appearance acceptance. Product AST across six consumer files remains exact
+after imports, formatting and the equivalent native ToastBody div are accounted
+for. Host and package CSS are byte-identical, including host CSS after unused
+Resizable removal. Capture corrections address the native timer's pause/resume
+history, an incorrect floating-point subtraction assertion and the existing
+grain texture asset, without changing production behavior. Complete-page,
+real-service and release acceptance remain required.
 
 The Collapsible and Alert pass retains Impression's working source at
 `d06286428`, with hashes in its `disclosure-retained-source.json` artifact.
