@@ -33,6 +33,13 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   recreating these dimensions at call sites. Auto-height fields retain their
   content-driven sizing.
 - Labels remain visible. Placeholder text does not replace a label.
+- Input's `onboarding`, `sidebar`, `titleAutosize` and `titleTeam` presets
+  preserve existing field recipes. Textarea's `onboarding` and `reply`
+  presets own their colors, borders and insets; `highlighting="overlay"`
+  preserves the reply editor's transparent text and selection colors.
+  Product title measurement and snippet highlighting remain local. Auth
+  textarea callers choose `autoResize` explicitly when replacing the former
+  auth wrapper. Standard shared field defaults are unchanged.
 - Checkbox and Switch reject `className` and `style` in their props. Checkbox
   appearance uses its `variant` and `interaction` choices; Switch owns its
   established on/off appearance. Put placement classes on the containing row.

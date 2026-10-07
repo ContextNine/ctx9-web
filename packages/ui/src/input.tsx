@@ -30,7 +30,13 @@ export type InputProps = Omit<
     shape?: ControlShape;
     textAlign?: "left" | "center" | "right";
     status?: "default" | "error";
-    tone?: "default" | "sidebar";
+    tone?: "default" | "sidebar" | "editor" | "editorTitle";
+    preset?:
+      | "default"
+      | "onboarding"
+      | "sidebar"
+      | "titleAutosize"
+      | "titleTeam";
     width?:
       | "default"
       | "auto"
@@ -60,6 +66,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       textAlign = "left",
       status = "default",
       tone = "default",
+      preset = "default",
       width = "default",
       inset = "default",
       interaction = "default",
@@ -95,6 +102,16 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           inset === "action" && "pr-20",
           inset === "newsletter" && "max-[410px]:pr-5",
           interaction === "dragging" && "select-none cursor-grabbing",
+          (preset === "titleAutosize" || preset === "titleTeam") &&
+            "h-8 w-auto min-w-full",
+          preset === "titleTeam" &&
+            "h-auto border-none bg-transparent p-0 px-3 py-1 text-md font-medium text-primary",
+          preset === "sidebar" &&
+            "h-8 w-full bg-background shadow-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
+          preset === "onboarding" &&
+            "rounded-none border-0 bg-white text-mono-950 shadow-none dark:!bg-white dark:!text-mono-950 dark:placeholder:text-mono-400 dark:shadow-none",
+          tone === "editor" && "dark:bg-black bg-white",
+          tone === "editorTitle" && "bg-neutral-20 dark:bg-mono-900",
           className,
         )}
         ref={ref}

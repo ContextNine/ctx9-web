@@ -61,6 +61,11 @@ The v8 inventory uses Impression's internal application components and semantic 
   presets own their established dimensions, padding and interaction colors.
   Assistant runtime state and tooltip content remain in the consumer.
 - Input, Textarea, Label, Checkbox, Select, Switch;
+- Input presets own onboarding, sidebar and auto-sizing title appearance.
+  Textarea presets own onboarding and reply-composer appearance; its typed
+  highlight overlay preserves the existing transparent-text/caret treatment.
+  Label provides contrast and sidebar tones. Products retain measurement,
+  syntax highlighting, callbacks and values.
 - ColorPicker retains Impression's hex field, two-dimensional color/hue
   controls, default palette and selected swatch. Private color actions own
   dynamic background data and reject arbitrary appearance. The input ref and

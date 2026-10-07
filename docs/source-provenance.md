@@ -212,6 +212,15 @@ from whole-page acceptance.
 
 ## Font provenance
 
+The field ownership migration uses Impression `45b51955a`. Input owns the
+existing onboarding, sidebar and measured-title recipes. Textarea owns the
+onboarding and reply-composer recipes, including the transparent highlight
+overlay state. Label's contrast and sidebar tones retain their existing colors.
+Auth textarea callers explicitly retain the Aceternity wrapper's auto-resize
+default; the shared app textarea default remains unchanged. Product measurement,
+highlighting and editing behavior stay in Impression. Installed-archive and
+browser checks remain separate from complete-page acceptance.
+
 The package vendors normal variable fonts for standalone consumers. They are emitted inside `@ctx9/ui`; production makes no third-party font request. Font utilities first consume the host's `--font-geist-sans` and `--font-inter` bindings, preserving Impression's existing font selection when the stylesheets are combined. Standalone applications use the package's self-hosted defaults.
 
 | File                        | Upstream package                                                                                          | License                                                              | SHA-256                                                            |

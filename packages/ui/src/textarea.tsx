@@ -57,7 +57,15 @@ export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> &
     scroll?: "default" | "auto" | "styled" | "hidden";
     grow?: boolean;
     shape?: ControlShape;
-    tone?: "default" | "paper" | "editor" | "code" | "codeOverlay";
+    tone?:
+      | "default"
+      | "paper"
+      | "editor"
+      | "editorTitle"
+      | "code"
+      | "codeOverlay";
+    preset?: "default" | "onboarding" | "reply";
+    highlighting?: "default" | "overlay";
   };
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -74,6 +82,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       shape = "default",
       surface = "app",
       tone = "default",
+      preset = "default",
+      highlighting = "default",
       value,
       variant = "default",
       ...props
@@ -126,6 +136,16 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           tone === "paper" && "bg-white dark:bg-mono-900",
           tone === "editor" && "bg-white dark:bg-mono-950",
           tone === "code" && "font-mono text-xs leading-relaxed",
+          tone === "editorTitle" && "bg-neutral-20 dark:bg-mono-900",
+          preset === "onboarding" &&
+            "rounded-none border-0 bg-white text-mono-950 shadow-none dark:!bg-white dark:!text-mono-950 dark:placeholder:text-mono-400 dark:shadow-none min-h-[140px]",
+          preset === "reply" &&
+            cn(
+              "mb-1 max-h-32 min-h-14 w-full resize-none border-0 bg-transparent px-4 pb-3 pt-2 text-sm shadow-none outline-none placeholder:text-muted-foreground focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
+              scrollbarStyles,
+            ),
+          highlighting === "overlay" &&
+            "text-transparent caret-mono-900 selection:bg-amber-100 dark:caret-mono-50 dark:selection:bg-amber-400/25",
           className,
         )}
         ref={(node) => {
