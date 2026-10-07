@@ -46,6 +46,10 @@ const sheetVariants = cva(
       variant: {
         default: "",
         metadata: "flex w-full flex-col gap-0 p-0 sm:w-[38rem] sm:max-w-[94vw]",
+        navigation:
+          "flex min-h-[calc(100vh-32px-40px-24px)] max-w-[250px] flex-col px-3 pr-3",
+        sidebar:
+          "bg-sidebar text-sidebar-foreground w-[--sidebar-width] p-0 [&>button]:hidden",
       },
     },
     defaultVariants: {

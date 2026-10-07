@@ -22,6 +22,8 @@ export * from "./multiple-selector.js";
 export * from "./pagination.js";
 export * from "./popover.js";
 export * from "./scroll-area.js";
+export * from "./assistant-question-field.js";
+export * from "./assistant-choice-option.js";
 export * from "./resizable.js";
 export * from "./select.js";
 export * from "./separator.js";

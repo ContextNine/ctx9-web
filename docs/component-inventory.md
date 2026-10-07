@@ -150,6 +150,21 @@ The v8 inventory uses Impression's internal application components and semantic 
 
 ## Product compositions
 
+Chart retains Impression's tooltip formatting, payload labels, legends and
+responsive sizing. Typed height/aspect and analytics-tooltip choices own the
+existing consumer recipes. CommandGroup owns scrolling layout; ScrollArea owns
+time-picker and folder-picker sizing. MultipleSelector owns selection and search
+behavior without nested control appearance overrides.
+
+The generic Sidebar retains Impression's cookie, keyboard shortcut, mobile
+breakpoint, widths and native composition. Bordered sections and inset content
+are typed choices; Sheet owns navigation and mobile-sidebar recipes. CTX9's
+ApplicationLayout remains a separate composition using the same primitives.
+
+AssistantQuestionField and AssistantChoiceOption own generic question/history
+and choice presentation. Products supply editor content and callbacks. Upload
+state, analytics sample data and assistant runtime integrations stay local.
+
 - `ApplicationLayout`, `AppSidebar`, `AppSidebarHeader`, `AppSidebarGroup`, `AppSidebarLink`, `AppSidebarFooter`, `AccountMenu`, `TenantAccountSettingsDialog`, `AuthShell`, `FocusedShell`, and `PageHeading` are published shared compositions. `ApplicationLayout` accepts a typed complete breadcrumb path, while `PageHeading` accepts an optional typed parent link rendered as an icon-only chevron. `createCtx9Applications` owns the fixed Secrets, Publisher, Testimonials ordering. `AppSidebarHeader` owns the CTX9 grid mark and All apps menu. Product navigation stays text-only.
 - `@ctx9/ui/icon.svg` is the canonical self-contained CTX9 browser icon copied into each Next application's `app/icon.svg`.
 - `NavigationProvider` and `NavigationLink` form the framework-neutral link adapter. Next consumers supply `next/link` once at the provider boundary.

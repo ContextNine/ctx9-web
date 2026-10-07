@@ -2,6 +2,24 @@
 
 Reference repository: Impression
 
+The October 7 remaining-ownership pass uses Impression's working sources at
+`36aeae3e4c86aed9f963a1b3150c211595910fa0`: Chart, Sidebar, use-mobile,
+Command, ScrollArea, Sheet and the two `packages/ui/src/assistant-*` controls.
+Native elements, default recipes, chart payload formatting, responsive behavior,
+cookie persistence and keyboard toggling are retained. Existing caller recipes
+become typed choices. Chart supports both class-based and attribute-based dark
+themes. The source uses local shared dependencies, never runtime Impression
+imports. Product upload state and sample-dashboard compositions remain in
+Impression outside its generic UI directory.
+
+Matt's October 7 scope change prioritizes complete CTX9 adoption and focused
+acceptance over exhaustive Impression screenshot matrices. Unused transitional
+copies may be retired once import/type checks pass. Their recorded pixel
+differences remain deferred, not accepted, in Impression's
+`.agents/plans/phase-3-shared-ui-consolidation-2026-09-23/progress-2026-10-07.md`.
+Impression's final appearance pass is separate from shared-package/CTX9 release
+acceptance; preserve all existing animations.
+
 The Toast and Resizable ownership pass retains Impression's working source at
 `371819b9a`, with hashes in its `feedback-retained-source.json` artifact.
 Existing Toast variants, viewport and action/close recipes become an owned

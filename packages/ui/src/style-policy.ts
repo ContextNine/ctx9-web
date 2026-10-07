@@ -119,6 +119,22 @@ export const standardizedComponents = new Set([
   "SheetTitle",
   "SheetDescription",
   "CommandItem",
+  "Command",
+  "CommandInput",
+  "CommandEmpty",
+  "CommandGroup",
+  "CommandList",
+  "CommandSeparator",
+  "CommandShortcut",
+  "ScrollArea",
+  "ScrollBar",
+  "ChartContainer",
+  "ChartTooltipContent",
+  "ChartLegendContent",
+  "SidebarMenuButton",
+  "SidebarMenuAction",
+  "SidebarGroupAction",
+  "SidebarTrigger",
 ]);
 
 export type StyleExceptionReason =

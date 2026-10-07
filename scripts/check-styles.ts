@@ -59,6 +59,9 @@ const primitiveFiles = new Set([
   "selection-button.tsx",
   // Private color-picker action with a typed color value and no styling props.
   "color-swatch.tsx",
+  // Appearance-owned compound controls ported from Impression.
+  "sidebar.tsx",
+  "assistant-choice-option.tsx",
 ]);
 for (const file of await readdir(uiSource)) {
   if (!file.endsWith(".ts") && !file.endsWith(".tsx")) continue;

@@ -4,6 +4,16 @@ GitHub `ContextNine/ctx9-web` is the canonical source. A GitHub Actions deploy k
 
 ## Release
 
+For this v8 migration, Matt's October 7 scope change separates shared-package
+and CTX9 acceptance from Impression's final appearance pass. Finish component
+ownership, focused CTX9 behavior/build checks and immutable pins without waiting
+for exhaustive Impression screenshot matrices. Keep every unresolved Impression
+comparison in its linked progress document; do not relabel differences as
+passes. Full package checks, isolated archive acceptance and matching source CI
+remain required before publication. Earlier paragraphs describing pending
+complete Impression matrices are historical evidence, not a requirement to
+repeat them before the CTX9 release.
+
 The shared style-policy engine can also check additional component packages
 through repeated `--package` arguments or the `{ packages, exceptions }` API.
 Its integration fixture covers public action aliases, safe object props, and

@@ -7,11 +7,20 @@ import { cn } from "./cn.js";
 
 const ScrollArea = React.forwardRef<
   React.ComponentRef<typeof ScrollAreaPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> & {
+    preset?: "default" | "timePicker" | "folderPicker";
+  }
+>(({ className, children, preset = "default", ...props }, ref) => (
   <ScrollAreaPrimitive.Root
     ref={ref}
-    className={cn("relative overflow-hidden", className)}
+    className={cn(
+      "relative overflow-hidden",
+      {
+        "h-[15rem] w-[126px]": preset === "timePicker",
+        "h-[300px] rounded-md border": preset === "folderPicker",
+      },
+      className,
+    )}
     {...props}
   >
     <ScrollAreaPrimitive.Viewport className="h-full w-full rounded-[inherit]">
