@@ -23,6 +23,7 @@ import {
   mainButtonStyles,
   minorButtonStyles,
   outlineButtonStyles,
+  panelTitleStyles,
   postExpansionButtonStyles,
   selectedBgStyles,
   selectedButtonStyles,
@@ -66,6 +67,14 @@ const appFunkyAccentEffectStyles = cn(
 const appFunkyDestructiveStyles = cn(
   outlineButtonStyles,
   "text-rose-600 hover:text-rose-700 dark:text-rose-300 dark:hover:text-rose-200",
+);
+
+const dateTimeTriggerStyles = "w-full justify-start text-left font-normal";
+const dateTimeJoinedStyles = cn(
+  "h-[36px] rounded-xl",
+  "m-0 w-full rounded-br-none rounded-tr-none px-2",
+  sidebarTextStyles,
+  "border border-input bg-inherit",
 );
 
 export const buttonVariants = cva(
@@ -145,6 +154,8 @@ export const buttonVariants = cva(
         panelActive: "bg-brand-500",
         panelIdle: "bg-brand-100",
         commandSelected: "bg-neutral-150 dark:bg-mono-900",
+        dateTimeEmpty: "",
+        dateTimeIntended: "",
       },
       effect: {
         standard: "",
@@ -284,6 +295,50 @@ export const buttonVariants = cva(
         calendarCaption: "h-7 w-full truncate text-sm font-medium",
         calendarYear: "h-7 w-full text-sm font-normal text-foreground",
         timezoneTrigger: cn(defaultButtonStyles, "w-[300px] justify-between"),
+        dateTimeTrigger: cn(dateTimeTriggerStyles, hoverStyles),
+        dateTimeSchedule: cn(
+          dateTimeTriggerStyles,
+          panelTitleStyles,
+          "bg-inherit dark:bg-inherit",
+          hoverStyles,
+        ),
+        dateTimeScheduleJoined: cn(
+          dateTimeTriggerStyles,
+          dateTimeJoinedStyles,
+          funkyBlueButtonColourAndText,
+          panelTitleStyles,
+          "bg-inherit dark:bg-inherit",
+          hoverStyles,
+        ),
+        dateTimeMenu: cn(
+          dateTimeTriggerStyles,
+          dropdownButtonStyles,
+          panelTitleStyles,
+          "bg-inherit dark:bg-inherit border-none",
+          hoverStyles,
+        ),
+        dateTimeMenuCompact: cn(
+          dateTimeTriggerStyles,
+          "h-8",
+          dropdownButtonStyles,
+          panelTitleStyles,
+          "bg-inherit dark:bg-inherit border-none",
+          hoverStyles,
+        ),
+        dateTimeRangeStart: cn(
+          dateTimeTriggerStyles,
+          dateTimeJoinedStyles,
+          hoverStyles,
+        ),
+        dateTimeRangeEnd: cn(
+          dateTimeTriggerStyles,
+          "h-[36px] rounded-xl",
+          "m-0 w-full rounded-bl-none rounded-tl-none px-2",
+          sidebarTextStyles,
+          "border border-input bg-inherit",
+          funkyBlueButtonColourAndText,
+          hoverStyles,
+        ),
         sidebarTrigger: "h-7 w-7",
         editorNarrowIcon: "m-0 min-w-[26px] max-w-[26px] gap-0 rounded-xl px-0",
         panelTrigger: cn(minorButtonStyles, sidebarTextStyles),
@@ -438,6 +493,26 @@ export const buttonVariants = cva(
       },
     },
     compoundVariants: [
+      {
+        preset: "dateTimeTrigger",
+        state: "dateTimeEmpty",
+        className: "text-muted-foreground",
+      },
+      {
+        preset: [
+          "dateTimeSchedule",
+          "dateTimeScheduleJoined",
+          "dateTimeMenu",
+          "dateTimeMenuCompact",
+        ],
+        state: "dateTimeIntended",
+        className: "text-muted-foreground",
+      },
+      {
+        preset: ["dateTimeSchedule", "dateTimeScheduleJoined"],
+        state: "dateTimeIntended",
+        className: "border-dashed",
+      },
       {
         preset: "platformLink",
         palette: "neutral",

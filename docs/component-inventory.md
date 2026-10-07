@@ -75,6 +75,9 @@ The v8 inventory uses Impression's internal application components and semantic 
 - resizable panel groups, panels, and keyboard-accessible handles, aligned with Impression's assistant sidebar;
 - Badge with semantic success, warning and destructive variants, and status text;
 - Calendar, date input, time input, date-time, timezone selector, and date range;
+- Existing date-time trigger layouts use Button presets and typed empty/intended
+  states. Products compose date selection and scheduling without passing trigger
+  appearance classes or border flags.
 - Toast/status announcement and ErrorPage;
 - Sonner retains its original animated loading spinner. The pre-v8 static-dot
   override is removed with the retired no-spinner restriction.

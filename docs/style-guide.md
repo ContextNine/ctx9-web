@@ -104,6 +104,12 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   presets. Calendar navigation, captions and years use their corresponding
   presets, with `calendarCurrent` for the current year. Timezone triggers own
   their existing fixed width. Product positioning stays local.
+- Date-time triggers use `dateTimeTrigger`, `dateTimeSchedule`,
+  `dateTimeScheduleJoined`, `dateTimeMenu`, `dateTimeMenuCompact`,
+  `dateTimeRangeStart` or `dateTimeRangeEnd`. These own the existing joined
+  corners, menu density, borders, typography and hover precedence. Empty and
+  intended dates select `dateTimeEmpty` and `dateTimeIntended`; product date
+  selection, scheduling mutations and calendar state stay local.
 - Side navigation tabs select `sideTab`, their expanded/collapsed sidebar
   choice and selected state. Narrow editor actions use `editorNarrowIcon`;
   readability selects `readabilityActive`. Panel choices select `panelTrigger`

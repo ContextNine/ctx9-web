@@ -108,6 +108,12 @@ appearance overrides. Archive, browser and complete-page gates remain separate.
 
 ## CI consumption
 
+Date-time trigger presets match 44 normalized closed-markup comparisons across
+11 existing configurations, including date presence and disabled states.
+Consumers use typed layouts and empty/intended states without appearance
+classes. Installed archive, open-picker behavior and complete-page acceptance
+remain required.
+
 ColorPicker owns its trigger, swatch palette and hex field and is covered by
 shared style enforcement. Twelve closed-markup comparisons match the retained
 Impression source. Open-picker behavior, input refs, keyboard selection and

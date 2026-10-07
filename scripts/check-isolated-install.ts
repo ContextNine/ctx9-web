@@ -52,6 +52,7 @@ interface Row { id: string; name: string }
 const helper = createDataTableColumnHelper<Row>();
 const columns = [helper.accessor('name', { header: 'Name' })];
 const app = <><Button variant="primary">Save</Button><Input aria-label="Name" />
+<Button variant="secondary" preset="dateTimeMenu" state="dateTimeIntended">Schedule</Button>
 <Checkbox aria-label="Selected" /><DataTable data={[{ id: '1', name: 'Example' }]}
 columns={columns} getRowId={row => row.id} emptyMessage="Empty" />
 <ColorPicker value="#3275F8" onChange={() => undefined} layer="raised" /></>;

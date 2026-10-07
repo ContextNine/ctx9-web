@@ -111,6 +111,15 @@ Products retain domain mappings and activation behavior. The cursor-only
 unavailable action remains enabled in the DOM, as in the original composition.
 Archive, native interaction and complete-page acceptance remain separate gates.
 
+The date-time trigger extraction uses Impression `931872c9c`,
+`components/datetime/date-time-picker.tsx`, its scheduling wrapper and calendar
+range callers. Seven presets retain eleven existing trigger configurations,
+including intended-date tone and borders, compact menu rows, joined corners
+and the original final hover precedence. Forty-four closed-markup comparisons
+match date presence and disabled states against retained installed controls.
+Calendar selection, time editing and product scheduling remain local. Archive,
+native behavior and complete-page acceptance remain separate gates.
+
 The ColorPicker port uses Impression `36b7ad8cd`,
 `apps/next/src/components/ui/color-picker.tsx`, with the existing 5.6.1
 react-colorful dependency. The raised trigger's z-index becomes a typed layer;
