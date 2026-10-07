@@ -95,6 +95,14 @@ the tooltip composition. All 29 configurations match 62 normalized markup
 comparisons against retained installed controls, including disabled and loader
 states. Archive, native animation and complete-page checks remain separate.
 
+The navigation-control presets extract Impression `e55603266` table, calendar,
+timezone, carousel, side-tab, editor-command and upgrade-action recipes.
+Thirty-five configurations match 80 normalized markup comparisons against the
+retained installed `4cbcce9` controls. This includes selected, disabled and
+loading output. Table drag activators retain the existing Mouse, Touch and
+Keyboard sensor handlers through explicit props. Product geometry and behavior
+remain local. Native interactions and complete pages require separate checks.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the

@@ -108,6 +108,10 @@ appearance overrides. Archive, browser and complete-page gates remain separate.
 
 ## CI consumption
 
+The navigation-control extraction has 80 normalized markup comparisons across
+35 configurations, including selected, disabled and loading output. Installed
+archive, native interaction and complete-page acceptance remain separate gates.
+
 The menu/rail extraction has 62 normalized markup comparisons across 29
 configurations. This includes disabled/loading controls and the unchanged
 shimmer spinner and gradient markup. Its native interaction/animation and

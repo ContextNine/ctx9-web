@@ -40,6 +40,10 @@ The v8 inventory uses Impression's internal application components and semantic 
   editor rail icons have owned presets. Typed rail density replaces injected
   important size classes; active and shimmer-loading states retain their
   established recipes without changing Button defaults or animations.
+- Table, calendar, timezone, carousel, command and side-tab actions also own
+  their existing recipes. Product wrappers retain typed placement, navigation
+  state and behavior. Loader upgrade presets preserve existing blue actions,
+  expanded/collapsed content and loading animations.
 - Workspace options and sidebar menu, settings and upload actions use Button
   presets. The sidebar prop owns expanded/collapsed sizing and alignment;
   selected and dragging states remain typed choices. Product navigation and

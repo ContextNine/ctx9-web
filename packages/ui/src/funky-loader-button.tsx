@@ -6,6 +6,7 @@ import { Button } from "./button.js";
 import { cn } from "./cn.js";
 import { Loader2Icon } from "lucide-react";
 import {
+  buttonStyles,
   funkyBlueButtonColourAndText,
   sidebarTextStyles,
 } from "./impression-recipes.js";
@@ -28,6 +29,8 @@ const groupChevronStyles = cn(
 );
 const activeSelectionStyles =
   "border-input bg-brandPrimary text-white hover:bg-brandPrimary hover:text-white dark:bg-brandPrimary dark:text-white dark:hover:bg-brandPrimary";
+const solidBrandStyles =
+  "dark:text-mono-100 rounded-xl bg-brandPrimary dark:bg-brandPrimary text-white hover:bg-brandPrimary hover:dark:bg-brandPrimary";
 
 const presetClassNames = {
   default: "",
@@ -48,6 +51,24 @@ const presetClassNames = {
   formSubmit: "mt-4 w-fit",
   inlineAction: "m-0 flex items-center",
   inlineRoomy: "m-0 flex items-center p-4",
+  nowrap: "text-nowrap",
+  upgradeCompact: cn(
+    "h-9 min-h-0 w-full rounded-lg px-3 py-2 text-sm font-semibold shadow-none",
+    solidBrandStyles,
+  ),
+  upgradePanel: cn(
+    "mt-auto w-full rounded-lg font-mono shadow-sm",
+    solidBrandStyles,
+  ),
+  upgradeIcon: cn(
+    "mt-auto w-full rounded-lg font-mono shadow-sm justify-center p-1",
+    solidBrandStyles,
+  ),
+  upgradeNavigation: cn(
+    "mt-2 flex w-full items-center justify-start gap-2 text-left transition-colors duration-200",
+    buttonStyles,
+    solidBrandStyles,
+  ),
   roundIcon: "w-fit rounded-xl px-0",
   accentIcon: cn(
     groupedActionStyles,

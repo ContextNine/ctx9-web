@@ -95,6 +95,21 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   with `sidebar="expanded"` or `sidebar="collapsed"`. Choose
   `state="sidebarSelected"` or `state="sidebarDragging"` for their existing
   selected and upload states; do not recreate those appearance recipes.
+- Table drag handles, row menus, endpoint pagination and cell links use the
+  `tableDrag`, `tableMenu`, `tableFirstPage`, `tableLastPage` and `tableCell`
+  presets. Calendar navigation, captions and years use their corresponding
+  presets, with `calendarCurrent` for the current year. Timezone triggers own
+  their existing fixed width. Product positioning stays local.
+- Side navigation tabs select `sideTab`, their expanded/collapsed sidebar
+  choice and selected state. Narrow editor actions use `editorNarrowIcon`;
+  readability selects `readabilityActive`. Panel choices select `panelTrigger`
+  or `navigationOption` with `panelActive`/`panelIdle`.
+- Carousel indicators and arrows use `carouselIndicator` and
+  `carouselNavigation`. Command rows use `commandOption` and
+  `commandSelected`; product slide state and command behavior remain local.
+- Animated upgrade actions use loader-owned `upgradeCompact`, `upgradePanel`,
+  `upgradeIcon` or `upgradeNavigation`. These preserve their established
+  blue recipe and spinner, rather than recreating them through caller classes.
 - Chat actions use the `threadNew`, `threadMenu`, `threadSuggestion` and
   `composerDraft` presets. Thread markers and external placement can remain
   local, but sizing, padding, hover and menu-reveal styling stay in Button.

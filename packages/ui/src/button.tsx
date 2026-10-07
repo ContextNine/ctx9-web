@@ -140,6 +140,11 @@ export const buttonVariants = cva(
         highlighted: "",
         brandActive: "",
         shimmerLoading: "",
+        calendarCurrent: "",
+        readabilityActive: "",
+        panelActive: "bg-brand-500",
+        panelIdle: "bg-brand-100",
+        commandSelected: "bg-neutral-150 dark:bg-mono-900",
       },
       effect: {
         standard: "",
@@ -260,6 +265,30 @@ export const buttonVariants = cva(
           "fixed inset-0 z-30 h-auto w-auto rounded-none border-0 bg-black/70 p-0 md:hidden",
         tableSort:
           "h-8 justify-start px-0 text-left text-xs text-muted-foreground hover:bg-transparent hover:text-foreground",
+        tableDrag: "size-7 text-muted-foreground hover:bg-transparent",
+        tableMenu:
+          "flex size-8 text-muted-foreground data-[state=open]:bg-muted",
+        tableFirstPage: "hidden h-8 w-8 p-0 lg:flex",
+        tableLastPage: "hidden size-8 lg:flex",
+        tableCell: "w-fit px-0 text-left text-foreground",
+        calendarNavigation:
+          "h-7 w-7 bg-transparent p-0 opacity-80 hover:opacity-100",
+        calendarCaption: "h-7 w-full truncate text-sm font-medium",
+        calendarYear: "h-7 w-full text-sm font-normal text-foreground",
+        timezoneTrigger: cn(defaultButtonStyles, "w-[300px] justify-between"),
+        sidebarTrigger: "h-7 w-7",
+        editorNarrowIcon: "m-0 min-w-[26px] max-w-[26px] gap-0 rounded-xl px-0",
+        panelTrigger: cn(minorButtonStyles, sidebarTextStyles),
+        carouselIndicator:
+          "h-1 w-6 data-[active='false']:bg-primary/50 data-[active='true']:bg-primary",
+        carouselNavigation: "h-6 w-6",
+        commandOption:
+          "h-auto w-full cursor-pointer justify-between p-2 text-mono-700 transition-colors dark:text-mono-300 hover:bg-neutral-150 hover:dark:bg-mono-900",
+        sideTab: cn(
+          "mb-1 w-full cursor-pointer truncate rounded-md text-sm font-medium",
+          hoverSideTabsStyles,
+          sidebarTextStyles,
+        ),
         chatLauncher: "h-10 w-fit justify-start rounded-lg px-4 pr-8 text-base",
         accentIcon: "size-7 bg-accent text-accent-foreground",
         threadReveal:
@@ -483,6 +512,26 @@ export const buttonVariants = cva(
       {
         state: "shimmerLoading",
         className: "hover:scale-100 hover:cursor-auto",
+      },
+      {
+        state: "calendarCurrent",
+        className: "bg-accent font-medium text-accent-foreground",
+      },
+      {
+        state: "readabilityActive",
+        className:
+          "bg-primary text-primary-foreground hover:bg-primary/90 dark:text-primary-foreground",
+      },
+      {
+        preset: "sideTab",
+        sidebar: "collapsed",
+        className:
+          "flex h-auto w-full flex-col items-center justify-center px-2",
+      },
+      {
+        preset: "sideTab",
+        sidebar: "expanded",
+        className: "h-8 items-center justify-start pl-4",
       },
     ],
     defaultVariants: {
