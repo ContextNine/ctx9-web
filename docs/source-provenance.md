@@ -16,7 +16,10 @@ preview-height, editor-surface and integration-section recipes become typed
 choices. The original 45/65 ghost opacity tokens are preserved as written,
 not repaired during extraction. Public marketing recipes and domain color
 mappings stay outside the shared runtime. Defaults remain unchanged;
-installed-archive and browser acceptance are still required.
+installed-archive and browser acceptance are still required. The browser check
+caught an integration-heading line-height change. Its original final `text-sm`
+recipe removes the earlier `leading-tight` token during class merging, so the
+shared size preserves that result instead of retaining the earlier leading.
 
 The Skeleton and Separator ownership pass retains Impression's working source
 at `dfcc6e204`, with per-file hashes in the consumer artifacts. Existing corner,

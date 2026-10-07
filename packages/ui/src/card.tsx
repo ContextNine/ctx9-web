@@ -208,7 +208,7 @@ const cardTitleVariants = cva("leading-none tracking-tight", {
       default: "text-2xl font-semibold",
       section: "text-lg font-medium",
       compact: "text-lg font-semibold",
-      integration: "text-sm font-medium leading-tight tracking-normal",
+      integration: "text-sm font-medium tracking-normal",
       metric: "text-2xl font-semibold tabular-nums @[250px]/card:text-3xl",
     },
     tone: {
