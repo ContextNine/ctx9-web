@@ -71,6 +71,15 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   navigation actions keep their own variants. This does not change Impression's
   existing Button defaults or recipes.
 - Animations, including spinners, pulses, and glow effects, are supported. The component owns the effect; there is no animation prohibition based on browser repaint cost.
+- Tooltip content owns recurring action, details, timing, source and upload
+  appearances through `preset`. Select its `layer`, `spacing` and `width`
+  rather than supplying z-index, padding or wrapping recipes. Placement and
+  pointer coordinates remain local. Tooltip timing and keyboard behavior are
+  unchanged.
+- Popover content owns choice, filter, explanatory, editor, automation,
+  date-time and confirmation recipes through `preset`. The established outer
+  Radix container and animated inner panel retain their original class merge
+  order. Products own values, callbacks and portal placement.
 - Impression's existing animated actions use `FunkyLoaderButton`. Its typed
   `isLoading` and `gradient` options preserve the existing icon, hover gradient,
   disabled behavior, and link composition. The component owns this appearance;

@@ -10,6 +10,14 @@ The pre-v8 package used a shadcn `base-nova` snapshot and CTX9-only dark adaptat
 
 `@ctx9/ui` never imports Impression at build or runtime. Source moves are reviewed and recorded against the exact Impression commit, then owned and released from this repository.
 
+The Tooltip, Popover and ContextMenu ownership pass retains the current
+Impression working sources at `9863a3a52`, with individual source hashes in
+the consumer verification artifacts. Tooltip owns recurring action, details,
+layer, inset and width recipes. Popover owns its existing caller recipes in
+both outer and inner class positions without changing motion or autofocus
+policy. ContextMenu's existing recipes are unchanged. Native installed-archive
+and complete-page comparisons remain separate acceptance gates.
+
 The AlertDialog ownership migration uses Impression `ee5fd7680`,
 `apps/next/src/components/ui/alert-dialog.tsx`, and its three internal
 analytics, onboarding and deletion consumers. Their existing default recipes
