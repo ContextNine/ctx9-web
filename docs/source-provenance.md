@@ -111,6 +111,15 @@ Products retain domain mappings and activation behavior. The cursor-only
 unavailable action remains enabled in the DOM, as in the original composition.
 Archive, native interaction and complete-page acceptance remain separate gates.
 
+The ColorPicker port uses Impression `36b7ad8cd`,
+`apps/next/src/components/ui/color-picker.tsx`, with the existing 5.6.1
+react-colorful dependency. The raised trigger's z-index becomes a typed layer;
+private swatches consume color values without accepting caller styling.
+Default presets, empty-value fallback, selected indicator, hex field ref and
+blur, disabled trigger and modal/portal behavior stay unchanged. Twelve closed
+markup comparisons match six configurations against the retained local source.
+Open-picker, installed archive and complete-page checks remain required.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the

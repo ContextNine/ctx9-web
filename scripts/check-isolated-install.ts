@@ -44,7 +44,7 @@ try {
   await writeFile(
     join(scratch, "consumer.tsx"),
     `
-import { Button, Input, Checkbox, DataTable, createDataTableColumnHelper } from '@ctx9/ui';
+import { Button, Input, Checkbox, ColorPicker, DataTable, createDataTableColumnHelper } from '@ctx9/ui';
 import * as auth from '@ctx9/web-auth';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { checkStyleSource } from '@ctx9/ui/style-policy';
@@ -53,7 +53,8 @@ const helper = createDataTableColumnHelper<Row>();
 const columns = [helper.accessor('name', { header: 'Name' })];
 const app = <><Button variant="primary">Save</Button><Input aria-label="Name" />
 <Checkbox aria-label="Selected" /><DataTable data={[{ id: '1', name: 'Example' }]}
-columns={columns} getRowId={row => row.id} emptyMessage="Empty" /></>;
+columns={columns} getRowId={row => row.id} emptyMessage="Empty" />
+<ColorPicker value="#3275F8" onChange={() => undefined} layer="raised" /></>;
 if (!renderToStaticMarkup(app).includes('Save')) throw new Error('Consumer render failed');
 if (!Object.keys(auth).length) throw new Error('Auth package export failed');
 if (checkStyleSource('src/page.tsx', "import { Button } from '@ctx9/ui'; const view = <Button className='bg-red-500' />;").length !== 1) throw new Error('Consumer policy failed');

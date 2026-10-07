@@ -76,6 +76,7 @@ for (const dependency of [
   "date-fns",
   "lucide-react",
   "react-day-picker",
+  "react-colorful",
   "react-hook-form",
   "react-resizable-panels",
   "recharts",

@@ -10,6 +10,7 @@ export const standardizedComponents = new Set([
   "ThemeToggle",
   "ButtonGroup",
   "Checkbox",
+  "ColorPicker",
   "MultipleSelector",
   "Switch",
   "Input",

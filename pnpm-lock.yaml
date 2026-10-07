@@ -137,6 +137,9 @@ importers:
       radix-ui:
         specifier: 1.4.3
         version: 1.4.3(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react-colorful:
+        specifier: 5.6.1
+        version: 5.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-day-picker:
         specifier: 9.11.1
         version: 9.11.1(react@19.1.0)
@@ -3935,6 +3938,15 @@ packages:
       "@types/react-dom":
         optional: true
 
+  react-colorful@5.6.1:
+    resolution:
+      {
+        integrity: sha512-1exovf0uGTGyq5mXQT0zgQ80uvj2PCwvF8zY1RN9/vbJVSjSo3fsB/4L3ObbF7u70NduSiK4xu4Y6q1MHoUGEw==,
+      }
+    peerDependencies:
+      react: ">=16.8.0"
+      react-dom: ">=16.8.0"
+
   react-day-picker@9.11.1:
     resolution:
       {
@@ -7027,6 +7039,11 @@ snapshots:
     optionalDependencies:
       "@types/react": 19.1.17
       "@types/react-dom": 19.1.11(@types/react@19.1.17)
+
+  react-colorful@5.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   react-day-picker@9.11.1(react@19.1.0):
     dependencies:

@@ -36,6 +36,10 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 - Checkbox and Switch reject `className` and `style` in their props. Checkbox
   appearance uses its `variant` and `interaction` choices; Switch owns its
   established on/off appearance. Put placement classes on the containing row.
+- ColorPicker owns its trigger, palette swatches, selected indicator and hex
+  field. `value` is color data, not a style override. Use `layer="raised"`
+  for the established raised trigger and `insideModal` for non-portal placement.
+  Its props reject `className` and `style`; products own the chosen value.
 - Focus uses a high-contrast neutral ring and never relies on color alone.
 - Destructive actions are visually restrained until the confirmation boundary.
 - Recovery material, secrets metadata, and artifact identifiers use the shared `font-mono` utility and selectable wrapping.

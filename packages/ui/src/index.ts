@@ -8,6 +8,7 @@ export * from "./funky-loader-button.js";
 export * from "./card.js";
 export * from "./chart.js";
 export * from "./checkbox.js";
+export * from "./color-picker.js";
 export * from "./alert-dialog.js";
 export * from "./alert.js";
 export * from "./badge.js";

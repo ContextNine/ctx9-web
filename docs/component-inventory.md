@@ -58,6 +58,10 @@ The v8 inventory uses Impression's internal application components and semantic 
   presets own their established dimensions, padding and interaction colors.
   Assistant runtime state and tooltip content remain in the consumer.
 - Input, Textarea, Label, Checkbox, Select, Switch;
+- ColorPicker retains Impression's hex field, two-dimensional color/hue
+  controls, default palette and selected swatch. Private color actions own
+  dynamic background data and reject arbitrary appearance. The input ref and
+  blur callback, disabled trigger and modal/portal placement stay supported.
 - Textarea's `code` and `codeOverlay` presets own code-field appearance. The
   overlay inherits editor typography and accepts gutter geometry through the
   containing editor's `--code-overlay-padding`; highlighting and editing

@@ -8,7 +8,7 @@ describe("consumer style policy", () => {
     const violations = checkStyleSource(
       "src/page.tsx",
       `
-      import { Button as Action, Checkbox, MultipleSelector } from '@ctx9/ui';
+      import { Button as Action, Checkbox, MultipleSelector, ColorPicker } from '@ctx9/ui';
       import * as UI from '@ctx9/ui';
       import { FunkyLoaderButton as PublicAction } from '@impression/public-ui/button';
       import { PriorityPill as Priority } from '@impression/public-ui/priority-pill';
@@ -22,6 +22,8 @@ describe("consumer style policy", () => {
         <UI.SelectTrigger className="dark:text-white" />
         <MultipleSelector size="singleRow" selectionTone="muted" className="max-w-xl" />
         <MultipleSelector className={bad} />
+        <ColorPicker value="#3275F8" onChange={() => undefined} layer="raised" />
+        <ColorPicker value="#3275F8" className={bad} />
         <PublicAction preset="compact" {...safeProps} />
         <PublicAction {...{ ...override }} />
         <PublicAction {...{ ['style']: { color: 'red' } }} />
@@ -38,6 +40,7 @@ describe("consumer style policy", () => {
       "Checkbox",
       "SelectTrigger",
       "MultipleSelector",
+      "ColorPicker",
       "FunkyLoaderButton",
       "FunkyLoaderButton",
       "FunkyLoaderButton",

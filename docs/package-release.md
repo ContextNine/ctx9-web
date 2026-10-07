@@ -108,6 +108,11 @@ appearance overrides. Archive, browser and complete-page gates remain separate.
 
 ## CI consumption
 
+ColorPicker owns its trigger, swatch palette and hex field and is covered by
+shared style enforcement. Twelve closed-markup comparisons match the retained
+Impression source. Open-picker behavior, input refs, keyboard selection and
+installed archive appearance remain consumer acceptance gates.
+
 Connection palettes and loader navigation presets have 54 normalized markup
 comparisons across 19 configurations. This includes disabled/loading output
 without changing existing defaults or animations. Installed archive, native

@@ -55,6 +55,8 @@ const primitiveFiles = new Set([
   "textarea.tsx",
   // Private compound-control action with no className or style prop.
   "selection-button.tsx",
+  // Private color-picker action with a typed color value and no styling props.
+  "color-swatch.tsx",
 ]);
 for (const file of await readdir(uiSource)) {
   if (!file.endsWith(".ts") && !file.endsWith(".tsx")) continue;
