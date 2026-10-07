@@ -72,11 +72,16 @@ describe("consumer style policy", () => {
       declare const anyProps: any;
       declare const dynamic: Record<string, unknown>;
       declare const mixed: { value: string } | { style: { color: string } };
+      declare const placement: 'aui-composer-send' | 'absolute top-1.5 right-1.5' | undefined;
+      declare const appearanceChoice: 'aui-composer-send' | 'p-4';
+      declare const unboundedClasses: string;
       const { className, style, ...adapterProps } = styled;
       const page = <><Input {...field} /><Input {...adapterProps} /><Input {...forbidden} />
         <Input {...styled} /><Input {...unknownProps} /><Input {...anyProps} />
         <Input {...dynamic} /><Input {...mixed} />
-        <Input {...{ style: undefined }} /></>;
+        <Input {...{ style: undefined }} />
+        <Input className={placement} /><Input className={appearanceChoice} />
+        <Input className={unboundedClasses} /><Input className={anyProps} /></>;
     `;
     const options = { strict: true, jsx: ts.JsxEmit.Preserve, noEmit: true };
     const host = ts.createCompilerHost(options);
@@ -110,8 +115,11 @@ describe("consumer style policy", () => {
       "Use explicit control props so className and style can be checked.",
       "Appearance cannot be supplied through a JSX spread.",
       "Appearance cannot be supplied through a JSX spread.",
+      "Use component variants for p-4.",
+      "Unresolved class recipe. Use a typed component variant.",
+      "Unresolved class recipe. Use a typed component variant.",
     ]);
-    expect(checkStyleSource(file, source).length).toBe(9);
-    expect(checkStyleSource(file, source + "\n", { program }).length).toBe(9);
+    expect(checkStyleSource(file, source).length).toBe(13);
+    expect(checkStyleSource(file, source + "\n", { program }).length).toBe(13);
   });
 });

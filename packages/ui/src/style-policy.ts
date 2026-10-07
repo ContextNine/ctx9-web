@@ -281,7 +281,7 @@ export function checkStyleSource(
       const value = constants.get(node.text);
       return value
         ? classStrings(value, new Set([...seen, node.text]))
-        : undefined;
+        : finiteTypedClassStrings(node);
     }
     if (ts.isConditionalExpression(node)) {
       const left = classStrings(node.whenTrue, seen);
@@ -312,6 +312,24 @@ export function checkStyleSource(
         : undefined;
     }
     return undefined;
+  }
+
+  function finiteTypedClassStrings(node: ts.Node): string[] | undefined {
+    if (!checker) return undefined;
+    const type = checker.getTypeAtLocation(node);
+    const members = type.isUnion() ? type.types : [type];
+    const strings: string[] = [];
+    for (const member of members) {
+      if (member.isStringLiteral()) strings.push(member.value);
+      else if (
+        !(
+          member.flags &
+          (ts.TypeFlags.Undefined | ts.TypeFlags.Null | ts.TypeFlags.Never)
+        )
+      )
+        return undefined;
+    }
+    return strings;
   }
 
   function report(node: ts.Node, component: string, message: string) {

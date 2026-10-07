@@ -312,6 +312,21 @@ export const buttonVariants = cva(
           "h-auto min-h-10 w-full justify-start gap-2 whitespace-normal px-3 py-2 text-left text-sm text-mono-700 dark:text-mono-300 [&_svg]:shrink-0",
         workspaceOption:
           "flex h-full w-full cursor-pointer items-center justify-start gap-2 rounded-md p-1",
+        assistantIcon: "size-6 p-1",
+        assistantScroll:
+          "size-6 rounded-full p-4 disabled:invisible dark:bg-background dark:hover:bg-accent",
+        assistantSend: "size-8 rounded-full p-1",
+        assistantMenu: "size-6 p-1 data-[state=open]:bg-accent",
+        assistantEdit: "size-6 p-4",
+        assistantModal:
+          "size-full p-1 rounded-full shadow transition-transform hover:scale-110 active:scale-90",
+        attachmentRemove:
+          "size-3.5 p-1 rounded-full bg-white text-muted-foreground opacity-100 shadow-sm hover:bg-white! [&_svg]:text-black hover:[&_svg]:text-destructive",
+        attachmentAdd:
+          "size-8.5 p-1 rounded-full font-semibold text-xs hover:bg-muted-foreground/15 dark:border-muted-foreground/15 dark:hover:bg-muted-foreground/30",
+        composerMic: "size-8 rounded-full p-1 hover:bg-muted-foreground/15",
+        composerMicRecording:
+          "size-8 rounded-full p-1 bg-red-500 text-white hover:bg-red-600 hover:text-white",
         sidebarMenu: cn(
           "mb-1 h-8 w-full cursor-pointer items-center truncate",
           hoverSideTabsStyles,

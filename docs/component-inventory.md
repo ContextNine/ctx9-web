@@ -31,6 +31,9 @@ The v8 inventory uses Impression's internal application components and semantic 
 - Chat thread creation, overflow menus, suggestions and draft actions use
   Button presets. Thread selection, menu state and message generation stay
   in the consumer; hover and group-reveal appearance belong to the component.
+- Assistant icon, scroll, send, menu, edit, modal, attachment and recording
+  presets own their established dimensions, padding and interaction colors.
+  Assistant runtime state and tooltip content remain in the consumer.
 - Input, Textarea, Label, Checkbox, Select, Switch;
 - Textarea's `code` and `codeOverlay` presets own code-field appearance. The
   overlay inherits editor typography and accepts gutter geometry through the

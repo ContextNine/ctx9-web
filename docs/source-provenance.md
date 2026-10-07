@@ -54,6 +54,13 @@ reply composer. They preserve thread-row hover, overflow-menu reveal,
 suggestion layout and draft-action colors. Framework markers and product
 behavior remain local; the presets do not change Button defaults.
 
+The assistant icon presets extract Impression `4b06e50bc` recipes from its
+tooltip icon wrapper, thread, attachment, modal and live chat components.
+Ten recipes match 40 normalized markup comparisons, including disabled and
+open/closed states. The product wrapper now limits its class prop to existing
+framework markers and placement; appearance uses shared presets. This is
+focused extraction evidence, not tooltip-interaction or whole-page acceptance.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the

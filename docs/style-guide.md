@@ -66,6 +66,11 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
 - Chat actions use the `threadNew`, `threadMenu`, `threadSuggestion` and
   `composerDraft` presets. Thread markers and external placement can remain
   local, but sizing, padding, hover and menu-reveal styling stay in Button.
+- Assistant icon actions select the `assistantIcon`, `assistantScroll`,
+  `assistantSend`, `assistantMenu`, `assistantEdit` and `assistantModal`
+  presets. Attachments use `attachmentAdd` and `attachmentRemove`;
+  recording selects `composerMic` or `composerMicRecording`. These preserve
+  the existing recipes. Framework markers and external placement stay local.
 - Tabs use the existing `compact`, `settings`, `subtle` and `sidebar`
   variants. Choose trigger `gap="tight"` or `gap="standard"` for icon
   spacing. TabsContent owns `surface` and `mainPanel` appearance; its
@@ -101,6 +106,12 @@ fields or adapter props. TypeScript must prove that a spread has no usable
 still fail; literal appearance keys remain forbidden. Keep the consumer's
 typecheck in CI alongside this check. The programmatic API accepts the same
 consumer `program` in its options.
+
+With a current TypeScript program, the checker can inspect a parameter whose
+class choices are a finite string-literal union. Every choice still receives
+the normal appearance check. This supports narrowly typed framework markers
+and placement without accepting unrestricted strings, `any`, or appearance
+hidden in one union branch.
 
 The optional exceptions file is a JSON array. Each entry names one exact repository-relative file and component, a reason of `framework-adapter`, `control-composition`, or `feature-geometry`, and a written explanation. Do not exempt whole source roots. Public-specific design rules remain in Impression; the shared engine owns the control-appearance boundary.
 
