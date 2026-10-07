@@ -80,6 +80,8 @@ if (local) {
     require.resolve("typescript/bin/tsc"),
     "-p",
     "tsconfig.build.json",
+    "--outDir",
+    local.compiledDirectory,
   ];
   const tailwindArgs = [
     tailwind,

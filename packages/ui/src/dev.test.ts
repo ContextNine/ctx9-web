@@ -14,6 +14,7 @@ test("consumer checkouts share live source in dev without changing production re
       JSON.stringify({ name: "@ctx9/ui" }),
     );
     await writeFile(join(ui, "src/index.ts"), "export {};\n");
+    const compiledDirectories = new Set<string>();
     for (const path of [
       "impression/apps/next",
       "workspaces/impression/test/apps/next",
@@ -26,13 +27,17 @@ test("consumer checkouts share live source in dev without changing production re
       expect(findLocalUi(app)).toBe(ui);
       vi.stubEnv("NODE_ENV", "development");
       const config = getLocalUiConfig(app);
-      expect(config?.turbopack.root).toBe(
+      if (!config) throw new Error("local UI config missing");
+      expect(compiledDirectories.has(config.compiledDirectory)).toBe(false);
+      compiledDirectories.add(config.compiledDirectory);
+      expect(dirname(config.compiledDirectory)).toBe(join(ui, ".ctx9-ui-dev"));
+      expect(config.turbopack.root).toBe(
         path.startsWith("ctx9/") ? join(code, "ctx9") : code,
       );
-      expect(config?.webpackAliases["@ctx9/ui$"]).toBe(
-        join(ui, "dist/index.js"),
+      expect(config.webpackAliases["@ctx9/ui$"]).toBe(
+        join(config.compiledDirectory, "index.js"),
       );
-      expect(config?.turbopack.resolveAlias["@ctx9/ui/styles.css"]).toBe(
+      expect(config.turbopack.resolveAlias["@ctx9/ui/styles.css"]).toBe(
         "./.ctx9-ui/styles.css",
       );
       vi.stubEnv("NODE_ENV", "production");

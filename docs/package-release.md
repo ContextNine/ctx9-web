@@ -174,6 +174,9 @@ Webpack/Turbopack aliases resolve `@ctx9/ui` to the checkout's watched build.
 The TypeScript watcher compiles edits and newly added exports automatically;
 Next watches those files for hot reload. Next 15 Turbopack needs this emitted
 JavaScript because the package's relative imports use `.js` extensions.
+Each project's compiler output lives in an ignored, project-specific directory
+under `packages/ui/.ctx9-ui-dev/`. It never shares `dist` with release builds or
+another app's dev server, so package builds cannot delete live module factories.
 
 Web dev commands run through `ctx9-ui-dev -- next dev ...`. It builds shared
 TypeScript and Tailwind CSS before the first request, then watches both

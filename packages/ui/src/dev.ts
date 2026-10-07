@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 
@@ -33,13 +34,19 @@ export function getLocalUiConfig(appDirectory = process.cwd()) {
   if (process.env.NODE_ENV !== "development") return undefined;
   const packageDirectory = findLocalUi(appDirectory);
   if (!packageDirectory) return undefined;
-  const source = join(packageDirectory, "dist/index.js");
+  const appId = createHash("sha256")
+    .update(resolve(appDirectory))
+    .digest("hex")
+    .slice(0, 12);
+  const compiledDirectory = join(packageDirectory, ".ctx9-ui-dev", appId);
+  const source = join(compiledDirectory, "index.js");
   const stylesheet = join(resolve(appDirectory), ".ctx9-ui/styles.css");
   let root = resolve(appDirectory);
   while (relative(root, packageDirectory).startsWith(".."))
     root = dirname(root);
   return {
     packageDirectory,
+    compiledDirectory,
     stylesheet,
     turbopack: {
       root,
