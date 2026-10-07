@@ -100,6 +100,24 @@ module.exports = {
         "5xl": "64rem",
       },
       colors: {
+        ...Object.fromEntries(
+          [
+            "orange",
+            "purple",
+            "red",
+            "green",
+            "blue",
+            "gray",
+            "yellow",
+            "brown",
+            "pink",
+          ].flatMap((color) =>
+            ["bg", "bg-dark"].map((part) => [
+              `ns-${color}-${part}`,
+              `color-mix(in srgb, var(--ns-${color}-${part}) calc(<alpha-value> * 100%), transparent)`,
+            ]),
+          ),
+        ),
         neutral: variableScale("neutral", neutralScale),
         mono: variableScale("mono", monoScale),
         background: "hsl(var(--background) / <alpha-value>)",

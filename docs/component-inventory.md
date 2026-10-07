@@ -119,6 +119,10 @@ The v8 inventory uses Impression's internal application components and semantic 
   and its typography. Badge's active/idle connection variants own colors and
   hover treatment; its fit width owns the shrinking pill layout. Product
   connection state and workflows remain local.
+- Card's palette, tone and empty tile variants own dense selectable-card
+  appearance, fading and the original update pulse. Generic palette tokens
+  and status-surface colors work without a host stylesheet. Button owns the
+  matching compact dashed and info actions, including reveal/pending styling.
 - Skeleton owns existing corner and color choices through `shape` and `tone`.
   Separator owns existing colors and toggle-hover visibility. Both controls
   participate in shared consumer style enforcement; geometry remains local.

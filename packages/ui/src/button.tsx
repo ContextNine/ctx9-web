@@ -42,6 +42,8 @@ export type AppButtonVariant =
   | "destructive"
   | "navigation"
   | "accent"
+  | "iconDashed"
+  | "iconInfo"
   | "link";
 export type AuthButtonVariant = "primary" | "secondary";
 
@@ -77,7 +79,7 @@ const dateTimeJoinedStyles = cn(
   "border border-input bg-inherit",
 );
 
-export const buttonVariants = cva(
+const standardButtonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors duration-300 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
@@ -102,6 +104,8 @@ export const buttonVariants = cva(
         navigation: appNavigationStyles,
         accent: funkyBlueHoverButtonStyles,
         link: "text-primary underline-offset-4 hover:underline",
+        iconDashed: "",
+        iconInfo: "",
       },
       size: {
         default: buttonStyles,
@@ -131,6 +135,8 @@ export const buttonVariants = cva(
       },
       state: {
         default: "",
+        concealed: "",
+        pending: "",
         selected: "",
         accent: "bg-accent text-accent-foreground",
         navigationActive:
@@ -680,7 +686,34 @@ export const buttonVariants = cva(
   },
 );
 
-type ButtonVariantProps = VariantProps<typeof buttonVariants>;
+export function buttonVariants(
+  props: Parameters<typeof standardButtonVariants>[0] = {},
+) {
+  if (props.surface !== "auth" && props.variant === "iconDashed") {
+    return cn(
+      "flex h-6 w-6 flex-shrink-0 items-center justify-center gap-1 rounded-md text-sm",
+      "border border-dashed border-neutral-300 bg-neutral-50 transition-all duration-200",
+      "dark:border-mono-700 dark:bg-mono-900",
+      props.state === "concealed"
+        ? "pointer-events-none opacity-0"
+        : "cursor-pointer opacity-100",
+      props.state === "pending" && "cursor-not-allowed opacity-60",
+      props.class,
+      props.className,
+    );
+  }
+  if (props.surface !== "auth" && props.variant === "iconInfo") {
+    return cn(
+      "flex h-6 w-6 items-center justify-center rounded-md",
+      "cursor-pointer transition-colors duration-200 hover:bg-neutral-200 hover:dark:bg-neutral-700",
+      props.class,
+      props.className,
+    );
+  }
+  return standardButtonVariants(props);
+}
+
+type ButtonVariantProps = VariantProps<typeof standardButtonVariants>;
 type ButtonSharedProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   "color"

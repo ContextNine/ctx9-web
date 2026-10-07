@@ -15,15 +15,13 @@ if (!provenance.includes("ccc4fd09d4f3f5eee0adb501f145c4ceb5d51e41"))
   throw new Error("impression-reference-not-pinned");
 if (!provenance.includes("b9938d94635fca7a4560449713b0b1ba87d77bc6"))
   throw new Error("shadcn-reference-not-pinned");
-for (const forbidden of [
-  "https://",
-  "http://",
-  "prefers-color-scheme",
-  "dark:",
-]) {
+for (const forbidden of ["https://", "http://", "prefers-color-scheme"]) {
   if (styleSource.includes(forbidden))
     throw new Error(`runtime-style-provenance-invalid:${forbidden}`);
 }
+// A variable such as --ns-blue-bg-dark: is not a Tailwind selector.
+if (/(?:^|[\s.])dark:/.test(styleSource))
+  throw new Error("runtime-style-provenance-invalid:dark:");
 
 const fonts = [
   {

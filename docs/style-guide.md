@@ -82,6 +82,12 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   `connectionActive` or `connectionIdle` with `width="fit"`; products provide
   state and copy, not color or hover recipes. Public cards and badges belong
   to Impression's public package.
+- Dense interactive cards select `paletteTile` or `toneTile`; vacant cards
+  select `emptyTile`. Their typed palette, tone, selected, dashed, updated
+  and faded choices own the original colors, border precedence, scale and
+  one-shot update pulse. Product status and platform mappings stay local.
+  Compact inline actions select Button's `iconDashed` or `iconInfo` variants;
+  the dashed action uses `concealed` or `pending` state without caller classes.
 - Skeleton retains its pulse and owns round, large and extra-large corners
   through `shape`. Subdued and inverse colors use `tone`; content-dependent
   widths and placement stay local. Choose `height` for its existing height

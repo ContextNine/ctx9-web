@@ -2,6 +2,15 @@
 
 Reference repository: Impression
 
+The Calendar Card pass retains Impression's working source at `36294becb`,
+with per-file hashes in its comparison artifacts. Generic tile variants own
+the existing palette/status surfaces, selection precedence and fading.
+The one-shot blue border pulse keeps the original keyframes and duration.
+Compact dashed/info Button variants retain the two original native button
+recipes rather than adding standard Button typography or disabled styling.
+Platform/status mappings, drag-and-drop and creation/navigation callbacks
+remain product-owned. Browser and complete-page acceptance remain separate.
+
 The integration-card ownership pass retains Impression's working source at
 `47f1e9f37`, with per-file hashes in its comparison artifacts. Card owns the
 existing integration root and detail inset/label/value recipes; Badge owns

@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes pulse-blue-border {
+  0%,
+  100% {
+    border-color: rgb(59 130 246 / 0.5);
+    box-shadow: 0 0 0 0 rgb(59 130 246 / 0.5);
+  }
+  50% {
+    border-color: rgb(59 130 246 / 1);
+    box-shadow: 0 0 0 4px rgb(59 130 246 / 0.3);
+  }
+}
+.animate-pulse-blue-border {
+  animation: pulse-blue-border 2s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -55,6 +70,24 @@
 }
 
 :root {
+  --ns-orange-bg: #fbede7;
+  --ns-orange-bg-dark: #553b29;
+  --ns-purple-bg: #f4f0f7;
+  --ns-purple-bg-dark: #453a5b;
+  --ns-red-bg: #fdebec;
+  --ns-red-bg-dark: #5e3436;
+  --ns-green-bg: #edf3eb;
+  --ns-green-bg-dark: #2f443a;
+  --ns-blue-bg: #e7f3f8;
+  --ns-blue-bg-dark: #2d4156;
+  --ns-gray-bg: #f1f1ef;
+  --ns-gray-bg-dark: #3c4144;
+  --ns-yellow-bg: #f4f1e5;
+  --ns-yellow-bg-dark: #4a3e2c;
+  --ns-brown-bg: #f4eeee;
+  --ns-brown-bg-dark: #4c3e35;
+  --ns-pink-bg: #f9eef3;
+  --ns-pink-bg-dark: #51384d;
   color-scheme: light;
   --background: 0 0% 100%;
   --foreground: 0 0% 3.9%;

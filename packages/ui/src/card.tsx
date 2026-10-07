@@ -4,6 +4,7 @@ import type { VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { cn } from "./cn.js";
 import { cva } from "class-variance-authority";
+import { cardTileClasses, type CardTileProps } from "./card-tile.js";
 
 import {
   cardPanelStyles,
@@ -27,6 +28,9 @@ const cardVariants = cva(
         bare: "rounded-none border-0 bg-transparent shadow-none",
         flat: "shadow-none",
         integration: "relative flex flex-col @container shadow-none",
+        paletteTile: "",
+        toneTile: "",
+        emptyTile: "",
         editorSurface: editorBg,
         analytics:
           "rounded-xl border-border bg-white shadow-none dark:bg-black",
@@ -110,7 +114,8 @@ const cardVariants = cva(
 
 export interface CardProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof cardVariants> {}
+    VariantProps<typeof cardVariants>,
+    CardTileProps {}
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   (
@@ -125,6 +130,13 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       overflow,
       variant,
       width,
+      palette,
+      tone,
+      selected,
+      dashed,
+      updated,
+      faded,
+      style,
       ...props
     },
     ref,
@@ -143,8 +155,23 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
           variant,
           width,
         }),
+        cardTileClasses(
+          variant === "paletteTile" ||
+            variant === "toneTile" ||
+            variant === "emptyTile"
+            ? variant
+            : undefined,
+          { palette, tone, selected, dashed, updated },
+        ),
         className,
       )}
+      style={
+        variant === "paletteTile" ||
+        variant === "toneTile" ||
+        variant === "emptyTile"
+          ? { ...style, opacity: faded ? 0.3 : 1 }
+          : style
+      }
       {...props}
     />
   ),
@@ -302,11 +329,13 @@ const cardContentVariants = cva("", {
     },
     flow: {
       default: "",
+      dense: "space-y-1",
       compact: "space-y-2",
       comfortable: "space-y-3",
       relaxed: "space-y-4",
       spacious: "space-y-5",
     },
+    width: { default: "", full: "w-full" },
   },
   defaultVariants: {
     spacing: "default",
@@ -320,11 +349,11 @@ type CardContentProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof cardContentVariants>;
 
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className, flow, layout, spacing, tone, ...props }, ref) => (
+  ({ className, flow, layout, spacing, tone, width, ...props }, ref) => (
     <div
       ref={ref}
       className={cn(
-        cardContentVariants({ flow, layout, spacing, tone }),
+        cardContentVariants({ flow, layout, spacing, tone, width }),
         className,
       )}
       {...props}
