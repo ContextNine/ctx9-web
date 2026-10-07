@@ -70,6 +70,12 @@ private wrapper class; existing shape choices and defaults are unchanged.
 Tooltip timing, focus behavior, gradients and spinners are retained. Native
 browser and full-consumer checks remain separate acceptance gates.
 
+The content-action presets extract Impression `1dc419a93` repeated
+tooltip-button recipes from idea, template and creator-post actions and
+external content links. The three recipes retain the existing 32px, 28px
+and 24px dimensions and 200ms color transition. They do not change Button
+defaults or the local tooltip's timing and behavior.
+
 Auth fields retain Impression's separate default-height and auto-height recipes,
 including the inactive `dark:placeholder-text-mono-600` token and existing
 `focus-visible:ring-[1px]` utility. Combining the height recipes or repairing the

@@ -28,6 +28,9 @@ The v8 inventory uses Impression's internal application components and semantic 
   behavior and framework markers remain in Impression.
 - Primary tooltip icons own their compact dimensions, padding and hover
   recipe through a Button preset, with the standard typed selected state.
+- Content icon and external-link actions use Button presets for the
+  established 32px, 28px and 24px recipes. Dropdown rows retain their
+  existing full-width, start-aligned preset. Tooltip behavior stays local.
 - AppButtonProps and AuthButtonProps constrain product wrappers to their own
   surface and variant family without copying the Button contract;
 - Workspace options and sidebar menu, settings and upload actions use Button

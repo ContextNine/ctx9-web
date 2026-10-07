@@ -303,6 +303,11 @@ export const buttonVariants = cva(
         assistantIcon: "size-6 p-1",
         primaryTooltipIcon:
           "h-8 w-8 rounded-xl p-2 hover:cursor-pointer hover:bg-brandPrimary transition-colors duration-300",
+        contentIcon: "h-8 w-8 rounded-xl transition-colors duration-200",
+        contentLink:
+          "h-7 w-7 gap-0 rounded-xl p-0 transition-colors duration-200",
+        contentLinkCompact:
+          "h-6 w-6 rounded-xl p-1 transition-colors duration-200",
         assistantScroll:
           "size-6 rounded-full p-4 disabled:invisible dark:bg-background dark:hover:bg-accent",
         assistantSend: "size-8 rounded-full p-1",

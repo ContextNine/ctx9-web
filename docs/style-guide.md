@@ -66,6 +66,10 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   this preset also owns its existing disabled cursor and opacity.
 - Primary tooltip icons use Button's `primaryTooltipIcon` preset and
   `state="selected"` where selected. Tooltip behavior stays local.
+- Content icon actions use `contentIcon`; external content links use
+  `contentLink` or `contentLinkCompact`. These own the existing rounded
+  dimensions, padding and 200ms color transition. Dropdown actions use
+  `dropdownAction`, which owns their full width and row alignment.
 - Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
 - Workspace-switch choices use `preset="workspaceOption"`. Impression's
   sidebar uses `sidebarMenu`, `sidebarSettings` and `sidebarUpload` presets
