@@ -227,7 +227,8 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   recording selects `composerMic` or `composerMicRecording`. These preserve
   the existing recipes. Framework markers and external placement stay local.
 - Tabs use the existing `compact`, `settings`, `subtle` and `sidebar`
-  variants. Choose trigger `gap="tight"` or `gap="standard"` for icon
+  variants. Settings tabs wrap within their container instead of clipping
+  navigation on narrow dialogs. Choose trigger `gap="tight"` or `gap="standard"` for icon
   spacing. TabsContent owns `surface` and `mainPanel` appearance; its
   `padding` and `layout` choices cover padded, growing and active-fill
   panels. Product navigation state stays local.

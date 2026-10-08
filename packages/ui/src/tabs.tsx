@@ -29,7 +29,7 @@ const tabsListVariants = cva("inline-flex items-center justify-center", {
       subtle:
         "h-9 rounded-md bg-neutral-100 p-1 text-muted-foreground dark:bg-mono-900",
       settings:
-        "flex h-9 w-fit flex-grow grid-cols-3 justify-between rounded-md bg-muted p-1 text-muted-foreground",
+        "flex h-auto min-h-9 w-fit max-w-full flex-grow flex-wrap justify-between rounded-md bg-muted p-1 text-muted-foreground",
       sidebar:
         "flex h-auto w-full flex-col items-stretch gap-1 rounded-md bg-transparent p-0 text-muted-foreground",
     },
