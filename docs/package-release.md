@@ -106,10 +106,23 @@ creation permission for that exact protected tag. Its GitLab check passed in
 publication failed before either package reached the registry. npm interpreted
 the relative archive argument without `./` as a Git reference and attempted to
 spawn `git`. Publication must use `./dist-release/…tgz` to publish the local
-archive. The `8.0.2` candidate fixes those paths and includes the current shared
-UI source. Both existing `v8.0.0` and `v8.0.1` tags stay unchanged. The candidate
-is not published until its checks, exact-tag permission and registry evidence
-are recorded.
+archive. Release `8.0.2` fixes those paths and includes the current shared UI
+source at `90d9e1b75aa6998029506cb766fafe09aeb1f38e`. Both existing `v8.0.0`
+and `v8.0.1` tags stay unchanged. Matt approved the existing mirror key's
+exact `v8.0.2` creation grant without changing wildcard protection. The exact
+Node 22.16.0 GitHub check and GitLab master check pass; tagged
+[pipeline 2925542896](https://gitlab.com/ctx9/web/-/pipelines/2925542896)
+passes check and publication. Ordinary authenticated consumers resolve and
+install both immutable registry packages.
+
+The recorded release archive SHA-256 digests are
+`933ebdc9bcf806c3f90154651ff3f271b6c1e627af03a9fa3c7d4c652d825a35`
+for `@ctx9/ui` and
+`2cbaec6d239ddbc95b4c60de7076488973b0e04423e136874616ea42bcf07c38`
+for `@ctx9/web-auth`. Registry SHA-1 values are respectively
+`835b576c3f2508e7aa1999cac5ca7935b20e78df` and
+`9bfab62499ed1fa19e1dfd867adf1960ef2944e5`. Consumer image signing and
+production promotion remain independent release checks.
 
 The v8 package line uses Tailwind 3 and the exact frontend dependency matrix captured from Impression for the release. Consumers align to that matrix before installing the new major version.
 
