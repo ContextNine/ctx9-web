@@ -100,6 +100,17 @@ and release record as non-expiring artifacts.
 
 Never republish or overwrite a released version. Correct a package with a new patch version.
 
+The October 8 `v8.0.0` tag mirror passed after granting its existing mirror key
+creation permission for that exact protected tag. Its GitLab check passed in
+[pipeline 2925488654](https://gitlab.com/ctx9/web/-/pipelines/2925488654), but
+publication failed before either package reached the registry. npm interpreted
+the relative archive argument without `./` as a Git reference and attempted to
+spawn `git`. Publication must use `./dist-release/…tgz` to publish the local
+archive. The `8.0.2` candidate fixes those paths and includes the current shared
+UI source. Both existing `v8.0.0` and `v8.0.1` tags stay unchanged. The candidate
+is not published until its checks, exact-tag permission and registry evidence
+are recorded.
+
 The v8 package line uses Tailwind 3 and the exact frontend dependency matrix captured from Impression for the release. Consumers align to that matrix before installing the new major version.
 
 The CSS build explicitly uses Impression's PostCSS 8.5.18, Autoprefixer 10.4.22
