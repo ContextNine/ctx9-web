@@ -9,6 +9,24 @@ Version 9 names the canonical secrets application Notenv. Consumers select
 The previous product ID is removed, so migrate each consumer with its exact
 package pin. The application switcher displays Notenv across all CTX9 products.
 
+
+Both packages at `9.0.0` are published from
+`88b2bcbc616c026f78a79b09a994aefc8dfad21f`. Tagged
+[pipeline 2943018285](https://gitlab.com/ctx9/web/-/pipelines/2943018285)
+passes package checks and publication. Its existing mirror deploy key received
+creation permission for the exact `v9.0.0` protected tag, with wildcard
+protection unchanged. The core Notenv consumer passes frozen registry
+installation against the new exact pins. Its application acceptance and the
+other consumers' migrations remain separate release gates.
+
+Published archive SHA-256 digests are
+`a61aef440e689a969487a6459767936fdf261b73b4db5be094e71117bb6568dc`
+for `@ctx9/ui` and
+`371c93e6e6515787f1969224201f2721d72584e0f9da7e9ef9d883035eba97c0`
+for `@ctx9/web-auth`. The pipeline record matches the locally generated
+archives; registry SHA-1 metadata matches those same bytes. Direct registry
+SHA-256 read-back and production adoption are still pending.
+
 For this v8 migration, Matt's October 7 scope change separates shared-package
 and CTX9 acceptance from Impression's final appearance pass. Finish component
 ownership, focused CTX9 behavior/build checks and immutable pins without waiting
