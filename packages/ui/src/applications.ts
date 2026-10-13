@@ -1,15 +1,15 @@
 import type { AppNavigationItem } from "./shell.js";
 
-export type Ctx9ApplicationId = "secrets" | "publisher" | "testimonials";
+export type Ctx9ApplicationId = "notenv" | "publisher" | "testimonials";
 
 export interface Ctx9ApplicationOrigins {
-  secrets: string;
+  notenv: string;
   publisher: string;
   testimonials: string;
 }
 
 const applications = [
-  { id: "secrets", label: "Secrets" },
+  { id: "notenv", label: "Notenv" },
   { id: "publisher", label: "Publisher" },
   { id: "testimonials", label: "Testimonials" },
 ] as const satisfies readonly {

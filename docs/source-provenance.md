@@ -2,7 +2,7 @@
 
 Reference repository: Impression
 
-The Secret Bindings editor redesign adds InfoTooltip and PageHeading's `info`
+The Notenv editor redesign adds InfoTooltip and PageHeading's `info`
 text as new compositions of the existing shared Button and Tooltip. Matt's
 October 7 direction moves introductory descriptions beside headings. Account
 actions place the icon and wrapping label directly in the menu's two-column
@@ -408,7 +408,7 @@ Sheet variant with bordered header/footer choices. These are active consumer
 compositions using the shared tokens, not compatibility exports. Existing
 Impression Badge and Sheet defaults are unchanged.
 
-The Secret Bindings pilot adds generic code-field and transparent overlay
+The Notenv pilot adds generic code-field and transparent overlay
 Textarea presets, semantic InlineStatus tones, and a compact notice Popover.
 These consume the shared theme tokens. The product still owns syntax
 highlighting, gutter geometry, protected-data handling and autosave. Existing

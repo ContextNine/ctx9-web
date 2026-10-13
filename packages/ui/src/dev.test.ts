@@ -24,7 +24,7 @@ test("consumer checkouts share live source in dev without changing production re
       "ctx9/testimonials/web",
       "ctx9/publisher/web",
       "ctx9/platform/apps/web",
-      "ctx9/secret-bindings/apps/console",
+      "ctx9/notenv/apps/console",
     ]) {
       const app = join(code, path);
       expect(findLocalUi(app)).toBe(ui);

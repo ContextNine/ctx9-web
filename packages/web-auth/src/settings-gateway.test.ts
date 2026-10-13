@@ -54,7 +54,7 @@ describe("tenant account settings gateway", () => {
 
   it("rejects unknown clients and expired assertions", async () => {
     const token = await createTenantAccountSettingsAssertion({
-      clientId: "secret-bindings-secrets",
+      clientId: "notenv-secrets",
       clientSecret: secret,
       userId: "user-one",
       tenantId: "019d0000-0000-7000-8000-000000000001",

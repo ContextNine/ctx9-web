@@ -55,11 +55,11 @@ describe("shared product primitives", () => {
         )}
       >
         <ApplicationLayout
-          product="Secrets"
+          product="Notenv"
           products={createCtx9Applications({
-            current: "secrets",
+            current: "notenv",
             origins: {
-              secrets: "/secrets",
+              notenv: "/notenv",
               publisher: "/publisher",
               testimonials: "/testimonials",
             },
@@ -77,7 +77,7 @@ describe("shared product primitives", () => {
           ]}
           breadcrumbs={[
             { id: "home", label: "Home", href: "/" },
-            { id: "secrets", label: "Secrets" },
+            { id: "notenv", label: "Notenv" },
           ]}
         >
           <div className="grid gap-2">
@@ -91,7 +91,7 @@ describe("shared product primitives", () => {
         </ApplicationLayout>
       </NavigationProvider>,
     );
-    expect(screen.getByRole("navigation", { name: "Secrets" })).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Notenv" })).toBeTruthy();
     expect(
       screen
         .getByRole("link", { name: "Skip to content" })
@@ -110,29 +110,29 @@ describe("shared product primitives", () => {
     expect(screen.getByRole("button", { name: "Expand sidebar" })).toBeTruthy();
     const user = userEvent.setup();
     const applicationMenu = screen.getByRole("button", {
-      name: "Open All apps. Current app: Secrets",
+      name: "Open All apps. Current app: Notenv",
     });
     await user.click(applicationMenu);
     expect(
       screen.getAllByRole("menuitem").map((item) => item.textContent.trim()),
-    ).toEqual(["Secrets", "Publisher", "Testimonials"]);
+    ).toEqual(["Notenv", "Publisher", "Testimonials"]);
     await user.keyboard("{Escape}");
     expect(document.activeElement).toBe(applicationMenu);
 
     await user.click(screen.getByRole("button", { name: "Open menu" }));
     expect(
       screen
-        .getByRole("complementary", { name: "Secrets sidebar" })
+        .getByRole("complementary", { name: "Notenv sidebar" })
         .getAttribute("data-mobile-open"),
     ).toBe("true");
     await user.click(
       within(
-        screen.getByRole("complementary", { name: "Secrets sidebar" }),
+        screen.getByRole("complementary", { name: "Notenv sidebar" }),
       ).getByRole("button", { name: "Close menu" }),
     );
     expect(
       screen
-        .getByRole("complementary", { name: "Secrets sidebar" })
+        .getByRole("complementary", { name: "Notenv sidebar" })
         .getAttribute("data-mobile-open"),
     ).toBe("false");
     const results = await axe(container, {

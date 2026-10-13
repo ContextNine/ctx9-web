@@ -4,6 +4,11 @@ GitHub `ContextNine/ctx9-web` is the canonical source. A GitHub Actions deploy k
 
 ## Release
 
+Version 9 names the canonical secrets application Notenv. Consumers select
+`current: "notenv"` and provide `origins.notenv` to `createCtx9Applications`.
+The previous product ID is removed, so migrate each consumer with its exact
+package pin. The application switcher displays Notenv across all CTX9 products.
+
 For this v8 migration, Matt's October 7 scope change separates shared-package
 and CTX9 acceptance from Impression's final appearance pass. Finish component
 ownership, focused CTX9 behavior/build checks and immutable pins without waiting
@@ -48,7 +53,7 @@ These choices leave Impression's existing defaults unchanged. The shared policy
 also checks Sheet headers, footers, titles and descriptions. Consumer checks
 must cover metadata save, read-only state, dismissal and focus restoration.
 
-The Secret Bindings pilot adds code-field and transparent overlay Textarea
+The Notenv pilot adds code-field and transparent overlay Textarea
 presets, semantic InlineStatus tones, and a compact notice Popover. The console
 must verify editor alignment, keyboard actions, autosave and protected-response
 containment against synthetic data before accepting the migration. These

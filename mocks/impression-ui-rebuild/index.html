@@ -478,7 +478,7 @@ SENTRY_DSN= #P!</code></pre>
 # Atlas API · local
 APP_URL="http://127.0.0.1:4100" #K!
 DATABASE_URL="postgresql://example.invalid/atlas"
-RESEND_API_KEY="SECRET_BINDINGS_SENTINEL_MAIL_LOCAL"
+RESEND_API_KEY="NOTENV_SENTINEL_MAIL_LOCAL"
 SENTRY_DSN="https://examplePublicKey@o0.ingest.test/0" #P!
 LOG_LEVEL="debug"
 FEATURE_AI_ASSISTANT="true"
@@ -550,9 +550,9 @@ STORAGE_BUCKET="northstar-atlas-local"</textarea
               aria-label="Global environment variables"
             >
 # My local defaults
-RESEND_API_KEY="SECRET_BINDINGS_SENTINEL_MAIL_LOCAL"
+RESEND_API_KEY="NOTENV_SENTINEL_MAIL_LOCAL"
 SENTRY_DSN="https://examplePublicKey@o0.ingest.test/0"
-OPENAI_API_KEY="SECRET_BINDINGS_SENTINEL_AI_LOCAL"
+OPENAI_API_KEY="NOTENV_SENTINEL_AI_LOCAL"
 LANGFUSE_HOST="https://telemetry.example.test"
 LOG_LEVEL="debug"</textarea
             >
