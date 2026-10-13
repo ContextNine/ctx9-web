@@ -288,7 +288,7 @@ const standardButtonVariants = cva(
           "h-auto w-full justify-start whitespace-normal px-3 py-3 text-left font-normal leading-6",
         formClear: "mt-1 flex-shrink-0",
         accountTrigger:
-          "h-auto w-full justify-start rounded-full border-transparent p-1.5 text-left",
+          "h-auto w-full justify-start gap-3 rounded-md border-transparent px-3 py-2 text-left md:group-data-[collapsed=true]/sidebar:justify-center md:group-data-[collapsed=true]/sidebar:px-0",
         settingsTab: "shrink-0 sm:w-full",
         appSwitcher:
           "h-12 w-full justify-start gap-2.5 border-transparent px-2",

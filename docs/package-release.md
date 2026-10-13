@@ -237,3 +237,11 @@ Release 7.0.0 replaces `ApplicationLayout.header` with the required typed `bread
 - Record the prior package and image digest before deployment.
 - Roll back by restoring the previous exact package version, rebuilding the component, and deploying its previously validated image or the recorded Helm revision.
 - Do not unpublish a package as a rollback mechanism.
+
+## Account menu correction
+
+Version 8.0.3 aligns account-menu tenant and action rows, increases their left
+inset, and keeps separators inside that inset. The app switcher displays the
+selected product. Empty account names omit the identity line and use tenant
+initials. Menu dismissal still releases focus and pointer guards before opening
+the host's tenant/account dialog.

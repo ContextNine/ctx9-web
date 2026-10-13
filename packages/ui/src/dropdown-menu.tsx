@@ -77,7 +77,7 @@ const dropdownContentLayoutVariants = cva("", {
     },
     preset: {
       default: "",
-      account: "w-max min-w-[320px] max-w-[calc(100vw-1rem)] rounded-lg p-1.5",
+      account: "w-max min-w-[320px] max-w-[calc(100vw-1rem)] rounded-lg p-2",
       appSwitcher: "w-[230px] rounded-lg p-1.5",
     },
   },
@@ -116,8 +116,8 @@ const dropdownItemLayoutVariants = cva("", {
     preset: {
       default: "",
       accountAction:
-        "grid min-h-9 cursor-pointer grid-cols-[1rem_minmax(0,1fr)] gap-2 rounded-md px-2 text-sm",
-      tenant: "min-h-12 cursor-pointer gap-2 rounded-md p-1",
+        "flex min-h-12 cursor-pointer items-center gap-3 rounded-md px-3 py-1 text-sm",
+      tenant: "min-h-12 cursor-pointer gap-3 rounded-md px-3 py-1",
       application: "min-h-9 cursor-pointer gap-2 rounded-md px-2 text-sm",
     },
   },

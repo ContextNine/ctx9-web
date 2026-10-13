@@ -90,7 +90,7 @@ function Initials({ value }: { value: string }): React.JSX.Element {
 function AccountAction({ action }: { action: AccountMenuAction }) {
   const content = (
     <>
-      <span className="grid size-4 self-start place-items-center text-muted-foreground">
+      <span className="grid size-10 shrink-0 place-items-center text-muted-foreground">
         {action.icon}
       </span>
       <span className="min-w-0 whitespace-normal break-words">
@@ -163,14 +163,16 @@ export function AccountMenu({
           variant="ghost"
           preset="accountTrigger"
         >
-          <Initials value={userName} />
+          <Initials value={userName || tenant} />
           <span className="grid min-w-0 flex-1 gap-0.5 md:group-data-[collapsed=true]/sidebar:hidden">
             <span className="truncate text-sm font-semibold text-foreground">
               {tenant}
             </span>
-            <span className="truncate text-xs font-normal text-muted-foreground">
-              {userName}
-            </span>
+            {userName && (
+              <span className="truncate text-xs font-normal text-muted-foreground">
+                {userName}
+              </span>
+            )}
           </span>
           <ChevronsUpDown
             aria-hidden="true"
@@ -192,15 +194,21 @@ export function AccountMenu({
           window.requestAnimationFrame(onOpenTenantAccountSettings);
         }}
       >
-        <div className="grid gap-0.5 px-2 py-1.5">
-          <strong className="truncate text-sm font-semibold">{userName}</strong>
-          {userDetail && (
-            <span className="truncate text-xs text-muted-foreground">
-              {userDetail}
-            </span>
-          )}
-        </div>
-        <DropdownMenuLabel>Your tenant</DropdownMenuLabel>
+        {(userName || userDetail) && (
+          <div className="grid gap-0.5 px-3 py-2">
+            {userName && (
+              <strong className="truncate text-sm font-semibold">
+                {userName}
+              </strong>
+            )}
+            {userDetail && (
+              <span className="truncate text-xs text-muted-foreground">
+                {userDetail}
+              </span>
+            )}
+          </div>
+        )}
+        <DropdownMenuLabel className="px-3">Your tenant</DropdownMenuLabel>
         {availableTenants.map((item) => (
           <DropdownMenuItem
             key={item.id}
@@ -223,13 +231,15 @@ export function AccountMenu({
             )}
           </DropdownMenuItem>
         ))}
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="mx-3" />
         {menuActions.map((action) => (
           <AccountAction key={action.id} action={action} />
         ))}
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="mx-3" />
         <DropdownMenuItem preset="accountAction" onSelect={onSignOut}>
-          <LogOut aria-hidden="true" className="size-4 text-muted-foreground" />
+          <span className="grid size-10 shrink-0 place-items-center text-muted-foreground">
+            <LogOut aria-hidden="true" className="size-4" />
+          </span>
           <span>Sign out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -278,7 +288,7 @@ export function AppSidebarHeader({
           >
             <Ctx9Mark />
             <span className="min-w-0 flex-1 text-left text-sm font-semibold md:group-data-[collapsed=true]/sidebar:hidden">
-              CTX9
+              {product}
             </span>
             <ChevronDown
               aria-hidden="true"
