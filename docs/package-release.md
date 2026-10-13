@@ -245,3 +245,11 @@ inset, and keeps separators inside that inset. The app switcher displays the
 selected product. Empty account names omit the identity line and use tenant
 initials. Menu dismissal still releases focus and pointer guards before opening
 the host's tenant/account dialog.
+
+The exact `v8.0.3` tag identifies source
+`5bbdfda23368e503f0e49bfc72e7249ab23f2636`. Full local checks and isolated
+installation passed, followed by matching GitHub and GitLab source checks.
+Tagged [pipeline 2942682766](https://gitlab.com/ctx9/web/-/pipelines/2942682766)
+published both immutable packages. Matt approved the existing mirror deploy
+key for this exact tag; the `v*` protection is unchanged. Secrets downloaded
+and installed both exact package versions through ordinary pnpm authentication.
