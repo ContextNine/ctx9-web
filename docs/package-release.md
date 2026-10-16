@@ -4,6 +4,16 @@ GitHub `ContextNine/ctx9-web` is the canonical source. New releases beginning wi
 
 The historical private-release procedures and evidence below describe versions through 9.0.0. They are not the publication procedure for new versions.
 
+## Protected public release
+
+The public bootstrap is 9.0.1. Future releases use only `publish.yml` on reviewed immutable `vX.Y.Z` tags and its `npm-publication` environment. The environment admits version tags only. Run `pnpm check` and isolated archive acceptance before committing the version; the protected workflow repeats the complete check on Node 22.16.0, 24.21.0 and 26.11.1.
+
+Before building release archives, the publish job checks all three approved publisher connections through the [npm OIDC exchange API](https://api-docs.npmjs.com/). It obtains a fresh GitHub identity token per package for the fixed npm audience and discards each registry token response without reading or saving it. Only package, phase, HTTP status and success are returned. A failed exchange stops the job before any archive upload or package publication. It does not change package permissions or use a personal/token fallback. Successful exchange alone does not prove direct-publish permission or validate a connection's first publication; the actual npm publishes must pass.
+
+The job then builds the exact archives once, retains their SHA-256/source/version manifest as a GitHub artifact, and publishes those archives with provenance. Read back the public registry metadata and tarballs anonymously and verify their bytes and source provenance before accepting the release. Preserve the tag and retained archives if publication fails; do not move a tag, overwrite a version or unpublish as recovery.
+
+The synthetic preflight integration covers all three exchanges, one rejected package, fixed destinations/audience and value-free results. Actual publisher configuration remains unverified until the protected release exercises npm. [npm's trusted-publisher documentation](https://docs.npmjs.com/trusted-publishers/) describes the supported hosted runners and first-publication validation window.
+
 ## Release
 
 Version 9 names the canonical secrets application Notenv. Consumers select
@@ -287,5 +297,5 @@ Managed compositions supply their enabled Publisher and Testimonials origins.
 No origin is supplied by the SDK, and canonical ordering is unchanged.
 
 This candidate also exposes `toNodeHandler` from `@ctx9/identity` for the Node
-server composition. Version 9.0.1 remains the staged npm bootstrap candidate;
+server composition. Version 9.0.1 is the public npm bootstrap.
 9.1.0 has not been published or accepted by consumers.

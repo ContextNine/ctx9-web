@@ -55,6 +55,8 @@ jobs:
           set -eu
           test "$GITHUB_REF_NAME" = "v$(node -p 'require("./package.json").version')"
           git merge-base --is-ancestor "$GITHUB_SHA" origin/master
+      - name: Verify all approved npm publisher connections
+        run: node --experimental-strip-types scripts/check-npm-publishers.ts
       - run: pnpm install --frozen-lockfile
       - run: pnpm release:build
       - uses: actions/upload-artifact@v7
