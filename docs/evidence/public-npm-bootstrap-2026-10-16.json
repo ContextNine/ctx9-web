@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-10-16T14:23:17.610593+00:00",
+  "source_commit": "b8b745cc587737a315d564694dd914400d002b13",
+  "publication": "one-time staged bootstrap approved by owner",
+  "anonymous_readback": true,
+  "packages": [
+    {
+      "name": "@ctx9/ui",
+      "version": "9.0.1",
+      "sha256": "1eb7a4f5b771ec31eae819de3bc45536ddaa1c7dec6de27b58ba7cdd159d7dc0",
+      "integrity": "sha512-A0qPVdexEKiKNNmyOIO48h+yLHpiSIWjesqQWtQijkg/IEsMNsSwuZnUFtcP4aj5OduU4vd9ayABaiFnWLUlZA==",
+      "tarball": "https://registry.npmjs.org/@ctx9/ui/-/ui-9.0.1.tgz",
+      "provenance": false
+    },
+    {
+      "name": "@ctx9/web-auth",
+      "version": "9.0.1",
+      "sha256": "7e189109736e38f6efac43e0584a659815aa0d9d0aa1603edd07cd2aaf5fa744",
+      "integrity": "sha512-1/rOOevGXkdCb/voof6q+uKScvEj8U2us55XBEv0edOlqQPEJn5n66cwO7vpBWsbZ7cKvK5A4uZ1cp8EXZzAxQ==",
+      "tarball": "https://registry.npmjs.org/@ctx9/web-auth/-/web-auth-9.0.1.tgz",
+      "provenance": false
+    },
+    {
+      "name": "@ctx9/identity",
+      "version": "9.0.1",
+      "sha256": "27483718a71f9a0d99fee25c1192329a7f2dc27de5680c88a08d6730fdb7a2c5",
+      "integrity": "sha512-G3zG1pP1HrZVM9Ir99kLudqv+y7ylvDAtaSsXeTI/eAHvHKByR2dL8qxK0J74H49PzABvGzzKlZZ+lKQWUahnw==",
+      "tarball": "https://registry.npmjs.org/@ctx9/identity/-/identity-9.0.1.tgz",
+      "provenance": false
+    }
+  ]
+}
