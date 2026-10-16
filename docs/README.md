@@ -12,3 +12,5 @@
 - [Public npm bootstrap read-back receipt](evidence/public-npm-bootstrap-2026-10-16.json)
 
 - [Private security reporting verification](evidence/security-reporting-2026-10-17.json)
+
+- [Public SDK check and published engine metadata](evidence/public-sdk-check-2026-10-17.json)

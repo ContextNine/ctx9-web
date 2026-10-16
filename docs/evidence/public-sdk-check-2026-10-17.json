@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-17",
+  "source_commit": "b4f7e74d3beecfc0dbabcfb3ef23e190ff406073",
+  "workflow": "check.yml",
+  "run_url": "https://github.com/ContextNine/ctx9-web/actions/runs/38979753701",
+  "node": "22.16.0",
+  "pnpm": "11.22.0",
+  "tests_passed": 23,
+  "archive_checks_passed": true,
+  "isolated_install_typecheck_render_style_passed": true,
+  "private_registry_credentials_used": false,
+  "deployment_credentials_used": false,
+  "npm_publisher_exercised": false,
+  "published_bootstrap_engines": [
+    {
+      "package": "@ctx9/ui",
+      "version": "9.0.1",
+      "node": "^22.16.0 || ^24.21.0 || ^26.11.1",
+      "metadata_read_authenticated": false
+    },
+    {
+      "package": "@ctx9/web-auth",
+      "version": "9.0.1",
+      "node": "^22.16.0 || ^24.21.0 || ^26.11.1",
+      "metadata_read_authenticated": false
+    },
+    {
+      "package": "@ctx9/identity",
+      "version": "9.0.1",
+      "node": "^22.16.0 || ^24.21.0 || ^26.11.1",
+      "metadata_read_authenticated": false
+    }
+  ]
+}

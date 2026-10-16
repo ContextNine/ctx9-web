@@ -56,3 +56,9 @@ await accepted public publication.
 Notenv and the shared packages use one [private security intake](https://github.com/ContextNine/ctx9-web/security/advisories/new) on the public shared-package repository. Both root security policies name the components, synthetic reproduction requirements and release support policy. Notenv has no supported standalone public release yet; the shared packages target their latest stable public versions.
 
 The [October 17 receipt](evidence/security-reporting-2026-10-17.json) records anonymous repository visibility, enabled private vulnerability reporting and an available maintainer advisory form. No report or advisory was submitted. This establishes the configured channel and policy; it does not test a submission from a separate reporter account.
+
+## Current public-source check
+
+The actual [Check run 38979753701](https://github.com/ContextNine/ctx9-web/actions/runs/38979753701), source `b4f7e74d3beecfc0dbabcfb3ef23e190ff406073`, passes on Node 22.16.0: 23 tests, archive checks and an isolated install/typecheck/render/style journey. The [receipt](evidence/public-sdk-check-2026-10-17.json) separates this from the Release workflow, whose master-branch job only mirrors source. Node 24.21.0/26.11.1 retain their earlier local matrix evidence; protected publication rechecks all three runtime lines. No npm publisher is exercised by this run.
+
+Anonymous npm metadata for every immutable 9.0.1 package declares `^22.16.0 || ^24.21.0 || ^26.11.1`. The public PR check uses read-only repository permission and no private registry/deployment credential. Privileged mirroring runs on source pushes, and npm publication runs on reviewed version tags through its protected environment.
