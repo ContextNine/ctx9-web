@@ -50,3 +50,9 @@ The 9.1.0 candidate passes the complete Node 26.11.1 `pnpm check`, including
 standalone navigation journey uses one operator-supplied application origin;
 the managed three-application journey remains covered. Consumer pins still
 await accepted public publication.
+
+## Private security reporting
+
+Notenv and the shared packages use one [private security intake](https://github.com/ContextNine/ctx9-web/security/advisories/new) on the public shared-package repository. Both root security policies name the components, synthetic reproduction requirements and release support policy. Notenv has no supported standalone public release yet; the shared packages target their latest stable public versions.
+
+The [October 17 receipt](evidence/security-reporting-2026-10-17.json) records anonymous repository visibility, enabled private vulnerability reporting and an available maintainer advisory form. No report or advisory was submitted. This establishes the configured channel and policy; it does not test a submission from a separate reporter account.

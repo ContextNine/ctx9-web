@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-17",
+  "repository": "ContextNine/ctx9-web",
+  "anonymous_repository_visible": true,
+  "private_vulnerability_reporting_enabled": true,
+  "intake_url": "https://github.com/ContextNine/ctx9-web/security/advisories/new",
+  "maintainer_form_available": true,
+  "report_submitted": false,
+  "advisory_created": false,
+  "reporter_account_submission_tested": false,
+  "credentials_returned": false
+}

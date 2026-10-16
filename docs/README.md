@@ -1,5 +1,6 @@
 # CTX9 web documentation
 
+- [Private security reporting and supported releases](../SECURITY.md)
 - [Style guide](style-guide.md)
 - [Component inventory](component-inventory.md)
 - [Error handling](error-handling.md)
@@ -9,3 +10,5 @@
 - [Reusable identity authority](identity-authority.md)
 
 - [Public npm bootstrap read-back receipt](evidence/public-npm-bootstrap-2026-10-16.json)
+
+- [Private security reporting verification](evidence/security-reporting-2026-10-17.json)
