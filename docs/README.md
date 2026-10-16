@@ -6,3 +6,4 @@
 - [Source provenance](source-provenance.md)
 - [Package release and consumption](package-release.md)
 - [Public distribution](public-distribution.md)
+- [Reusable identity authority](identity-authority.md)

@@ -20,7 +20,11 @@ async function walk(directory: string): Promise<string[]> {
 }
 
 try {
-  for (const name of ["@ctx9/ui", "@ctx9/web-auth"] as const) {
+  for (const name of [
+    "@ctx9/ui",
+    "@ctx9/web-auth",
+    "@ctx9/identity",
+  ] as const) {
     await execute(
       "pnpm",
       ["--filter", name, "pack", "--pack-destination", scratch],
@@ -31,7 +35,7 @@ try {
   const archives = (await readdir(scratch)).filter((name) =>
     name.endsWith(".tgz"),
   );
-  if (archives.length !== 2) throw new Error("package-archive-count-invalid");
+  if (archives.length !== 3) throw new Error("package-archive-count-invalid");
 
   for (const archive of archives) {
     const archivePath = join(scratch, archive);
@@ -84,7 +88,7 @@ try {
         if (!entries.includes(expected))
           throw new Error(`ui-package-entry-missing:${expected}`);
       }
-    } else {
+    } else if (archive.includes("ctx9-web-auth")) {
       for (const expected of [
         "package/dist/adapters/express.js",
         "package/dist/adapters/node.js",

@@ -6,6 +6,7 @@ import { join } from "node:path";
 const packages = [
   { directory: "packages/ui", name: "@ctx9/ui" },
   { directory: "packages/web-auth", name: "@ctx9/web-auth" },
+  { directory: "packages/identity", name: "@ctx9/identity" },
 ] as const;
 const versions = packages.map(
   ({ directory }) =>

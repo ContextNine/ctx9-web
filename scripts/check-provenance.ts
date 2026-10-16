@@ -81,6 +81,9 @@ for (const dependency of [
   "sonner",
   "tailwind-merge",
   "jose",
+  "better-auth",
+  "@better-auth/oauth-provider",
+  "@better-auth/passkey",
   "zod",
 ]) {
   const manifest = JSON.parse(

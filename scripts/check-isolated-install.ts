@@ -9,7 +9,7 @@ const root = decodeURIComponent(new URL("../", import.meta.url).pathname);
 const scratch = await mkdtemp(join(tmpdir(), "ctx9-isolated-install-"));
 
 try {
-  for (const name of ["@ctx9/ui", "@ctx9/web-auth"]) {
+  for (const name of ["@ctx9/ui", "@ctx9/web-auth", "@ctx9/identity"]) {
     await execute(
       "pnpm",
       ["--filter", name, "pack", "--pack-destination", scratch],
@@ -21,7 +21,9 @@ try {
   );
   const ui = archives.find((name) => name.startsWith("ctx9-ui-"));
   const auth = archives.find((name) => name.startsWith("ctx9-web-auth-"));
-  if (!ui || !auth) throw new Error("Isolated install archives missing.");
+  const identity = archives.find((name) => name.startsWith("ctx9-identity-"));
+  if (!ui || !auth || !identity)
+    throw new Error("Isolated install archives missing.");
   await writeFile(
     join(scratch, ".npmrc"),
     "registry=https://registry.npmjs.org/\n@ctx9:registry=https://registry.npmjs.org/\nengine-strict=true\n",
@@ -35,6 +37,7 @@ try {
       dependencies: {
         "@ctx9/ui": `file:./${ui}`,
         "@ctx9/web-auth": `file:./${auth}`,
+        "@ctx9/identity": `file:./${identity}`,
         react: "19.1.0",
         "react-dom": "19.1.0",
       },
@@ -51,6 +54,7 @@ try {
     `
 import { Button, Input, Checkbox, ColorPicker, NumberSelect, FormDisclosure, FormExampleAction, ShimmerBorderButton, FunkyLoaderButton, DataTable, createDataTableColumnHelper, AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogAction, AlertDialogCancel } from '@ctx9/ui';
 import * as auth from '@ctx9/web-auth';
+import { createIdentityAuthority } from '@ctx9/identity';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { checkStyleSource } from '@ctx9/ui/style-policy';
 interface Row { id: string; name: string }
@@ -73,6 +77,7 @@ columns={columns} getRowId={row => row.id} emptyMessage="Empty" />
 <AlertDialogAction>Continue</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog></>;
 if (!renderToStaticMarkup(app).includes('Save')) throw new Error('Consumer render failed');
 if (!Object.keys(auth).length) throw new Error('Auth package export failed');
+if (typeof createIdentityAuthority !== 'function') throw new Error('Identity package export failed');
 if (checkStyleSource('src/page.tsx', "import { Button } from '@ctx9/ui'; const view = <Button className='bg-red-500' />;").length !== 1) throw new Error('Consumer policy failed');
 `,
   );

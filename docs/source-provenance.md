@@ -2,6 +2,8 @@
 
 Reference repository: Impression
 
+The public `@ctx9/identity` authority is extracted from Platform's `packages/auth/src/index.ts` at `a1abd16`. Its passkey verification, OAuth field mappings, token/cookie policy and rate limiting are reused. Database event writes, membership resolution and enrollment/recovery authorization are injected by each installation. Private Platform provisioning, catalogs and data migrations remain in Platform. The extraction is a public Apache-2.0 package authorized by Matt's October 16 implementation request; independent identity acceptance is tracked separately from package publication.
+
 The Notenv editor redesign adds InfoTooltip and PageHeading's `info`
 text as new compositions of the existing shared Button and Tooltip. Matt's
 October 7 direction moves introductory descriptions beside headings. Account

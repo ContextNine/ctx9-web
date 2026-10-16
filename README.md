@@ -4,8 +4,9 @@ Shared UI components and server-side browser authentication for Notenv and CTX9 
 
 - `@ctx9/ui` owns Impression-aligned light/dark tokens, typed components, and shared style enforcement for internal products.
 - `@ctx9/web-auth` owns framework-neutral confidential OIDC BFF protocol behavior.
+- `@ctx9/identity` supplies the reusable passkey/OIDC authority with application-owned persistence, enrollment, recovery and tenant policy adapters.
 
-This repository publishes packages only. It is not a deployable service, Kubernetes workload, identity authority, session database, or shared browser application.
+This repository publishes packages only. Applications compose the identity authority with their own database and policy adapters; this repository runs no hosted service, Kubernetes workload, session database or shared browser application.
 
 ```bash
 corepack enable

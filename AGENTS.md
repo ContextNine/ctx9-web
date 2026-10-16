@@ -2,6 +2,8 @@
 
 This package-only repository owns the Notenv and CTX9 application design system and shared browser identity protocol. Shared packages are Apache-2.0 and new releases target public npm; publication readiness and source visibility are recorded in `docs/public-distribution.md`.
 
+`@ctx9/identity` reuses the Better Auth authority with application-owned PostgreSQL, enrollment/recovery authorization, credential-event persistence and membership resolution. Keep private Platform provisioning and installation data in its adapter. Read `docs/identity-authority.md` before changing that boundary.
+
 - Always work on master unless instructed not to.
 - Read `docs/style-guide.md`, `docs/component-inventory.md`, `docs/error-handling.md`, `docs/source-provenance.md`, and `docs/package-release.md` before changing public exports.
 - Shared internal UI uses Impression's semantic light and dark themes. CTX9 applications may default to dark, but they do not own a separate CTX9 theme.

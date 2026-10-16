@@ -2,7 +2,7 @@ import { readFile, readdir } from "node:fs/promises";
 import ts from "typescript";
 
 const packages = await readdir(new URL("../packages", import.meta.url));
-if (packages.sort().join(",") !== "ui,web-auth")
+if (packages.sort().join(",") !== "identity,ui,web-auth")
   throw new Error("package-inventory-invalid");
 
 const workspace = JSON.parse(

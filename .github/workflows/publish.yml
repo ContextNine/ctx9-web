@@ -67,3 +67,4 @@ jobs:
           set -eu
           npm publish ./dist-release/ctx9-ui-*.tgz --access public --provenance --registry=https://registry.npmjs.org/
           npm publish ./dist-release/ctx9-web-auth-*.tgz --access public --provenance --registry=https://registry.npmjs.org/
+          npm publish ./dist-release/ctx9-identity-*.tgz --access public --provenance --registry=https://registry.npmjs.org/

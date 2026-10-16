@@ -1,10 +1,10 @@
 # Public distribution
 
-Matt selected Apache-2.0 for the shared packages on October 16, 2026. Notenv's own AGPL license is separate. `@ctx9/ui` and `@ctx9/web-auth` retain their existing names and are prepared as version 9.0.1 for public npm. This document records a release candidate until actual publication and anonymous read-back are recorded below.
+Matt selected Apache-2.0 for the shared packages on October 16, 2026. Notenv's own AGPL license is separate. `@ctx9/ui` and `@ctx9/web-auth` retain their existing names. The extracted `@ctx9/identity` authority joins them in the 9.0.1 public npm candidate. This document records a release candidate until actual publication and anonymous read-back are recorded below.
 
 ## Package contract
 
-Both packages include their Apache-2.0 LICENSE and NOTICE. UI also ships the shadcn/ui MIT notice and the bundled Geist Sans, Inter and JetBrains Mono OFL files. Source ownership and adapted-component origins remain documented in [source provenance](source-provenance.md). CTX9 names and logos do not become licensed trademarks through the code license.
+All three packages include their Apache-2.0 LICENSE and NOTICE. UI also ships the shadcn/ui MIT notice and the bundled Geist Sans, Inter and JetBrains Mono OFL files. Source ownership and adapted-component origins remain documented in [source provenance](source-provenance.md). CTX9 names and logos do not become licensed trademarks through the code license.
 
 The workspace stays private to prevent accidental publication of its root. Individual package manifests select public access and `https://registry.npmjs.org/`. Existing private registry versions remain immutable historical artifacts; new versions have one public registry destination.
 
@@ -41,4 +41,6 @@ The October 16 publication review scanned all 114 Git commits reachable at `f079
 
 The Node 22.16.0 full check passes all 22 tests, archive checks and isolated install/typecheck/render. The same 22 tests and isolated install/typecheck/render also pass on Node 24.21.0 and 26.11.1. The existing development-path fixture needed realpath comparison for macOS's `/var` to `/private/var` alias. Runtime behavior was unchanged. Node 22.16.0 and 26.11.1 were fetched from Node's official distribution and verified against its published archive checksums without changing the machine's installed runtime.
 
-Neither Worker Mac Air nor Mattbook has an npm session. The available Bitwarden desktop session is logged out, so initial npm organization/package ownership cannot yet be verified. This does not block preparation or independent self-host implementation.
+The free npm `ctx9` organization was created and the signed-in account is verified as its owner. A temporary owner-only CLI session was authorized through npm's email challenge. GitHub environment `npm-publication` admits version tags only, and active ruleset `25241779` prevents version-tag updates/deletion. Initial package creation and trusted-publisher registration remain pending.
+
+The source repository is now public under Apache-2.0, with anonymous API access verified. Private vulnerability reporting is enabled. [GitHub check 38906007581](https://github.com/ContextNine/ctx9-web/actions/runs/38906007581) passes for the initial public-distribution source `58194f2`.
