@@ -52,9 +52,9 @@ try {
   await writeFile(
     join(scratch, "consumer.tsx"),
     `
-import { Button, Input, Checkbox, ColorPicker, NumberSelect, FormDisclosure, FormExampleAction, ShimmerBorderButton, FunkyLoaderButton, DataTable, createDataTableColumnHelper, AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogAction, AlertDialogCancel } from '@ctx9/ui';
+import { Button, Input, Checkbox, ColorPicker, NumberSelect, FormDisclosure, FormExampleAction, ShimmerBorderButton, FunkyLoaderButton, DataTable, createDataTableColumnHelper, AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogAction, AlertDialogCancel, createCtx9Applications } from '@ctx9/ui';
 import * as auth from '@ctx9/web-auth';
-import { createIdentityAuthority } from '@ctx9/identity';
+import { createIdentityAuthority, toNodeHandler } from '@ctx9/identity';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { checkStyleSource } from '@ctx9/ui/style-policy';
 interface Row { id: string; name: string }
@@ -77,6 +77,8 @@ columns={columns} getRowId={row => row.id} emptyMessage="Empty" />
 <AlertDialogAction>Continue</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog></>;
 if (!renderToStaticMarkup(app).includes('Save')) throw new Error('Consumer render failed');
 if (!Object.keys(auth).length) throw new Error('Auth package export failed');
+if (createCtx9Applications({ current: 'notenv', origins: { notenv: 'https://vault.example.test' } })[0]?.href !== 'https://vault.example.test') throw new Error('Installation app menu failed');
+if (typeof toNodeHandler !== 'function') throw new Error('Identity HTTP adapter failed');
 if (typeof createIdentityAuthority !== 'function') throw new Error('Identity package export failed');
 if (checkStyleSource('src/page.tsx', "import { Button } from '@ctx9/ui'; const view = <Button className='bg-red-500' />;").length !== 1) throw new Error('Consumer policy failed');
 `,

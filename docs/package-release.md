@@ -277,3 +277,15 @@ Tagged [pipeline 2942682766](https://gitlab.com/ctx9/web/-/pipelines/2942682766)
 published both immutable packages. Matt approved the existing mirror deploy
 key for this exact tag; the `v*` protection is unchanged. Secrets downloaded
 and installed both exact package versions through ordinary pnpm authentication.
+
+## Installation-owned navigation
+
+The 9.1.0 candidate lets `createCtx9Applications` receive only the origins enabled
+by an installation. The current application origin is required. For a standalone
+Notenv, pass `{ current: "notenv", origins: { notenv: applicationOrigin } }`.
+Managed compositions supply their enabled Publisher and Testimonials origins.
+No origin is supplied by the SDK, and canonical ordering is unchanged.
+
+This candidate also exposes `toNodeHandler` from `@ctx9/identity` for the Node
+server composition. Version 9.0.1 remains the staged npm bootstrap candidate;
+9.1.0 has not been published or accepted by consumers.

@@ -14,7 +14,7 @@ Call `createIdentityAuthority` with a PostgreSQL pool, independent signing custo
 
 The adapter owns first-owner bootstrap, invitations, account recovery, tenant/member administration, current authorization checks and revocation. Those operations must not be supplied as public unauthenticated callbacks. The authority never decides which tenant or capability a user should receive.
 
-Each application mounts the authority handler only on its configured identity origin. The application BFF keeps a separate cookie and exact callback on its own origin. Production origins require HTTPS. `.localhost` HTTP is accepted for explicit development use; installation composition must reject insecure production configuration.
+Node applications can import `toNodeHandler` from this package to mount the authority without a separate Better Auth dependency. Each application mounts the authority handler only on its configured identity origin. The application BFF keeps a separate cookie and exact callback on its own origin. Production origins require HTTPS. `.localhost` HTTP is accepted for explicit development use; installation composition must reject insecure production configuration.
 
 The existing `https://ctx9.com/auth_method` and `https://ctx9.com/identity_assurance` claim names are protocol namespaces. They do not contact CTX9. Tenant/deployment IDs and slugs come from installation state rather than fixed CTX9 values.
 

@@ -17,17 +17,20 @@ const applications = [
   label: string;
 }[];
 
-/** Builds the one canonical All apps menu used by every CTX9 product. */
-export function createCtx9Applications({
+/** Builds the app menu from the applications enabled in this installation. */
+export function createCtx9Applications<Current extends Ctx9ApplicationId>({
   current,
   origins,
 }: {
-  current: Ctx9ApplicationId;
-  origins: Ctx9ApplicationOrigins;
+  current: Current;
+  origins: Partial<Ctx9ApplicationOrigins> & Record<Current, string>;
 }): readonly AppNavigationItem[] {
-  return applications.map((application) => ({
-    ...application,
-    href: origins[application.id],
-    current: application.id === current,
-  }));
+  if (!origins[current])
+    throw new Error("Current application origin is required.");
+  return applications.flatMap((application) => {
+    const href = origins[application.id];
+    return href
+      ? [{ ...application, href, current: application.id === current }]
+      : [];
+  });
 }

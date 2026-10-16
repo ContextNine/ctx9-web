@@ -9,6 +9,8 @@ import { jwt } from "better-auth/plugins";
 import type { Pool } from "pg";
 import { z } from "zod";
 
+export { toNodeHandler } from "better-auth/node";
+
 const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u);
 export const identityMembershipSchema = z.object({
   tenant_id: z.uuid(),

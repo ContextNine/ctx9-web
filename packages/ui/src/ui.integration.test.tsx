@@ -141,6 +141,40 @@ describe("shared product primitives", () => {
     expect(results.violations).toHaveLength(0);
   });
 
+  it("navigates the applications enabled by a standalone installation", async () => {
+    render(
+      <ApplicationLayout
+        product="Notenv"
+        products={createCtx9Applications({
+          current: "notenv",
+          origins: { notenv: "https://vault.example.test" },
+        })}
+        account={{
+          tenant: "Example",
+          userName: "Alex Morgan",
+          onOpenTenantAccountSettings: () => undefined,
+          onSignOut: () => undefined,
+        }}
+        navigation={[]}
+        breadcrumbs={[{ id: "notenv", label: "Notenv" }]}
+      >
+        <p>Project configuration</p>
+      </ApplicationLayout>,
+    );
+    const user = userEvent.setup();
+    await user.click(
+      screen.getByRole("button", {
+        name: "Open All apps. Current app: Notenv",
+      }),
+    );
+    const application = screen.getByRole("menuitem", { name: /^Notenv/ });
+    expect(application.getAttribute("href")).toBe("https://vault.example.test");
+    await user.keyboard("{Escape}");
+    expect(screen.getByRole("main").textContent).toContain(
+      "Project configuration",
+    );
+  });
+
   it("renders an icon-only parent action beside a page title", () => {
     render(
       <NavigationProvider
