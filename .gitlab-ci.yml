@@ -3,7 +3,7 @@ include:
     ref: 5c8e2ce763733b9fe3337e8af86e00c577c50fbe
     file: /ci/component.yml
 
-stages: [check, publish]
+stages: [check]
 
 variables:
   DELIVERY_FLOW: ctx9
@@ -26,28 +26,3 @@ check:
     expire_in: 7 days
     paths:
       - packages/*/dist
-
-publish:
-  extends: .delivery-runner-guard
-  stage: publish
-  image: node:22.16.0-bookworm-slim@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34
-  tags: [ctx9-self-managed]
-  variables:
-    DELIVERY_REQUIRE_PROTECTED_REF: "true"
-  needs: [check]
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+$/'
-  script:
-    - corepack enable
-    - pnpm install --frozen-lockfile
-    - test "$CI_COMMIT_TAG" = "v$(node -p 'require("./package.json").version')"
-    - printf '//gitlab.com/api/v4/projects/85438020/packages/npm/:_authToken=${CI_JOB_TOKEN}\n' >.npmrc.ci
-    - trap 'rm -f .npmrc.ci' EXIT
-    - pnpm release:build
-    - npm publish ./dist-release/ctx9-ui-*.tgz --userconfig=.npmrc.ci
-    - npm publish ./dist-release/ctx9-web-auth-*.tgz --userconfig=.npmrc.ci
-  artifacts:
-    when: on_success
-    expire_in: never
-    paths:
-      - dist-release/

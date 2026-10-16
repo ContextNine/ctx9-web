@@ -1,11 +1,12 @@
 {
   "name": "@ctx9/web-workspace",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "private": true,
+  "license": "Apache-2.0",
   "type": "module",
   "packageManager": "pnpm@11.22.0",
   "engines": {
-    "node": "22.16.0",
+    "node": "^22.16.0 || ^24.21.0 || ^26.11.1",
     "pnpm": "11.22.0"
   },
   "scripts": {

@@ -1,15 +1,23 @@
 {
   "name": "@ctx9/ui",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "Shared Impression and CTX9 internal application UI",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ContextNine/ctx9-web.git",
+    "directory": "packages/ui"
+  },
   "type": "module",
   "sideEffects": [
     "./dist/styles.css"
   ],
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "exports": {
     "./dev": {
@@ -28,8 +36,8 @@
     "./icon.svg": "./dist/assets/icon.svg"
   },
   "publishConfig": {
-    "access": "restricted",
-    "registry": "https://gitlab.com/api/v4/projects/85438020/packages/npm/"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "bin": {
     "ctx9-ui-dev": "./dist/dev-cli.js",
@@ -79,7 +87,7 @@
     "tailwind-merge": "3.4.0"
   },
   "engines": {
-    "node": "22.16.0"
+    "node": "^22.16.0 || ^24.21.0 || ^26.11.1"
   },
   "peerDependencies": {
     "react": "19.1.0",

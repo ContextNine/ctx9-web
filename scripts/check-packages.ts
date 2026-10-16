@@ -21,15 +21,17 @@ for (const name of packages) {
     name?: string;
     version?: string;
     private?: boolean;
-    publishConfig?: { registry?: string };
+    license?: string;
+    publishConfig?: { registry?: string; access?: string };
   };
   if (manifest.version !== workspace.version || manifest.private === true)
     throw new Error(`package-release-contract-invalid:${name}`);
-  if (manifest.engines?.node !== "22.16.0")
+  if (manifest.engines?.node !== "^22.16.0 || ^24.21.0 || ^26.11.1")
     throw new Error(`package-node-contract-invalid:${name}`);
   if (
-    manifest.publishConfig?.registry !==
-    "https://gitlab.com/api/v4/projects/85438020/packages/npm/"
+    manifest.publishConfig?.registry !== "https://registry.npmjs.org/" ||
+    manifest.publishConfig.access !== "public" ||
+    manifest.license !== "Apache-2.0"
   )
     throw new Error(`package-registry-invalid:${name}`);
 }

@@ -1,4 +1,4 @@
-import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { expect, test, vi } from "vitest";
@@ -43,7 +43,7 @@ test("consumer checkouts share live source in dev without changing production re
       expect(config.turbopack.resolveAlias["@ctx9/ui/styles.css"]).toBe(
         "./.ctx9-ui/styles.css",
       );
-      expect(config.webpackAliases.recharts$).toBe(recharts);
+      expect(config.webpackAliases.recharts$).toBe(await realpath(recharts));
       vi.stubEnv("NODE_ENV", "production");
       expect(getLocalUiConfig(app)).toBeUndefined();
     }

@@ -23,6 +23,11 @@ try {
   const auth = archives.find((name) => name.startsWith("ctx9-web-auth-"));
   if (!ui || !auth) throw new Error("Isolated install archives missing.");
   await writeFile(
+    join(scratch, ".npmrc"),
+    "registry=https://registry.npmjs.org/\n@ctx9:registry=https://registry.npmjs.org/\nengine-strict=true\n",
+  );
+  await writeFile(join(scratch, "global.npmrc"), "");
+  await writeFile(
     join(scratch, "package.json"),
     JSON.stringify({
       private: true,
@@ -73,7 +78,14 @@ if (checkStyleSource('src/page.tsx', "import { Button } from '@ctx9/ui'; const v
   );
   await execute(
     "npm",
-    ["install", "--ignore-scripts", "--no-audit", "--no-fund"],
+    [
+      "install",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund",
+      "--userconfig=/dev/null",
+      `--globalconfig=${join(scratch, "global.npmrc")}`,
+    ],
     { cwd: scratch, maxBuffer: 4_000_000 },
   );
   const compiler = join(scratch, "node_modules", "typescript", "bin", "tsc");

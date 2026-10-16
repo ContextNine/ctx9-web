@@ -49,6 +49,10 @@ try {
       throw new Error(`package-font-nesting-invalid:${archive}`);
     if (!entries.includes("package/package.json"))
       throw new Error(`package-manifest-missing:${archive}`);
+    for (const expected of ["package/LICENSE", "package/NOTICE"]) {
+      if (!entries.includes(expected))
+        throw new Error(`package-license-entry-missing:${archive}:${expected}`);
+    }
 
     const extraction = join(scratch, archive.replace(/\.tgz$/u, ""));
     await execute("mkdir", ["-p", extraction]);
@@ -74,6 +78,8 @@ try {
         "package/dist/fonts/inter-normal-variable.ttf",
         "package/dist/fonts/licenses/geist-ofl.txt",
         "package/dist/fonts/licenses/inter-ofl.txt",
+        "package/dist/fonts/licenses/jetbrains-mono-ofl.txt",
+        "package/THIRD_PARTY_NOTICES.md",
       ]) {
         if (!entries.includes(expected))
           throw new Error(`ui-package-entry-missing:${expected}`);

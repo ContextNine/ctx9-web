@@ -1,6 +1,8 @@
 # Package release and consumption
 
-GitHub `ContextNine/ctx9-web` is the canonical source. A GitHub Actions deploy key mirrors authoritative branches and tags to the private GitLab project `ctx9/web` (`85438020`). GitLab CI validates mirrored refs and publishes immutable tagged releases to its private npm registry.
+GitHub `ContextNine/ctx9-web` is the canonical source. New releases beginning with the public-distribution candidate 9.0.1 target public npm through `.github/workflows/publish.yml`. GitLab continues to check mirrored refs and retains historical private releases. It does not publish new versions. See [public distribution](public-distribution.md) for publication requirements and current acceptance state.
+
+The historical private-release procedures and evidence below describe versions through 9.0.0. They are not the publication procedure for new versions.
 
 ## Release
 
@@ -8,7 +10,6 @@ Version 9 names the canonical secrets application Notenv. Consumers select
 `current: "notenv"` and provide `origins.notenv` to `createCtx9Applications`.
 The previous product ID is removed, so migrate each consumer with its exact
 package pin. The application switcher displays Notenv across all CTX9 products.
-
 
 Both packages at `9.0.0` are published from
 `88b2bcbc616c026f78a79b09a994aefc8dfad21f`. Tagged

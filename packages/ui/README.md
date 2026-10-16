@@ -2,6 +2,8 @@
 
 Impression-aligned controls and application compositions for internal products, with one light theme and one dark theme. Import `@ctx9/ui/styles.css` exactly once in the application root.
 
+Licensed under Apache-2.0, with public npm distribution prepared for 9.0.1. See `NOTICE`, `THIRD_PARTY_NOTICES.md` and `dist/fonts/licenses/` for bundled third-party attribution. Source and release acceptance are at [ContextNine/ctx9-web](https://github.com/ContextNine/ctx9-web).
+
 ```tsx
 import "@ctx9/ui/styles.css";
 import {
