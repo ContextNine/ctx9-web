@@ -31,7 +31,7 @@ Pin exact versions and update lockfiles in each consumer. Remove the old `@ctx9`
 
 Public Notenv source and Docker builds must install these packages without registry credentials. Source builds may not depend on a sibling checkout. Local SDK development aliases remain a development convenience only.
 
-`pnpm install:check` installs packed archives in a clean temporary consumer with public registry configuration and no user/global npm configuration. It typechecks and renders UI and imports the server auth package. Archive checks also enforce real license/font contents and client boundaries.
+`pnpm install:check` installs packed archives in a clean temporary consumer with public registry configuration and no user/global npm configuration. It runs the pinned npm 11.20.0 CLI under the selected Node runtime. npm 10.9.2 bundled with Node 22.16.0 crashes in its peer resolver for the authority dependency graph; the supported package-manager toolchain uses npm 11 or pnpm 11.22.0. The check typechecks and renders UI and imports both server auth packages. Archive checks also enforce real license/font contents and client boundaries.
 
 ## Acceptance record
 

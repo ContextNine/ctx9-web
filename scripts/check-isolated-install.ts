@@ -82,8 +82,9 @@ if (checkStyleSource('src/page.tsx', "import { Button } from '@ctx9/ui'; const v
 `,
   );
   await execute(
-    "npm",
+    process.execPath,
     [
+      join(root, "node_modules", "npm", "bin", "npm-cli.js"),
       "install",
       "--ignore-scripts",
       "--no-audit",
