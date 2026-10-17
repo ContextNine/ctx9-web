@@ -5,6 +5,7 @@
 - [Component inventory](component-inventory.md)
 - [Error handling](error-handling.md)
 - [Source provenance](source-provenance.md)
+- [Direct dependency licenses and retained font verification](evidence/source-license-inventory-2026-10-17.json)
 - [Package release and consumption](package-release.md)
 - [Public distribution](public-distribution.md)
 - [Reusable identity authority](identity-authority.md)

@@ -34,6 +34,11 @@ const fonts = [
     expected:
       "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
   },
+  {
+    path: "packages/ui/src/fonts/jetbrains-mono-latin-variable.woff2",
+    expected:
+      "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e",
+  },
 ] as const;
 
 for (const font of fonts) {
@@ -46,6 +51,7 @@ for (const font of fonts) {
 for (const license of [
   "packages/ui/src/fonts/licenses/geist-ofl.txt",
   "packages/ui/src/fonts/licenses/inter-ofl.txt",
+  "packages/ui/src/fonts/licenses/jetbrains-mono-ofl.txt",
 ]) {
   const text = await readFile(new URL(license, root), "utf8");
   if (!text.includes("SIL OPEN FONT LICENSE"))
@@ -53,48 +59,33 @@ for (const license of [
 }
 
 const approvedLicenses = new Set(["Apache-2.0", "ISC", "MIT"]);
-for (const dependency of [
-  "@radix-ui/react-alert-dialog",
-  "@radix-ui/react-checkbox",
-  "@radix-ui/react-dialog",
-  "@radix-ui/react-dropdown-menu",
-  "@radix-ui/react-label",
-  "@radix-ui/react-popover",
-  "@radix-ui/react-scroll-area",
-  "@radix-ui/react-select",
-  "@radix-ui/react-slot",
-  "@radix-ui/react-switch",
-  "@radix-ui/react-tabs",
-  "@radix-ui/react-toast",
-  "@radix-ui/react-tooltip",
-  "@tanstack/react-table",
-  "class-variance-authority",
-  "clsx",
-  "cmdk",
-  "date-fns",
-  "lucide-react",
-  "react-day-picker",
-  "react-colorful",
-  "react-hook-form",
-  "react-resizable-panels",
-  "recharts",
-  "sonner",
-  "tailwind-merge",
-  "jose",
-  "better-auth",
-  "@better-auth/oauth-provider",
-  "@better-auth/passkey",
-  "zod",
-]) {
+for (const directory of ["ui", "web-auth", "identity"]) {
   const manifest = JSON.parse(
-    await readFile(
-      new URL(
-        `node_modules/.pnpm/node_modules/${dependency}/package.json`,
-        root,
+    await readFile(new URL(`packages/${directory}/package.json`, root), "utf8"),
+  ) as {
+    dependencies?: Record<string, string>;
+    optionalDependencies?: Record<string, string>;
+    peerDependencies?: Record<string, string>;
+  };
+  const dependencies = Object.keys({
+    ...manifest.dependencies,
+    ...manifest.optionalDependencies,
+    ...manifest.peerDependencies,
+  });
+  for (const dependency of dependencies) {
+    // Inspect each package's actual selected dependency, including peer versions.
+    const installed = JSON.parse(
+      await readFile(
+        new URL(
+          `packages/${directory}/node_modules/${dependency}/package.json`,
+          root,
+        ),
+        "utf8",
       ),
-      "utf8",
-    ),
-  ) as { license?: string };
-  if (!manifest.license || !approvedLicenses.has(manifest.license))
-    throw new Error(`dependency-license-unapproved:${dependency}`);
+    ) as { license?: string };
+    if (!installed.license || !approvedLicenses.has(installed.license))
+      throw new Error(
+        `dependency-license-unapproved:${directory}:${dependency}`,
+      );
+  }
 }

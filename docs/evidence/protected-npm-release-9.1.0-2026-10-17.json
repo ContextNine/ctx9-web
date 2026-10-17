@@ -72,10 +72,7 @@
   "latest_publish_job_id": 117263211850,
   "publisher_settings_observation": {
     "date": "2026-10-17",
-    "packages_without_saved_connection": [
-      "@ctx9/web-auth",
-      "@ctx9/identity"
-    ],
+    "packages_without_saved_connection": ["@ctx9/web-auth", "@ctx9/identity"],
     "approved_forms_prepared": {
       "repository": "ContextNine/ctx9-web",
       "workflow": "publish.yml",

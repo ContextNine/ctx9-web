@@ -51,6 +51,10 @@ standalone navigation journey uses one operator-supplied application origin;
 the managed three-application journey remains covered. Consumer pins still
 await accepted public publication.
 
+## License inventory checks
+
+The [October 17 inventory](evidence/source-license-inventory-2026-10-17.json) covers every public package's declared runtime, optional and peer dependency using that package's actual installed metadata. Release checks derive this inventory from manifests, so a newly declared dependency cannot be omitted from a hand-maintained list. All three retained font hashes and OFL files are checked, including JetBrains Mono's original source record at `9081c77a0d8eec6db95e87d2ef1c9f0391930029`. Archive checks require the three font binaries and their notices. Package contents and immutable release tags are unchanged. Direct metadata and asset checks do not establish all transitive licenses or copied-code ownership.
+
 ## Private security reporting
 
 Notenv and the shared packages use one [private security intake](https://github.com/ContextNine/ctx9-web/security/advisories/new) on the public shared-package repository. Both root security policies name the components, synthetic reproduction requirements and release support policy. Notenv has no supported standalone public release yet; the shared packages target their latest stable public versions.

@@ -1,0 +1,324 @@
+{
+  "date": "2026-10-17",
+  "package_and_asset_source_commit": "0a3dfc41d68f4822aefe69dc2e4b5d3f5c5b64f7",
+  "method": "Each public package manifest runtime, optional and peer declarations, resolved through that package node_modules; all retained font hashes and OFL files",
+  "declared_dependency_edges": 47,
+  "unique_dependency_names": 46,
+  "dependencies": [
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-alert-dialog",
+      "version": "1.1.15",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-avatar",
+      "version": "1.1.2",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-checkbox",
+      "version": "1.3.3",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-collapsible",
+      "version": "1.1.12",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-context-menu",
+      "version": "2.2.16",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-dialog",
+      "version": "1.1.15",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-dropdown-menu",
+      "version": "2.1.16",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-label",
+      "version": "2.1.8",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-popover",
+      "version": "1.1.15",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-scroll-area",
+      "version": "1.2.2",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-select",
+      "version": "2.2.6",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-separator",
+      "version": "1.1.8",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-slot",
+      "version": "1.2.4",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-switch",
+      "version": "1.2.6",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-tabs",
+      "version": "1.1.2",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-toast",
+      "version": "1.2.4",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@radix-ui/react-tooltip",
+      "version": "1.2.8",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "@tanstack/react-table",
+      "version": "8.21.3",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "class-variance-authority",
+      "version": "0.7.1",
+      "license": "Apache-2.0"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "clsx",
+      "version": "2.1.1",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "cmdk",
+      "version": "1.1.1",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "date-fns",
+      "version": "4.1.0",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "framer-motion",
+      "version": "12.23.24",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "lucide-react",
+      "version": "0.546.0",
+      "license": "ISC"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "motion-dom",
+      "version": "12.23.23",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "motion-utils",
+      "version": "12.23.6",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "radix-ui",
+      "version": "1.4.3",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "react",
+      "version": "19.1.0",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "react-colorful",
+      "version": "5.6.1",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "react-day-picker",
+      "version": "9.11.1",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "react-dom",
+      "version": "19.1.0",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "react-hook-form",
+      "version": "7.66.1",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "react-resizable-panels",
+      "version": "3.0.6",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "recharts",
+      "version": "3.8.1",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "sonner",
+      "version": "1.7.4",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "tailwind-merge",
+      "version": "3.4.0",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/ui",
+      "dependency": "typescript",
+      "version": "5.9.3",
+      "license": "Apache-2.0"
+    },
+    {
+      "package": "@ctx9/web-auth",
+      "dependency": "jose",
+      "version": "6.2.8",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/web-auth",
+      "dependency": "zod",
+      "version": "4.4.3",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/identity",
+      "dependency": "@better-auth/core",
+      "version": "1.7.0-beta.10",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/identity",
+      "dependency": "@better-auth/oauth-provider",
+      "version": "1.7.0-beta.10",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/identity",
+      "dependency": "@better-auth/passkey",
+      "version": "1.7.0-beta.10",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/identity",
+      "dependency": "@better-fetch/fetch",
+      "version": "1.3.1",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/identity",
+      "dependency": "better-auth",
+      "version": "1.7.0-beta.10",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/identity",
+      "dependency": "better-call",
+      "version": "1.3.7",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/identity",
+      "dependency": "pg",
+      "version": "8.23.0",
+      "license": "MIT"
+    },
+    {
+      "package": "@ctx9/identity",
+      "dependency": "zod",
+      "version": "4.4.3",
+      "license": "MIT"
+    }
+  ],
+  "fonts": [
+    {
+      "file": "geist-sans-variable.woff2",
+      "sha256": "46525b05bbf4527d263f8624ca7024c7d0dce3c64430267d30c31c6dd3821e4d",
+      "license": "OFL-1.1",
+      "license_file": "geist-ofl.txt"
+    },
+    {
+      "file": "inter-normal-variable.ttf",
+      "sha256": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
+      "license": "OFL-1.1",
+      "license_file": "inter-ofl.txt"
+    },
+    {
+      "file": "jetbrains-mono-latin-variable.woff2",
+      "sha256": "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e",
+      "license": "OFL-1.1",
+      "license_file": "jetbrains-mono-ofl.txt"
+    }
+  ],
+  "aggregate_check": {
+    "command": "pnpm check",
+    "result": "passed",
+    "node_version": "24.21.0",
+    "tests_passed": 24,
+    "archive_checks_passed": true,
+    "isolated_install_typecheck_render_style_passed": true,
+    "root_script_typecheck_passed": true
+  },
+  "transitive_license_review_complete": false,
+  "copied_code_rights_review_complete": false,
+  "immutable_release_tag_changed": false,
+  "runtime_package_source_changed": false
+}
