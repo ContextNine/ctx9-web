@@ -53,7 +53,9 @@ await accepted public publication.
 
 ## License inventory checks
 
-The [October 17 inventory](evidence/source-license-inventory-2026-10-17.json) covers every public package's declared runtime, optional and peer dependency using that package's actual installed metadata. Release checks derive this inventory from manifests, so a newly declared dependency cannot be omitted from a hand-maintained list. All three retained font hashes and OFL files are checked, including JetBrains Mono's original source record at `9081c77a0d8eec6db95e87d2ef1c9f0391930029`. Archive checks require the three font binaries and their notices. Package contents and immutable release tags are unchanged. Direct metadata and asset checks do not establish all transitive licenses or copied-code ownership.
+The [October 17 inventory](evidence/source-license-inventory-2026-10-17.json) covers 47 runtime, optional and peer dependency entries using each public package's actual installed metadata. Release checks derive this inventory from manifests, so a newly declared dependency cannot be omitted from a hand-maintained list. All three retained font hashes and OFL files are checked, including JetBrains Mono's original source record at `9081c77a0d8eec6db95e87d2ef1c9f0391930029`. Archive checks require the three font binaries and their notices. Runtime package source and immutable release tags are unchanged. Direct metadata and asset checks do not establish all transitive licenses or copied-code ownership.
+
+[Check run 38997414696](https://github.com/ContextNine/ctx9-web/actions/runs/38997414696), exact source `f413f9e121452f8bdd83bd4c45a6bee0cb9fae79`, passes the full 24-case package, archive and isolated-install checks on Node 22.16.0. Local Node 24.21.0 validation also passes, including a separate repository-script TypeScript check. This verifies the expanded release checks; it publishes no package and does not change the pending trusted-publisher setup.
 
 ## Private security reporting
 

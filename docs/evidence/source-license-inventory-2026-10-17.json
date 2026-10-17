@@ -320,5 +320,14 @@
   "transitive_license_review_complete": false,
   "copied_code_rights_review_complete": false,
   "immutable_release_tag_changed": false,
-  "runtime_package_source_changed": false
+  "runtime_package_source_changed": false,
+  "public_ci": {
+    "run_id": 38997414696,
+    "url": "https://github.com/ContextNine/ctx9-web/actions/runs/38997414696",
+    "source_commit": "f413f9e121452f8bdd83bd4c45a6bee0cb9fae79",
+    "node_version": "22.16.0",
+    "result": "success",
+    "tests_passed": 24,
+    "archives_and_isolated_install_passed": true
+  }
 }
