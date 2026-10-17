@@ -8,7 +8,7 @@
 - [Direct dependency licenses and retained font verification](evidence/source-license-inventory-2026-10-17.json)
 - [Package release and consumption](package-release.md)
 - [Public distribution](public-distribution.md)
-- [Reusable identity authority](identity-authority.md)
+- [Reusable identity authority architecture decision and adapter contract](identity-authority.md)
 
 - [Public npm bootstrap read-back receipt](evidence/public-npm-bootstrap-2026-10-16.json)
 
