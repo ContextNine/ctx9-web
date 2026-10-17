@@ -64,5 +64,10 @@
   "tag_preserved": true,
   "credential_values_returned": false,
   "configuration_permissions_changed": false,
-  "next_action": "Save the already approved web-auth and identity publisher connections, then rerun only the failed publish job on the unchanged v9.1.0 tag."
+  "next_action": "Save the already approved web-auth and identity publisher connections, then rerun only the failed publish job on the unchanged v9.1.0 tag.",
+  "runtime_checks_attempt": 1,
+  "latest_publish_attempt": 2,
+  "latest_attempt_url": "https://github.com/ContextNine/ctx9-web/actions/runs/38984250543/attempts/2",
+  "latest_preflight_matches_first_attempt": true,
+  "latest_publish_job_id": 117263211850
 }
