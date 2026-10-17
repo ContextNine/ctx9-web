@@ -1,9 +1,8 @@
-name: Release
+name: Mirror source
 
 on:
   push:
     branches: [master]
-    tags: ["**"]
 
 permissions:
   contents: read
@@ -14,12 +13,13 @@ concurrency:
 
 jobs:
   mirror:
+    if: github.repository == 'ContextNine/ctx9-web' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - name: Push authoritative ref
+      - name: Mirror master source
         env:
           GITLAB_CTX9_MIRROR_SSH_KEY: ${{ secrets.GITLAB_CTX9_MIRROR_SSH_KEY }}
         run: |
@@ -30,4 +30,4 @@ jobs:
           ssh-keyscan -H gitlab.com >"$HOME/.ssh/known_hosts" 2>/dev/null
           export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/ctx9-mirror -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes"
           remote="git@gitlab.com:ctx9/web.git"
-          git push "$remote" "$GITHUB_REF:$GITHUB_REF"
+          git push "$remote" HEAD:refs/heads/master
