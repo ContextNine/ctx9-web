@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-17",
+  "source_commit": "02a4f78be715a973771c491c77611fee2b2c03db",
+  "tag": "v9.1.0",
+  "run_url": "https://github.com/ContextNine/ctx9-web/actions/runs/38984250543",
+  "state": "Stopped by publisher connection preflight",
+  "runtime_checks": [
+    {
+      "node": "22.16.0",
+      "tests_passed": 24,
+      "archive_checks_passed": true,
+      "isolated_install_typecheck_render_style_passed": true
+    },
+    {
+      "node": "24.21.0",
+      "tests_passed": 24,
+      "archive_checks_passed": true,
+      "isolated_install_typecheck_render_style_passed": true
+    },
+    {
+      "node": "26.11.1",
+      "tests_passed": 24,
+      "archive_checks_passed": true,
+      "isolated_install_typecheck_render_style_passed": true
+    }
+  ],
+  "oidc_exchanges": [
+    {
+      "package": "@ctx9/ui",
+      "http_status": 201,
+      "authorized": true
+    },
+    {
+      "package": "@ctx9/web-auth",
+      "http_status": 404,
+      "authorized": false
+    },
+    {
+      "package": "@ctx9/identity",
+      "http_status": 404,
+      "authorized": false
+    }
+  ],
+  "release_archives_built": false,
+  "release_artifacts_uploaded": false,
+  "package_publish_step_executed": false,
+  "anonymous_version_readback": [
+    {
+      "package": "@ctx9/ui",
+      "version": "9.1.0",
+      "anonymous_http_status": 404
+    },
+    {
+      "package": "@ctx9/web-auth",
+      "version": "9.1.0",
+      "anonymous_http_status": 404
+    },
+    {
+      "package": "@ctx9/identity",
+      "version": "9.1.0",
+      "anonymous_http_status": 404
+    }
+  ],
+  "tag_preserved": true,
+  "credential_values_returned": false,
+  "configuration_permissions_changed": false,
+  "next_action": "Save the already approved web-auth and identity publisher connections, then rerun only the failed publish job on the unchanged v9.1.0 tag."
+}
