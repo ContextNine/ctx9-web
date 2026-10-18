@@ -292,12 +292,14 @@ and installed both exact package versions through ordinary pnpm authentication.
 
 ## Installation-owned navigation
 
-The 9.1.0 candidate lets `createCtx9Applications` receive only the origins enabled
+Version 9.1.0 lets `createCtx9Applications` receive only the origins enabled
 by an installation. The current application origin is required. For a standalone
 Notenv, pass `{ current: "notenv", origins: { notenv: applicationOrigin } }`.
 Managed compositions supply their enabled Publisher and Testimonials origins.
 No origin is supplied by the SDK, and canonical ordering is unchanged.
 
-This candidate also exposes `toNodeHandler` from `@ctx9/identity` for the Node
-server composition. Version 9.0.1 is the public npm bootstrap.
-9.1.0 has not been published or accepted by consumers.
+It also exposes `toNodeHandler` from `@ctx9/identity` for the Node server
+composition. Version 9.0.1 remains the historical public npm bootstrap.
+All three 9.1.0 packages pass protected OIDC publication and independent
+[archive/provenance read-back](evidence/public-npm-9.1.0-2026-10-18.json).
+Consumer pins and application acceptance remain separate.

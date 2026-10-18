@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "repository": "ContextNine/ctx9-web",
+  "repository_id": 1335145627,
+  "version": "9.1.0",
+  "source_commit": "02a4f78be715a973771c491c77611fee2b2c03db",
+  "tag": "v9.1.0",
+  "tag_changed": false,
+  "publication": {
+    "provider": "github-actions-npm-oidc",
+    "run_id": 38984250543,
+    "run_attempt": 3,
+    "publish_job_id": 117658319644,
+    "workflow": ".github/workflows/publish.yml",
+    "environment": "npm-publication",
+    "status": "completed",
+    "conclusion": "success",
+    "package_oidc_exchange_statuses": [201, 201, 201],
+    "all_three_publish_commands": "acknowledged-and-processed",
+    "personal_npm_token_used": false,
+    "check_matrix": [
+      { "node": "22.16.0", "job_id": 117658339340, "conclusion": "success" },
+      { "node": "24.21.0", "job_id": 117658350258, "conclusion": "success" },
+      { "node": "26.11.1", "job_id": 117658320286, "conclusion": "success" }
+    ]
+  },
+  "retained_release_artifact": {
+    "id": 12135005370,
+    "name": "web-v9.1.0",
+    "bytes": 789582,
+    "sha256": "a4f3a577d8b3d8f58926e52d1f7a3cd03ab81e401e3894e3d80e9540dc70185a",
+    "independent_download_digest": "passed",
+    "exact_five_file_set_and_manifest_checksum_list": "passed",
+    "manifest_source_and_version": "passed"
+  },
+  "anonymous_registry_readback": true,
+  "packages": [
+    {
+      "name": "@ctx9/ui",
+      "version": "9.1.0",
+      "sha256": "9b2a41f962a87efa4ec44899f9f0efc250b619970d12236d8243810cdca5bf82",
+      "tarball": "https://registry.npmjs.org/@ctx9/ui/-/ui-9.1.0.tgz",
+      "tar_members": 293,
+      "bytes_match_retained_ci": true,
+      "registry_sha1_and_sha512_integrity": "passed",
+      "provenance_signature": "verified"
+    },
+    {
+      "name": "@ctx9/web-auth",
+      "version": "9.1.0",
+      "sha256": "7bf82f5f0a2a1ae07642d876ee0aacca0248504c52588e5995a3dbd501ea9040",
+      "tarball": "https://registry.npmjs.org/@ctx9/web-auth/-/web-auth-9.1.0.tgz",
+      "tar_members": 24,
+      "bytes_match_retained_ci": true,
+      "registry_sha1_and_sha512_integrity": "passed",
+      "provenance_signature": "verified"
+    },
+    {
+      "name": "@ctx9/identity",
+      "version": "9.1.0",
+      "sha256": "f760df835a37452f1716be1a36d4b954eedcea2dbb02f110e8a72d3af05d1654",
+      "tarball": "https://registry.npmjs.org/@ctx9/identity/-/identity-9.1.0.tgz",
+      "tar_members": 8,
+      "bytes_match_retained_ci": true,
+      "registry_sha1_and_sha512_integrity": "passed",
+      "provenance_signature": "verified"
+    }
+  ],
+  "provenance_verification": {
+    "verifier": "cosign 3.1.3",
+    "predicate": "https://slsa.dev/provenance/v1",
+    "issuer": "https://token.actions.githubusercontent.com",
+    "identity": "https://github.com/ContextNine/ctx9-web/.github/workflows/publish.yml@refs/tags/v9.1.0",
+    "certificate_workflow_sha": "02a4f78be715a973771c491c77611fee2b2c03db",
+    "all_three_sha512_subjects_match_tarballs": true,
+    "all_three_statements_bind_exact_source_workflow_tag_run_attempt": true,
+    "transparency_and_certificate_checks_enabled": true,
+    "wrong_source_workflow_sha_negative_control": "rejected"
+  },
+  "archive_license_notice_and_package_identity": "passed",
+  "consumer_pins_and_application_acceptance": "separate-pending-gates",
+  "production_deployed": false,
+  "machine_installations_changed": false,
+  "values_returned": false
+}

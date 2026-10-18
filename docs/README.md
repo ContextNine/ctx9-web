@@ -17,3 +17,5 @@
 - [Public SDK check and published engine metadata](evidence/public-sdk-check-2026-10-17.json)
 
 - [Protected 9.1.0 release and publisher connection result](evidence/protected-npm-release-9.1.0-2026-10-17.json)
+
+- [Accepted protected 9.1.0 publication and anonymous provenance read-back](evidence/public-npm-9.1.0-2026-10-18.json)

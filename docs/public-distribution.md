@@ -1,6 +1,6 @@
 # Public distribution
 
-Matt selected Apache-2.0 for the shared packages on October 16, 2026. Notenv's own AGPL license is separate. `@ctx9/ui` and `@ctx9/web-auth` retain their existing names. The extracted `@ctx9/identity` authority joins them in the staged 9.0.1 npm bootstrap. Source now prepares 9.1.0 with installation-owned navigation and a Node authority adapter. The 9.0.1 bootstrap is public and verified below. Version 9.1.0 remains the next OIDC release candidate.
+Matt selected Apache-2.0 for the shared packages on October 16, 2026. Notenv's own AGPL license is separate. `@ctx9/ui` and `@ctx9/web-auth` retain their existing names. The extracted `@ctx9/identity` authority joins them in the staged 9.0.1 npm bootstrap. Version 9.1.0 adds installation-owned navigation and a Node authority adapter. All three 9.1.0 packages now pass protected OIDC publication and independent anonymous archive/provenance acceptance below. Consumer adoption remains separate.
 
 ## Package contract
 
@@ -78,3 +78,22 @@ Matt has the permanent npm settings links and the exact already-approved connect
 The private mirror rejected the first public version tag through its existing protected-tag policy. The mirror now follows master only, with [run 38984720610](https://github.com/ContextNine/ctx9-web/actions/runs/38984720610) passing at `6e8e8beb253a3d16d7b212ea67b9adb651df5b63`. GitHub owns new public release tags; historical private tags/artifacts remain retained and no GitLab permission is expanded.
 
 The unchanged-tag publish-job retry in [attempt 2](https://github.com/ContextNine/ctx9-web/actions/runs/38984250543/attempts/2) returns the same 201/404/404 exchanges. Install, release build, artifact upload and publication remain skipped. Fresh anonymous metadata still returns 404 for all three 9.1.0 versions. The accepted three-runtime matrix belongs to attempt 1 and was not repeated for this permission recheck.
+
+## Protected 9.1.0 publication accepted, October 18
+
+Matt completed the npm security-key confirmations for both missing trusted
+publishers. All three connections select `ContextNine/ctx9-web`, `publish.yml`
+and `npm-publication`, allow npm publication and have no extra dist-tag
+permission. The unchanged-tag [attempt 3](https://github.com/ContextNine/ctx9-web/actions/runs/38984250543/attempts/3)
+passes all three runtime checks, all three real OIDC exchanges and publication.
+No personal npm token, tag movement or version replacement was used.
+
+After npm's processing delay, anonymous downloads of all three 9.1.0 archives
+match the retained release artifact byte-for-byte. Registry SHA-1 and SHA-512
+integrity, package names/versions and LICENSE/NOTICE contents match. Independent
+Cosign verification accepts each SLSA provenance bundle with the exact workflow,
+tag, source and GitHub issuer, with transparency checks enabled. Each statement
+binds the exact tarball and successful run attempt. The
+[read-back receipt](evidence/public-npm-9.1.0-2026-10-18.json) records the immutable
+hashes and actual job identities. This supersedes the missing-publisher gate
+above, not the separate consumer pin, application, production or Fleet gates.
