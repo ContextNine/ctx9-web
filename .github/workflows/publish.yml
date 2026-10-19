@@ -14,7 +14,7 @@ concurrency:
 jobs:
   check:
     if: github.repository == 'ContextNine/ctx9-web'
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     strategy:
       fail-fast: false
       matrix:

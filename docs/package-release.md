@@ -6,6 +6,12 @@ The historical private-release procedures and evidence below describe versions t
 
 ## Protected public release
 
+Prerequisite checks run on Blacksmith. The final protected npm publisher remains
+on a GitHub-hosted runner because npm trusted publishing does not support
+self-hosted runners. Keep its OIDC exchange, provenance and environment binding;
+do not replace them with an npm token to change compute providers. The public
+master mirror is a separate lightweight GitHub-hosted exception.
+
 The public bootstrap is 9.0.1. Future releases use only `publish.yml` on reviewed immutable `vX.Y.Z` tags and its `npm-publication` environment. The environment admits version tags only. Run `pnpm check` and isolated archive acceptance before committing the version; the protected workflow repeats the complete check on Node 22.16.0, 24.21.0 and 26.11.1.
 
 `release.yml` mirrors only master source to GitLab. Public release tags belong to GitHub and do not need new private protected-tag grants. Existing GitLab tags and historical package artifacts remain retained. The first `v9.1.0` tag mirror was rejected by that private tag policy; its GitHub tag stays unchanged. This mirror result is separate from npm publication and its runtime checks.
