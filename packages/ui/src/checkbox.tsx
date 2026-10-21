@@ -5,18 +5,17 @@ import * as React from "react";
 import { cn } from "./cn.js";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { cva } from "class-variance-authority";
-import { CheckIcon } from "lucide-react";
-
-import {
-  checkboxBlackWhiteStyles,
-  checkboxBrandStyles,
-} from "./impression-recipes.js";
+import { CheckIcon, MinusIcon } from "lucide-react";
 
 const checkboxVariants = cva("", {
   variants: {
     variant: {
-      brand: checkboxBrandStyles,
-      blackWhite: checkboxBlackWhiteStyles,
+      neutral: cn(
+        "peer size-4 shrink-0 cursor-pointer rounded border border-neutral-300 bg-transparent text-white shadow-sm transition-colors dark:border-mono-600",
+        "data-[state=checked]:border-mono-900 data-[state=checked]:bg-mono-900 data-[state=indeterminate]:border-mono-900 data-[state=indeterminate]:bg-mono-900",
+        "dark:data-[state=checked]:border-mono-100 dark:data-[state=checked]:bg-mono-100 dark:data-[state=checked]:text-mono-900 dark:data-[state=indeterminate]:border-mono-100 dark:data-[state=indeterminate]:bg-mono-100 dark:data-[state=indeterminate]:text-mono-900",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+      ),
       dailyGoal: cn(
         "h-8 w-8 rounded-md border-2 transition-all duration-300 ease-out",
         "data-[state=unchecked]:border-ns-green-bg-dark/35 data-[state=unchecked]:bg-white/80 data-[state=unchecked]:text-ns-green-bg-dark/65",
@@ -33,10 +32,10 @@ const checkboxVariants = cva("", {
       none: "pointer-events-none",
     },
   },
-  defaultVariants: { variant: "brand", interaction: "default" },
+  defaultVariants: { variant: "neutral", interaction: "default" },
 });
 
-type CheckboxVariant = "brand" | "blackWhite" | "dailyGoal";
+type CheckboxVariant = "neutral" | "dailyGoal";
 
 interface CheckboxProps
   extends Omit<
@@ -52,7 +51,7 @@ interface CheckboxProps
 const Checkbox = React.forwardRef<
   React.ComponentRef<typeof CheckboxPrimitive.Root>,
   CheckboxProps
->(({ interaction, variant = "brand", ...props }, ref) => {
+>(({ interaction, variant = "neutral", ...props }, ref) => {
   return (
     <CheckboxPrimitive.Root
       {...props}
@@ -60,8 +59,17 @@ const Checkbox = React.forwardRef<
       className={cn(checkboxVariants({ interaction, variant }))}
       style={undefined}
     >
-      <CheckboxPrimitive.Indicator className="flex items-center justify-center text-current">
-        <CheckIcon size={16} strokeWidth={3} />
+      <CheckboxPrimitive.Indicator className="group flex items-center justify-center text-current">
+        <CheckIcon
+          className="group-data-[state=indeterminate]:hidden"
+          size={variant === "dailyGoal" ? 16 : 14}
+          strokeWidth={variant === "dailyGoal" ? 3 : 2.5}
+        />
+        <MinusIcon
+          className="hidden group-data-[state=indeterminate]:block"
+          size={14}
+          strokeWidth={2.5}
+        />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

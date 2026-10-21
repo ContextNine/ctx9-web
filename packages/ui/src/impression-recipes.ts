@@ -73,35 +73,6 @@ export const switchSelectedBackgroundStyles =
   "data-[state=checked]:bg-neutral-700 dark:data-[state=checked]:bg-mono-200";
 export const overBlueTextStyles = "text-white dark:text-mono-200";
 
-const checkboxBaseStyles = cn(
-  "peer h-5 w-5 shrink-0 rounded-smd border",
-  "scale-100 text-center transition-all duration-300 hover:scale-[110%]",
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-  "disabled:cursor-not-allowed disabled:opacity-50",
-);
-export const checkboxBrandStyles = cn(
-  checkboxBaseStyles,
-  "border-brandPrimary bg-transparent",
-  "data-[state=checked]:border-brandPrimary data-[state=checked]:bg-brandPrimary data-[state=checked]:text-white",
-  "data-[state=indeterminate]:border-brandPrimary data-[state=indeterminate]:bg-brandPrimary data-[state=indeterminate]:text-white",
-  "data-[state=unchecked]:hover:bg-brandPrimary/12 data-[state=unchecked]:hover:border-brandPrimary",
-  "data-[state=checked]:hover:border-brandPrimary data-[state=checked]:hover:bg-brandPrimary",
-  "data-[state=indeterminate]:hover:border-brandPrimary data-[state=indeterminate]:hover:bg-brandPrimary",
-  "ring-offset-white dark:ring-offset-black",
-);
-export const checkboxBlackWhiteStyles = cn(
-  checkboxBaseStyles,
-  "border-neutral-300 bg-transparent dark:border-mono-600",
-  "data-[state=checked]:border-neutral-300 data-[state=checked]:bg-white data-[state=checked]:text-neutral-600",
-  "data-[state=checked]:dark:border-mono-600 data-[state=checked]:dark:bg-black data-[state=checked]:dark:text-mono-300",
-  "data-[state=indeterminate]:border-neutral-300 data-[state=indeterminate]:bg-white data-[state=indeterminate]:text-neutral-600",
-  "data-[state=indeterminate]:dark:border-mono-600 data-[state=indeterminate]:dark:bg-black data-[state=indeterminate]:dark:text-mono-300",
-  "data-[state=unchecked]:hover:bg-neutral-100 data-[state=unchecked]:hover:dark:bg-mono-800",
-  "data-[state=checked]:hover:bg-white data-[state=checked]:hover:dark:bg-black",
-  "data-[state=indeterminate]:hover:bg-white data-[state=indeterminate]:hover:dark:bg-black",
-  "ring-offset-white dark:ring-offset-black",
-);
-
 export const standardCommandItemStyle = cn(
   hoverStyles,
   dropdownButtonStyles,

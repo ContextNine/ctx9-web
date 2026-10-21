@@ -283,3 +283,7 @@ The optional exceptions file is a JSON array. Each entry names one exact reposit
 - Route and tab changes keep the shell and useful cached content mounted. Loading indicators may animate without replacing useful content.
 
 The All apps trigger shows the selected product name supplied by the host, such as Secrets. Account initials fall back to the current tenant when the host has no display name.
+
+## Neutral selection and nested navigation
+
+Checkbox defaults to `neutral`: 16px square, 4px corners, a neutral border, dark checked fill in light mode and light checked fill in dark mode. The indeterminate state uses a minus. Hover does not resize it. `dailyGoal` retains its purpose-specific large appearance. Sidebar group, child and chevron buttons use `sidebarGroup`, `sidebarChild` and `sidebarChevron` presets; products own navigation and expansion.

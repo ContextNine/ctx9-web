@@ -309,3 +309,7 @@ composition. Version 9.0.1 remains the historical public npm bootstrap.
 All three 9.1.0 packages pass protected OIDC publication and independent
 [archive/provenance read-back](evidence/public-npm-9.1.0-2026-10-18.json).
 Consumer pins and application acceptance remain separate.
+
+## 9.2.0 neutral selection and sidebar rows
+
+The approved CRM/sidebar refresh replaces Checkbox `brand` and `blackWhite` with the default `neutral` variant. Remove those explicit variant props when upgrading; `dailyGoal` remains. Indeterminate selection renders a minus. Button adds nested sidebar group, child and chevron presets. The 9.1.0 installation-owned navigation and identity handler changes remain included. Release checks and publication evidence must pass before consumer adoption.

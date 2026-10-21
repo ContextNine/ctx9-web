@@ -182,3 +182,5 @@ Publisher metadata editing uses SheetContent's `metadata` variant and bordered
 SheetHeader/SheetFooter variants. The shared component owns panel sizing, border
 and spacing rules; default Sheet output remains unchanged. Shared style checks
 cover the sheet header, footer, title and description as well as its content.
+
+The neutral Checkbox owns checked, unchecked and indeterminate appearance. Nested sidebar rows select Button presets `sidebarGroup`, `sidebarChild` and `sidebarChevron`.

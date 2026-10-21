@@ -486,6 +486,12 @@ const standardButtonVariants = cva(
           sidebarTextStyles,
           "inline-flex whitespace-nowrap rounded-md text-sm font-medium",
         ),
+        sidebarGroup:
+          "h-8 w-full justify-between rounded-md px-2 text-sm font-medium text-mono-500 hover:text-mono-900 dark:text-mono-400 dark:hover:text-mono-100",
+        sidebarChild:
+          "h-7 w-full justify-start rounded-md px-2 text-sm font-normal text-mono-600 dark:text-mono-300",
+        sidebarChevron:
+          "size-7 shrink-0 rounded-md p-0 text-mono-500 dark:text-mono-400",
         sidebarSettings: cn(buttonStyles, hoverSideTabsStyles),
         sidebarUpload: cn(
           "h-8 w-full cursor-pointer duration-400 items-center truncate border-2 border-dashed transition-colors",
