@@ -6,6 +6,11 @@ Use the semantic primary background and foreground pair in both themes. A
 dark-only black background override made ordinary primary actions nearly
 invisible until hover. The managed Notenv review flow exposed the defect; its
 browser accessibility journey now checks the open review dialog as well.
+The complete local check passes with 24 tests and clean-consumer installation.
+All three hosted checks and protected publication pass in
+[run 39610618373](https://github.com/ContextNine/ctx9-web/actions/runs/39610618373).
+Anonymous downloads match retained CI bytes, and Cosign verifies their exact
+workflow/tag/source provenance. See the [receipt](evidence/public-npm-9.3.2-2026-10-21.json).
 
 ## 9.3.1 UI refinement
 

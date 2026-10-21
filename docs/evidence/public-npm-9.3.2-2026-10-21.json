@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-21",
+  "version": "9.3.2",
+  "source_commit": "a525bc52942806a8e39c83dfbf0429675076d958",
+  "defect": {
+    "dark_primary_background": "rgb(0, 0, 0)",
+    "dark_primary_foreground": "rgb(23, 23, 23)",
+    "cause": "Dark-only background override did not match the semantic foreground token."
+  },
+  "correction": "Use the semantic primary background/foreground pair in both themes.",
+  "checks": {
+    "local_full": "passed",
+    "integration_tests_passed": 24,
+    "archive_and_isolated_install": "passed",
+    "hosted_node_matrix": ["22.16.0", "24.21.0", "26.11.1"],
+    "publication_run": "https://github.com/ContextNine/ctx9-web/actions/runs/39610618373",
+    "publication_conclusion": "success"
+  },
+  "browser": {
+    "default": [
+      {
+        "theme": "light",
+        "foreground": "rgb(250, 250, 250)",
+        "background": "rgb(23, 23, 23)"
+      },
+      {
+        "theme": "dark",
+        "foreground": "rgb(23, 23, 23)",
+        "background": "rgb(250, 250, 250)"
+      }
+    ],
+    "hover": [
+      {
+        "theme": "light",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgba(23, 23, 23, 0.9)"
+      },
+      {
+        "theme": "dark",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "color(srgb 0.0509804 0.0509804 0.0509804)"
+      }
+    ],
+    "scope": "Isolated static fixture rendered from built shared components and styles. Its missing favicon is outside the color proof."
+  },
+  "packages": [
+    {
+      "name": "@ctx9/ui",
+      "version": "9.3.2",
+      "sha256": "457f5953dba14b32c42d07273a7efea5fbdc1c986b350cb1453d4732c2bc292c",
+      "bytes_match_retained_ci": true,
+      "registry_sha1_sha512": "passed",
+      "provenance_signature": "verified"
+    },
+    {
+      "name": "@ctx9/web-auth",
+      "version": "9.3.2",
+      "sha256": "540e99c03ef4d5e1e08576edff65888c7efd995e49f18c14d8cd0c48fd00a1d4",
+      "bytes_match_retained_ci": true,
+      "registry_sha1_sha512": "passed",
+      "provenance_signature": "verified"
+    },
+    {
+      "name": "@ctx9/identity",
+      "version": "9.3.2",
+      "sha256": "557f75b331b043e00b28b31d0e8034917ecd20a4b33a8d1c6fb8af082d0fc26e",
+      "bytes_match_retained_ci": true,
+      "registry_sha1_sha512": "passed",
+      "provenance_signature": "verified"
+    }
+  ],
+  "provenance": {
+    "verifier": "cosign",
+    "workflow": "https://github.com/ContextNine/ctx9-web/.github/workflows/publish.yml@refs/tags/v9.3.2",
+    "issuer": "https://token.actions.githubusercontent.com",
+    "certificate_workflow_sha": "a525bc52942806a8e39c83dfbf0429675076d958"
+  },
+  "notenv_release_published": false,
+  "machine_installations_changed": false
+}
