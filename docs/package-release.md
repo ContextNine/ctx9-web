@@ -1,15 +1,19 @@
 # Package release and consumption
 
-## 9.3.0 UI refinement
+## 9.3.1 UI refinement
 
 Matt's October 21 Notenv review requests icon/text spacing, compact account
-actions, lighter navigation and a clearer environment table. Version 9.3.0 adds
+actions, lighter navigation and a clearer environment table. Version 9.3.1 adds
 DataTable's optional heading and owns those shared visual defaults. Its existing
 navigation integration also checks that nested actions do not activate a row.
 The local full check passes, including 24 tests, archive checks and a clean
 temporary-consumer installation, typecheck, render and style-policy check.
 Notenv adoption uses exact public packages after protected npm publication;
 package publication does not deploy Notenv or update installed machines.
+The immutable 9.3.0 tag is retained. Its publication run was cancelled after
+browser inspection found that Tailwind attached underline feedback to the
+cell hover/focus state instead of the navigable row. Version 9.3.1 uses an
+explicit row selector for both pointer hover and keyboard focus.
 
 GitHub `ContextNine/ctx9-web` is the canonical source. New releases beginning with the public-distribution candidate 9.0.1 target public npm through `.github/workflows/publish.yml`. GitLab continues to check mirrored refs and retains historical private releases. It does not publish new versions. See [public distribution](public-distribution.md) for publication requirements and current acceptance state.
 

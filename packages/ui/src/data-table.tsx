@@ -247,7 +247,7 @@ export function DataTable<TData extends RowData>({
                   className={cn(
                     "border-b border-border",
                     onRowNavigate &&
-                      "cursor-pointer hover:bg-muted/50 hover:[&>td:first-child]:underline focus-visible:bg-muted/50 focus-visible:[&>td:first-child]:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus",
+                      "cursor-pointer hover:bg-muted/50 [&:hover>td:first-child]:underline focus-visible:bg-muted/50 [&:focus-visible>td:first-child]:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus",
                   )}
                   onPointerEnter={() => {
                     onRowIntent?.(row.original);
