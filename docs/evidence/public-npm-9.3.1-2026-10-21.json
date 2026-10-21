@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-21",
+  "repository": "ContextNine/ctx9-web",
+  "version": "9.3.1",
+  "source_commit": "a0b5293b4c0b9f6347d5eb0bab4f17f8b5c314a4",
+  "publication": {
+    "run_url": "https://github.com/ContextNine/ctx9-web/actions/runs/39603934181",
+    "status": "completed",
+    "conclusion": "success",
+    "check_matrix": ["22.16.0", "24.21.0", "26.11.1"],
+    "publisher": "github-actions-npm-oidc",
+    "environment": "npm-publication"
+  },
+  "local_full_check": {
+    "exit_code": 0,
+    "tests_passed": 24,
+    "isolated_package_install": "passed"
+  },
+  "anonymous_registry_readback": true,
+  "packages": [
+    {
+      "name": "@ctx9/ui",
+      "version": "9.3.1",
+      "sha256": "ae3f5a6caa8182ddf12760088151311631a21a82034f1a25f797ee491a8c6a3e",
+      "bytes_match_retained_ci": true,
+      "registry_integrity": "passed",
+      "provenance_signature": "verified",
+      "package_identity_and_notices": "passed"
+    },
+    {
+      "name": "@ctx9/identity",
+      "version": "9.3.1",
+      "sha256": "fda32f7a4d39be14b031a0294d031eacfcee4077f2a5b6a80810a33864c6fd68",
+      "bytes_match_retained_ci": true,
+      "registry_integrity": "passed",
+      "provenance_signature": "verified",
+      "package_identity_and_notices": "passed"
+    },
+    {
+      "name": "@ctx9/web-auth",
+      "version": "9.3.1",
+      "sha256": "e6c605f24c0d1fea298fc8d01e618fcfc92b1ed6bbef5863a39ceebb6d2b01bc",
+      "bytes_match_retained_ci": true,
+      "registry_integrity": "passed",
+      "provenance_signature": "verified",
+      "package_identity_and_notices": "passed"
+    }
+  ],
+  "provenance": {
+    "verifier": "cosign",
+    "identity": "https://github.com/ContextNine/ctx9-web/.github/workflows/publish.yml@refs/tags/v9.3.1",
+    "issuer": "https://token.actions.githubusercontent.com",
+    "certificate_workflow_sha": "a0b5293b4c0b9f6347d5eb0bab4f17f8b5c314a4",
+    "transparency_and_certificate_checks_enabled": true
+  },
+  "browser_source_inspection": {
+    "viewports": ["1440x1050", "390x844"],
+    "themes": ["light", "dark"],
+    "row_hover_and_keyboard_focus_underlines": "passed",
+    "nested_tooltip_does_not_navigate": "passed",
+    "keyboard_row_navigation": "passed"
+  },
+  "cancelled_9_3_0": {
+    "tag_retained": true,
+    "run_url": "https://github.com/ContextNine/ctx9-web/actions/runs/39603305926",
+    "conclusion": "cancelled",
+    "publisher_ran": false,
+    "reason": "Browser inspection found the underline selector targeted the cell state instead of the row state."
+  },
+  "notenv_release_published": false,
+  "machine_installations_changed": false
+}

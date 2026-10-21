@@ -7,6 +7,7 @@
 - [Source provenance](source-provenance.md)
 - [Direct dependency licenses and retained font verification](evidence/source-license-inventory-2026-10-17.json)
 - [Package release and consumption](package-release.md)
+- [9.3.1 UI refinement publication and signed archive read-back](evidence/public-npm-9.3.1-2026-10-21.json)
 - [Public distribution](public-distribution.md)
 - [Reusable identity authority architecture decision and adapter contract](identity-authority.md)
 

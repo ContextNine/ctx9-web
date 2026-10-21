@@ -15,6 +15,12 @@ browser inspection found that Tailwind attached underline feedback to the
 cell hover/focus state instead of the navigable row. Version 9.3.1 uses an
 explicit row selector for both pointer hover and keyboard focus.
 
+The [protected 9.3.1 run](https://github.com/ContextNine/ctx9-web/actions/runs/39603934181)
+passes all three Node checks and publication. Anonymous registry archives for all
+three packages match the retained CI bytes; Cosign verifies their provenance
+against the exact workflow, tag and source commit. See the
+[read-back receipt](evidence/public-npm-9.3.1-2026-10-21.json).
+
 GitHub `ContextNine/ctx9-web` is the canonical source. New releases beginning with the public-distribution candidate 9.0.1 target public npm through `.github/workflows/publish.yml`. GitLab continues to check mirrored refs and retains historical private releases. It does not publish new versions. See [public distribution](public-distribution.md) for publication requirements and current acceptance state.
 
 The historical private-release procedures and evidence below describe versions through 9.0.0. They are not the publication procedure for new versions.
