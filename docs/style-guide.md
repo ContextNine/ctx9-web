@@ -287,3 +287,5 @@ The All apps trigger shows the selected product name supplied by the host, such 
 ## Neutral selection and nested navigation
 
 Checkbox defaults to `neutral`: 16px square, 4px corners, a neutral border, dark checked fill in light mode and light checked fill in dark mode. The indeterminate state uses a minus. Hover does not resize it. `dailyGoal` retains its purpose-specific large appearance. Sidebar group, child and chevron buttons use `sidebarGroup`, `sidebarChild` and `sidebarChevron` presets; products own navigation and expansion.
+
+Profile identity inputs use `profileName` (18px semibold) and `profileHeadline` (muted 14px), with transparent resting backgrounds. These presets keep inline editing in the shared Input.

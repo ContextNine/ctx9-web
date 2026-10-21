@@ -444,3 +444,5 @@ computed properties when both stylesheets are loaded.
 ## October 2026 CRM and navigation refresh
 
 Matt approved replacing the Impression checkbox appearance with a compact neutral design on 2026-10-21, using Verascient Platform as the visual reference. The Radix-backed implementation uses existing package tokens and Lucide icons. This is an intentional appearance change, superseding the earlier checkbox pixel-preservation baseline. The `brand` and `blackWhite` variants are removed; consumers select the default neutral checkbox or the purpose-specific `dailyGoal`. Sidebar group, child and disclosure buttons extend existing Button recipes.
+
+Impression sidebar/CRM browser review, 2026-10-21: approved profile identity uses 18px semibold names and quiet headlines, supplied by shared Input presets.

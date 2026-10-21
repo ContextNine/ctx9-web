@@ -36,7 +36,9 @@ export type InputProps = Omit<
       | "onboarding"
       | "sidebar"
       | "titleAutosize"
-      | "titleTeam";
+      | "titleTeam"
+      | "profileName"
+      | "profileHeadline";
     width?:
       | "default"
       | "auto"
@@ -110,6 +112,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             "h-8 w-full bg-background shadow-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
           preset === "onboarding" &&
             "rounded-none border-0 bg-white text-mono-950 shadow-none dark:!bg-white dark:!text-mono-950 dark:placeholder:text-mono-400 dark:shadow-none",
+          preset === "profileName" &&
+            "h-9 border-none bg-transparent px-2 text-lg font-semibold text-mono-900 shadow-none hover:bg-neutral-150 dark:bg-transparent dark:text-mono-100 dark:hover:bg-mono-700",
+          preset === "profileHeadline" &&
+            "h-8 border-transparent bg-transparent px-2 text-sm text-mono-500 shadow-none hover:bg-neutral-150 dark:bg-transparent dark:text-mono-400 dark:hover:bg-mono-700",
           tone === "editor" && "dark:bg-black bg-white",
           tone === "editorTitle" && "bg-neutral-20 dark:bg-mono-900",
           className,

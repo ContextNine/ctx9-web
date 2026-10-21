@@ -313,3 +313,5 @@ Consumer pins and application acceptance remain separate.
 ## 9.2.0 neutral selection and sidebar rows
 
 The approved CRM/sidebar refresh replaces Checkbox `brand` and `blackWhite` with the default `neutral` variant. Remove those explicit variant props when upgrading; `dailyGoal` remains. Indeterminate selection renders a minus. Button adds nested sidebar group, child and chevron presets. The 9.1.0 installation-owned navigation and identity handler changes remain included. Release checks and publication evidence must pass before consumer adoption.
+
+9.2.1 completes the approved profile typography with shared Input presets for names and headlines; package dependencies are unchanged.

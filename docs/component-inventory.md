@@ -184,3 +184,5 @@ and spacing rules; default Sheet output remains unchanged. Shared style checks
 cover the sheet header, footer, title and description as well as its content.
 
 The neutral Checkbox owns checked, unchecked and indeterminate appearance. Nested sidebar rows select Button presets `sidebarGroup`, `sidebarChild` and `sidebarChevron`.
+
+Input: `profileName` and `profileHeadline` presets own editable profile identity typography.
