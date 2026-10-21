@@ -1,5 +1,12 @@
 # Package release and consumption
 
+## 9.3.2 primary action contrast
+
+Use the semantic primary background and foreground pair in both themes. A
+dark-only black background override made ordinary primary actions nearly
+invisible until hover. The managed Notenv review flow exposed the defect; its
+browser accessibility journey now checks the open review dialog as well.
+
 ## 9.3.1 UI refinement
 
 Matt's October 21 Notenv review requests icon/text spacing, compact account

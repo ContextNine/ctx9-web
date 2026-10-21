@@ -2,6 +2,12 @@
 
 Reference repository: Impression
 
+The October 21 managed-file review exposed a primary Button contrast defect:
+the dark recipe overrode the semantic primary background with black while
+retaining dark primary foreground text. The 9.3.2 correction uses the semantic
+background/foreground pair in both themes. Hover, loading and explicit presets
+retain their owned recipes. This intentionally corrects the transferred default.
+
 Matt's October 21 Notenv screenshot review authorizes consistent Button
 icon/text gaps, compact account actions, lighter navigation typography and
 DataTable spacing, row rules and hover/focus feedback. DataTable's optional

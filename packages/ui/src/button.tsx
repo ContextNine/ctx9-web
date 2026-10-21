@@ -89,7 +89,7 @@ const standardButtonVariants = cva(
       },
       variant: {
         primary: cn(
-          "bg-primary text-primary-foreground dark:bg-black",
+          "bg-primary text-primary-foreground",
           hoverStyles,
           "hover:bg-primary/90 hover:text-white",
         ),

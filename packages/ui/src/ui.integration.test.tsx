@@ -38,8 +38,6 @@ describe("shared product primitives", () => {
 
     render(<Button loading>Save</Button>);
     const action = screen.getByRole("button");
-    expect(action.className).toContain("bg-black");
-    expect(action.className).toContain("text-white");
     expect(action.getAttribute("aria-busy")).toBe("true");
   });
 
