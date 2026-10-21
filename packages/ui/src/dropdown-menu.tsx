@@ -116,7 +116,7 @@ const dropdownItemLayoutVariants = cva("", {
     preset: {
       default: "",
       accountAction:
-        "flex min-h-12 cursor-pointer items-center gap-3 rounded-md px-3 py-1 text-sm",
+        "flex min-h-9 cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm",
       tenant: "min-h-12 cursor-pointer gap-3 rounded-md px-3 py-1",
       application: "min-h-9 cursor-pointer gap-2 rounded-md px-2 text-sm",
     },

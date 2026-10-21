@@ -49,6 +49,7 @@ export interface DataTableProps<TData extends RowData> {
   getRowId: (row: TData) => string;
   emptyMessage: string;
   caption?: string;
+  heading?: React.ReactNode;
   sorting?: SortingState;
   onSortingChange?: OnChangeFn<SortingState>;
   pagination?: PaginationState;
@@ -78,6 +79,7 @@ export function DataTable<TData extends RowData>({
   getRowId,
   emptyMessage,
   caption,
+  heading,
   sorting: controlledSorting,
   onSortingChange,
   pagination: controlledPagination,
@@ -130,7 +132,8 @@ export function DataTable<TData extends RowData>({
   const hideableColumns = table
     .getAllColumns()
     .filter((column) => column.getCanHide());
-  const hasToolbar = filter !== undefined ? true : hideableColumns.length > 0;
+  const hasToolbar =
+    heading !== undefined || filter !== undefined || hideableColumns.length > 0;
 
   return (
     <section
@@ -139,6 +142,7 @@ export function DataTable<TData extends RowData>({
     >
       {hasToolbar && (
         <div className="flex flex-wrap items-center gap-2">
+          {heading}
           {filter && (
             <label className="grid gap-1 text-sm">
               <span className="sr-only">{filter.label}</span>
@@ -182,7 +186,7 @@ export function DataTable<TData extends RowData>({
         </div>
       )}
       <div className="min-w-0 overflow-hidden rounded-md border border-border">
-        <Table>
+        <Table className="text-sm">
           {caption && <caption className="sr-only">{caption}</caption>}
           <TableHeader className="bg-panel">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -190,7 +194,11 @@ export function DataTable<TData extends RowData>({
                 {headerGroup.headers.map((header) => {
                   const sorted = header.column.getIsSorted();
                   return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
+                    <TableHead
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      className="px-4 text-xs"
+                    >
                       {header.isPlaceholder ? null : header.column.getCanSort() ? (
                         <Button
                           type="button"
@@ -237,8 +245,9 @@ export function DataTable<TData extends RowData>({
                   tabIndex={onRowNavigate ? 0 : undefined}
                   aria-label={rowLabel?.(row.original)}
                   className={cn(
+                    "border-b border-border",
                     onRowNavigate &&
-                      "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus",
+                      "cursor-pointer hover:bg-muted/50 hover:[&>td:first-child]:underline focus-visible:bg-muted/50 focus-visible:[&>td:first-child]:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus",
                   )}
                   onPointerEnter={() => {
                     onRowIntent?.(row.original);
@@ -246,17 +255,25 @@ export function DataTable<TData extends RowData>({
                   onFocus={() => {
                     onRowIntent?.(row.original);
                   }}
-                  onClick={() => {
+                  onClick={(event) => {
+                    if (
+                      event.target instanceof Element &&
+                      event.target.closest(
+                        "button, a, input, select, textarea, [role=button]",
+                      )
+                    )
+                      return;
                     onRowNavigate?.(row.original);
                   }}
                   onKeyDown={(event) => {
+                    if (event.target !== event.currentTarget) return;
                     if (event.key !== "Enter" && event.key !== " ") return;
                     event.preventDefault();
                     onRowNavigate?.(row.original);
                   }}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="px-4 py-2.5">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),

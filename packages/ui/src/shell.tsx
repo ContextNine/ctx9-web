@@ -90,7 +90,7 @@ function Initials({ value }: { value: string }): React.JSX.Element {
 function AccountAction({ action }: { action: AccountMenuAction }) {
   const content = (
     <>
-      <span className="grid size-10 shrink-0 place-items-center text-muted-foreground">
+      <span className="grid size-4 shrink-0 place-items-center text-muted-foreground">
         {action.icon}
       </span>
       <span className="min-w-0 whitespace-normal break-words">
@@ -237,7 +237,7 @@ export function AccountMenu({
         ))}
         <DropdownMenuSeparator className="mx-3" />
         <DropdownMenuItem preset="accountAction" onSelect={onSignOut}>
-          <span className="grid size-10 shrink-0 place-items-center text-muted-foreground">
+          <span className="grid size-4 shrink-0 place-items-center text-muted-foreground">
             <LogOut aria-hidden="true" className="size-4" />
           </span>
           <span>Sign out</span>
@@ -348,7 +348,7 @@ export function AppSidebarLink({
       href={item.href}
       aria-current={item.current ? "page" : undefined}
       className={cn(
-        "flex min-h-9 items-center rounded-md px-2.5 text-sm font-medium text-nav-foreground no-underline transition-colors hover:bg-sidebar-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
+        "flex min-h-9 items-center rounded-md px-2.5 text-sm font-normal text-nav-foreground no-underline transition-colors hover:bg-sidebar-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
         item.current && "bg-selected text-foreground",
       )}
     >
@@ -543,7 +543,7 @@ export function ApplicationLayout({
           </Button>
           <div className="min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <Breadcrumb>
-              <BreadcrumbList className="w-max flex-nowrap font-semibold">
+              <BreadcrumbList className="w-max flex-nowrap font-normal">
                 {breadcrumbs.map((item, index) => (
                   <React.Fragment key={item.id}>
                     {index > 0 && <BreadcrumbSeparator />}
@@ -698,7 +698,7 @@ export function PageHeading({
         )}
         <div className="grid min-w-0 gap-1.5">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+            <h1 className="text-2xl font-medium tracking-tight">{title}</h1>
             {info && (
               <InfoTooltip
                 label={

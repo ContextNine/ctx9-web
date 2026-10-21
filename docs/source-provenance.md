@@ -2,6 +2,13 @@
 
 Reference repository: Impression
 
+Matt's October 21 Notenv screenshot review authorizes consistent Button
+icon/text gaps, compact account actions, lighter navigation typography and
+DataTable spacing, row rules and hover/focus feedback. DataTable's optional
+heading shares the existing control toolbar. Nested controls no longer trigger
+row navigation. These requested refinements revise the shared defaults; they
+are not an unchanged-pixel comparison with the original extraction.
+
 The public `@ctx9/identity` authority is extracted from Platform's `packages/auth/src/index.ts` at `a1abd16`. Its passkey verification, OAuth field mappings, token/cookie policy and rate limiting are reused. Database event writes, membership resolution and enrollment/recovery authorization are injected by each installation. Private Platform provisioning, catalogs and data migrations remain in Platform. The extraction is a public Apache-2.0 package authorized by Matt's October 16 implementation request; independent identity acceptance is tracked separately from package publication.
 
 The Notenv editor redesign adds InfoTooltip and PageHeading's `info`

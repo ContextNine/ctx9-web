@@ -12,6 +12,14 @@ The v8 inventory uses Impression's internal application components and semantic 
 
 ## Shared controls
 
+- Standard Button uses an 8px icon/text gap; `gap="none"` is the explicit
+  joined-content choice. Account action rows use compact 36px minimum height
+  and 16px icons. Sidebar links and breadcrumbs use normal body weight.
+- DataTable accepts a `heading` node beside its filter and Columns menu. It
+  owns 14px body text, matching header/cell insets, row rules and navigable-row
+  hover/focus feedback. Nested controls handle their own clicks and keyboard
+  events without opening the row. These October 21 refinements implement
+  Matt's Notenv screenshot feedback; they intentionally revise the defaults.
 - Toast and ToastBody own the existing viewport, text layout, action and
   close-control recipes. Resizable groups and handles retain native panel
   measurements, pointer resizing, keyboard behavior and grip appearance.

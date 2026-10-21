@@ -208,7 +208,11 @@ describe("shared product primitives", () => {
     const helper = createDataTableColumnHelper<ServiceRow>();
     const columns = [
       helper.accessor("name", { header: "Name" }),
-      helper.accessor("state", { header: "State", enableSorting: false }),
+      helper.accessor("state", {
+        header: "State",
+        enableSorting: false,
+        cell: ({ getValue }) => <Button type="button">{getValue()}</Button>,
+      }),
     ];
     const onNavigate = vi.fn();
     function TableExample() {
@@ -249,6 +253,15 @@ describe("shared product primitives", () => {
       name: "Agents",
       state: "Ready",
     });
+    onNavigate.mockClear();
+    await user.click(
+      within(screen.getByRole("row", { name: "Open Agents" })).getByRole(
+        "button",
+        { name: "Ready" },
+      ),
+    );
+    await user.keyboard("{Enter}");
+    expect(onNavigate).not.toHaveBeenCalled();
     await user.type(
       screen.getByRole("searchbox", { name: "Find service" }),
       "Pub",

@@ -673,7 +673,7 @@ const standardButtonVariants = cva(
       state: "default",
       width: "auto",
       align: "center",
-      gap: "none",
+      gap: "standard",
       tone: "default",
       palette: "default",
       elevation: "default",
