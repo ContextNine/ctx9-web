@@ -2,6 +2,12 @@
 
 Reference repository: Impression
 
+Matt's October 21 Impression redesign requests 36px sidebar section rows,
+32px child rows, a full-width workspace switcher and a 32px avatar floor, and
+adds QuestionField, QuestionExample, QuestionSection and the quiet Textarea
+surface for question-style forms. These are requested changes to the shared
+defaults in 9.4.0, not unchanged-source parity.
+
 The October 21 managed-file review exposed a primary Button contrast defect:
 the dark recipe overrode the semantic primary background with black while
 retaining dark primary foreground text. The 9.3.2 correction uses the semantic

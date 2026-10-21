@@ -744,6 +744,150 @@ const FormActions = React.forwardRef<HTMLDivElement, FormActionsProps>(
 );
 FormActions.displayName = "FormActions";
 
+export type QuestionFieldStatus = "idle" | "saving" | "saved" | "error";
+
+const questionLinkClassName =
+  "inline h-auto p-0 align-baseline text-sm font-normal text-mono-700 underline decoration-mono-300 underline-offset-4 transition-colors hover:text-mono-900 dark:text-mono-300 dark:decoration-mono-600 dark:hover:text-mono-100";
+
+interface QuestionFieldProps {
+  /** Id of the control passed as children, so the question labels it. */
+  controlId: string;
+  question: React.ReactNode;
+  description?: React.ReactNode;
+  /** `QuestionExample` rows, revealed inline by the "Examples" link. */
+  examples?: React.ReactNode;
+  status?: QuestionFieldStatus;
+  error?: React.ReactNode;
+  children: React.ReactNode;
+}
+
+/**
+ * One question in a question-style form: the question reads as structure, the answer as content. Pair it with
+ * `Textarea surface="quiet"`; the control is pulled out by its own padding so the answer text lines up with the
+ * question. Save state is shown beside the question and validation errors under the answer.
+ */
+function QuestionField({
+  controlId,
+  question,
+  description,
+  examples,
+  status = "idle",
+  error,
+  children,
+}: QuestionFieldProps) {
+  const [examplesOpen, setExamplesOpen] = React.useState(false);
+  const examplesId = React.useId();
+  return (
+    <div className="flex flex-col">
+      <div className="flex items-baseline justify-between gap-4">
+        <label
+          htmlFor={controlId}
+          className={cn("text-base font-medium", sidebarTextStyles)}
+        >
+          {question}
+        </label>
+        <span
+          aria-live="polite"
+          className="inline-flex shrink-0 items-center gap-1 text-xs text-mono-500 dark:text-mono-400"
+        >
+          {status === "saving" && "Saving"}
+          {status === "saved" && (
+            <>
+              <Check className="h-3.5 w-3.5" />
+              Saved
+            </>
+          )}
+        </span>
+      </div>
+      {(description ?? examples) && (
+        <p className="mt-0.5 text-sm text-mono-500 dark:text-mono-400">
+          {description}
+          {description && examples && " "}
+          {examples && (
+            <Button
+              type="button"
+              variant="link"
+              size="auto"
+              aria-expanded={examplesOpen}
+              aria-controls={examplesId}
+              className={questionLinkClassName}
+              onClick={() => {
+                setExamplesOpen((open) => !open);
+              }}
+            >
+              Examples
+            </Button>
+          )}
+        </p>
+      )}
+      {examples && examplesOpen && (
+        <div
+          id={examplesId}
+          className="mt-2 space-y-1.5 border-l border-neutral-200 pl-3 text-sm text-mono-500 dark:border-mono-800 dark:text-mono-400"
+        >
+          {examples}
+        </div>
+      )}
+      <div className="-mx-3 mt-2">{children}</div>
+      {error && (
+        <p role="alert" className="mt-1 text-sm text-destructive">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/** One example answer inside `QuestionField` examples, with a "Use" action that fills the answer. */
+function QuestionExample({
+  children,
+  onUse,
+}: {
+  children: React.ReactNode;
+  onUse?: () => void;
+}) {
+  return (
+    <p>
+      {children}
+      {onUse && (
+        <>
+          {" "}
+          <Button
+            type="button"
+            variant="link"
+            size="auto"
+            className={questionLinkClassName}
+            onClick={onUse}
+          >
+            Use
+          </Button>
+        </>
+      )}
+    </p>
+  );
+}
+
+/** A titled group of `QuestionField`s. The id is the scroll target for section navigation. */
+const QuestionSection = React.forwardRef<
+  HTMLElement,
+  { id?: string; title?: React.ReactNode; children: React.ReactNode }
+>(({ id, title, children }, ref) => (
+  <section
+    ref={ref}
+    id={id}
+    data-question-section={id}
+    className="scroll-mt-8 pt-12 first:pt-8"
+  >
+    {title && (
+      <h2 className={cn("mb-6 text-lg font-semibold", sidebarTextStyles)}>
+        {title}
+      </h2>
+    )}
+    <div className="space-y-10">{children}</div>
+  </section>
+));
+QuestionSection.displayName = "QuestionSection";
+
 export {
   Form,
   FormActions,
@@ -757,5 +901,8 @@ export {
   FormMessage,
   FormRow,
   FormSection,
+  QuestionExample,
+  QuestionField,
+  QuestionSection,
   useFormField,
 };

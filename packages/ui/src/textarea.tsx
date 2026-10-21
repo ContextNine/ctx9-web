@@ -48,7 +48,8 @@ const textareaMinHeightClassNames: Record<TextareaMinHeight, string> = {
 
 export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> &
   Omit<ControlVariantProps, "surface" | "variant" | "size"> & {
-    surface?: ControlSurface;
+    /** `quiet` is borderless and transparent at rest and always grows with its content (question-style forms). */
+    surface?: ControlSurface | "quiet";
     variant?: AppControlVariant | AuthControlVariant;
     autoResize?: boolean;
     effect?: ControlEffect;
@@ -92,38 +93,52 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ) => {
     const textareaRef = React.useRef<HTMLTextAreaElement>(null);
     const debouncedValue = useDebounceValue(value, 100);
+    const quiet = surface === "quiet";
     const resolvedEffect = effect ?? (surface === "auth" ? "glow" : "standard");
 
     const adjustHeight = React.useCallback(() => {
-      if (!autoResize || !textareaRef.current) return;
+      if ((!autoResize && !quiet) || !textareaRef.current) return;
       textareaRef.current.style.height = "auto";
+      const { scrollHeight } = textareaRef.current;
       textareaRef.current.style.height = `${String(
-        Math.min(Math.max(textareaRef.current.scrollHeight, 80), 150),
+        quiet ? scrollHeight : Math.min(Math.max(scrollHeight, 80), 150),
       )}px`;
-    }, [autoResize]);
+    }, [autoResize, quiet]);
 
     React.useEffect(() => {
       adjustHeight();
     }, [adjustHeight, debouncedValue]);
 
     React.useEffect(() => {
-      if (!autoResize) return;
+      if (!autoResize && !quiet) return;
       window.addEventListener("resize", adjustHeight);
       return () => {
         window.removeEventListener("resize", adjustHeight);
       };
-    }, [adjustHeight, autoResize]);
+    }, [adjustHeight, autoResize, quiet]);
 
     const control = (
       <textarea
         className={cn(
           tone === "codeOverlay"
             ? "ctx9-code-overlay-input"
-            : cn(
-                "flex min-h-[80px]",
-                controlVariants({ surface, variant, size: "auto" }),
-                controlShapeClassNames[shape],
-              ),
+            : quiet
+              ? cn(
+                  "block min-h-10 w-full resize-none overflow-hidden rounded-md border-0 bg-transparent px-3 py-2 text-base leading-6 shadow-none outline-none transition-colors duration-150",
+                  "text-mono-700 placeholder:text-mono-400 dark:text-mono-300 dark:placeholder:text-mono-600",
+                  "hover:bg-neutral-100 focus:bg-neutral-100 focus:text-mono-900 focus-visible:ring-1 focus-visible:ring-neutral-300",
+                  "dark:hover:bg-mono-900 dark:focus:bg-mono-900 dark:focus:text-mono-100 dark:focus-visible:ring-mono-700",
+                  "disabled:cursor-default disabled:hover:bg-transparent",
+                )
+              : cn(
+                  "flex min-h-[80px]",
+                  controlVariants({
+                    surface,
+                    variant,
+                    size: "auto",
+                  }),
+                  controlShapeClassNames[shape],
+                ),
           resolvedEffect === "glow" &&
             cn("resize-y overflow-y-auto", scrollbarStyles),
           textareaMinHeightClassNames[minHeight],

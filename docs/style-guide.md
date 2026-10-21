@@ -54,6 +54,12 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   striped analytics, grouping, drag and selected appearances. Head and Cell
   presets own existing typography, alignment and insets. Products retain
   column measurements, data, sorting, grouping and drag callbacks.
+- Sidebar section rows are 36px (`sidebarMenu`) and child rows 32px
+  (`sidebarChild`). The `workspace` dropdown trigger fills the sidebar width
+  and keeps its chevrons at the right edge regardless of name length.
+- Question-style forms use QuestionSection, QuestionField and
+  `Textarea surface="quiet"`. Questions read as structure and answers as
+  content; pages pass content only.
 - Avatar owns recurring sizes and comment, thread and attachment appearance
   through `size` and `variant`. Image crop uses `fit`; fallback typography uses
   `typography`. AvatarIcon owns the initials fallback and defaults to 56px.

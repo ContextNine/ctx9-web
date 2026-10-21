@@ -1,5 +1,15 @@
 # Package release and consumption
 
+## 9.4.0 spacious shell and question forms
+
+Matt's October 21 Impression redesign asks for a roomier sidebar, readable
+forms and no tiny avatars. Sidebar section and child rows grow to 36px and
+32px. The workspace switcher fills the sidebar width with chevrons at the
+right edge. Avatars drop the 24px size, so the type system rejects it, and
+AvatarIcon scales its initials. `Textarea surface="quiet"` and the new
+QuestionField, QuestionExample and QuestionSection compose question-style
+forms. Impression's Brand Studio is the first consumer.
+
 ## 9.3.2 primary action contrast
 
 Use the semantic primary background and foreground pair in both themes. A

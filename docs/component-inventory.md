@@ -35,8 +35,16 @@ The v8 inventory uses Impression's internal application components and semantic 
   analytics, selectable-row, empty-cell and drag-table recipes. Native table
   structure, refs, data-state and product callbacks remain unchanged.
 - Avatar and AvatarIcon own recurring dimensions, comment/thread borders,
-  attachment corners, image crop and existing small fallback typography.
+  attachment corners, image crop and fallback typography. The smallest size is
+  32px (`8`); AvatarIcon uses compact initials at `8` and the default above.
   Radix image loading, fallback delay and refs remain unchanged.
+- QuestionField, QuestionExample and QuestionSection own question-style forms:
+  a 16px medium question, muted description with an inline Examples
+  disclosure, save state beside the question and field errors under the
+  answer. Pair them with `Textarea surface="quiet"`, which is borderless and
+  transparent at rest, grows with its content and lines its text up with the
+  question. Sections own their heading, 48px separation and 40px question
+  rhythm.
 - Button with stable loading text, ButtonGroup, and Impression's animated
   FunkyLoaderButton with typed loading and gradient options;
 - FunkyLoaderButton's growing-row width owns the existing full-width flex

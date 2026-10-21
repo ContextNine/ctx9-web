@@ -5,8 +5,8 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
 import { cn } from "./cn.js";
 
+/** Avatars never render below 32px; smaller sizes made unreadable initials. */
 const sizes = {
-  "6": "h-6 w-6",
   "8": "h-8 w-8",
   "9": "h-9 w-9",
   "10": "h-10 w-10",
@@ -71,8 +71,8 @@ const AvatarFallback = React.forwardRef<
     ref={ref}
     className={cn(
       "flex h-full w-full items-center justify-center rounded-full bg-muted",
-      typography === "tiny" && "text-[10px]",
-      typography === "compact" && "text-[11px] font-semibold",
+      typography === "tiny" && "text-xs",
+      typography === "compact" && "text-xs font-semibold",
       className,
     )}
     {...props}
@@ -94,7 +94,7 @@ export function AvatarIcon({
   return (
     <Avatar {...props} size={size}>
       {url && <AvatarImage src={url} />}
-      <AvatarFallback>
+      <AvatarFallback typography={size === "8" ? "compact" : "default"}>
         {displayName?.substring(0, 2).toUpperCase() ?? "AA"}
       </AvatarFallback>
     </Avatar>

@@ -1,6 +1,6 @@
 {
   "name": "@ctx9/web-auth",
-  "version": "9.3.2",
+  "version": "9.4.0",
   "description": "Shared CTX9 confidential OIDC BFF protocol",
   "license": "Apache-2.0",
   "repository": {

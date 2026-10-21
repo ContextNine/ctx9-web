@@ -481,7 +481,7 @@ const standardButtonVariants = cva(
         composerMicRecording:
           "size-8 rounded-full p-1 bg-red-500 text-white hover:bg-red-600 hover:text-white",
         sidebarMenu: cn(
-          "mb-1 h-8 w-full cursor-pointer items-center truncate",
+          "h-9 w-full cursor-pointer items-center truncate",
           hoverSideTabsStyles,
           sidebarTextStyles,
           "inline-flex whitespace-nowrap rounded-md text-sm font-medium",
@@ -489,7 +489,7 @@ const standardButtonVariants = cva(
         sidebarGroup:
           "h-8 w-full justify-between rounded-md px-2 text-sm font-medium text-mono-500 hover:text-mono-900 dark:text-mono-400 dark:hover:text-mono-100",
         sidebarChild:
-          "h-7 w-full justify-start rounded-md px-2 text-sm font-normal text-mono-600 dark:text-mono-300",
+          "h-8 w-full justify-start rounded-md px-2 text-sm font-normal text-mono-600 dark:text-mono-300",
         sidebarChevron:
           "size-7 shrink-0 rounded-md p-0 text-mono-500 dark:text-mono-400",
         sidebarSettings: cn(buttonStyles, hoverSideTabsStyles),
