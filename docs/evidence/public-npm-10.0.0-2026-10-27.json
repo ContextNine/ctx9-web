@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-27",
+  "version": "10.0.0",
+  "source_commit": "3a53845861879c31fb00f3ca7cea95542561a7fe",
+  "publication_run": "https://github.com/ContextNine/ctx9-web/actions/runs/40545648525",
+  "packages": [
+    {
+      "name": "@ctx9/ui",
+      "version": "10.0.0",
+      "sha256": "7c8075bec32e9c5bdb1b9cac4722fa3a3fc648c0ccc1b2d5140178546e47aac3",
+      "bytes_match_retained_ci": true,
+      "registry_sha1_sha512": "passed",
+      "provenance_signature": "verified"
+    },
+    {
+      "name": "@ctx9/web-auth",
+      "version": "10.0.0",
+      "sha256": "0871cdf38f5a4be53a228ae3736605437cf6feb96acd3c3b8202af4ec6f19e21",
+      "bytes_match_retained_ci": true,
+      "registry_sha1_sha512": "passed",
+      "provenance_signature": "verified"
+    },
+    {
+      "name": "@ctx9/identity",
+      "version": "10.0.0",
+      "sha256": "d877a629840d3d4a69e05b3749d915c9991555024ea137eafac0c5e5b603ac13",
+      "bytes_match_retained_ci": true,
+      "registry_sha1_sha512": "passed",
+      "provenance_signature": "verified"
+    }
+  ]
+}

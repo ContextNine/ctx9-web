@@ -15,6 +15,12 @@ protected npm release passes archive and provenance read-back. All three shared
 packages retain one release version. Publishing these packages does not deploy
 the applications or update installed Notenv machines.
 
+[Protected publication](https://github.com/ContextNine/ctx9-web/actions/runs/40545648525)
+passes on all three Node versions. Anonymous downloads for all three packages
+match the retained CI archives, and Cosign verifies their exact source, workflow
+and tag provenance. See the [receipt](evidence/public-npm-10.0.0-2026-10-27.json).
+Notenv adopts UI 10.0.0 while retaining its existing server identity/auth pins.
+
 ## 9.4.0 spacious shell and question forms
 
 Matt's October 21 Impression redesign asks for a roomier sidebar, readable
