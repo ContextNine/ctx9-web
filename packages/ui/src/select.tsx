@@ -170,7 +170,7 @@ const SelectTrigger = React.forwardRef<
       <SelectPrimitive.Trigger
         ref={ref}
         className={cn(
-          "flex w-full items-center justify-between whitespace-nowrap text-sm data-[placeholder]:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+          "flex w-full items-center justify-between gap-2 whitespace-nowrap text-sm data-[placeholder]:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
           controlVariants({
             surface: style.surface,
             variant: controlVariant,
@@ -202,7 +202,7 @@ const SelectTrigger = React.forwardRef<
       >
         {children}
         <SelectPrimitive.Icon asChild>
-          <ChevronDown className="h-4 w-4 opacity-50" />
+          <ChevronDown className="h-4 w-4 shrink-0 opacity-50" />
         </SelectPrimitive.Icon>
       </SelectPrimitive.Trigger>
     );
@@ -346,8 +346,9 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.Item
       ref={ref}
       className={cn(
-        "relative flex w-full cursor-default select-none items-center pr-8 text-sm",
+        "relative flex w-full cursor-default select-none items-center text-sm",
         menuItemVariants({ variant: variant ?? inheritedMenuVariant }),
+        "pr-8",
         (style.variant === "analytics" || style.variant === "analyticsSoft") &&
           "rounded-lg text-sm",
         shape && controlShapeClassNames[shape],

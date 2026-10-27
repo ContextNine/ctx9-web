@@ -10,6 +10,7 @@ import {
   PanelLeft,
   Settings,
   X,
+  type LucideIcon,
 } from "lucide-react";
 import * as React from "react";
 
@@ -24,22 +25,33 @@ import {
   BreadcrumbSeparator,
 } from "./breadcrumb.js";
 import { cn } from "./cn.js";
+import {
+  hoverSideTabsStyles,
+  selectedSidebarStyles,
+  selectedTextStyles,
+  sidebarTextStyles,
+} from "./impression-recipes.js";
 import { NavigationLink } from "./navigation.js";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu.js";
+
+export type AppIcon = LucideIcon;
 
 export interface AppNavigationItem {
   id: string;
   label: string;
   href: string;
   current?: boolean;
+  icon?: AppIcon;
 }
+
+/** Product-local sidebar links always carry an icon so collapsed rails stay legible. */
+export type AppSidebarItem = AppNavigationItem & { icon: AppIcon };
 
 export interface AppBreadcrumbItem {
   id: string;
@@ -208,7 +220,6 @@ export function AccountMenu({
             )}
           </div>
         )}
-        <DropdownMenuLabel className="px-3">Your tenant</DropdownMenuLabel>
         {availableTenants.map((item) => (
           <DropdownMenuItem
             key={item.id}
@@ -269,6 +280,16 @@ function Ctx9Mark(): React.JSX.Element {
   );
 }
 
+/** Square app icon used by the app switcher; falls back to the CTX9 mark. */
+function AppMark({ icon: Icon }: { icon?: AppIcon }): React.JSX.Element {
+  if (!Icon) return <Ctx9Mark />;
+  return (
+    <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-foreground text-background">
+      <Icon aria-hidden="true" className="size-4" strokeWidth={2.25} />
+    </span>
+  );
+}
+
 export function AppSidebarHeader({
   product,
   products,
@@ -276,6 +297,7 @@ export function AppSidebarHeader({
   product: string;
   products: readonly AppNavigationItem[];
 }): React.JSX.Element {
+  const current = products.find((item) => item.current);
   return (
     <div className="flex min-h-16 items-center px-2">
       <DropdownMenu>
@@ -286,7 +308,7 @@ export function AppSidebarHeader({
             preset="appSwitcher"
             aria-label={`Open All apps. Current app: ${product}`}
           >
-            <Ctx9Mark />
+            <AppMark {...(current?.icon ? { icon: current.icon } : {})} />
             <span className="min-w-0 flex-1 text-left text-sm font-semibold md:group-data-[collapsed=true]/sidebar:hidden">
               {product}
             </span>
@@ -302,10 +324,15 @@ export function AppSidebarHeader({
           sideOffset={4}
           preset="appSwitcher"
         >
-          <DropdownMenuLabel>All apps</DropdownMenuLabel>
           {products.map((item) => (
             <DropdownMenuItem key={item.id} asChild preset="application">
               <NavigationLink href={item.href} className="no-underline">
+                {item.icon && (
+                  <item.icon
+                    aria-hidden="true"
+                    className="size-4 shrink-0 text-muted-foreground"
+                  />
+                )}
                 <span className="min-w-0 flex-1 truncate">{item.label}</span>
                 {item.current && (
                   <Check aria-label="Current service" className="size-4" />
@@ -319,47 +346,43 @@ export function AppSidebarHeader({
   );
 }
 
+/** Product-local navigation. The label names the landmark for assistive technology only. */
 export function AppSidebarGroup({
   label,
   children,
 }: {
-  label?: string;
+  label: string;
   children: React.ReactNode;
 }): React.JSX.Element {
   return (
-    <section className="grid gap-1 px-2">
-      {label && (
-        <h2 className="px-2 pt-1 text-xs font-medium text-muted-foreground md:group-data-[collapsed=true]/sidebar:hidden">
-          {label}
-        </h2>
-      )}
-      <nav aria-label={label}>{children}</nav>
-    </section>
+    <nav aria-label={label} className="grid gap-0.5 px-2">
+      {children}
+    </nav>
   );
 }
 
+/** Impression's sidebar menu row: 36px, 18px icon, medium weight, muted until hovered or current. */
 export function AppSidebarLink({
   item,
 }: {
-  item: AppNavigationItem;
+  item: AppSidebarItem;
 }): React.JSX.Element {
+  const Icon = item.icon;
   return (
     <NavigationLink
       href={item.href}
       aria-current={item.current ? "page" : undefined}
+      title={item.label}
       className={cn(
-        "flex min-h-9 items-center rounded-md px-2.5 text-sm font-normal text-nav-foreground no-underline transition-colors hover:bg-sidebar-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
-        item.current && "bg-selected text-foreground",
+        "flex h-9 items-center gap-3 rounded-md px-3 text-sm font-medium no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus md:group-data-[collapsed=true]/sidebar:justify-center md:group-data-[collapsed=true]/sidebar:px-0",
+        sidebarTextStyles,
+        hoverSideTabsStyles,
+        item.current && cn(selectedSidebarStyles, selectedTextStyles),
       )}
     >
-      <span className="truncate md:group-data-[collapsed=true]/sidebar:hidden">
+      <Icon aria-hidden="true" size={18} className="shrink-0" />
+      <span className="truncate md:group-data-[collapsed=true]/sidebar:sr-only">
         {item.label}
-      </span>
-      <span
-        aria-hidden="true"
-        className="hidden w-full text-center md:group-data-[collapsed=true]/sidebar:block"
-      >
-        {item.label.slice(0, 1)}
       </span>
     </NavigationLink>
   );
@@ -381,6 +404,7 @@ export function AppSidebar({
   product,
   products,
   navigation,
+  sidebarHeader,
   account,
   mobileOpen,
   onCloseMobile,
@@ -388,7 +412,8 @@ export function AppSidebar({
 }: {
   product: string;
   products: readonly AppNavigationItem[];
-  navigation: readonly AppNavigationItem[];
+  navigation: readonly AppSidebarItem[];
+  sidebarHeader?: React.ReactNode;
   account: AccountMenuProps;
   mobileOpen: boolean;
   onCloseMobile: () => void;
@@ -419,7 +444,12 @@ export function AppSidebar({
         </Button>
       </div>
       <div className="grid gap-3 overflow-y-auto pb-3 pt-1">
-        <AppSidebarGroup label={product}>
+        {sidebarHeader && (
+          <div className="px-2 md:group-data-[collapsed=true]/sidebar:hidden">
+            {sidebarHeader}
+          </div>
+        )}
+        <AppSidebarGroup label={`${product} navigation`}>
           {navigation.map((item) => (
             <AppSidebarLink key={item.id} item={item} />
           ))}
@@ -448,6 +478,7 @@ export function ApplicationLayout({
   product,
   products,
   navigation,
+  sidebarHeader,
   account,
   children,
   className,
@@ -457,7 +488,9 @@ export function ApplicationLayout({
 }: {
   product: string;
   products: readonly AppNavigationItem[];
-  navigation: readonly AppNavigationItem[];
+  navigation: readonly AppSidebarItem[];
+  /** Product context above the links, such as a space switcher. Hidden when collapsed. */
+  sidebarHeader?: React.ReactNode;
   account: AccountMenuProps;
   children: React.ReactNode;
   className?: string;
@@ -497,6 +530,7 @@ export function ApplicationLayout({
         product={product}
         products={products}
         navigation={navigation}
+        sidebarHeader={sidebarHeader}
         account={account}
         mobileOpen={mobileOpen}
         collapsed={collapsed}

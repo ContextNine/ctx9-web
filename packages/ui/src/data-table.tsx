@@ -15,12 +15,20 @@ import {
   type RowData,
   type SortingState,
 } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ArrowUpDown, Columns3 } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
+  ChevronLeft,
+  ChevronRight,
+  Columns3,
+} from "lucide-react";
 import * as React from "react";
 
 import { Button } from "./button.js";
 import { cn } from "./cn.js";
 import { Input } from "./input.js";
+import { NavigationLink } from "./navigation.js";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -66,6 +74,11 @@ export interface DataTableProps<TData extends RowData> {
     label: string;
     placeholder?: string;
   };
+  /** Shows a Columns menu for hideable columns. Off by default; most tables don't need it. */
+  columnMenu?: boolean;
+  /** Makes each row one real link (cmd-click and middle-click work). Prefer over `onRowNavigate`. */
+  rowHref?: (row: TData) => string;
+  /** Row action for targets that are not URLs, such as opening a dialog. */
   onRowNavigate?: (row: TData) => void;
   onRowIntent?: (row: TData) => void;
   rowLabel?: (row: TData) => string;
@@ -90,6 +103,8 @@ export function DataTable<TData extends RowData>({
   columnVisibility: controlledVisibility,
   onColumnVisibilityChange,
   filter,
+  columnMenu = false,
+  rowHref,
   onRowNavigate,
   onRowIntent,
   rowLabel,
@@ -129,11 +144,12 @@ export function DataTable<TData extends RowData>({
     ...(rowCount === undefined ? {} : { rowCount }),
   });
 
-  const hideableColumns = table
-    .getAllColumns()
-    .filter((column) => column.getCanHide());
+  const hideableColumns = columnMenu
+    ? table.getAllColumns().filter((column) => column.getCanHide())
+    : [];
   const hasToolbar =
     heading !== undefined || filter !== undefined || hideableColumns.length > 0;
+  const navigable = Boolean(rowHref ?? onRowNavigate);
 
   return (
     <section
@@ -162,8 +178,12 @@ export function DataTable<TData extends RowData>({
             <div className="ml-auto">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button type="button" variant="ghost" size="sm">
-                    <Columns3 aria-hidden="true" className="size-4" />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    icon={Columns3}
+                  >
                     Columns
                   </Button>
                 </DropdownMenuTrigger>
@@ -176,7 +196,9 @@ export function DataTable<TData extends RowData>({
                         column.toggleVisibility(value);
                       }}
                     >
-                      {column.id}
+                      {typeof column.columnDef.header === "string"
+                        ? column.columnDef.header
+                        : column.id}
                     </DropdownMenuCheckboxItem>
                   ))}
                 </DropdownMenuContent>
@@ -185,7 +207,7 @@ export function DataTable<TData extends RowData>({
           )}
         </div>
       )}
-      <div className="min-w-0 overflow-hidden rounded-md border border-border">
+      <div className="min-w-0 overflow-x-auto border-y border-border">
         <Table className="text-sm">
           {caption && <caption className="sr-only">{caption}</caption>}
           <TableHeader className="bg-panel">
@@ -205,6 +227,7 @@ export function DataTable<TData extends RowData>({
                           variant="ghost"
                           size="sm"
                           preset="tableSort"
+                          className="group/sort"
                           onClick={header.column.getToggleSortingHandler()}
                         >
                           {flexRender(
@@ -221,7 +244,7 @@ export function DataTable<TData extends RowData>({
                           ) : (
                             <ArrowUpDown
                               aria-hidden="true"
-                              className="size-3.5"
+                              className="size-3.5 opacity-0 transition-opacity group-hover/sort:opacity-100 group-focus-visible/sort:opacity-100"
                             />
                           )}
                         </Button>
@@ -234,6 +257,11 @@ export function DataTable<TData extends RowData>({
                     </TableHead>
                   );
                 })}
+                {navigable && (
+                  <TableHead className="w-10">
+                    <span className="sr-only">Open</span>
+                  </TableHead>
+                )}
               </TableRow>
             ))}
           </TableHeader>
@@ -242,12 +270,15 @@ export function DataTable<TData extends RowData>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  tabIndex={onRowNavigate ? 0 : undefined}
-                  aria-label={rowLabel?.(row.original)}
+                  tabIndex={!rowHref && onRowNavigate ? 0 : undefined}
+                  aria-label={rowHref ? undefined : rowLabel?.(row.original)}
                   className={cn(
-                    "border-b border-border",
-                    onRowNavigate &&
-                      "cursor-pointer hover:bg-muted/50 [&:hover>td:first-child]:underline focus-visible:bg-muted/50 [&:focus-visible>td:first-child]:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus",
+                    "border-b border-border last:border-b-0",
+                    navigable &&
+                      "group/row cursor-pointer hover:bg-mono-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus dark:hover:bg-mono-930 has-[[data-row-link]:focus-visible]:bg-mono-100 dark:has-[[data-row-link]:focus-visible]:bg-mono-930",
+                    // Cell controls sit above the stretched row link.
+                    rowHref &&
+                      "relative [&_:is(a,button,input,select,textarea,[role=button]):not([data-row-link])]:relative [&_:is(a,button,input,select,textarea,[role=button]):not([data-row-link])]:z-10",
                   )}
                   onPointerEnter={() => {
                     onRowIntent?.(row.original);
@@ -256,6 +287,7 @@ export function DataTable<TData extends RowData>({
                     onRowIntent?.(row.original);
                   }}
                   onClick={(event) => {
+                    if (rowHref) return;
                     if (
                       event.target instanceof Element &&
                       event.target.closest(
@@ -266,26 +298,59 @@ export function DataTable<TData extends RowData>({
                     onRowNavigate?.(row.original);
                   }}
                   onKeyDown={(event) => {
-                    if (event.target !== event.currentTarget) return;
+                    if (rowHref || event.target !== event.currentTarget) return;
                     if (event.key !== "Enter" && event.key !== " ") return;
                     event.preventDefault();
                     onRowNavigate?.(row.original);
                   }}
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="px-4 py-2.5">
+                  {row.getVisibleCells().map((cell, index) => (
+                    <TableCell
+                      key={cell.id}
+                      className={cn(
+                        "px-4 py-2.5",
+                        index === 0
+                          ? "font-medium text-foreground"
+                          : "text-mono-700 dark:text-mono-300",
+                      )}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
                       )}
                     </TableCell>
                   ))}
+                  {navigable && (
+                    <TableCell className="w-10 pr-4 text-right">
+                      {rowHref ? (
+                        <NavigationLink
+                          href={rowHref(row.original)}
+                          data-row-link=""
+                          aria-label={rowLabel?.(row.original) ?? "Open"}
+                          className="text-muted-foreground transition-colors after:absolute after:inset-0 focus-visible:outline-none group-hover/row:text-foreground"
+                        >
+                          <ChevronRight
+                            aria-hidden="true"
+                            className="ml-auto size-4"
+                          />
+                        </NavigationLink>
+                      ) : (
+                        <ChevronRight
+                          aria-hidden="true"
+                          className="ml-auto size-4 text-muted-foreground transition-colors group-hover/row:text-foreground group-focus-visible/row:text-foreground"
+                        />
+                      )}
+                    </TableCell>
+                  )}
                 </TableRow>
               ))
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={Math.max(1, table.getVisibleLeafColumns().length)}
+                  colSpan={Math.max(
+                    1,
+                    table.getVisibleLeafColumns().length + (navigable ? 1 : 0),
+                  )}
                   className="h-24 text-center text-muted-foreground"
                 >
                   {emptyMessage}
@@ -308,6 +373,7 @@ export function DataTable<TData extends RowData>({
             type="button"
             variant="ghost"
             size="sm"
+            icon={ChevronLeft}
             disabled={!table.getCanPreviousPage()}
             onClick={() => {
               (onPaginationChange ?? setPagination)({
@@ -322,6 +388,7 @@ export function DataTable<TData extends RowData>({
             type="button"
             variant="ghost"
             size="sm"
+            icon={ChevronRight}
             disabled={!table.getCanNextPage()}
             onClick={() => {
               (onPaginationChange ?? setPagination)({

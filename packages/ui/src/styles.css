@@ -21,6 +21,11 @@
   * {
     @apply border-border;
   }
+
+  /* Impression renders with grayscale smoothing; subpixel smoothing makes light-on-dark text look bold on macOS. */
+  body {
+    @apply antialiased;
+  }
 }
 
 /* The host editor owns its highlighted content and gutter geometry. */

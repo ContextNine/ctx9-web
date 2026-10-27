@@ -1,4 +1,6 @@
-import type { AppNavigationItem } from "./shell.js";
+import { FileStack, KeyRound, MessageSquareQuote } from "lucide-react";
+
+import type { AppIcon, AppNavigationItem } from "./shell.js";
 
 export type Ctx9ApplicationId = "notenv" | "publisher" | "testimonials";
 
@@ -9,13 +11,13 @@ export interface Ctx9ApplicationOrigins {
 }
 
 const applications = [
-  { id: "notenv", label: "Notenv" },
-  { id: "publisher", label: "Publisher" },
-  { id: "testimonials", label: "Testimonials" },
-] as const satisfies readonly {
+  { id: "notenv", label: "Notenv", icon: KeyRound },
+  { id: "publisher", label: "Publisher", icon: FileStack },
+  { id: "testimonials", label: "Testimonials", icon: MessageSquareQuote },
+] as const satisfies readonly (Omit<AppNavigationItem, "href"> & {
   id: Ctx9ApplicationId;
-  label: string;
-}[];
+  icon: AppIcon;
+})[];
 
 /** Builds the app menu from the applications enabled in this installation. */
 export function createCtx9Applications<Current extends Ctx9ApplicationId>({

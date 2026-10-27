@@ -20,6 +20,19 @@ The v8 inventory uses Impression's internal application components and semantic 
   hover/focus feedback. Nested controls handle their own clicks and keyboard
   events without opening the row. These October 21 refinements implement
   Matt's Notenv screenshot feedback; they intentionally revise the defaults.
+- On October 27 Matt directed an Impression-aligned pass across Publisher,
+  Notenv and Testimonials. DataTable became flat with soft body text, an opt-in
+  Columns menu (`columnMenu`), hover-only sort icons, icon pagination and a
+  trailing row chevron. `rowHref` renders each row as one real link.
+  `NavigationList`/`NavigationRow`, `Toolbar`, `PropertyList`/`Property` and
+  `formatDateTime`/`formatRelativeTime` were added. Button gained `icon`;
+  Badge gained `neutral` and `danger`. Product icons, icon sidebar links,
+  grayscale font smoothing, centred state pages, `InlineStatus` actions and the
+  settings dialog's tab icons and narrow-screen layout landed in the same pass. A follow-up added `LinkTabs`, `IconButton`, `CopyButton`,
+  `DialogBody`/`DialogContext`, `DropdownMenuItem` `icon`, `AlertDialog`
+  action icons with a danger tone, `ApplicationLayout` `sidebarHeader`, the
+  `toast` export, neutral `MultipleSelector` chips, a `StatePage` heading level,
+  and fixed `SelectItem` check-mark padding.
 - Toast and ToastBody own the existing viewport, text layout, action and
   close-control recipes. Resizable groups and handles retain native panel
   measurements, pointer resizing, keyboard behavior and grip appearance.

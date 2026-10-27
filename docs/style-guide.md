@@ -103,10 +103,18 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   dismissal behavior local.
 - Recovery material, secrets metadata, and artifact identifiers use the shared `font-mono` utility and selectable wrapping.
 - Standard actions use `Button`. Its `loading` and `loadingLabel` props own the loading state.
-- CTX9 primary application actions select `effect="funkyStable"` for the
-  established bordered, high-contrast action in both themes. Secondary and
-  navigation actions keep their own variants. This does not change Impression's
-  existing Button defaults or recipes.
+- Text buttons in CTX9 apps carry a leading Lucide icon through `icon`; the
+  Button sizes it at 16px and swaps it for a spinner while loading. Use one
+  meaning per icon across apps (Retry `RotateCw`, Cancel `X`, Save `Save`, Add
+  `Plus`, Remove `Trash2`, Review `Eye`, Approve `Check`).
+- CTX9 primary application actions select `effect="funkyStable"`: a dark fill
+  in light mode and a light fill in dark mode, so each view has one
+  unmistakable main action. Secondary actions use `variant="secondary"` and
+  tertiary actions `ghost`. Impression's app does not use this effect.
+- A Button with a relative `href` navigates through the host router; external
+  or new-tab hrefs stay plain anchors.
+- Category and state labels use Badge `neutral`, `success`, `warning` or
+  `danger`. The solid default badge is too loud for CTX9 tables.
 - Animations, including spinners, pulses, and glow effects, are supported. The component owns the effect; there is no animation prohibition based on browser repaint cost.
 - Card owns the existing flat and editor surfaces, stretch-column layout,
   preview heights, inset section spacing and spotlight scroll extent. Its
@@ -172,7 +180,11 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   `contentLink` or `contentLinkCompact`. These own the existing rounded
   dimensions, padding and 200ms color transition. Dropdown actions use
   `dropdownAction`, which owns their full width and row alignment.
-- Navigational rows are one full-width link with pointer, hover, and focus states. Do not add a second title link, chevron, or generic Open button inside the row.
+- Navigational rows are one full-width link with pointer, hover, and focus states, ending in a right-aligned chevron. Use `DataTable` `rowHref` for columned rows and `NavigationList`/`NavigationRow` for short lists. Do not add a second title link, text arrow such as "Open →", or generic Open button inside the row.
+- DataTable is flat (top and bottom rules, no card frame). The first column is the medium-weight title; other cells use Impression's soft `mono-700/300`. Sort icons appear on hover or when sorted. The Columns menu is opt-in through `columnMenu`.
+- Empty, error and access states are centred in the content area with an optional icon. `ErrorPage` offers Retry as the primary action and Back as secondary. `InlineStatus` takes its single recovery control through `action`.
+- URL-backed views (environments, scopes, status queues) use `LinkTabs`, with optional counts. Icon-only actions use `IconButton`, whose `label` is both the accessible name and the tooltip; `CopyButton` copies a value and confirms with a check. Menu items take a leading `icon`. Destructive confirmations use `AlertDialogAction tone="danger"`. Dialog text sits in `DialogBody`, with an optional mono `DialogContext` line naming the target. Product context such as a space switcher goes in `ApplicationLayout`'s `sidebarHeader`. Toasts use `toast` exported from `@ctx9/ui` with the shared `Toaster`.
+- Detail pages list properties with `PropertyList` and `Property`. Page and editor controls share one `Toolbar` row. Dates use `formatDateTime` ("27 Oct 2026, 15:53") and `formatRelativeTime`.
 - Editor icons use `compactIcon`, optionally with `tone="draftNavigation"`.
   Preview controls use `previewIcon` and `state="highlighted"` after copying.
   Minor actions, media controls, dismissals and filters select `minorAction`,
@@ -279,7 +291,7 @@ The optional exceptions file is a JSON array. Each entry names one exact reposit
 
 ## Sidebar and account menu
 
-- Desktop navigation is a fixed 246px left sidebar. The CTX9 grid mark and name open All apps in the fixed Secrets, Publisher, Testimonials order; product-local links sit below it without icons. Retired products and the headless Platform control plane are not app destinations.
+- Desktop navigation is a fixed 246px left sidebar. The CTX9 grid mark and name open All apps in the fixed Secrets, Publisher, Testimonials order; each product shows its own icon tile there (Notenv `KeyRound`, Publisher `FileStack`, Testimonials `MessageSquareQuote`). Product-local links sit below it with no section label, using Impression's sidebar row: 36px, 18px icon, medium weight, soft text until hovered or current. Every link requires an icon so the collapsed rail stays legible. Retired products and the headless Platform control plane are not app destinations.
 - Mobile navigation is an off-canvas drawer with an explicit open button, close button, backdrop, Escape handling, and focus-visible controls.
 - The footer trigger uses a 40px round avatar, current tenant, and user name. Its menu is 270px wide and follows Impression's space/brand switcher hierarchy.
 - The account menu contains current and switchable tenants, an optional product-settings action, Tenant and account settings, and Sign out. Its tenant and action rows share a 40px icon column and consistent left insets; separators align with those insets. Show supplied account names or details, and omit empty identity lines. Do not add product settings until the product has a real settings page.

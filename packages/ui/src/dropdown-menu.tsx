@@ -3,6 +3,7 @@
 import type { VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { cn } from "./cn.js";
+import type { AppIcon } from "./shell.js";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { cva } from "class-variance-authority";
 import { Check, ChevronRight, Circle } from "lucide-react";
@@ -323,13 +324,17 @@ const DropdownMenuItem = React.forwardRef<
     shape?: ControlShape;
     tone?: "default" | "destructive";
     variant?: MenuVariant;
+    /** Leading 16px icon. Not available with `asChild`; put the icon in the child instead. */
+    icon?: AppIcon;
   } & VariantProps<typeof dropdownItemLayoutVariants>
 >(
   (
     {
       className,
+      children,
       cursor,
       gap,
+      icon: Icon,
       inset,
       layout,
       preset,
@@ -354,11 +359,24 @@ const DropdownMenuItem = React.forwardRef<
           inset && "pl-8",
           menuItemVariants({ variant: variant ?? style.variant }),
           dropdownItemLayoutVariants({ cursor, gap, layout, preset, spacing }),
+          Icon && "gap-2",
           shape && controlShapeClassNames[shape],
           className,
         )}
         {...props}
-      />
+      >
+        {Icon && !props.asChild ? (
+          <>
+            <Icon
+              aria-hidden="true"
+              className="size-4 shrink-0 text-muted-foreground"
+            />
+            {children}
+          </>
+        ) : (
+          children
+        )}
+      </DropdownMenuPrimitive.Item>
     );
   },
 );

@@ -17,6 +17,10 @@ const badgeVariants = cva(
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         success: "border-success/30 bg-success/10 text-success",
         warning: "border-warning/30 bg-warning/10 text-warning",
+        danger: "border-danger/30 bg-danger/10 text-danger",
+        /** Quiet category or state label; use instead of the solid default in CTX9 apps. */
+        neutral:
+          "border-border-strong bg-transparent font-medium text-mono-700 dark:text-mono-300",
         connectionActive:
           "border-transparent bg-brandBlue/20 text-mono-900 hover:bg-brandBlue/20 dark:bg-brandBlue/20 dark:text-mono-100 dark:hover:bg-brandBlue/20",
         connectionIdle:
@@ -49,6 +53,8 @@ const badgeVariants = cva(
       selectionTone: {
         default: "",
         muted: "bg-neutral-600 dark:bg-mono-200",
+        neutral:
+          "border-border-strong bg-transparent text-mono-700 hover:bg-transparent dark:text-mono-300",
       },
       active: { true: "", false: "" },
     },

@@ -1,5 +1,18 @@
 "use client";
 
+import {
+  ArrowLeftRight,
+  Building2,
+  Check,
+  KeyRound,
+  LifeBuoy,
+  Plus,
+  RotateCw,
+  Server,
+  ShieldCheck,
+  UserPlus,
+  Users,
+} from "lucide-react";
 import * as React from "react";
 
 import { Button } from "./button.js";
@@ -115,19 +128,8 @@ export interface TenantAccountSettingsDialogProps {
   error?: string | null;
 }
 
-function SectionHeading({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  return (
-    <header className="grid gap-2">
-      <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
-      <p className="max-w-2xl text-sm text-muted-foreground">{description}</p>
-    </header>
-  );
+function SectionHeading({ title }: { title: string }) {
+  return <h2 className="text-xl font-medium">{title}</h2>;
 }
 
 function TenantTab({
@@ -139,10 +141,7 @@ function TenantTab({
   const [slug, setSlug] = React.useState("");
   return (
     <div className="grid gap-8">
-      <SectionHeading
-        title="Tenant"
-        description="Choose your active tenant or create a new one."
-      />
+      <SectionHeading title="Tenant" />
       <FormSection title="Active tenant">
         <div className="grid gap-2">
           {snapshot?.tenants.map((tenant) => (
@@ -158,16 +157,22 @@ function TenantTab({
                   {tenant.slug}
                 </p>
               </div>
-              <Button
-                type="button"
-                variant="secondary"
-                disabled={
-                  busy === true || tenant.id === snapshot.selectedTenantId
-                }
-                onClick={() => void actions.selectTenant(tenant.id)}
-              >
-                {tenant.id === snapshot.selectedTenantId ? "Current" : "Switch"}
-              </Button>
+              {tenant.id === snapshot.selectedTenantId ? (
+                <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <Check aria-hidden="true" className="size-4" />
+                  Current
+                </span>
+              ) : (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  icon={ArrowLeftRight}
+                  disabled={busy === true}
+                  onClick={() => void actions.selectTenant(tenant.id)}
+                >
+                  Switch
+                </Button>
+              )}
             </div>
           ))}
         </div>
@@ -219,6 +224,7 @@ function TenantTab({
               className="justify-self-start"
               effect="funkyStable"
               type="submit"
+              icon={Plus}
               loading={busy === true}
               loadingLabel="Creating…"
             >
@@ -242,19 +248,10 @@ function AccessTab({
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState<TenantRole>("member");
   const [acceptUrl, setAcceptUrl] = React.useState<string | null>(null);
-  if (!administration)
-    return (
-      <SectionHeading
-        title="Access"
-        description="Tenant administrators can manage members and invitations."
-      />
-    );
+  if (!administration) return <SectionHeading title="Access" />;
   return (
     <div className="grid gap-8">
-      <SectionHeading
-        title="Access"
-        description={`Manage access to ${administration.tenant.displayName}.`}
-      />
+      <SectionHeading title="Access" />
       <FormSection title="Invite member">
         <form
           className="grid max-w-xl gap-4 sm:grid-cols-[1fr_11rem_auto] sm:items-end"
@@ -306,6 +303,7 @@ function AccessTab({
           <Button
             effect="funkyStable"
             type="submit"
+            icon={UserPlus}
             loading={busy === true}
             loadingLabel="Inviting…"
           >
@@ -322,6 +320,9 @@ function AccessTab({
         ) : null}
       </FormSection>
       <FormSection title="Members">
+        {administration.members.length === 0 && (
+          <p className="text-sm text-muted-foreground">No members yet.</p>
+        )}
         <div className="grid gap-1">
           {administration.members.map((member) => (
             <div
@@ -393,16 +394,12 @@ function ProvisioningTab({
 >) {
   return (
     <div className="grid gap-8">
-      <SectionHeading
-        title="Provisioning"
-        description="Review tenant services and retry failed steps."
-      />
+      <SectionHeading title="Provisioning" />
       <FormSection
-        title={
-          administration
-            ? `State: ${administration.provisioning.state}`
-            : "Tenant services"
-        }
+        title="Services"
+        {...(administration
+          ? { description: `Provisioning ${administration.provisioning.state}` }
+          : {})}
       >
         {administration?.provisioning.steps.map((step) => (
           <div
@@ -419,6 +416,7 @@ function ProvisioningTab({
               <Button
                 type="button"
                 variant="secondary"
+                icon={RotateCw}
                 disabled={busy}
                 onClick={() =>
                   void actions.retryProvisioning({
@@ -442,10 +440,7 @@ function AccountSecurityTab({
 }: Pick<TenantAccountSettingsDialogProps, "snapshot">) {
   return (
     <div className="grid gap-8">
-      <SectionHeading
-        title="Account security"
-        description="Manage passkeys and account recovery for your CTX9 account."
-      />
+      <SectionHeading title="Account security" />
       <FormSection title="Passkeys">
         {snapshot?.passkeys.map((passkey) => (
           <div
@@ -459,7 +454,12 @@ function AccountSecurityTab({
           </div>
         ))}
         {snapshot?.accountSecurityHref ? (
-          <Button asChild variant="secondary">
+          <Button
+            asChild
+            variant="secondary"
+            icon={KeyRound}
+            className="justify-self-start"
+          >
             <NavigationLink href={snapshot.accountSecurityHref}>
               Manage passkeys
             </NavigationLink>
@@ -471,7 +471,12 @@ function AccountSecurityTab({
           Use the recovery flow if you lose access to every passkey.
         </p>
         {snapshot?.recoveryHref ? (
-          <Button asChild variant="secondary" className="justify-self-start">
+          <Button
+            asChild
+            variant="secondary"
+            icon={LifeBuoy}
+            className="justify-self-start"
+          >
             <NavigationLink href={snapshot.recoveryHref}>
               Account recovery
             </NavigationLink>
@@ -491,15 +496,20 @@ export function TenantAccountSettingsDialog(
     (item) => item.tenantId === props.snapshot?.selectedTenantId,
   );
   const tabs = [
-    { id: "tenant" as const, label: "Tenant" },
+    { id: "tenant" as const, label: "Tenant", icon: Building2 },
     ...(membership?.role === "tenant_admin"
       ? [
-          { id: "access" as const, label: "Access" },
-          { id: "provisioning" as const, label: "Provisioning" },
+          { id: "access" as const, label: "Access", icon: Users },
+          { id: "provisioning" as const, label: "Provisioning", icon: Server },
         ]
       : []),
-    { id: "account-security" as const, label: "Account security" },
+    {
+      id: "account-security" as const,
+      label: "Account security",
+      icon: ShieldCheck,
+    },
   ];
+  const tabRail = React.useRef<HTMLElement>(null);
   const selected = tabs.some((tab) => tab.id === props.activeTab)
     ? props.activeTab
     : "tenant";
@@ -508,23 +518,29 @@ export function TenantAccountSettingsDialog(
       <DialogContent
         variant="tenantSettings"
         aria-describedby={undefined}
-        onOpenAutoFocus={() => {
+        onOpenAutoFocus={(event) => {
           returnFocus.current =
             document.activeElement instanceof HTMLElement
               ? document.activeElement
               : null;
+          // Start on the selected tab, not the first one, so only one tab looks active.
+          event.preventDefault();
+          tabRail.current
+            ?.querySelector<HTMLElement>('[aria-current="page"]')
+            ?.focus({ preventScroll: true });
         }}
         onCloseAutoFocus={(event) => {
           event.preventDefault();
           returnFocus.current?.focus();
         }}
       >
-        <div className="grid h-full min-h-0 sm:grid-cols-[minmax(14rem,28%)_minmax(0,1fr)]">
+        <div className="grid h-full min-h-0 grid-cols-1 sm:grid-cols-[minmax(14rem,28%)_minmax(0,1fr)]">
           <aside className="border-b border-border bg-sidebar px-3 py-5 sm:border-r sm:border-b-0 sm:px-5 sm:py-20">
             <DialogTitle variant="tenantSettings">Settings</DialogTitle>
             <nav
+              ref={tabRail}
               aria-label="Tenant and account settings"
-              className="mt-4 flex gap-1 overflow-x-auto sm:grid sm:overflow-visible"
+              className="mt-4 flex flex-wrap gap-1 sm:grid"
             >
               {tabs.map((tab) => (
                 <Button
@@ -535,6 +551,7 @@ export function TenantAccountSettingsDialog(
                   aria-current={tab.id === selected ? "page" : undefined}
                   align="start"
                   preset="settingsTab"
+                  icon={tab.icon}
                   onClick={() => {
                     props.onActiveTabChange(tab.id);
                   }}
@@ -546,7 +563,7 @@ export function TenantAccountSettingsDialog(
           </aside>
           <section
             aria-busy={props.busy === true ? true : undefined}
-            className="min-h-0 overflow-y-auto px-5 py-8 sm:px-10 sm:py-20 lg:px-14"
+            className="min-h-0 min-w-0 overflow-y-auto px-5 py-8 sm:px-10 sm:py-20 lg:px-14"
           >
             {props.error ? (
               <p role="alert" className="mb-6 text-sm text-danger">

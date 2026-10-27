@@ -27,7 +27,8 @@ export function Calendar({
 }: CalendarProps): React.JSX.Element {
   return (
     <DayPicker
-      className={cn("p-3", className)}
+      // The root positions the month arrows, so they never escape to a dialog's corners.
+      className={cn("relative w-fit p-3", className)}
       classNames={{
         months: "flex flex-col gap-4 sm:flex-row",
         month: "space-y-3",
@@ -35,9 +36,9 @@ export function Calendar({
           "flex h-9 items-center justify-center text-sm font-medium",
         nav: "absolute inset-x-3 top-3 flex justify-between",
         button_previous:
-          "inline-flex size-9 items-center justify-center rounded-md border border-border-strong bg-surface text-foreground hover:bg-surface-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
+          "inline-flex size-9 items-center justify-center rounded-md bg-surface text-muted-foreground hover:bg-surface-raised hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
         button_next:
-          "inline-flex size-9 items-center justify-center rounded-md border border-border-strong bg-surface text-foreground hover:bg-surface-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
+          "inline-flex size-9 items-center justify-center rounded-md bg-surface text-muted-foreground hover:bg-surface-raised hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
         month_grid: "w-full border-collapse",
         weekdays: "grid grid-cols-7",
         weekday: "py-1 text-center text-xs font-normal text-muted-foreground",

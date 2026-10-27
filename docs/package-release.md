@@ -1,5 +1,20 @@
 # Package release and consumption
 
+## 10.0.0 application UI
+
+Sidebar navigation items now require a Lucide `icon`. Migrate each consumer
+when adopting this major version. The shell removes redundant product labels
+and adds a `sidebarHeader` slot for product context. Shared controls now include
+link tabs, navigation rows, icon and copy buttons, dialog body/context, property
+rows, toolbars and date formatting. Buttons and menu items accept leading icons;
+destructive confirmation actions have a danger tone. Typography, table density
+and focus behavior follow the shared Impression design system.
+
+Publisher, Notenv and Testimonials adopt exact 10.0.0 package pins after the
+protected npm release passes archive and provenance read-back. All three shared
+packages retain one release version. Publishing these packages does not deploy
+the applications or update installed Notenv machines.
+
 ## 9.4.0 spacious shell and question forms
 
 Matt's October 21 Impression redesign asks for a roomier sidebar, readable

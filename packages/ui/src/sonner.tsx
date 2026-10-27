@@ -3,6 +3,9 @@
 import { CircleCheck, Info, OctagonX, TriangleAlert } from "lucide-react";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 
+/** Apps import toast from here so it reaches the shared Toaster instance. */
+export { toast } from "sonner";
+
 export function Toaster(props: ToasterProps) {
   return (
     <Sonner

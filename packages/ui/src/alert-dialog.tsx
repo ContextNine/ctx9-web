@@ -4,6 +4,7 @@ import * as React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 
 import { cn } from "./cn.js";
+import type { AppIcon } from "./shell.js";
 import { buttonVariants } from "./button.js";
 
 const AlertDialog = AlertDialogPrimitive.Root;
@@ -122,18 +123,27 @@ const AlertDialogDescription = React.forwardRef<
 AlertDialogDescription.displayName =
   AlertDialogPrimitive.Description.displayName;
 
+/** Confirm action. `tone="danger"` marks the irreversible step in red. */
 const AlertDialogAction = React.forwardRef<
   React.ComponentRef<typeof AlertDialogPrimitive.Action>,
   OwnedAppearance<
     React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
-  >
->((props, ref) => (
+  > & { icon?: AppIcon; tone?: "default" | "danger" }
+>(({ icon: Icon, tone = "default", children, ...props }, ref) => (
   <AlertDialogPrimitive.Action
     {...props}
     ref={ref}
-    className={cn(buttonVariants())}
+    className={cn(
+      tone === "danger"
+        ? buttonVariants({ variant: "destructive", effect: "funkyStable" })
+        : buttonVariants(),
+      "gap-2",
+    )}
     style={undefined}
-  />
+  >
+    {Icon && <Icon aria-hidden="true" className="size-4 shrink-0" />}
+    {children}
+  </AlertDialogPrimitive.Action>
 ));
 AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
 
@@ -141,14 +151,20 @@ const AlertDialogCancel = React.forwardRef<
   React.ComponentRef<typeof AlertDialogPrimitive.Cancel>,
   OwnedAppearance<
     React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
-  >
->((props, ref) => (
+  > & { icon?: AppIcon }
+>(({ icon: Icon, children, ...props }, ref) => (
   <AlertDialogPrimitive.Cancel
     {...props}
     ref={ref}
-    className={cn(buttonVariants({ variant: "secondary" }), "mt-2 sm:mt-0")}
+    className={cn(
+      buttonVariants({ variant: "secondary" }),
+      "mt-2 gap-2 sm:mt-0",
+    )}
     style={undefined}
-  />
+  >
+    {Icon && <Icon aria-hidden="true" className="size-4 shrink-0" />}
+    {children}
+  </AlertDialogPrimitive.Cancel>
 ));
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
 

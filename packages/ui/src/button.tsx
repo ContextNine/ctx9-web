@@ -1,10 +1,12 @@
 "use client";
 
-import { Slot } from "@radix-ui/react-slot";
+import { Slot, Slottable } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import { Loader2Icon, type LucideIcon } from "lucide-react";
 import * as React from "react";
 
 import { cn } from "./cn.js";
+import { NavigationLink } from "./navigation.js";
 import { controlShapeClassNames, type ControlShape } from "./control-shape.js";
 import {
   authButtonClassName,
@@ -61,6 +63,9 @@ const appStableFunkyEffectStyles = cn(
   funkyOutlineStyles,
   "bg-neutral-700 text-white shadow-none transition-[background-color,border-color,color,box-shadow] duration-300 dark:bg-black",
 );
+/** CTX9's primary action: a dark fill in light mode and a light fill in dark mode. */
+const appStablePrimaryStyles =
+  "border-neutral-700 hover:bg-neutral-800 hover:text-white dark:border-mono-100 dark:bg-mono-100 dark:text-black hover:dark:bg-white hover:dark:text-black";
 const appFunkyAccentEffectStyles = cn(
   funkyOutlineButtonStyles,
   funkyBlueButtonColourAndText,
@@ -590,6 +595,12 @@ const standardButtonVariants = cva(
       },
       {
         surface: "app",
+        variant: "primary",
+        effect: "funkyStable",
+        className: appStablePrimaryStyles,
+      },
+      {
+        surface: "app",
         variant: "accent",
         effect: ["funky", "funkyStable"],
         className: appFunkyAccentEffectStyles,
@@ -732,6 +743,8 @@ type ButtonSharedProps = Omit<
     shape?: ControlShape;
     loading?: boolean;
     loadingLabel?: string;
+    /** Leading 16px icon. While loading, a spinner takes its place. */
+    icon?: LucideIcon;
   };
 
 export type AppButtonProps = ButtonSharedProps & {
@@ -782,13 +795,21 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       density,
       loading = false,
       loadingLabel = "Working…",
+      icon: Icon,
       disabled,
       children,
       ...props
     },
     ref,
   ) => {
-    const Component: React.ElementType = asChild ? Slot : href ? "a" : "button";
+    // In-app hrefs use the host router; external and new-tab links stay plain anchors.
+    const Component: React.ElementType = asChild
+      ? Slot
+      : href
+        ? href.startsWith("/") && !target
+          ? NavigationLink
+          : "a"
+        : "button";
     return (
       <Component
         ref={ref}
@@ -828,7 +849,22 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         {...props}
       >
-        {asChild ? children : loading ? loadingLabel : children}
+        {Icon &&
+          (loading ? (
+            <Loader2Icon
+              aria-hidden="true"
+              className="size-4 shrink-0 animate-spin"
+            />
+          ) : (
+            <Icon aria-hidden="true" className="size-4 shrink-0" />
+          ))}
+        {asChild ? (
+          <Slottable>{children}</Slottable>
+        ) : loading ? (
+          loadingLabel
+        ) : (
+          children
+        )}
       </Component>
     );
   },

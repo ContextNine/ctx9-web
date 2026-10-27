@@ -2,6 +2,7 @@
 
 import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { House, Settings } from "lucide-react";
 import * as React from "react";
 import { axe } from "vitest-axe";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -70,8 +71,19 @@ describe("shared product primitives", () => {
             onSignOut: () => undefined,
           }}
           navigation={[
-            { id: "overview", label: "Overview", href: "/", current: true },
-            { id: "settings", label: "Settings", href: "/settings" },
+            {
+              id: "overview",
+              label: "Overview",
+              href: "/",
+              current: true,
+              icon: House,
+            },
+            {
+              id: "settings",
+              label: "Settings",
+              href: "/settings",
+              icon: Settings,
+            },
           ]}
           breadcrumbs={[
             { id: "home", label: "Home", href: "/" },
@@ -89,7 +101,9 @@ describe("shared product primitives", () => {
         </ApplicationLayout>
       </NavigationProvider>,
     );
-    expect(screen.getByRole("navigation", { name: "Notenv" })).toBeTruthy();
+    expect(
+      screen.getByRole("navigation", { name: "Notenv navigation" }),
+    ).toBeTruthy();
     expect(
       screen
         .getByRole("link", { name: "Skip to content" })
@@ -268,6 +282,44 @@ describe("shared product primitives", () => {
     expect(screen.getByRole("row", { name: "Open Publisher" })).toBeTruthy();
   });
 
+  it("renders each linked table row as one real link beside its own controls", async () => {
+    const helper = createDataTableColumnHelper<{ id: string; name: string }>();
+    const onRetry = vi.fn();
+    const RouterLink = React.forwardRef<
+      HTMLAnchorElement,
+      React.ComponentProps<"a">
+    >((props, ref) => <a ref={ref} data-router-link="true" {...props} />);
+    render(
+      <NavigationProvider link={RouterLink}>
+        <DataTable
+          data={[{ id: "publisher", name: "Publisher" }]}
+          columns={[
+            helper.accessor("name", { header: "Name" }),
+            helper.display({
+              id: "retry",
+              cell: () => (
+                <Button type="button" onClick={onRetry}>
+                  Retry
+                </Button>
+              ),
+            }),
+          ]}
+          getRowId={(row) => row.id}
+          emptyMessage="No services"
+          rowHref={(row) => `/services/${row.id}`}
+          rowLabel={(row) => `Open ${row.name}`}
+        />
+      </NavigationProvider>,
+    );
+    const link = screen.getByRole("link", { name: "Open Publisher" });
+    expect(link.getAttribute("href")).toBe("/services/publisher");
+    expect(link.dataset.routerLink).toBe("true");
+    await userEvent
+      .setup()
+      .click(screen.getByRole("button", { name: "Retry" }));
+    expect(onRetry).toHaveBeenCalledOnce();
+  });
+
   it("paginates, hides columns, preserves rows while fetching, and signals row intent", async () => {
     interface ServiceRow {
       id: string;
@@ -285,6 +337,7 @@ describe("shared product primitives", () => {
     const onIntent = vi.fn();
     const { container } = render(
       <DataTable
+        columnMenu
         data={Array.from({ length: 26 }, (_, index) => ({
           id: String(index + 1),
           name: `Service ${String(index + 1).padStart(2, "0")}`,
@@ -316,7 +369,7 @@ describe("shared product primitives", () => {
     expect(screen.getByRole("row", { name: "Open Service 26" })).toBeTruthy();
 
     await user.click(screen.getByRole("button", { name: "Columns" }));
-    await user.click(screen.getByRole("menuitemcheckbox", { name: "state" }));
+    await user.click(screen.getByRole("menuitemcheckbox", { name: "State" }));
     expect(screen.queryByRole("columnheader", { name: "State" })).toBeNull();
     expect(container.querySelector(".overflow-x-auto")).toBeTruthy();
   });

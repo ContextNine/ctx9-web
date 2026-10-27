@@ -338,6 +338,20 @@ const DialogFooter = ({
 );
 DialogFooter.displayName = "DialogFooter";
 
+/** Dialog content in Impression's soft 14px body text. */
+const DialogBody = ({ children }: { children: React.ReactNode }) => (
+  <div className="grid min-w-0 gap-4 text-sm text-mono-700 dark:text-mono-300">
+    {children}
+  </div>
+);
+
+/** The muted mono line naming what a dialog acts on, such as "repo / env / path". */
+const DialogContext = ({ children }: { children: React.ReactNode }) => (
+  <p className="break-all font-mono text-xs text-muted-foreground">
+    {children}
+  </p>
+);
+
 const dialogTitleVariants = cva(
   "text-lg font-semibold leading-none tracking-tight",
   {
@@ -416,6 +430,8 @@ export {
   DialogContent,
   DialogHeader,
   DialogFooter,
+  DialogBody,
+  DialogContext,
   DialogTitle,
   DialogDescription,
   dialogContentVariants,
