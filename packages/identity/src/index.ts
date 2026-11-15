@@ -5,6 +5,7 @@ import {
   type BetterAuthOptions,
   type BetterAuthPlugin,
 } from "better-auth";
+import { APIError } from "better-auth/api";
 import { jwt } from "better-auth/plugins";
 import type { Pool } from "pg";
 import { z } from "zod";
@@ -82,7 +83,10 @@ function passkeyPlugin(configuration: IdentityAuthorityOptions) {
             requireSession: false,
             resolveUser: async ({ ctx, context }) => {
               if (context !== "recovery" && context !== "enrollment")
-                throw new Error("passkey-registration-session-required");
+                throw new APIError("UNAUTHORIZED", {
+                  code: "PASSKEY_REGISTRATION_SESSION_REQUIRED",
+                  message: "Registration session required",
+                });
               return resolvePasskeyRegistration(
                 context,
                 ctx.headers?.get("cookie") ?? null,
