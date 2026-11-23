@@ -58,6 +58,8 @@ The v8 inventory uses Impression's internal application components and semantic 
   transparent at rest, grows with its content and lines its text up with the
   question. Sections own their heading, 48px separation and 40px question
   rhythm.
+- NewChatIcon supplies the animated square pen for chat launchers. Every Button
+  exposes `group/btn` for descendant hover effects, including links.
 - Button with stable loading text, ButtonGroup, and Impression's animated
   FunkyLoaderButton with typed loading and gradient options;
 - FunkyLoaderButton's growing-row width owns the existing full-width flex

@@ -2,6 +2,12 @@
 
 Reference repository: Impression
 
+NewChatIcon moves Impression `f58e456c`'s Lucide square pen into the shared
+package. The 2.5 stroke, visible overflow, full-contrast hover colour and
+reduced-motion colour-only behavior are retained. Matt's November 23 request
+sets a 1.6px clockwise circle over 500ms. The pen uses the shared `group/btn`
+hook so button and link renderings share the same hover behavior.
+
 Matt's October 21 Impression redesign requests 36px sidebar section rows,
 32px child rows, a full-width workspace switcher and a 32px avatar floor, and
 adds QuestionField, QuestionExample, QuestionSection and the quiet Textarea

@@ -103,6 +103,9 @@ This guide is canonical for Impression's authenticated application and CTX9-owne
   dismissal behavior local.
 - Recovery material, secrets metadata, and artifact identifiers use the shared `font-mono` utility and selectable wrapping.
 - Standard actions use `Button`. Its `loading` and `loadingLabel` props own the loading state.
+  Every Button supplies `group/btn`, including links; descendants use
+  `group-hover/btn:` for hover effects. `NewChatIcon` owns the chat pen motion
+  and full-contrast hover colour, with colour only under reduced motion.
 - Text buttons in CTX9 apps carry a leading Lucide icon through `icon`; the
   Button sizes it at 16px and swaps it for a spinner while loading. Use one
   meaning per icon across apps (Retry `RotateCw`, Cancel `X`, Save `Save`, Add

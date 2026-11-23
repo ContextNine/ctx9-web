@@ -141,7 +141,7 @@ const presetClassNames = {
     sidebarTextStyles,
     "border border-input bg-inherit bg-white dark:bg-black",
     funkyBlueButtonColourAndText,
-    "group/btn relative size-[42px] overflow-hidden rounded-full",
+    "relative size-[42px] overflow-hidden rounded-full",
   ),
   contentAction:
     "h-8 w-8 min-w-8 rounded-xl border border-input p-0 shadow-none",
@@ -191,7 +191,7 @@ export const FunkyLoaderButton = React.forwardRef<
       ...props,
       asChild,
       className: cn(
-        "group/btn relative",
+        "relative",
         surface === "app" && "px-4 font-medium shadow-none",
         width === "grow" && "w-full",
         presetClassNames[preset],
