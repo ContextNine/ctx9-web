@@ -9,8 +9,14 @@ and reduced-motion support. No Button class override is needed.
 
 All three packages advance together to 10.1.0. The complete local `pnpm check`
 passes under Node 22, including 26 tests and isolated archive installation.
-Publication and registry read-back remain pending Matt's approval of the
-release PR.
+Matt approved publication, and [PR #1](https://github.com/ContextNine/ctx9-web/pull/1)
+merged as `182953969b48b3f1bccc40c89f9840c65e92a603`. The immutable
+`v10.1.0` tag passed all three Node checks and protected npm publication in
+[run 45155902969](https://github.com/ContextNine/ctx9-web/actions/runs/45155902969).
+Anonymous downloads for all three packages match retained CI archives and
+registry SHA-1/SHA-512 metadata. Cosign verifies their exact workflow/tag
+provenance; the statements also match the source commit and archive digests.
+See the [read-back receipt](evidence/public-npm-10.1.0-2026-11-23.json).
 
 ## 10.0.0 application UI
 

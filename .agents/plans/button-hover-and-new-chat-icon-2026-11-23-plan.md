@@ -14,4 +14,4 @@ The 9.4.0 to 10.x history is recorded in docs/package-release.md and commit 3a53
 - Impression is current with origin/master at f58e456c. Frozen dependency installation passes after starting and unlocking the installed Notenv broker. Unrelated cache files and browser artifacts remain untouched.
 - Impression has no CTX9 shell/DataTable consumers. Its migration is expected to change the exact UI pin and release-age exception, lockfile, sidebar import and local icon/keyframes, plus CreatePostMenuButton's existing named hover class.
 - Other reviewed hover groups cover non-Button layouts or multiple controls. Keep those groups.
-- Publication requires Matt's confirmation before merging the release PR and pushing v10.1.0. No npm publication or Impression migration commit has occurred.
+- Matt approved publication. PR #1 merged as 1829539; immutable v10.1.0 passed protected publication run 45155902969. Anonymous bytes, registry integrity, provenance source/digests and Cosign signature verification pass for all three packages. Impression adoption is in progress.
