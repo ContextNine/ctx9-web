@@ -1,6 +1,6 @@
 {
   "name": "@ctx9/identity",
-  "version": "10.0.1",
+  "version": "10.1.0",
   "description": "Passkey and confidential OIDC identity authority with application-owned persistence",
   "license": "Apache-2.0",
   "repository": {

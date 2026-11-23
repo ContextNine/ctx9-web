@@ -52,7 +52,7 @@ try {
   await writeFile(
     join(scratch, "consumer.tsx"),
     `
-import { Button, Input, Checkbox, ColorPicker, NumberSelect, FormDisclosure, FormExampleAction, ShimmerBorderButton, FunkyLoaderButton, DataTable, createDataTableColumnHelper, AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogAction, AlertDialogCancel, createCtx9Applications } from '@ctx9/ui';
+import { Button, NewChatIcon, Input, Checkbox, ColorPicker, NumberSelect, FormDisclosure, FormExampleAction, ShimmerBorderButton, FunkyLoaderButton, DataTable, createDataTableColumnHelper, AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogAction, AlertDialogCancel, createCtx9Applications } from '@ctx9/ui';
 import * as auth from '@ctx9/web-auth';
 import { createIdentityAuthority, toNodeHandler } from '@ctx9/identity';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -60,7 +60,8 @@ import { checkStyleSource } from '@ctx9/ui/style-policy';
 interface Row { id: string; name: string }
 const helper = createDataTableColumnHelper<Row>();
 const columns = [helper.accessor('name', { header: 'Name' })];
-const app = <><Button variant="primary">Save</Button><Input aria-label="Name" />
+const app = <><Button variant="primary">Save</Button>
+<Button preset="chatLauncher"><NewChatIcon />New chat</Button><Input aria-label="Name" />
 <Button variant="secondary" preset="dateTimeMenu" state="dateTimeIntended">Schedule</Button>
 <ShimmerBorderButton preset="upgrade">Upgrade</ShimmerBorderButton>
 <FunkyLoaderButton preset="pricing">Select plan</FunkyLoaderButton>

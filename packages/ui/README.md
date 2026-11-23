@@ -13,6 +13,7 @@ import {
   DataTable,
   Input,
   NavigationProvider,
+  NewChatIcon,
 } from "@ctx9/ui";
 ```
 
@@ -30,3 +31,18 @@ Applications own product row types, columns, URL state, and mutations. Shared co
 
 Animations are allowed. Keep Impression's existing spinning action loader and
 pulsing skeletons when migrating their usages.
+
+Every `Button` supplies the named `group/btn` hover hook, including `href` and
+`asChild` links. Descendants can use `group-hover/btn:` without caller classes
+on the Button. Appearance still belongs to variants and presets.
+
+`NewChatIcon` uses this hook to turn its pen black in light mode or white in dark
+mode and trace one tiny clockwise circle over 500ms. Reduced motion keeps only
+the colour change. Its SVG allows overflow so the pen stays visible.
+
+```tsx
+<Button preset="chatLauncher">
+  <NewChatIcon className="size-5" />
+  New chat
+</Button>
+```

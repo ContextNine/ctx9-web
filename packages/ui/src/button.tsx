@@ -85,7 +85,7 @@ const dateTimeJoinedStyles = cn(
 );
 
 const standardButtonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors duration-300 disabled:pointer-events-none disabled:opacity-50",
+  "group/btn inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors duration-300 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       surface: {
@@ -465,7 +465,7 @@ const standardButtonVariants = cva(
           "inline-flex h-5 min-h-5 w-5 min-w-5 items-center justify-center rounded-md border border-neutral-400 text-primary transition-all hover:scale-[120%] disabled:cursor-not-allowed disabled:opacity-40 dark:border-mono-600",
         railIcon: "m-0 h-7 w-7 min-w-7 gap-0 rounded-xl px-0",
         railFunkyIcon:
-          "m-0 h-7 w-7 min-w-7 gap-0 rounded-xl px-0 group/btn relative overflow-hidden border border-input shadow-none",
+          "m-0 h-7 w-7 min-w-7 gap-0 rounded-xl px-0 relative overflow-hidden border border-input shadow-none",
         shimmerAction: "",
         previewIcon:
           "size-9 rounded-xl border border-black/8 bg-white/95 text-mono-500 shadow-sm transition-colors hover:bg-neutral-100 hover:text-mono-900 dark:border-white/10 dark:bg-black/80 dark:text-mono-300 dark:hover:bg-mono-950 dark:hover:text-white",
@@ -649,7 +649,7 @@ const standardButtonVariants = cva(
       {
         preset: "shimmerAction",
         className:
-          "group/btn relative z-10 px-4 font-medium shadow-none dark:text-mono-100 rounded-xl bg-brandPrimary dark:bg-brandPrimary text-white hover:bg-brandPrimary hover:dark:bg-brandPrimary",
+          "relative z-10 px-4 font-medium shadow-none dark:text-mono-100 rounded-xl bg-brandPrimary dark:bg-brandPrimary text-white hover:bg-brandPrimary hover:dark:bg-brandPrimary",
       },
       {
         state: "shimmerLoading",
@@ -708,7 +708,7 @@ export function buttonVariants(
 ) {
   if (props.surface !== "auth" && props.variant === "iconDashed") {
     return cn(
-      "flex h-6 w-6 flex-shrink-0 items-center justify-center gap-1 rounded-md text-sm",
+      "group/btn flex h-6 w-6 flex-shrink-0 items-center justify-center gap-1 rounded-md text-sm",
       "border border-dashed border-neutral-300 bg-neutral-50 transition-all duration-200",
       "dark:border-mono-700 dark:bg-mono-900",
       props.state === "concealed"
@@ -721,7 +721,7 @@ export function buttonVariants(
   }
   if (props.surface !== "auth" && props.variant === "iconInfo") {
     return cn(
-      "flex h-6 w-6 items-center justify-center rounded-md",
+      "group/btn flex h-6 w-6 items-center justify-center rounded-md",
       "cursor-pointer transition-colors duration-200 hover:bg-neutral-200 hover:dark:bg-neutral-700",
       props.class,
       props.className,

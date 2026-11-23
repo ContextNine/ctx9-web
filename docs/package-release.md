@@ -1,5 +1,17 @@
 # Package release and consumption
 
+## 10.1.0 Button hover and chat icon
+
+Every Button variant exposes `group/btn`, including native buttons, `href`
+links and `asChild` compositions. Use `group-hover/btn:` on descendants.
+NewChatIcon supplies the animated square pen with full-contrast hover colour
+and reduced-motion support. No Button class override is needed.
+
+All three packages advance together to 10.1.0. The complete local `pnpm check`
+passes under Node 22, including 26 tests and isolated archive installation.
+Publication and registry read-back remain pending Matt's approval of the
+release PR.
+
 ## 10.0.0 application UI
 
 Sidebar navigation items now require a Lucide `icon`. Migrate each consumer

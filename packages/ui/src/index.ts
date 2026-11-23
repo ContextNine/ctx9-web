@@ -4,6 +4,7 @@ export * from "./avatar.js";
 export * from "./breadcrumb.js";
 export * from "./common.js";
 export * from "./button.js";
+export * from "./new-chat-icon.js";
 export * from "./funky-loader-button.js";
 export * from "./shimmer-border-button.js";
 export * from "./card.js";

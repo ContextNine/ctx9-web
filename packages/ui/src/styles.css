@@ -17,6 +17,35 @@
   animation: pulse-blue-border 2s cubic-bezier(0.4, 0, 0.6, 1);
 }
 
+/* One 1.6px clockwise circle, returning the pen to its resting position. */
+@keyframes ctx9-pen-circle {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  12.5% {
+    transform: translate(-0.57px, -0.23px);
+  }
+  25% {
+    transform: translate(-0.8px, -0.8px);
+  }
+  37.5% {
+    transform: translate(-0.57px, -1.37px);
+  }
+  50% {
+    transform: translate(0, -1.6px);
+  }
+  62.5% {
+    transform: translate(0.57px, -1.37px);
+  }
+  75% {
+    transform: translate(0.8px, -0.8px);
+  }
+  87.5% {
+    transform: translate(0.57px, -0.23px);
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
